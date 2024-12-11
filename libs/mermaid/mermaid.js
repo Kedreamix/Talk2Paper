@@ -92174,7 +92174,7 @@ var addTaskOrg = function addTaskOrg(descr, data) {
   var newTask = {
     section: currentSection,
     type: currentSection,
-    description: descr,
+    summary: descr,
     task: descr,
     classes: []
   };
@@ -97249,7 +97249,7 @@ var addActor = function addActor(id, name, description) {
   if (description == null) description = name;
   actors[id] = {
     name: name,
-    description: description
+    summary: description
   };
 };
 
@@ -98565,28 +98565,28 @@ case 8:
  this.$='nl';
 break;
 case 9:
- /*console.warn('got id and descr', $$[$0]);*/this.$={ stmt: 'state', id: $$[$0], type: 'default', description: ''};
+ /*console.warn('got id and descr', $$[$0]);*/this.$={ stmt: 'state', id: $$[$0], type: 'default', summary: ''};
 break;
 case 10:
- /*console.warn('got id and descr', $$[$0-1], $$[$0].trim());*/this.$={ stmt: 'state', id: $$[$0-1], type: 'default', description: $$[$0].trim()};
+ /*console.warn('got id and descr', $$[$0-1], $$[$0].trim());*/this.$={ stmt: 'state', id: $$[$0-1], type: 'default', summary: $$[$0].trim()};
 break;
 case 11:
 
         /*console.warn('got id', $$[$0-2]);yy.addRelation($$[$0-2], $$[$0]);*/
-        this.$={ stmt: 'relation', state1: { stmt: 'state', id: $$[$0-2], type: 'default', description: '' }, state2:{ stmt: 'state', id: $$[$0] ,type: 'default', description: ''}};
+        this.$={ stmt: 'relation', state1: { stmt: 'state', id: $$[$0-2], type: 'default', summary: '' }, state2:{ stmt: 'state', id: $$[$0] ,type: 'default', summary: ''}};
     
 break;
 case 12:
 
         /*yy.addRelation($$[$0-3], $$[$0-1], $$[$0].substr(1).trim());*/
-        this.$={ stmt: 'relation', state1: { stmt: 'state', id: $$[$0-3], type: 'default', description: '' }, state2:{ stmt: 'state', id: $$[$0-1] ,type: 'default', description: ''}, description: $$[$0].substr(1).trim()};
+        this.$={ stmt: 'relation', state1: { stmt: 'state', id: $$[$0-3], type: 'default', summary: '' }, state2:{ stmt: 'state', id: $$[$0-1] ,type: 'default', summary: ''}, summary: $$[$0].substr(1).trim()};
     
 break;
 case 16:
 
 
         /* console.warn('Adding document for state without id ', $$[$0-3]);*/
-        this.$={ stmt: 'state', id: $$[$0-3], type: 'default', description: '', doc: $$[$0-1] }
+        this.$={ stmt: 'state', id: $$[$0-3], type: 'default', summary: '', doc: $$[$0-1] }
     
 break;
 case 17:
@@ -98598,14 +98598,14 @@ case 17:
             id=parts[0];
             description = [description, parts[1]];
         }
-        this.$={stmt: 'state', id: id, type: 'default', description: description};
+        this.$={stmt: 'state', id: id, type: 'default', summary: description};
 
     
 break;
 case 18:
 
          //console.warn('Adding document for state with id ', $$[$0-3], $$[$0-2]); yy.addDocument($$[$0-3]);
-         this.$={ stmt: 'state', id: $$[$0-3], type: 'default', description: $$[$0-5], doc: $$[$0-1] }
+         this.$={ stmt: 'state', id: $$[$0-3], type: 'default', summary: $$[$0-5], doc: $$[$0-1] }
     
 break;
 case 19:
