@@ -1,0 +1,1496 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="GAN">
+    <meta name="description" content="GAN 方向最新论文已更新，请持续关注 Update in 2025-01-02  StyleAutoEncoder for manipulating image attributes using pre-trained   StyleGAN">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>GAN | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://pic1.zhimg.com/v2-caf3ad39b704755169a9ae027e45fd58.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">GAN</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/GAN/">
+                                <span class="chip bg-color">GAN</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/GAN/" class="post-category">
+                                GAN
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-01-02
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-01-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    36 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-01-02-更新"><a href="#2025-01-02-更新" class="headerlink" title="2025-01-02 更新"></a>2025-01-02 更新</h1><h2 id="StyleAutoEncoder-for-manipulating-image-attributes-using-pre-trained-StyleGAN"><a href="#StyleAutoEncoder-for-manipulating-image-attributes-using-pre-trained-StyleGAN" class="headerlink" title="StyleAutoEncoder for manipulating image attributes using pre-trained   StyleGAN"></a>StyleAutoEncoder for manipulating image attributes using pre-trained   StyleGAN</h2><p><strong>Authors:Andrzej Bedychaj, Jacek Tabor, Marek Śmieja</strong></p>
+<p>Deep conditional generative models are excellent tools for creating high-quality images and editing their attributes. However, training modern generative models from scratch is very expensive and requires large computational resources. In this paper, we introduce StyleAutoEncoder (StyleAE), a lightweight AutoEncoder module, which works as a plugin for pre-trained generative models and allows for manipulating the requested attributes of images. The proposed method offers a cost-effective solution for training deep generative models with limited computational resources, making it a promising technique for a wide range of applications. We evaluate StyleAutoEncoder by combining it with StyleGAN, which is currently one of the top generative models. Our experiments demonstrate that StyleAutoEncoder is at least as effective in manipulating image attributes as the state-of-the-art algorithms based on invertible normalizing flows. However, it is simpler, faster, and gives more freedom in designing neural </p>
+<blockquote>
+<p>深度条件生成模型是创建高质量图像和编辑其属性的出色工具。然而，从头开始训练现代生成模型是非常昂贵的，并且需要巨大的计算资源。在本文中，我们介绍了StyleAutoEncoder（StyleAE），这是一个轻量级的AutoEncoder模块，可作为预训练生成模型的插件，允许操作图像的请求属性。所提出的方法为在有限的计算资源下训练深度生成模型提供了经济高效的解决方案，使其成为广泛应用的有前途的技术。我们通过将其与目前顶级的生成模型StyleGAN相结合来评估StyleAutoEncoder。我们的实验表明，StyleAutoEncoder在操纵图像属性方面至少与基于可逆归一化流的最新算法一样有效。但是它更简单、更快，并且在设计神经网络时提供了更大的自由度。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.20164v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>深度条件生成模型是创建高质量图像和编辑其属性的优秀工具。然而，从头开始训练现代生成模型非常昂贵，需要巨大的计算资源。本文介绍了StyleAutoEncoder（StyleAE），这是一款轻量级的AutoEncoder模块，可作为预训练生成模型的插件，允许操作图像的指定属性。所提出的方法为在有限的计算资源下训练深度生成模型提供了成本效益高的解决方案，成为广泛应用的有前途的技术。我们将StyleAutoEncoder与目前顶级的生成模型之一StyleGAN相结合进行评估。实验表明，StyleAutoEncoder在操纵图像属性方面至少与基于可逆归一化流的最新算法一样有效，但更简单、更快，并且在设计神经网络时提供了更大的自由度。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>StyleAutoEncoder是一种轻量级的AutoEncoder模块，可作为预训练生成模型的插件，用于操作图像的指定属性。</li>
+<li>所提出的方法为在有限的计算资源下训练深度生成模型提供了成本效益高的解决方案。</li>
+<li>StyleAutoEncoder与StyleGAN相结合，展示了对图像属性的有效操作。</li>
+<li>StyleAutoEncoder的效果至少与基于可逆归一化流的最新算法一样好。</li>
+<li>StyleAutoEncoder具有简单、快速的特点，并且在设计神经网络时提供了更大的自由度。</li>
+<li>该方法适用于广泛的应用领域。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.20164">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-cc181b8ee1469721c421d66f8969d6ee.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-dba23f74eb33b8e0272ac62683940c10.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-f92c796e3b7b6204d9b5dff311436b67.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-f7c1d53039d12e098b00f618bb65024c.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Comprehensive-Review-of-EEG-to-Output-Research-Decoding-Neural-Signals-into-Images-Videos-and-Audio"><a href="#Comprehensive-Review-of-EEG-to-Output-Research-Decoding-Neural-Signals-into-Images-Videos-and-Audio" class="headerlink" title="Comprehensive Review of EEG-to-Output Research: Decoding Neural Signals   into Images, Videos, and Audio"></a>Comprehensive Review of EEG-to-Output Research: Decoding Neural Signals   into Images, Videos, and Audio</h2><p><strong>Authors:Yashvir Sabharwal, Balaji Rama</strong></p>
+<p>Electroencephalography (EEG) is an invaluable tool in neuroscience, offering insights into brain activity with high temporal resolution. Recent advancements in machine learning and generative modeling have catalyzed the application of EEG in reconstructing perceptual experiences, including images, videos, and audio. This paper systematically reviews EEG-to-output research, focusing on state-of-the-art generative methods, evaluation metrics, and data challenges. Using PRISMA guidelines, we analyze 1800 studies and identify key trends, challenges, and opportunities in the field. The findings emphasize the potential of advanced models such as Generative Adversarial Networks (GANs), Variational Autoencoders (VAEs), and Transformers, while highlighting the pressing need for standardized datasets and cross-subject generalization. A roadmap for future research is proposed that aims to improve decoding accuracy and broadening real-world applications. </p>
+<blockquote>
+<p>脑电图（EEG）是神经科学中一种宝贵的工具，能以高时间分辨率提供对大脑活动的洞察。最近机器学习领域的进展以及生成模型的发展，促进了EEG在重建感知体验中的应用，包括图像、视频和音频。本文系统地回顾了EEG到输出的研究，重点关注最先进的生成方法、评估指标和数据挑战。我们按照PRISMA指南分析了1800项研究，并确定了该领域的关键趋势、挑战和机遇。研究结果强调了先进模型（如生成对抗网络（GANs）、变分自编码器（VAEs）和变压器）的潜力，同时强调了标准化数据集和跨主题泛化的迫切需求。为未来研究提出了路线图，旨在提高解码精度并扩大在现实世界中的应用。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.19999v1">PDF</a> 15 pages. Submitted as a conference paper to IntelliSys 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文系统综述了EEG在重建感知体验方面的应用，重点介绍了最新的生成方法、评估指标和数据挑战。通过对1800项研究的分析，强调了先进模型如生成对抗网络（GANs）、变分自编码器（VAEs）和Transformers的潜力，同时指出标准化数据集和跨主体推广的迫切需求。提出了未来研究的路线图，旨在提高解码精度并拓宽其在现实世界中的应用。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>EEG是神经科学中的宝贵工具，具有高的时间分辨率，能洞察大脑活动。</li>
+<li>机器学习和生成模型的发展推动了EEG在重建感知体验方面的应用，如图像、视频和音频。</li>
+<li>综述重点关注了最新的生成方法、评估指标和数据挑战。</li>
+<li>生成对抗网络（GANs）、变分自编码器（VAEs）和Transformers等先进模型在EEG分析中具有巨大潜力。</li>
+<li>标准化数据集和跨主体推广是当前的迫切需求。</li>
+<li>研究提出了提高解码精度和拓宽现实应用中的路线图。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.19999">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-35b19541d94e5b1c3c382ec1b54daaa0.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-7e600429d52a586e73b6329b9d9a50c5.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="NijiGAN-Transform-What-You-See-into-Anime-with-Contrastive-Semi-Supervised-Learning-and-Neural-Ordinary-Differential-Equations"><a href="#NijiGAN-Transform-What-You-See-into-Anime-with-Contrastive-Semi-Supervised-Learning-and-Neural-Ordinary-Differential-Equations" class="headerlink" title="NijiGAN: Transform What You See into Anime with Contrastive   Semi-Supervised Learning and Neural Ordinary Differential Equations"></a>NijiGAN: Transform What You See into Anime with Contrastive   Semi-Supervised Learning and Neural Ordinary Differential Equations</h2><p><strong>Authors:Kevin Putra Santoso, Anny Yuniarti, Dwiyasa Nakula, Dimas Prihady Setyawan, Adam Haidar Azizi, Jeany Aurellia P. Dewati, Farah Dhia Fadhila, Maria T. Elvara Bumbungan</strong></p>
+<p>Generative AI has transformed the animation industry. Several models have been developed for image-to-image translation, particularly focusing on converting real-world images into anime through unpaired translation. Scenimefy, a notable approach utilizing contrastive learning, achieves high fidelity anime scene translation by addressing limited paired data through semi-supervised training. However, it faces limitations due to its reliance on paired data from a fine-tuned StyleGAN in the anime domain, often producing low-quality datasets. Additionally, Scenimefy’s high parameter architecture presents opportunities for computational optimization. This research introduces NijiGAN, a novel model incorporating Neural Ordinary Differential Equations (NeuralODEs), which offer unique advantages in continuous transformation modeling compared to traditional residual networks. NijiGAN successfully transforms real-world scenes into high fidelity anime visuals using half of Scenimefy’s parameters. It employs pseudo-paired data generated through Scenimefy for supervised training, eliminating dependence on low-quality paired data and improving the training process. Our comprehensive evaluation includes ablation studies, qualitative, and quantitative analysis comparing NijiGAN to similar models. The testing results demonstrate that NijiGAN produces higher-quality images compared to AnimeGAN, as evidenced by a Mean Opinion Score (MOS) of 2.192, it surpasses AnimeGAN’s MOS of 2.160. Furthermore, our model achieved a Frechet Inception Distance (FID) score of 58.71, outperforming Scenimefy’s FID score of 60.32. These results demonstrate that NijiGAN achieves competitive performance against existing state-of-the-arts, especially Scenimefy as the baseline model. </p>
+<blockquote>
+<p>生成式人工智能已经改变了动画产业。已经开发了几个图像到图像的翻译模型，特别专注于通过非配对翻译将现实世界图像转换为动漫。Scenimefy是一种利用对比学习的方法，通过半监督训练解决配对数据有限的问题，实现了高保真动漫场景翻译。然而，它依赖于精细调整的动漫领域StyleGAN的配对数据，因此面临局限性，经常产生低质量的数据集。此外，Scenimefy的高参数架构为计算优化提供了机会。本研究引入了NijiGAN，这是一个结合神经常微分方程（NeuralODEs）的新模型，与传统的残差网络相比，它在连续变换建模方面具有独特优势。NijiGAN成功地将现实世界场景转化为高保真动漫视觉，使用的是Scenimefy一半的参数。它采用通过Scenimefy生成伪配对数据进行监督训练，消除了对低质量配对数据的依赖，改进了训练过程。我们的综合评估包括消融研究、定性和定量分析，比较了NijiGAN与类似模型的表现。测试结果表明，NijiGAN生成的图像质量高于AnimeGAN，平均意见得分（MOS）为2.192，超过了AnimeGAN的MOS得分2.160。此外，我们的模型达到了Frechet Inception Distance（FID）得分58.71，超过了Scenimefy的FID得分60.32。这些结果表明，NijiGAN在现有先进技术中表现出竞争力，尤其是以Scenimefy为基准模型。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.19455v1">PDF</a> </p>
+<p><strong>摘要</strong><br>    生成式AI已对动画产业产生深刻变革。新的模型被开发用于图像到图像的转换，特别是将现实世界图像转化为动漫的未配对翻译领域。尽管Scenimefy利用对比学习实现高保真动漫场景翻译，并解决了配对数据的限制问题，但其依赖于精细调整的动漫领域的StyleGAN配对数据，常产生低质量数据集。此外，Scenimefy参数架构复杂，存在计算优化的机会。本研究引入NijiGAN，结合神经网络常微分方程组（NeuralODEs）的新模型，在连续变换建模方面具有独特优势，相较于传统的残差网络。NijiGAN成功将现实场景转化为高保真动漫视觉图像，使用Scenimefy的一半参数。它利用伪配对数据用于监督训练，消除了对低质量配对数据的依赖，改进了训练过程。综合评价包括消融研究、定性和定量分析，比较NijiGAN与类似模型。测试结果表明，NijiGAN产生的图像质量高于AnimeGAN，平均意见得分（MOS）为2.192，超过AnimeGAN的MOS 2.160。此外，我们的模型的Frechet Inception Distance（FID）得分为58.71，优于Scenimefy的FID得分60.32。结果表明，NijiGAN在现有先进技术中表现具有竞争力，尤其是以Scenimefy为基线模型。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>生成式AI已深刻改变动画产业，尤其是图像到图像的转换领域。</li>
+<li>Scenimefy利用对比学习实现高保真动漫场景翻译，但仍面临依赖精细调整的配对数据的问题。</li>
+<li>NijiGAN模型引入神经网络常微分方程组（NeuralODEs），实现现实场景到高保真动漫的视觉转化。</li>
+<li>NijiGAN使用伪配对数据进行监督训练，提高训练过程的效率和质量。</li>
+<li>NijiGAN相较于Scenimefy和AnimeGAN，在图像质量上表现更优秀，平均意见得分（MOS）和Frechet Inception Distance（FID）等指标均有所改进。</li>
+<li>NijiGAN的参数数量仅为Scenimefy的一半，暗示其计算效率更高。</li>
+<li>综合评价显示NijiGAN在现有模型中表现具有竞争力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.19455">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-61575447c83d4dfc76638be99fb8da06.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-caf3ad39b704755169a9ae027e45fd58.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-26bf6af9d4fa02ba7360e7ce2302ab72.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="An-End-to-End-Depth-Based-Pipeline-for-Selfie-Image-Rectification"><a href="#An-End-to-End-Depth-Based-Pipeline-for-Selfie-Image-Rectification" class="headerlink" title="An End-to-End Depth-Based Pipeline for Selfie Image Rectification"></a>An End-to-End Depth-Based Pipeline for Selfie Image Rectification</h2><p><strong>Authors:Ahmed Alhawwary, Phong Nguyen-Ha, Janne Mustaniemi, Janne Heikkilä</strong></p>
+<p>Portraits or selfie images taken from a close distance typically suffer from perspective distortion. In this paper, we propose an end-to-end deep learning-based rectification pipeline to mitigate the effects of perspective distortion. We learn to predict the facial depth by training a deep CNN. The estimated depth is utilized to adjust the camera-to-subject distance by moving the camera farther, increasing the camera focal length, and reprojecting the 3D image features to the new perspective. The reprojected features are then fed to an inpainting module to fill in the missing pixels. We leverage a differentiable renderer to enable end-to-end training of our depth estimation and feature extraction nets to improve the rectified outputs. To boost the results of the inpainting module, we incorporate an auxiliary module to predict the horizontal movement of the camera which decreases the area that requires hallucination of challenging face parts such as ears. Unlike previous works, we process the full-frame input image at once without cropping the subject’s face and processing it separately from the rest of the body, eliminating the need for complex post-processing steps to attach the face back to the subject’s body. To train our network, we utilize the popular game engine Unreal Engine to generate a large synthetic face dataset containing various subjects, head poses, expressions, eyewear, clothes, and lighting. Quantitative and qualitative results show that our rectification pipeline outperforms previous methods, and produces comparable results with a time-consuming 3D GAN-based method while being more than 260 times faster. </p>
+<blockquote>
+<p>从近距离拍摄的肖像或自拍图像通常会受到透视失真的影响。在本文中，我们提出了一种端到端的基于深度学习的校正管道，以减轻透视失真的影响。我们通过学习预测面部深度来训练深度卷积神经网络。估计的深度用于调整相机到主体的距离，通过将相机移得更远、增加相机的焦距，并将3D图像特征投影到新的透视点上。然后将重新投影的特征输入到填充模块中以填充缺失的像素。我们利用可微渲染器，实现对深度估计和特征提取网络的端到端训练，以提高校正后的输出效果。为了提升填充模块的效果，我们引入了辅助模块来预测相机的水平运动，这减少了需要虚构具有挑战性的面部部位（例如耳朵）的区域。与以前的工作不同，我们一次性处理全帧输入图像，而无需裁剪主体的面部并单独处理其与身体的其他部分，从而无需复杂的后期处理步骤将面部重新附加到主体的身体上。为了训练我们的网络，我们利用流行的游戏引擎Unreal Engine生成了一个大型合成面部数据集，其中包含各种主体、头部姿势、表情、眼镜、衣物和照明。定量和定性结果表明，我们的校正管道优于以前的方法，并且与耗时的基于3D GAN的方法产生相当的结果，同时速度提高了超过260倍。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.19189v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种基于深度学习的端到端校正管道，用于减轻近距离拍摄肖像或自拍时常见的透视失真问题。通过训练深度卷积神经网络预测面部深度，并据此调整相机到主体的距离、增加相机焦距，以及将3D图像特征重新投影到新的透视角度。此方法利用可微渲染器进行端到端训练，提高了校正效果。为增强修复模块的效果，引入了一个辅助模块来预测相机的水平移动，减少了需要虚构具有挑战性的面部部位（如耳朵）的区域。与以往的工作不同，我们一次性处理全帧输入图像，无需将主体面部裁剪出来单独处理，从而避免了复杂的后期处理步骤。实验结果表明，我们的校正管道在性能和速度上均优于之前的方法，并且与耗时较长的基于3D GAN的方法产生的效果相当，但运行时间是其的约1&#x2F;260。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>论文针对近距离拍摄的肖像或自拍中的透视失真问题，提出了一个基于深度学习的端到端校正管道。</li>
+<li>通过训练深度CNN预测面部深度，并利用此深度信息调整相机参数和重新投影图像来校正透视失真。</li>
+<li>利用可微渲染器实现端到端训练，提升校正效果。</li>
+<li>通过引入辅助模块预测相机水平移动，减少需要虚构的面部区域。</li>
+<li>论文采用全帧处理方法，避免了复杂的后期处理步骤。</li>
+<li>使用Unreal Engine生成大型合成面部数据集，用于网络训练。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.19189">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-091460b28e08a91ceded4e6a38754d95.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-12fb7b588bf81028827f95396cf8b057.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-3629e02a6517c14d6745e192a0c5e049.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-51ee988be2d19251d226e1e0cf3082c3.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="MGAN-CRCM-A-Novel-Multiple-Generative-Adversarial-Network-and-Coarse-Refinement-Based-Cognizant-Method-for-Image-Inpainting"><a href="#MGAN-CRCM-A-Novel-Multiple-Generative-Adversarial-Network-and-Coarse-Refinement-Based-Cognizant-Method-for-Image-Inpainting" class="headerlink" title="MGAN-CRCM: A Novel Multiple Generative Adversarial Network and   Coarse-Refinement Based Cognizant Method for Image Inpainting"></a>MGAN-CRCM: A Novel Multiple Generative Adversarial Network and   Coarse-Refinement Based Cognizant Method for Image Inpainting</h2><p><strong>Authors:Nafiz Al Asad, Md. Appel Mahmud Pranto, Shbiruzzaman Shiam, Musaddeq Mahmud Akand, Mohammad Abu Yousuf, Khondokar Fida Hasan, Mohammad Ali Moni</strong></p>
+<p>Image inpainting is a widely used technique in computer vision for reconstructing missing or damaged pixels in images. Recent advancements with Generative Adversarial Networks (GANs) have demonstrated superior performance over traditional methods due to their deep learning capabilities and adaptability across diverse image domains. Residual Networks (ResNet) have also gained prominence for their ability to enhance feature representation and compatibility with other architectures. This paper introduces a novel architecture combining GAN and ResNet models to improve image inpainting outcomes. Our framework integrates three components: Transpose Convolution-based GAN for guided and blind inpainting, Fast ResNet-Convolutional Neural Network (FR-CNN) for object removal, and Co-Modulation GAN (Co-Mod GAN) for refinement. The model’s performance was evaluated on benchmark datasets, achieving accuracies of 96.59% on Image-Net, 96.70% on Places2, and 96.16% on CelebA. Comparative analyses demonstrate that the proposed architecture outperforms existing methods, highlighting its effectiveness in both qualitative and quantitative evaluations. </p>
+<blockquote>
+<p>图像补全（Image inpainting）是计算机视觉中一种广泛使用的技术，用于重建图像中缺失或损坏的像素。由于生成对抗网络（GANs）的深度学习能力以及在多个图像领域中的适应性，其与传统方法的对比显示出卓越的性能。残差网络（ResNet）也因其增强特征表示和与其他架构的兼容性而受到广泛关注。本文提出了一种结合GAN和ResNet模型的新型架构，以提高图像补全的结果。我们的框架集成了三个组成部分：基于转置卷积的GAN用于有指导和无指导的补全、用于目标移除的快速ResNet卷积神经网络（FR-CNN）以及用于细化的协同调制GAN（Co-Mod GAN）。该模型在基准数据集上进行了评估，在Image-Net上准确率为96.59%，在Places2上准确率为96.70%，在CelebA上准确率为96.16%。对比分析表明，所提出的架构优于现有方法，在定性和定量评估中都凸显了其有效性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.19000v1">PDF</a> 34 pages</p>
+<p><strong>Summary</strong></p>
+<p>基于生成对抗网络（GAN）和残差网络（ResNet）的图像修复技术近年来取得了显著进展。本文提出了一种结合GAN和ResNet模型的新型架构，包括基于转置卷积的GAN用于引导和盲修复、用于对象移除的快速ResNet卷积神经网络（FR-CNN）以及用于精细化的协同调制GAN（Co-Mod GAN）。该模型在基准数据集上的性能评估表明，它在ImageNet上的准确率为96.59%，在Places2上的准确率为96.70%，在CelebA上的准确率为96.16%，并且在定性和定量评估中都优于现有方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>GAN和ResNet模型结合用于图像修复，达到优异性能。</li>
+<li>提出新型架构包含三种组件：基于转置卷积的GAN、FR-CNN和Co-Mod GAN。</li>
+<li>转置卷积GAN用于引导和盲修复。</li>
+<li>FR-CNN用于对象移除。</li>
+<li>Co-Mod GAN用于图像修复结果的精细化。</li>
+<li>模型在多个基准数据集上表现出色，达到高准确率。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.19000">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-8a51d953c2ed8222cded41b201b81013.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-25e3c3e024ec2d1dd29fd870e1258beb.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="Video-Is-Worth-a-Thousand-Images-Exploring-the-Latest-Trends-in-Long-Video-Generation"><a href="#Video-Is-Worth-a-Thousand-Images-Exploring-the-Latest-Trends-in-Long-Video-Generation" class="headerlink" title="Video Is Worth a Thousand Images: Exploring the Latest Trends in Long   Video Generation"></a>Video Is Worth a Thousand Images: Exploring the Latest Trends in Long   Video Generation</h2><p><strong>Authors:Faraz Waseem, Muhammad Shahzad</strong></p>
+<p>An image may convey a thousand words, but a video composed of hundreds or thousands of image frames tells a more intricate story. Despite significant progress in multimodal large language models (MLLMs), generating extended videos remains a formidable challenge. As of this writing, OpenAI’s Sora, the current state-of-the-art system, is still limited to producing videos that are up to one minute in length. This limitation stems from the complexity of long video generation, which requires more than generative AI techniques for approximating density functions essential aspects such as planning, story development, and maintaining spatial and temporal consistency present additional hurdles. Integrating generative AI with a divide-and-conquer approach could improve scalability for longer videos while offering greater control. In this survey, we examine the current landscape of long video generation, covering foundational techniques like GANs and diffusion models, video generation strategies, large-scale training datasets, quality metrics for evaluating long videos, and future research areas to address the limitations of the existing video generation capabilities. We believe it would serve as a comprehensive foundation, offering extensive information to guide future advancements and research in the field of long video generation. </p>
+<blockquote>
+<p>图像可能传达千言万语，但由数百或数千个图像帧组成的视频则讲述了一个更复杂的故事。尽管多模态大型语言模型（MLLMs）取得了重大进展，但生成长视频仍然是一项艰巨的挑战。截至本文写作时，当前最先进的系统OpenAI的Sora仍然仅限于生成最长为一分钟的视频。这一限制源于长视频生成的复杂性，不仅需要生成式AI技术来近似密度函数，而且规划、故事发展和保持空间和时间一致性等关键方面还存在额外的障碍。将生成式AI与分而治之的方法相结合，可以提高长视频的扩展性，同时提供更强大的控制能力。在本文中，我们考察了长视频生成的当前状况，涵盖了诸如GANs和扩散模型等基础技术、视频生成策略、大规模训练数据集、长视频质量评估指标，以及针对现有视频生成能力的局限性的未来研究领域。我们相信这将成为一项全面的基础，提供广泛的信息，以指导长视频生成领域的未来发展与研究。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.18688v1">PDF</a> 35 pages, 18 figures, Manuscript submitted to ACM</p>
+<p><strong>Summary</strong><br>视频生成技术面临生成长视频的难题，尽管多模态大型语言模型有所进步，但目前最先进系统OpenAI的Sora仍然只能生成一分钟长度的视频。长视频生成需要超越生成式人工智能技术的复杂技术，如规划、故事发展和保持时空一致性等，因此需要采用分而治之的集成策略来提高生成长视频的扩展性。当前文章对当前长视频生成领域进行了全面调查，包括基础技术、视频生成策略、大规模训练数据集等，对未来研究提出了一些解决现有视频生成能力局限性的方法。这篇文章将成为该领域一个全面的研究基础。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>视频生成技术面临生成长视频的难题，目前最先进系统仍有限制。</li>
+<li>长视频生成需要超越生成式人工智能技术的复杂技术，包括规划、故事发展等。</li>
+<li>分而治之的集成策略可以提高生成长视频的扩展性。</li>
+<li>当前文章对当前长视频生成领域进行了全面调查。</li>
+<li>文章涵盖了基础技术、视频生成策略、大规模训练数据集等方面的内容。</li>
+<li>对未来研究提出了一些解决现有视频生成能力局限性的方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.18688">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-450fdb2b6244b8e0969c9d277c45f5a7.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-02\./crop_GAN/2412.18688v1/page_1_0.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-06230c7b3abef2dc3de43df7352eb972.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-7f3186609bba8f2b60c8e929a846820e.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Multiscale-Latent-Diffusion-Model-for-Enhanced-Feature-Extraction-from-Medical-Images"><a href="#Multiscale-Latent-Diffusion-Model-for-Enhanced-Feature-Extraction-from-Medical-Images" class="headerlink" title="Multiscale Latent Diffusion Model for Enhanced Feature Extraction from   Medical Images"></a>Multiscale Latent Diffusion Model for Enhanced Feature Extraction from   Medical Images</h2><p><strong>Authors:Rabeya Tus Sadia, Jie Zhang, Jin Chen</strong></p>
+<p>Various imaging modalities are used in patient diagnosis, each offering unique advantages and valuable insights into anatomy and pathology. Computed Tomography (CT) is crucial in diagnostics, providing high-resolution images for precise internal organ visualization. CT’s ability to detect subtle tissue variations is vital for diagnosing diseases like lung cancer, enabling early detection and accurate tumor assessment. However, variations in CT scanner models and acquisition protocols introduce significant variability in the extracted radiomic features, even when imaging the same patient. This variability poses considerable challenges for downstream research and clinical analysis, which depend on consistent and reliable feature extraction. Current methods for medical image feature extraction, often based on supervised learning approaches, including GAN-based models, face limitations in generalizing across different imaging environments. In response to these challenges, we propose LTDiff++, a multiscale latent diffusion model designed to enhance feature extraction in medical imaging. The model addresses variability by standardizing non-uniform distributions in the latent space, improving feature consistency. LTDiff++ utilizes a UNet++ encoder-decoder architecture coupled with a conditional Denoising Diffusion Probabilistic Model (DDPM) at the latent bottleneck to achieve robust feature extraction and standardization. Extensive empirical evaluations on both patient and phantom CT datasets demonstrate significant improvements in image standardization, with higher Concordance Correlation Coefficients (CCC) across multiple radiomic feature categories. Through these advancements, LTDiff++ represents a promising solution for overcoming the inherent variability in medical imaging data, offering improved reliability and accuracy in feature extraction processes. </p>
+<blockquote>
+<p>在患者诊断中，多种成像模式被广泛应用，每种模式都有其独特的优势和关于解剖学和病理学的宝贵见解。计算机断层扫描（CT）在诊断中至关重要，它提供高分辨率图像，用于精确的内部器官可视化。CT检测细微组织变化的能力对于诊断肺癌等疾病至关重要，能够实现早期检测和准确的肿瘤评估。然而，CT扫描仪型号和采集协议的变化会在提取放射学特征时引入重大差异，即使在成像同一患者时也是如此。这种差异给下游研究和临床分析带来了巨大挑战，后者依赖于一致和可靠的特征提取。当前基于医疗图像特征提取的方法，通常基于有监督学习方法，包括基于GAN的模型，在跨不同成像环境推广方面存在局限性。针对这些挑战，我们提出了LTDiff++，这是一个多尺度潜在扩散模型，旨在提高医疗成像中的特征提取能力。该模型通过标准化潜在空间中的非均匀分布来解决变异性问题，提高特征的一致性。LTDiff++采用UNet++编码器-解码器架构，结合潜在瓶颈处的条件去噪扩散概率模型（DDPM），实现稳健的特征提取和标准化。在患者和幻影CT数据集上的大量实证评估表明，图像标准化方面有了显着改进，多个放射学特征类别的符合度相关系数（CCC）更高。通过这些进展，LTDiff++成为克服医疗成像数据固有可变性的有前途的解决方案，为特征提取过程提供了改进的可靠性和准确性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.04000v3">PDF</a> version_3</p>
+<p><strong>Summary</strong>：<br>CT在诊断中极为重要，能提供高解析度图像以精确呈现内部器官。然而，不同CT扫描仪型号和采集协议导致的放射组学特征提取的变异性，为下游研究和临床分析带来挑战。我们提出LTDiff++模型，采用多尺度潜在扩散机制标准化潜在空间中的非均匀分布，改善特征一致性，提高医学成像中的特征提取效果。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>CT在诊断中提供高解析度图像，有助于精确呈现内部器官和检测微妙组织变化。</li>
+<li>不同CT扫描仪和采集协议导致放射组学特征提取的显著变异性。</li>
+<li>现有基于监督学习的医学图像特征提取方法（包括基于GAN的模型）在跨不同成像环境中泛化时面临局限性。</li>
+<li>LTDiff++模型通过标准化潜在空间中的非均匀分布来应对这些挑战。</li>
+<li>LTDiff++利用UNet++编码器-解码器架构和潜在瓶颈处的条件去噪扩散概率模型实现稳健的特征提取和标准化。</li>
+<li>在患者和幻影CT数据集上的广泛实验评估显示，LTDiff++在图像标准化方面实现了显著改进，多个放射组学特征类别的吻合度相关系数（CCC）更高。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.04000">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-42fba0ca2d0d87acb68cb50cf245107c.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-d6927fb523b7e67b714836e5fdf28fa6.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c956697bd9db9ba503eb4abaf7e018b6.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="BLS-GAN-A-Deep-Layer-Separation-Framework-for-Eliminating-Bone-Overlap-in-Conventional-Radiographs"><a href="#BLS-GAN-A-Deep-Layer-Separation-Framework-for-Eliminating-Bone-Overlap-in-Conventional-Radiographs" class="headerlink" title="BLS-GAN: A Deep Layer Separation Framework for Eliminating Bone Overlap   in Conventional Radiographs"></a>BLS-GAN: A Deep Layer Separation Framework for Eliminating Bone Overlap   in Conventional Radiographs</h2><p><strong>Authors:Haolin Wang, Yafei Ou, Prasoon Ambalathankandy, Gen Ota, Pengyu Dai, Masayuki Ikebe, Kenji Suzuki, Tamotsu Kamishima</strong></p>
+<p>Conventional radiography is the widely used imaging technology in diagnosing, monitoring, and prognosticating musculoskeletal (MSK) diseases because of its easy availability, versatility, and cost-effectiveness. In conventional radiographs, bone overlaps are prevalent, and can impede the accurate assessment of bone characteristics by radiologists or algorithms, posing significant challenges to conventional and computer-aided diagnoses. This work initiated the study of a challenging scenario - bone layer separation in conventional radiographs, in which separate overlapped bone regions enable the independent assessment of the bone characteristics of each bone layer and lay the groundwork for MSK disease diagnosis and its automation. This work proposed a Bone Layer Separation GAN (BLS-GAN) framework that can produce high-quality bone layer images with reasonable bone characteristics and texture. This framework introduced a reconstructor based on conventional radiography imaging principles, which achieved efficient reconstruction and mitigates the recurrent calculations and training instability issues caused by soft tissue in the overlapped regions. Additionally, pre-training with synthetic images was implemented to enhance the stability of both the training process and the results. The generated images passed the visual Turing test, and improved performance in downstream tasks. This work affirms the feasibility of extracting bone layer images from conventional radiographs, which holds promise for leveraging bone layer separation technology to facilitate more comprehensive analytical research in MSK diagnosis, monitoring, and prognosis. Code and dataset: <a target="_blank" rel="noopener" href="https://github.com/pokeblow/BLS-GAN.git">https://github.com/pokeblow/BLS-GAN.git</a>. </p>
+<blockquote>
+<p>传统放射摄影是广泛应用于诊断、监测和预测肌肉骨骼（MSK）疾病的成像技术，因其易于获取、多功能和成本效益高。在传统放射摄影中，骨骼重叠现象普遍，可能会阻碍放射科医生或算法对骨骼特征的准确评估，给传统和计算机辅助诊断带来重大挑战。这项工作开始研究一个具有挑战性的场景——传统放射摄影中的骨骼层次分离技术。在研究中，通过将重叠的骨骼区域进行分离评估，独立分析各个骨骼层次的骨骼特征，为MSK疾病的诊断和自动化诊断奠定基础。这项工作提出了一个骨层分离生成对抗网络（BLS-GAN）框架，可以生成具有合理骨骼特征和纹理的高质量骨层图像。该框架引入了一个基于传统放射成像原理的重构器，实现了有效的重建，并减轻了重叠区域软组织引起的重复计算和训练不稳定问题。此外，通过合成图像进行预训练，增强了训练过程和结果的稳定性。生成的图像通过了视觉图灵测试，并在下游任务中提高了性能。这项工作证实了从常规放射摄影中提取骨层图像的可行性，这为利用骨层分离技术促进MSK诊断、监测和预后预测的更全面分析研究提供了希望。代码和数据集链接：<a target="_blank" rel="noopener" href="https://github.com/pokeblow/BLS-GAN.git%E3%80%82">https://github.com/pokeblow/BLS-GAN.git。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2409.07304v2">PDF</a> Accepted by AAAI 2025</p>
+<p><strong>Summary</strong>：<br>传统放射线照相术广泛应用于诊断、监测和预测肌肉骨骼疾病，但由于骨重叠问题给放射科医生或算法准确评估骨特征带来挑战。本研究提出一种名为BLS-GAN的骨层分离生成对抗网络框架，可生成高质量骨层图像，采用基于传统放射学成像原理的重构器，实现有效重建并减少重叠区域软组织引起的反复计算和训练不稳定问题。预训练合成图像增强了训练和结果的稳定性。生成图像通过视觉图灵测试，并在下游任务中表现出卓越性能。这项工作证实了从常规放射线照片中提取骨层图像的可能性，为利用骨层分离技术促进肌肉骨骼疾病的诊断、监测和预测的综合分析提供了希望。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>传统放射线照相术在诊断、监测和预测肌肉骨骼疾病方面仍被广泛使用，但由于骨重叠问题带来了评估挑战。</li>
+<li>本研究提出了一种新的BLS-GAN框架，用于生成高质量的骨层图像。</li>
+<li>BLS-GAN采用了基于传统放射学成像原理的重构器，提高了重建效率并减少了重叠区域软组织引起的计算问题。</li>
+<li>通过预训练合成图像增强了训练和结果的稳定性。</li>
+<li>生成的图像通过了视觉图灵测试，并在下游任务中表现出卓越性能。</li>
+<li>骨层分离技术的实现为更全面的肌肉骨骼疾病诊断、监测和预测提供了可能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2409.07304">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-c823ed0e1334e661bd83595e798c1069.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-710110038e2a13dc556fd8357fe760bb.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-89fa0b86cbf50e6ddcc7a2205436bfc2.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-cb5f5a5e89367b2efcdcdcbb8e53ea8e.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c709d8f788cf067972a9a21ee1ebff6e.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="LatentForensics-Towards-frugal-deepfake-detection-in-the-StyleGAN-latent-space"><a href="#LatentForensics-Towards-frugal-deepfake-detection-in-the-StyleGAN-latent-space" class="headerlink" title="LatentForensics: Towards frugal deepfake detection in the StyleGAN   latent space"></a>LatentForensics: Towards frugal deepfake detection in the StyleGAN   latent space</h2><p><strong>Authors:Matthieu Delmas, Renaud Seguier</strong></p>
+<p>The classification of forged videos has been a challenge for the past few years. Deepfake classifiers can now reliably predict whether or not video frames have been tampered with. However, their performance is tied to both the dataset used for training and the analyst’s computational power. We propose a deepfake detection method that operates in the latent space of a state-of-the-art generative adversarial network (GAN) trained on high-quality face images. The proposed method leverages the structure of the latent space of StyleGAN to learn a lightweight binary classification model. Experimental results on standard datasets reveal that the proposed approach outperforms other state-of-the-art deepfake classification methods, especially in contexts where the data available to train the models is rare, such as when a new manipulation method is introduced. To the best of our knowledge, this is the first study showing the interest of the latent space of StyleGAN for deepfake classification. Combined with other recent studies on the interpretation and manipulation of this latent space, we believe that the proposed approach can further help in developing frugal deepfake classification methods based on interpretable high-level properties of face images. </p>
+<blockquote>
+<p>视频伪造分类在过去几年中一直是一个挑战。深度伪造分类器现在可以可靠地预测视频帧是否被篡改。但是，它们的性能既取决于用于训练的数据集，也取决于分析人员的计算能力。我们提出了一种基于训练有素的最新生成对抗网络（GAN）的潜在空间的深度伪造检测方法，该网络使用高质量的人脸图像进行训练。该方法利用StyleGAN的潜在空间结构来学习轻量级的二分类模型。在标准数据集上的实验结果表明，该方法优于其他最新的深度伪造分类方法，特别是在可用数据稀少的情况下训练模型时表现得尤为出色，例如引入新的操作方法时。据我们所知，这是首次研究StyleGAN的潜在空间在深度伪造分类方面的兴趣。结合最近关于解释和操纵这一潜在空间的研究，我们相信所提出的方法可以帮助开发基于人脸图像可解释的高级特性的节俭型深度伪造分类方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2303.17222v4">PDF</a> 7 pages, 3 figures, 5 tables</p>
+<p><strong>Summary</strong><br>基于生成对抗网络（GAN）的潜在空间，提出一种深度伪造检测新方法。该方法利用StyleGAN的潜在空间结构，学习轻量级二分类模型。实验结果表明，该方法在标准数据集上优于其他先进深度伪造分类方法，特别是在新操纵方法引入等罕见数据情况下。这是首次研究StyleGAN潜在空间在深度伪造分类中的应用。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>深度伪造视频分类是近年来的挑战。</li>
+<li>现有深度伪造分类器可预测视频帧是否被篡改，但其性能受训练数据集和计算资源的影响。</li>
+<li>提出一种基于StyleGAN潜在空间的深度伪造检测方法。</li>
+<li>该方法学习轻量级二分类模型，利用StyleGAN的潜在空间结构。</li>
+<li>实验结果表明，该方法在标准数据集上表现优异，特别是在数据稀缺的情况下。</li>
+<li>这是首次研究StyleGAN潜在空间在深度伪造分类中的应用。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2303.17222">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-47c02ce4a6b882d734dcca971f1b4aaa.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-524aa944fa93105f4f3cfadfafc02f9d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-aa5e528dea537cce436af8aa5c29c8d8.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-066b759e688a9a19111037d42e978e60.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-bb69b268c41a42646333449f774e7f45.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-01-02/GAN/">https://kedreamix.github.io/Talk2Paper/Paper/2025-01-02/GAN/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/GAN/">
+                                    <span class="chip bg-color">GAN</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-01-02/%E5%85%83%E5%AE%87%E5%AE%99_%E8%99%9A%E6%8B%9F%E4%BA%BA/">
+                    <div class="card-image">
+                        
+                        <img src="https://pica.zhimg.com/v2-519b6cc1bd7cf2c02053876e12ac88ff.jpg" class="responsive-img" alt="元宇宙/虚拟人">
+                        
+                        <span class="card-title">元宇宙/虚拟人</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            元宇宙/虚拟人 方向最新论文已更新，请持续关注 Update in 2025-01-02  Generating Editable Head Avatars with 3D Gaussian GANs
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E5%85%83%E5%AE%87%E5%AE%99-%E8%99%9A%E6%8B%9F%E4%BA%BA/" class="post-category">
+                                    元宇宙/虚拟人
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E5%85%83%E5%AE%87%E5%AE%99-%E8%99%9A%E6%8B%9F%E4%BA%BA/">
+                        <span class="chip bg-color">元宇宙/虚拟人</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-01-02/Face%20Swapping/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-bb372937362ebe61d84b01951b971cab.jpg" class="responsive-img" alt="Face Swapping">
+                        
+                        <span class="card-title">Face Swapping</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Face Swapping 方向最新论文已更新，请持续关注 Update in 2025-01-02  KunServe Elastic and Efficient Large Language Model Serving with   Parameter-centric Memory Management
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Face-Swapping/" class="post-category">
+                                    Face Swapping
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Face-Swapping/">
+                        <span class="chip bg-color">Face Swapping</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">7957.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
