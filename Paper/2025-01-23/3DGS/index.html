@@ -1,0 +1,1533 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="3DGS">
+    <meta name="description" content="3DGS 方向最新论文已更新，请持续关注 Update in 2025-01-23  HAC++ Towards 100X Compression of 3D Gaussian Splatting">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>3DGS | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10283v2/page_3_0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">3DGS</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/3DGS/">
+                                <span class="chip bg-color">3DGS</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/3DGS/" class="post-category">
+                                3DGS
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-01-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-01-23
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    9.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    39 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-01-23-更新"><a href="#2025-01-23-更新" class="headerlink" title="2025-01-23 更新"></a>2025-01-23 更新</h1><h2 id="HAC-Towards-100X-Compression-of-3D-Gaussian-Splatting"><a href="#HAC-Towards-100X-Compression-of-3D-Gaussian-Splatting" class="headerlink" title="HAC++: Towards 100X Compression of 3D Gaussian Splatting"></a>HAC++: Towards 100X Compression of 3D Gaussian Splatting</h2><p><strong>Authors:Yihang Chen, Qianyi Wu, Weiyao Lin, Mehrtash Harandi, Jianfei Cai</strong></p>
+<p>3D Gaussian Splatting (3DGS) has emerged as a promising framework for novel view synthesis, boasting rapid rendering speed with high fidelity. However, the substantial Gaussians and their associated attributes necessitate effective compression techniques. Nevertheless, the sparse and unorganized nature of the point cloud of Gaussians (or anchors in our paper) presents challenges for compression. To achieve a compact size, we propose HAC++, which leverages the relationships between unorganized anchors and a structured hash grid, utilizing their mutual information for context modeling. Additionally, HAC++ captures intra-anchor contextual relationships to further enhance compression performance. To facilitate entropy coding, we utilize Gaussian distributions to precisely estimate the probability of each quantized attribute, where an adaptive quantization module is proposed to enable high-precision quantization of these attributes for improved fidelity restoration. Moreover, we incorporate an adaptive masking strategy to eliminate invalid Gaussians and anchors. Overall, HAC++ achieves a remarkable size reduction of over 100X compared to vanilla 3DGS when averaged on all datasets, while simultaneously improving fidelity. It also delivers more than 20X size reduction compared to Scaffold-GS. Our code is available at <a target="_blank" rel="noopener" href="https://github.com/YihangChen-ee/HAC-plus">https://github.com/YihangChen-ee/HAC-plus</a>. </p>
+<blockquote>
+<p>3D高斯点集（3DGS）作为新颖视角合成的有前途框架应运而生，它以快速渲染速度和高保真度而自豪。然而，大量的高斯及其相关属性需要进行有效的压缩技术处理。尽管如此，高斯点云（或我们论文中的锚点）的稀疏和无组织性质给压缩带来了挑战。为了达到紧凑的尺寸，我们提出了HAC++，它利用无序锚点之间的关系和一个结构化哈希网格，利用它们的互信息来进行上下文建模。此外，HAC++捕获了锚点内部上下文关系，以进一步增强压缩性能。为了促进熵编码，我们利用高斯分布来精确估计每个量化属性的概率，其中我们提出了一种自适应量化模块，以实现这些属性的高精度量化，以改善保真度恢复。此外，我们采用自适应掩码策略来消除无效的高斯和锚点。总体而言，与基础3DGS相比，HAC++在所有数据集上的平均压缩比例达到了惊人的超过100倍的大小减少，同时提高了保真度。与Scaffold-GS相比，其大小减少了超过20倍。我们的代码可在<a target="_blank" rel="noopener" href="https://github.com/YihangChen-ee/HAC-plus%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/YihangChen-ee/HAC-plus找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.12255v1">PDF</a> IEEE TPAMI Submission. This paper is an extension of HAC at   arXiv:2403.14530 (ECCV 2024)</p>
+<p><strong>Summary</strong></p>
+<p>本文主要介绍了基于关系的点云高斯压缩方法HAC++。该方法利用未组织锚点间的关系和结构化哈希网格进行上下文建模，并采用高斯分布进行概率估计。它结合了自适应量化模块和自适应掩模策略，在保留精度的同时，实现了3DGS的大小缩减，并且在多个数据集上实现平均超过其他方法的表现。该论文的相关代码可在公开链接上获取。</p>
+<p><strong>Key Takeaways</strong></p>
+<p>以下是关于该文本的关键见解：</p>
+<ul>
+<li>3DGS在新型视图合成领域具有前景，但其需要大量高斯数据，需要有效的压缩技术。</li>
+<li>HAC++方法利用未组织锚点间的关系进行上下文建模，并采用结构化哈希网格实现紧凑大小。</li>
+<li>HAC++引入了自适应量化模块，能精确地量化每个属性的精度以恢复更高的保真度。</li>
+<li>采用自适应掩模策略可以消除无效的高斯数据和锚点。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.12255">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-3d63d95f1df1af6ff3b43240b8f9bab5.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-37ece034dccc584817de0364f4f3b8f9.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-5975a0bef9cc0a0dd044c481ac6fe55d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-74ac4d2863eb165fe7005662f42026dd.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a2225ffc2d2c127f673f08c266beacd0.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="GaussianVideo-Efficient-Video-Representation-Through-2D-Gaussian-Splatting"><a href="#GaussianVideo-Efficient-Video-Representation-Through-2D-Gaussian-Splatting" class="headerlink" title="GaussianVideo: Efficient Video Representation Through 2D Gaussian   Splatting"></a>GaussianVideo: Efficient Video Representation Through 2D Gaussian   Splatting</h2><p><strong>Authors:Longan Wang, Yuang Shi, Wei Tsang Ooi</strong></p>
+<p>3D Gaussian splats have emerged as a revolutionary, effective, learned representation for static 3D scenes. In this work, we explore using 2D Gaussian splats as a new primitive for representing videos. We propose GaussianVideo, an approach to learning a set of 2D Gaussian splats that can effectively represent video frames. GaussianVideo incorporates the following techniques: (i) To exploit temporal redundancy among adjacent frames, which can speed up training and improve the compression efficiency, we predict the Gaussian splats of a frame based on its previous frame; (ii) To control the trade-offs between file size and quality, we remove Gaussian splats with low contribution to the video quality; (iii) To capture dynamics in videos, we randomly add Gaussian splats to fit content with large motion or newly-appeared objects; (iv) To handle significant changes in the scene, we detect key frames based on loss differences during the learning process. Experiment results show that GaussianVideo achieves good rate-distortion trade-offs, comparable to state-of-the-art video codecs such as AV1 and VVC, and a rendering speed of 1500 fps for a 1920x1080 video. </p>
+<blockquote>
+<p>3D高斯样条已经作为静态3D场景的一种革命性、有效的学习表示方法而出现。在这项工作中，我们探索使用2D高斯样条作为表示视频的新原始形式。我们提出了GaussianVideo，这是一种学习一组能够有效代表视频帧的2D高斯样条的方法。GaussianVideo结合了以下技术：（i）为了利用相邻帧之间的时间冗余，这可以加快训练并提高压缩效率，我们根据前一帧预测帧的高斯样条；（ii）为了控制文件大小和质量的权衡，我们删除对视频质量贡献较小的高斯样条；（iii）为了捕捉视频中的动态，我们随机添加高斯样条以适应具有大运动或新出现对象的内容；（iv）为了处理场景中的重大变化，我们基于学习过程中的损失差异检测关键帧。实验结果表明，GaussianVideo具有良好的速率失真权衡，与先进的视频编码技术如AV1和VVC相当，并且对1920x1080视频的渲染速度达到1500帧&#x2F;秒。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.12060v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>这篇论文探讨了使用二维高斯斑点作为视频表示的新原始形式的方法。提出了一种名为GaussianVideo的方法，通过学习和利用一系列二维高斯斑点来有效地表示视频帧。该方法利用时间冗余性预测帧的高斯斑点，移除对视频质量贡献较低的高斯斑点以控制文件大小与质量的权衡，随机添加高斯斑点以捕捉视频中的动态内容，并基于学习过程中的损失差异检测关键帧。实验结果表明，GaussianVideo具有良好的率失真权衡，与AV1和VVC等先进视频编码器的性能相当，对1920x1080视频的渲染速度可达1500帧&#x2F;秒。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>论文提出使用二维高斯斑点作为新的视频表示方法。</li>
+<li>GaussianVideo方法通过学习和利用一系列二维高斯斑点有效地表示视频帧。</li>
+<li>利用时间冗余性预测帧的高斯斑点以提高训练速度和压缩效率。</li>
+<li>通过移除对视频质量贡献较低的高斯斑点来控制文件大小与质量的平衡。</li>
+<li>随机添加高斯斑点以捕捉视频中的动态内容和新出现的对象。</li>
+<li>通过检测关键帧来处理场景中的重要变化。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.12060">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-4d4c16b5c6f062b653169807c4dac626.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b14a85094b987ac5bbe481ad2dc4cdbd.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-ad5826d8b69d2126c2ea88043d08362c.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-8407cac02bbcbd6e79eb9983b97a3639.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-597c1c88fd91a242f860dc3154ba5594.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="See-In-Detail-Enhancing-Sparse-view-3D-Gaussian-Splatting-with-Local-Depth-and-Semantic-Regularization"><a href="#See-In-Detail-Enhancing-Sparse-view-3D-Gaussian-Splatting-with-Local-Depth-and-Semantic-Regularization" class="headerlink" title="See In Detail: Enhancing Sparse-view 3D Gaussian Splatting with Local   Depth and Semantic Regularization"></a>See In Detail: Enhancing Sparse-view 3D Gaussian Splatting with Local   Depth and Semantic Regularization</h2><p><strong>Authors:Zongqi He, Zhe Xiao, Kin-Chung Chan, Yushen Zuo, Jun Xiao, Kin-Man Lam</strong></p>
+<p>3D Gaussian Splatting (3DGS) has shown remarkable performance in novel view synthesis. However, its rendering quality deteriorates with sparse inphut views, leading to distorted content and reduced details. This limitation hinders its practical application. To address this issue, we propose a sparse-view 3DGS method. Given the inherently ill-posed nature of sparse-view rendering, incorporating prior information is crucial. We propose a semantic regularization technique, using features extracted from the pretrained DINO-ViT model, to ensure multi-view semantic consistency. Additionally, we propose local depth regularization, which constrains depth values to improve generalization on unseen views. Our method outperforms state-of-the-art novel view synthesis approaches, achieving up to 0.4dB improvement in terms of PSNR on the LLFF dataset, with reduced distortion and enhanced visual quality. </p>
+<blockquote>
+<p>3D高斯混合技术（3DGS）在新型视图合成领域表现出卓越的性能。然而，当输入视图稀疏时，其渲染质量会下降，导致内容失真和细节减少。这一局限性阻碍了其实际应用。为了解决这个问题，我们提出了一种稀疏视图的3DGS方法。考虑到稀疏视图渲染的本质不适定性，融入先验信息至关重要。我们提出了一种语义正则化技术，利用从预训练的DINO-ViT模型中提取的特征，以确保多视图语义一致性。此外，我们还提出了局部深度正则化，通过约束深度值来提高未见视图的泛化能力。我们的方法在新型视图合成方面超越了现有技术，在LLFF数据集上，峰值信噪比（PSNR）提高了高达0.4dB，降低了失真，提高了视觉质量。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.11508v1">PDF</a> 5 pages, 5 figures, has been accepted by the ICASSP 2025</p>
+<p><strong>Summary</strong></p>
+<p>3DGS在新型视角合成中表现出卓越性能，但在稀疏视角输入下渲染质量下降，导致内容失真和细节缺失。为解决此问题，提出一种稀疏视角的3DGS方法，并结合先验信息，采用预训练的DINO-ViT模型提取特征，确保多视角语义一致性。此外，还提出局部深度正则化，约束深度值以提高未见视角的泛化能力。该方法优于现有新型视角合成方法，在LLFF数据集上的PSNR提高达0.4dB，降低了失真并提高了视觉质量。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>3DGS在新型视角合成中表现优秀，但在稀疏视角输入时存在渲染质量下降的问题。</li>
+<li>为解决渲染质量问题，提出一种稀疏视角的3DGS方法。</li>
+<li>结合先验信息，采用预训练的DINO-ViT模型提取特征，确保多视角语义一致性。</li>
+<li>引入局部深度正则化，约束深度值以提高未见视角的泛化能力。</li>
+<li>该方法在新型视角合成方面优于其他方法。</li>
+<li>在LLFF数据集上，该方法相比其他方法PSNR提高了0.4dB。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.11508">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6553eb0dff0591d407c95a624d705d54.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f569198b3b8080f576c35ebad2eaaa50.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-e794df71fae41dde9925e22de2282fae.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-06725cad969eec82106e54f0cc94ba2e.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-2d423b4e92697a450bc5c6867b135624.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="RDG-GS-Relative-Depth-Guidance-with-Gaussian-Splatting-for-Real-time-Sparse-View-3D-Rendering"><a href="#RDG-GS-Relative-Depth-Guidance-with-Gaussian-Splatting-for-Real-time-Sparse-View-3D-Rendering" class="headerlink" title="RDG-GS: Relative Depth Guidance with Gaussian Splatting for Real-time   Sparse-View 3D Rendering"></a>RDG-GS: Relative Depth Guidance with Gaussian Splatting for Real-time   Sparse-View 3D Rendering</h2><p><strong>Authors:Chenlu Zhan, Yufei Zhang, Yu Lin, Gaoang Wang, Hongwei Wang</strong></p>
+<p>Efficiently synthesizing novel views from sparse inputs while maintaining accuracy remains a critical challenge in 3D reconstruction. While advanced techniques like radiance fields and 3D Gaussian Splatting achieve rendering quality and impressive efficiency with dense view inputs, they suffer from significant geometric reconstruction errors when applied to sparse input views. Moreover, although recent methods leverage monocular depth estimation to enhance geometric learning, their dependence on single-view estimated depth often leads to view inconsistency issues across different viewpoints. Consequently, this reliance on absolute depth can introduce inaccuracies in geometric information, ultimately compromising the quality of scene reconstruction with Gaussian splats. In this paper, we present RDG-GS, a novel sparse-view 3D rendering framework with Relative Depth Guidance based on 3D Gaussian Splatting. The core innovation lies in utilizing relative depth guidance to refine the Gaussian field, steering it towards view-consistent spatial geometric representations, thereby enabling the reconstruction of accurate geometric structures and capturing intricate textures. First, we devise refined depth priors to rectify the coarse estimated depth and insert global and fine-grained scene information to regular Gaussians. Building on this, to address spatial geometric inaccuracies from absolute depth, we propose relative depth guidance by optimizing the similarity between spatially correlated patches of depth and images. Additionally, we also directly deal with the sparse areas challenging to converge by the adaptive sampling for quick densification. Across extensive experiments on Mip-NeRF360, LLFF, DTU, and Blender, RDG-GS demonstrates state-of-the-art rendering quality and efficiency, making a significant advancement for real-world application. </p>
+<blockquote>
+<p>在3D重建中，从稀疏输入高效地合成新型视图的同时保持准确性仍然是一个关键挑战。虽然像辐射场和3D高斯泼溅这样的先进技术可以实现高质量的渲染和高效的性能，但当应用于稀疏输入视图时，它们会存在显著的几何重建误差。此外，尽管最近的方法利用单眼深度估计来增强几何学习，但它们对单视图估计深度的依赖往往导致不同视点之间的视图不一致问题。因此，这种对绝对深度的依赖可能会引入几何信息的不准确，最终损害高斯喷溅场景重建的质量。在本文中，我们提出了基于3D高斯泼溅的相对深度指导的稀疏视图3D渲染框架RDG-GS。核心创新之处在于利用相对深度指导来优化高斯场，使其朝向一致的视图空间几何表示，从而能够实现准确的几何结构重建并捕捉精细纹理。首先，我们设计了精细的深度先验来纠正粗略估计的深度，并将全局和精细场景信息插入高斯函数中。在此基础上，为了解决由绝对深度引起的空间几何误差，我们通过优化深度和图像空间相关斑块之间的相似性来提出相对深度指导。此外，我们还通过自适应采样直接处理稀疏区域，以快速实现密集化，应对挑战。在Mip-NeRF360、LLFF、DTU和Blender的大量实验表明，RDG-GS具有最先进的渲染质量和效率，为实际应用取得了重大进展。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.11102v1">PDF</a> 24 pages, 12 figures</p>
+<p><strong>Summary</strong></p>
+<p>在稀疏输入下进行高效的视角合成仍然是保持精确性的一个难题。先进的渲染技术如光线辐射场和3D高斯平板印刷可以在密集视图输入下实现高质量的渲染和高效的效率，但当应用于稀疏视图输入时，它们会面临重大的几何重建误差问题。尽管最近的方法利用单眼深度估计增强几何学习，但它们依赖于单视图估计的深度，这往往导致不同视角之间的视图不一致问题。因此，对绝对深度的依赖可能会导致几何信息的不准确，从而最终损害场景的重建质量。本文提出了一种基于相对深度指导的稀疏视图3D渲染框架RDG-GS。核心创新在于利用相对深度指导优化高斯场，使其朝一致的空间几何表示方向移动，从而实现准确的几何结构重建和精细纹理捕捉。通过广泛的实验验证，RDG-GS在Mip-NeRF360、LLFF、DTU和Blender等多个数据集上展现出最佳的渲染质量和效率，为实际应用提供了显著的进步。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>稀疏输入下的视角合成是维持精确性的关键挑战。当前技术在几何重建中易出错，尤其是处理稀疏视角时。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.11102">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-abea4915f284ed90f9af825b73fe8854.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-90d202c133095e34ea6f2aef2d5115e0.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-8419118fb7522980759494c6ef264da9.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Car-GS-Addressing-Reflective-and-Transparent-Surface-Challenges-in-3D-Car-Reconstruction"><a href="#Car-GS-Addressing-Reflective-and-Transparent-Surface-Challenges-in-3D-Car-Reconstruction" class="headerlink" title="Car-GS: Addressing Reflective and Transparent Surface Challenges in 3D   Car Reconstruction"></a>Car-GS: Addressing Reflective and Transparent Surface Challenges in 3D   Car Reconstruction</h2><p><strong>Authors:Congcong Li, Jin Wang, Xiaomeng Wang, Xingchen Zhou, Wei Wu, Yuzhi Zhang, Tongyi Cao</strong></p>
+<p>3D car modeling is crucial for applications in autonomous driving systems, virtual and augmented reality, and gaming. However, due to the distinctive properties of cars, such as highly reflective and transparent surface materials, existing methods often struggle to achieve accurate 3D car reconstruction.To address these limitations, we propose Car-GS, a novel approach designed to mitigate the effects of specular highlights and the coupling of RGB and geometry in 3D geometric and shading reconstruction (3DGS). Our method incorporates three key innovations: First, we introduce view-dependent Gaussian primitives to effectively model surface reflections. Second, we identify the limitations of using a shared opacity parameter for both image rendering and geometric attributes when modeling transparent objects. To overcome this, we assign a learnable geometry-specific opacity to each 2D Gaussian primitive, dedicated solely to rendering depth and normals. Third, we observe that reconstruction errors are most prominent when the camera view is nearly orthogonal to glass surfaces. To address this issue, we develop a quality-aware supervision module that adaptively leverages normal priors from a pre-trained large-scale normal model.Experimental results demonstrate that Car-GS achieves precise reconstruction of car surfaces and significantly outperforms prior methods. The project page is available at <a target="_blank" rel="noopener" href="https://lcc815.github.io/Car-GS">https://lcc815.github.io/Car-GS</a>. </p>
+<blockquote>
+<p>3D车辆建模在自动驾驶系统、虚拟和增强现实以及游戏等领域具有广泛的应用。然而，由于汽车的独特属性，如高反射和透明表面材料，现有方法往往难以进行准确的3D车辆重建。为了解决这些局限性，我们提出了Car-GS这一新方法，旨在缓解镜面高光和RGB与几何形状在三维几何和着色重建（3DGS）中的耦合效应的影响。我们的方法结合了三项关键创新：首先，我们引入视相关的高斯基本元素来有效地模拟表面反射。其次，我们发现使用共享的透明度参数对图像渲染和几何属性进行建模时存在局限性，尤其是在模拟透明物体时。为了克服这一问题，我们为每个二维高斯基本元素分配了一个可学习的几何特定透明度，专门用于渲染深度和法线。最后，我们观察到当相机视角几乎垂直于玻璃表面时，重建误差最为明显。为了解决这个问题，我们开发了一个质量感知的监督模块，该模块自适应地利用预训练的大规模法线模型的法线先验信息。实验结果表明，Car-GS实现了汽车表面的精确重建，并显著优于以前的方法。项目页面可在<a target="_blank" rel="noopener" href="https://lcc815.github.io/Car-GS">https://lcc815.github.io/Car-GS</a>访问。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.11020v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出Car-GS方法来解决在自主驾驶系统、虚拟与增强现实和游戏中应用的车辆三维建模问题。针对车辆特有的反射和透明表面材质特性，Car-GS通过引入视图相关的高斯基本形状、可学习的几何特定遮光度以及质量感知监督模块等技术创新解决了现有方法的局限性，实现了精确的车辆表面重建。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>3D car modeling在自主驾驶系统、虚拟与增强现实和游戏中具有关键作用。但车辆特有的反射和透明材质给建模带来挑战。</li>
+<li>现有方法在车辆建模中面临准确重建的挑战。为此，提出了Car-GS方法来解决这些问题。</li>
+<li>Car-GS引入视图相关的高斯基本形状，有效模拟表面反射。</li>
+<li>Car-GS识别了为透明物体建模时共享遮光度参数的局限性，并对其进行改进。为每个二维高斯基本形状分配一个仅用于渲染深度和法线的几何特定遮光度。</li>
+<li>当相机视角几乎垂直于玻璃表面时，重建误差最为明显。为此，Car-GS开发了一个质量感知监督模块，自适应利用预训练的大规模法线模型的法线先验信息。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.11020">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-6ab1235be84573fed5272191f8b6943c.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-5022a98781df4152a4bc88191f8f70bc.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-5220acb63883d0ce1718742293fa0da3.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-74683a1677df358e84f22ba065301423.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-e83233ef604685f07484581ab80a2b54.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-73e3b4e186bd37c955fd073365370cff.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="Decoupling-Appearance-Variations-with-3D-Consistent-Features-in-Gaussian-Splatting"><a href="#Decoupling-Appearance-Variations-with-3D-Consistent-Features-in-Gaussian-Splatting" class="headerlink" title="Decoupling Appearance Variations with 3D Consistent Features in Gaussian   Splatting"></a>Decoupling Appearance Variations with 3D Consistent Features in Gaussian   Splatting</h2><p><strong>Authors:Jiaqi Lin, Zhihao Li, Binxiao Huang, Xiao Tang, Jianzhuang Liu, Shiyong Liu, Xiaofei Wu, Fenglong Song, Wenming Yang</strong></p>
+<p>Gaussian Splatting has emerged as a prominent 3D representation in novel view synthesis, but it still suffers from appearance variations, which are caused by various factors, such as modern camera ISPs, different time of day, weather conditions, and local light changes. These variations can lead to floaters and color distortions in the rendered images&#x2F;videos. Recent appearance modeling approaches in Gaussian Splatting are either tightly coupled with the rendering process, hindering real-time rendering, or they only account for mild global variations, performing poorly in scenes with local light changes. In this paper, we propose DAVIGS, a method that decouples appearance variations in a plug-and-play and efficient manner. By transforming the rendering results at the image level instead of the Gaussian level, our approach can model appearance variations with minimal optimization time and memory overhead. Furthermore, our method gathers appearance-related information in 3D space to transform the rendered images, thus building 3D consistency across views implicitly. We validate our method on several appearance-variant scenes, and demonstrate that it achieves state-of-the-art rendering quality with minimal training time and memory usage, without compromising rendering speeds. Additionally, it provides performance improvements for different Gaussian Splatting baselines in a plug-and-play manner. </p>
+<blockquote>
+<p>高斯平铺技术已成为新型视图合成中的突出3D表示方法，但它仍然受到外观变化的影响，这些变化是由现代相机ISP、一天中的不同时间、天气条件和局部光照变化等各种因素造成的。这些变化可能导致渲染的图像&#x2F;视频中浮现浮光与色彩失真。高斯平铺技术中最近的外观建模方法要么与渲染过程紧密耦合，阻碍实时渲染，要么只考虑轻微的全局变化，在局部光照变化的场景中表现不佳。在本文中，我们提出了DAVIGS方法，该方法能够以即插即用和高效的方式解耦外观变化。我们的方法通过在图像层面而非高斯层面转换渲染结果，能够以最短的优化时间和内存开销对外观变化进行建模。此外，我们的方法还能够在3D空间中收集与外观相关的信息以转换渲染的图像，从而隐式地建立跨视图的3D一致性。我们在多个外观变化的场景上验证了我们的方法，并证明它在训练时间和内存使用最少的情况下实现了最先进的渲染质量，同时不牺牲渲染速度。此外，它还以即插即用方式提高了不同高斯平铺基准的性能。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.10788v1">PDF</a> Accepted to AAAI 2025. Project website:   <a target="_blank" rel="noopener" href="https://davi-gaussian.github.io/">https://davi-gaussian.github.io</a></p>
+<p><strong>Summary</strong><br>    高斯描影技术已成为新型视角合成中的主流3D表示方法，但仍有外观变化问题。论文提出DAVIGS方法，以高效的方式解决外观变化问题，提升渲染图像质量。该方法在图像层面进行渲染结果转换，而非高斯层面，能模拟外观变化且优化时间和内存开销最小。DAVIGS还能在3D空间中收集外观相关信息来转换渲染图像，从而建立视图之间的隐式3D一致性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Gaussian Splatting是主流3D表示方法，但仍存在外观变化问题。</li>
+<li>外观变化可能来源于现代相机ISP、时间、天气和局部光照变化。</li>
+<li>现有方法要么与渲染过程紧密耦合，影响实时渲染速度，要么仅适用于轻微全局变化。</li>
+<li>DAVIGS方法能在图像层面进行渲染结果转换，模拟外观变化，优化时间和内存开销最小。</li>
+<li>DAVIGS在建立视图之间的隐式3D一致性方面表现出优势。</li>
+<li>该方法在多个场景下的验证证明了其优秀渲染质量，并且具有快速的训练时间和较低的内存使用。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.10788">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6cdc26c4d240bd29120812df26e055ce.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10788v1/page_1_0.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-3d76213e8ccec016f52bad3f4c025f6f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d0931fa4b7053db1517c04f074142651.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10788v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10788v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="GSTAR-Gaussian-Surface-Tracking-and-Reconstruction"><a href="#GSTAR-Gaussian-Surface-Tracking-and-Reconstruction" class="headerlink" title="GSTAR: Gaussian Surface Tracking and Reconstruction"></a>GSTAR: Gaussian Surface Tracking and Reconstruction</h2><p><strong>Authors:Chengwei Zheng, Lixin Xue, Juan Zarate, Jie Song</strong></p>
+<p>3D Gaussian Splatting techniques have enabled efficient photo-realistic rendering of static scenes. Recent works have extended these approaches to support surface reconstruction and tracking. However, tracking dynamic surfaces with 3D Gaussians remains challenging due to complex topology changes, such as surfaces appearing, disappearing, or splitting. To address these challenges, we propose GSTAR, a novel method that achieves photo-realistic rendering, accurate surface reconstruction, and reliable 3D tracking for general dynamic scenes with changing topology. Given multi-view captures as input, GSTAR binds Gaussians to mesh faces to represent dynamic objects. For surfaces with consistent topology, GSTAR maintains the mesh topology and tracks the meshes using Gaussians. In regions where topology changes, GSTAR adaptively unbinds Gaussians from the mesh, enabling accurate registration and the generation of new surfaces based on these optimized Gaussians. Additionally, we introduce a surface-based scene flow method that provides robust initialization for tracking between frames. Experiments demonstrate that our method effectively tracks and reconstructs dynamic surfaces, enabling a range of applications. Our project page with the code release is available at <a target="_blank" rel="noopener" href="https://eth-ait.github.io/GSTAR/">https://eth-ait.github.io/GSTAR/</a>. </p>
+<blockquote>
+<p>三维高斯扩展技术已经实现了静态场景的光照现实渲染。近期的研究已经将这些方法扩展到支持表面重建和跟踪。然而，使用三维高斯跟踪动态表面仍然具有挑战性，这是由于复杂的拓扑变化，例如表面出现、消失或分裂。为了应对这些挑战，我们提出了GSTAR，这是一种实现光照现实渲染、精确表面重建和可靠的三维跟踪的新方法，适用于具有拓扑变化的通用动态场景。给定多视图捕获作为输入，GSTAR将高斯绑定到网格面以表示动态对象。对于具有一致拓扑的表面，GSTAR保持网格拓扑并使用高斯进行网格跟踪。在拓扑变化区域，GSTAR自适应地从网格解绑高斯，从而实现准确注册和基于优化高斯生成新的表面。此外，我们引入了一种基于表面的场景流方法，为帧间跟踪提供稳健的初始化。实验表明，我们的方法可以有效地跟踪和重建动态表面，从而支持一系列应用。我们的项目页面及代码发布可在<a target="_blank" rel="noopener" href="https://eth-ait.github.io/GSTAR/%E6%9F%A5%E7%9C%8B%E3%80%82">https://eth-ait.github.io/GSTAR/查看。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.10283v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种名为GSTAR的新方法，该方法实现了动态场景的光照真实渲染、精确表面重建和可靠的3D跟踪。它通过将高斯绑定到网格表面来表示动态对象，自适应地处理拓扑变化，实现表面准确注册和新表面生成。同时引入基于表面的场景流方法，为帧间跟踪提供稳健初始化。此方法在动态表面跟踪和重建方面表现出色，可应用于多种领域。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>GSTAR实现了动态场景的光照真实渲染、表面重建和3D跟踪。</li>
+<li>GSTAR通过将高斯绑定到网格表面来表示动态对象。</li>
+<li>对于拓扑一致的表面，GSTAR保持网格拓扑并使用高斯进行追踪。</li>
+<li>在拓扑变化区域，GSTAR能够自适应地解绑高斯，实现准确注册和新表面生成。</li>
+<li>GSTAR引入了一种基于表面的场景流方法，为帧间跟踪提供稳健初始化。</li>
+<li>实验表明，GSTAR在动态表面跟踪和重建方面效果显著。</li>
+<li>GSTAR方法可应用于多种领域。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.10283">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10283v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10283v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10283v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.10283v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="F3D-Gaus-Feed-forward-3D-aware-Generation-on-ImageNet-with-Cycle-Consistent-Gaussian-Splatting"><a href="#F3D-Gaus-Feed-forward-3D-aware-Generation-on-ImageNet-with-Cycle-Consistent-Gaussian-Splatting" class="headerlink" title="F3D-Gaus: Feed-forward 3D-aware Generation on ImageNet with   Cycle-Consistent Gaussian Splatting"></a>F3D-Gaus: Feed-forward 3D-aware Generation on ImageNet with   Cycle-Consistent Gaussian Splatting</h2><p><strong>Authors:Yuxin Wang, Qianyi Wu, Dan Xu</strong></p>
+<p>This paper tackles the problem of generalizable 3D-aware generation from monocular datasets, e.g., ImageNet. The key challenge of this task is learning a robust 3D-aware representation without multi-view or dynamic data, while ensuring consistent texture and geometry across different viewpoints. Although some baseline methods are capable of 3D-aware generation, the quality of the generated images still lags behind state-of-the-art 2D generation approaches, which excel in producing high-quality, detailed images. To address this severe limitation, we propose a novel feed-forward pipeline based on pixel-aligned Gaussian Splatting, coined as F3D-Gaus, which can produce more realistic and reliable 3D renderings from monocular inputs. In addition, we introduce a self-supervised cycle-consistent constraint to enforce cross-view consistency in the learned 3D representation. This training strategy naturally allows aggregation of multiple aligned Gaussian primitives and significantly alleviates the interpolation limitations inherent in single-view pixel-aligned Gaussian Splatting. Furthermore, we incorporate video model priors to perform geometry-aware refinement, enhancing the generation of fine details in wide-viewpoint scenarios and improving the model’s capability to capture intricate 3D textures. Extensive experiments demonstrate that our approach not only achieves high-quality, multi-view consistent 3D-aware generation from monocular datasets, but also significantly improves training and inference efficiency. </p>
+<blockquote>
+<p>本文解决了从单目数据集（例如ImageNet）中进行可泛化的3D感知生成的问题。此任务的关键挑战在于，如何在没有多视角或动态数据的情况下学习稳健的3D感知表示，同时确保不同视角下的纹理和几何一致性。尽管一些基线方法能够进行3D感知生成，但所生成图像的质量仍然落后于最先进的2D生成方法，后者在生成高质量、详细的图像方面表现出色。为了解决这一严重限制，我们提出了一种基于像素对齐高斯拼贴的新型前馈管道，称为F3D-Gaus，它可以从单目输入中产生更真实和可靠的3D渲染。此外，我们引入了一种自监督循环一致性约束，以强制执行学习到的3D表示中的跨视图一致性。这种训练策略自然地允许多个对齐的高斯基元聚集，并大大减轻了单视图像素对齐高斯拼贴所固有的插值限制。此外，我们结合了视频模型先验知识来进行几何感知细化，提高了宽视角场景中的细节生成，并提高了模型捕捉复杂3D纹理的能力。大量实验表明，我们的方法不仅实现了从单目数据集的高质量、多视角一致的3D感知生成，还大大提高了训练和推理效率。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.06714v2">PDF</a> Project Page: <a target="_blank" rel="noopener" href="https://w-ted.github.io/publications/F3D-Gaus">https://w-ted.github.io/publications/F3D-Gaus</a></p>
+<p><strong>Summary</strong></p>
+<p>本文解决的是从单目数据集（如ImageNet）中进行通用化3D感知生成的问题。文章提出了一个基于像素对齐高斯摊铺的新的前馈管道（F3D-Gaus），用于从单目输入生成更真实、可靠的3D渲染。此外，还引入了一种自监督循环一致性约束来强制执行学习到的3D表示中的跨视图一致性。通过融入视频模型先验，进行几何感知细化，提高了宽视角场景中的细节生成能力，并提高了模型捕捉复杂3D纹理的能力。实验表明，该方法不仅实现了高质量的、多视角一致的3D感知生成，还大大提高了训练和推理的效率。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>该论文解决了从单目数据集进行3D感知生成的问题，旨在学习一个不需要多视角或动态数据的稳健的3D表示。</li>
+<li>提出了一种新的前馈管道F3D-Gaus，基于像素对齐高斯摊铺，能够生成更真实、可靠的3D渲染。</li>
+<li>引入了自监督循环一致性约束，以确保学习到的3D表示在不同视角之间的一致性。</li>
+<li>通过融入视频模型先验，提高了在宽视角场景中的细节生成能力，并增强了模型捕捉复杂3D纹理的能力。</li>
+<li>该方法实现了高质量的、多视角一致的3D感知生成，同时提高了训练和推理的效率。</li>
+<li>F3D-Gaus方法能够有效缓解单一视角像素对齐高斯摊铺的插值限制，通过聚合多个对齐的高斯原始数据来实现。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.06714">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.06714v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.06714v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.06714v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.06714v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.06714v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="DehazeGS-Seeing-Through-Fog-with-3D-Gaussian-Splatting"><a href="#DehazeGS-Seeing-Through-Fog-with-3D-Gaussian-Splatting" class="headerlink" title="DehazeGS: Seeing Through Fog with 3D Gaussian Splatting"></a>DehazeGS: Seeing Through Fog with 3D Gaussian Splatting</h2><p><strong>Authors:Jinze Yu, Yiqun Wang, Zhengda Lu, Jianwei Guo, Yong Li, Hongxing Qin, Xiaopeng Zhang</strong></p>
+<p>Current novel view synthesis tasks primarily rely on high-quality and clear images. However, in foggy scenes, scattering and attenuation can significantly degrade the reconstruction and rendering quality. Although NeRF-based dehazing reconstruction algorithms have been developed, their use of deep fully connected neural networks and per-ray sampling strategies leads to high computational costs. Moreover, NeRF’s implicit representation struggles to recover fine details from hazy scenes. In contrast, recent advancements in 3D Gaussian Splatting achieve high-quality 3D scene reconstruction by explicitly modeling point clouds into 3D Gaussians. In this paper, we propose leveraging the explicit Gaussian representation to explain the foggy image formation process through a physically accurate forward rendering process. We introduce DehazeGS, a method capable of decomposing and rendering a fog-free background from participating media using only muti-view foggy images as input. We model the transmission within each Gaussian distribution to simulate the formation of fog. During this process, we jointly learn the atmospheric light and scattering coefficient while optimizing the Gaussian representation of the hazy scene. In the inference stage, we eliminate the effects of scattering and attenuation on the Gaussians and directly project them onto a 2D plane to obtain a clear view. Experiments on both synthetic and real-world foggy datasets demonstrate that DehazeGS achieves state-of-the-art performance in terms of both rendering quality and computational efficiency. visualizations are available at <a target="_blank" rel="noopener" href="https://dehazegs.github.io/">https://dehazegs.github.io/</a> </p>
+<blockquote>
+<p>当前的新型视图合成任务主要依赖于高质量、清晰的图像。然而在雾天场景中，散射和衰减会显著地降低重建和渲染质量。尽管已经开发了基于NeRF的去雾重建算法，但它们使用深度全连接神经网络和每射线采样策略，导致计算成本高昂。此外，NeRF的隐式表示很难从雾蒙蒙的场景中恢复细节。相比之下，3D高斯拼贴技术的最新进展通过显式地对面云进行建模来实现高质量的三维场景重建为三维高斯分布。在本文中，我们提出利用显式的高斯表示法，通过物理准确的正向渲染过程来解释雾蒙蒙图像的形成过程。我们介绍了DehazeGS方法，该方法能够从参与介质中分解并渲染无雾背景，仅使用多视角雾蒙蒙图像作为输入。我们模拟了高斯分布内的传输以模拟雾的形成。在此过程中，我们联合学习大气光和散射系数，同时优化雾蒙蒙场景的高斯表示。在推理阶段，我们消除了散射和衰减对高斯分布的影响，并将其直接投影到二维平面上以获得清晰视图。在合成和真实世界的雾天数据集上的实验表明，DehazeGS在渲染质量和计算效率方面都达到了最先进的性能。可视化效果请访问：[<a target="_blank" rel="noopener" href="https://dehazegs.github.io/]%EF%BC%88%E3%80%8Ahttps://dehazegs.github.io%E3%80%8B%E7%BD%91%E7%AB%99%EF%BC%89%E6%9F%A5%E9%98%85%E3%80%82">https://dehazegs.github.io/]（《https://dehazegs.github.io》网站）查阅。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.03659v4">PDF</a> 9 pages,4 figures. visualizations are available at   <a target="_blank" rel="noopener" href="https://dehazegs.github.io/">https://dehazegs.github.io/</a></p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种基于3D高斯展布（Gaussian Splatting）的去雾方法，称为DehazeGS。该方法利用显式高斯表示来模拟雾天图像形成过程，通过多视角雾天图像输入，分解并渲染出无雾背景。该方法模拟高斯分布中的传输过程，联合学习大气光和散射系数，优化雾场景的Gaussian表示，并在推理阶段消除散射和衰减对高斯的影响，直接投影到2D平面以获得清晰视图。实验表明，DehazeGS在渲染质量和计算效率方面达到领先水平。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>当前视图合成任务主要依赖高质量清晰图像，但在雾天场景，散射和衰减会严重影响重建和渲染质量。</li>
+<li>NeRF的隐式表示在雾天场景难以恢复细节，而3D高斯展布可实现高质量3D场景重建。</li>
+<li>DehazeGS方法利用显式高斯表示模拟雾天图像形成过程，通过多视角雾天图像进行去雾处理。</li>
+<li>方法中模拟高斯分布中的传输过程，联合学习大气光和散射系数。</li>
+<li>DehazeGS在推理阶段消除散射和衰减影响，直接将高斯投影到2D平面获得清晰视图。</li>
+<li>实验证明DehazeGS在渲染质量和计算效率方面达到领先水平。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.03659">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.03659v4/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.03659v4/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2501.03659v4/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="3DGS-CD-3D-Gaussian-Splatting-based-Change-Detection-for-Physical-Object-Rearrangement"><a href="#3DGS-CD-3D-Gaussian-Splatting-based-Change-Detection-for-Physical-Object-Rearrangement" class="headerlink" title="3DGS-CD: 3D Gaussian Splatting-based Change Detection for Physical   Object Rearrangement"></a>3DGS-CD: 3D Gaussian Splatting-based Change Detection for Physical   Object Rearrangement</h2><p><strong>Authors:Ziqi Lu, Jianbo Ye, John Leonard</strong></p>
+<p>We present 3DGS-CD, the first 3D Gaussian Splatting (3DGS)-based method for detecting physical object rearrangements in 3D scenes. Our approach estimates 3D object-level changes by comparing two sets of unaligned images taken at different times. Leveraging 3DGS’s novel view rendering and EfficientSAM’s zero-shot segmentation capabilities, we detect 2D object-level changes, which are then associated and fused across views to estimate 3D change masks and object transformations. Our method can accurately identify changes in cluttered environments using sparse (as few as one) post-change images within as little as 18s. It does not rely on depth input, user instructions, pre-defined object classes, or object models – An object is recognized simply if it has been re-arranged. Our approach is evaluated on both public and self-collected real-world datasets, achieving up to 14% higher accuracy and three orders of magnitude faster performance compared to the state-of-the-art radiance-field-based change detection method. This significant performance boost enables a broad range of downstream applications, where we highlight three key use cases: object reconstruction, robot workspace reset, and 3DGS model update. Our code and data will be made available at <a target="_blank" rel="noopener" href="https://github.com/520xyxyzq/3DGS-CD">https://github.com/520xyxyzq/3DGS-CD</a>. </p>
+<blockquote>
+<p>我们提出了基于三维高斯拼贴（3DGS）的变化检测新方法，名为3DGS-CD，它是首个用于检测三维场景中物理对象重组的方法。我们的方法通过比较两个在不同时间拍摄的不对齐的图像集来估计三维对象级别的变化。我们利用3DGS的新型视图渲染和EfficientSAM的零样本分割能力，检测二维对象级别的变化，然后将这些变化在不同视图中关联和融合，以估计三维变化掩膜和对象变换。我们的方法能够在杂乱的环境中准确地识别变化，仅使用少量（至少一张）变化后的图像在短短18秒内即可完成。它不依赖于深度输入、用户指令、预定义的对象类别或对象模型——只要对象被重新排列即可识别。我们的方法在公共和自我收集的真实世界数据集上进行了评估，与基于辐射场的变化检测方法相比，我们的方法提高了高达14%的准确性和三个数量级的性能。这一显著的性能提升为多种下游应用提供了可能，我们重点介绍了三个关键用例：对象重建、机器人工作空间重置和3DGS模型更新。我们的代码和数据将在<a target="_blank" rel="noopener" href="https://github.com/520xyxyzq/3DGS-CD%E4%B8%8A%E6%8F%90%E4%BE%9B%E3%80%82">https://github.com/520xyxyzq/3DGS-CD上提供。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2411.03706v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种基于3D高斯拼接技术的新型物理对象重排检测方法。该方法通过对比不同时间点的未对齐图像，实现对物理对象的实时跟踪。该方法充分利用高效无照点的零视图分割能力与不同视图的组合信息，有效检测出复杂的对象变化和立体转换掩码。其特点是可在短期内精确捕捉移动、重塑的物体而不依赖于深度图像信息、用户预设的操作、特定的类别模型和预定目标的指向动作，拓展了广泛应用的可能性，包括物体重建、机器人重置空间和模型更新等。<strong>Key Takeaways</strong></p>
+<ol>
+<li>介绍了一种基于3D高斯拼接技术的新型方法——3DGS-CD，用于检测三维场景中的物理对象重排。</li>
+<li>方法通过比较两组不同时间的图像进行估算对象的三维变化。</li>
+<li>结合高效SAM的无视无照点分割能力，准确检测二维对象变化，并跨视图关联融合生成三维变化掩码和对象转换。</li>
+<li>该方法能够在短时间内准确识别出重组后的物体，仅使用少数几张改变后的图像。</li>
+<li>不依赖于深度输入、用户指令、预定义对象类别或对象模型，能够识别任何被重新排列的对象。</li>
+<li>在公共和自行收集的真实世界数据集上进行了评估，与当前主流的基于辐射场的变化检测方法相比，准确性提高了高达14%，性能提高了三个数量级。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2411.03706">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-01-23\./crop_3DGS/2411.03706v2/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-01-23/3DGS/">https://kedreamix.github.io/Talk2Paper/Paper/2025-01-23/3DGS/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/3DGS/">
+                                    <span class="chip bg-color">3DGS</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-01-23/NeRF/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-e9119d160fc76e800ef9d7ecf8b48cd5.jpg" class="responsive-img" alt="NeRF">
+                        
+                        <span class="card-title">NeRF</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            NeRF 方向最新论文已更新，请持续关注 Update in 2025-01-23  Fast Underwater Scene Reconstruction using Multi-View Stereo and   Physical Imaging
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-01-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                    NeRF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/NeRF/">
+                        <span class="chip bg-color">NeRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-01-23/%E5%85%83%E5%AE%87%E5%AE%99_%E8%99%9A%E6%8B%9F%E4%BA%BA/">
+                    <div class="card-image">
+                        
+                        <img src="https://pica.zhimg.com/v2-e24ab081df889df7082dd8bbd4ff876a.jpg" class="responsive-img" alt="元宇宙/虚拟人">
+                        
+                        <span class="card-title">元宇宙/虚拟人</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            元宇宙/虚拟人 方向最新论文已更新，请持续关注 Update in 2025-01-23  EMO2 End-Effector Guided Audio-Driven Avatar Video Generation
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-01-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E5%85%83%E5%AE%87%E5%AE%99-%E8%99%9A%E6%8B%9F%E4%BA%BA/" class="post-category">
+                                    元宇宙/虚拟人
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E5%85%83%E5%AE%87%E5%AE%99-%E8%99%9A%E6%8B%9F%E4%BA%BA/">
+                        <span class="chip bg-color">元宇宙/虚拟人</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">9273.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
