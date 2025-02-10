@@ -1,0 +1,1390 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="无监督/半监督/对比学习">
+    <meta name="description" content="无监督/半监督/对比学习 方向最新论文已更新，请持续关注 Update in 2025-02-11  Graph Contrastive Learning for Connectome Classification">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>无监督/半监督/对比学习 | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_0_0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">无监督/半监督/对比学习</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/%E6%97%A0%E7%9B%91%E7%9D%A3-%E5%8D%8A%E7%9B%91%E7%9D%A3-%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">无监督/半监督/对比学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/%E6%97%A0%E7%9B%91%E7%9D%A3-%E5%8D%8A%E7%9B%91%E7%9D%A3-%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                无监督/半监督/对比学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-11
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-02-11
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    21 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-02-11-更新"><a href="#2025-02-11-更新" class="headerlink" title="2025-02-11 更新"></a>2025-02-11 更新</h1><h2 id="Graph-Contrastive-Learning-for-Connectome-Classification"><a href="#Graph-Contrastive-Learning-for-Connectome-Classification" class="headerlink" title="Graph Contrastive Learning for Connectome Classification"></a>Graph Contrastive Learning for Connectome Classification</h2><p><strong>Authors:Martín Schmidt, Sara Silva, Federico Larroca, Gonzalo Mateos, Pablo Musé</strong></p>
+<p>With recent advancements in non-invasive techniques for measuring brain activity, such as magnetic resonance imaging (MRI), the study of structural and functional brain networks through graph signal processing (GSP) has gained notable prominence. GSP stands as a key tool in unraveling the interplay between the brain’s function and structure, enabling the analysis of graphs defined by the connections between regions of interest – referred to as connectomes in this context. Our work represents a further step in this direction by exploring supervised contrastive learning methods within the realm of graph representation learning. The main objective of this approach is to generate subject-level (i.e., graph-level) vector representations that bring together subjects sharing the same label while separating those with different labels. These connectome embeddings are derived from a graph neural network Encoder-Decoder architecture, which jointly considers structural and functional connectivity. By leveraging data augmentation techniques, the proposed framework achieves state-of-the-art performance in a gender classification task using Human Connectome Project data. More broadly, our connectome-centric methodological advances support the promising prospect of using GSP to discover more about brain function, with potential impact to understanding heterogeneity in the neurodegeneration for precision medicine and diagnosis. </p>
+<blockquote>
+<p>随着无创技术测量脑活动的最新进展，如磁共振成像（MRI），通过图信号处理（GSP）研究结构和功能脑网络已经变得尤为突出。图信号处理是揭示大脑功能结构相互作用的关键工具，能够分析由感兴趣区域之间连接所定义的图的分析，这在本文中被称为连接组。我们的工作是在这一方向上迈出了一步，通过探索图表示学习领域的监督对比学习方法。该方法的主要目标是生成主体级（即图级）的向量表示，这些表示能够将具有相同标签的主体聚集在一起，同时区分具有不同标签的主体。这些连接组嵌入来自图神经网络编码器-解码器架构，该架构同时考虑了结构和功能连接性。通过利用数据增强技术，所提出的框架在利用人类连接组项目数据的性别分类任务上达到了最先进的性能。更广泛地说，我们的以连接组为中心的方法论进展支持了使用GSP来了解大脑功能的希望前景，对精确医学和诊断中的神经变异的异质性理解具有潜在影响。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.05109v1">PDF</a> Submitted to EMBC ‘25</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了利用非侵入性技术（如磁共振成像）研究脑网络和图信号处理（GSP）的最新进展。文章重点介绍了一种基于图表示学习的有监督对比学习方法，旨在生成主题级别的向量表示，将同一标签的主题聚集在一起，同时区分不同标签的主题。通过利用数据增强技术，所提出的框架在人类连接组项目数据中实现了性别分类任务的卓越性能。此外，该研究为使用GSP深入了解大脑功能提供了前景，有望对神经退行性疾病的精确医学和诊断产生潜在影响。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>非侵入性技术如磁共振成像（MRI）在研究脑网络方面扮演重要角色。</li>
+<li>图信号处理（GSP）是揭示脑功能结构交互的关键工具。</li>
+<li>通过对图表示学习的有监督对比学习方法的研究，可以生成主题级别的向量表示。</li>
+<li>该方法通过数据增强技术实现了性别分类任务的卓越性能。</li>
+<li>该研究利用GSP深入了解大脑功能，为神经科学领域带来新的视角。</li>
+<li>此项研究在精确医学和诊断方面具有潜在的应用价值。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.05109">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.05109v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.05109v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.05109v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.05109v1/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Learning-Street-View-Representations-with-Spatiotemporal-Contrast"><a href="#Learning-Street-View-Representations-with-Spatiotemporal-Contrast" class="headerlink" title="Learning Street View Representations with Spatiotemporal Contrast"></a>Learning Street View Representations with Spatiotemporal Contrast</h2><p><strong>Authors:Yong Li, Yingjing Huang, Gengchen Mai, Fan Zhang</strong></p>
+<p>Street view imagery is extensively utilized in representation learning for urban visual environments, supporting various sustainable development tasks such as environmental perception and socio-economic assessment. However, it is challenging for existing image representations to specifically encode the dynamic urban environment (such as pedestrians, vehicles, and vegetation), the built environment (including buildings, roads, and urban infrastructure), and the environmental ambiance (such as the cultural and socioeconomic atmosphere) depicted in street view imagery to address downstream tasks related to the city. In this work, we propose an innovative self-supervised learning framework that leverages temporal and spatial attributes of street view imagery to learn image representations of the dynamic urban environment for diverse downstream tasks. By employing street view images captured at the same location over time and spatially nearby views at the same time, we construct contrastive learning tasks designed to learn the temporal-invariant characteristics of the built environment and the spatial-invariant neighborhood ambiance. Our approach significantly outperforms traditional supervised and unsupervised methods in tasks such as visual place recognition, socioeconomic estimation, and human-environment perception. Moreover, we demonstrate the varying behaviors of image representations learned through different contrastive learning objectives across various downstream tasks. This study systematically discusses representation learning strategies for urban studies based on street view images, providing a benchmark that enhances the applicability of visual data in urban science. The code is available at <a target="_blank" rel="noopener" href="https://github.com/yonglleee/UrbanSTCL">https://github.com/yonglleee/UrbanSTCL</a>. </p>
+<blockquote>
+<p>街景图像在城市视觉环境的表示学习中得到了广泛应用，支持各种可持续发展任务，如环境感知和社会经济评估。然而，现有图像表示在编码街景图像中描绘的动态城市环境（如行人、车辆和植被）、人工环境（包括建筑、道路和基础设施）和环境氛围（如文化和社会经济氛围）方面存在挑战，以应对与城市相关的下游任务。在这项工作中，我们提出了一种创新的自我监督学习框架，该框架利用街景图像的时空属性来学习动态城市环境的图像表示，以执行各种下游任务。我们通过采用在同一地点随时间捕获的街景图像和同一时间空间附近视图来构建对比学习任务，旨在学习人工环境的时序不变特性以及空间不变邻域氛围。我们的方法在视觉场所识别、社会经济估算、人与环境感知等任务中的表现均优于传统的监督和无监督方法。此外，我们展示了通过不同对比学习目标学到的图像表示在不同下游任务中的不同行为。本研究系统地讨论了基于街景图像的城市研究表示学习策略，提供了一个基准，增强了视觉数据在城市科学中的应用性。代码可用在<a target="_blank" rel="noopener" href="https://github.com/yonglleee">https://github.com/yonglleee</a> 可用访问。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.04638v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种利用街道视角图像的时间与空间属性进行自监督学习的新框架，该框架能够学习动态城市环境的图像表示，适用于多种下游任务。通过在同一地点不同时间以及同一时间附近地点的街道视角图像，构建对比学习任务，学习建筑物的环境的时间不变特性和邻里氛围的空间不变性。该方法在视觉场所识别、社会经济估算以及人境感知等任务中的表现优于传统的监督和无监督方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>街道视角图像在城市视觉环境表示学习中得到广泛应用，支持环境感知和社会经济评估等可持续发展任务。</li>
+<li>当前图像表示难以编码街道视角图像中的动态城市环境、建筑环境和环境氛围，以应对与城市相关的下游任务。</li>
+<li>提出一种自监督学习框架，利用街道视角图像的时间和空间属性来学习动态城市环境的图像表示。</li>
+<li>通过在同一地点不同时间及同一时间附近地点的图像构建对比学习任务，学习建筑环境的时间不变特性和邻里氛围的空间不变性。</li>
+<li>该方法在视觉场所识别、社会经济估算和人境感知等任务上的表现优于传统方法。</li>
+<li>系统讨论基于街道视角图像的城市研究表示学习策略，为城市科学中视觉数据的应用提供基准。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.04638">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.04638v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.04638v1/page_2_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="SLCGC-A-lightweight-Self-supervised-Low-pass-Contrastive-Graph-Clustering-Network-for-Hyperspectral-Images"><a href="#SLCGC-A-lightweight-Self-supervised-Low-pass-Contrastive-Graph-Clustering-Network-for-Hyperspectral-Images" class="headerlink" title="SLCGC: A lightweight Self-supervised Low-pass Contrastive Graph   Clustering Network for Hyperspectral Images"></a>SLCGC: A lightweight Self-supervised Low-pass Contrastive Graph   Clustering Network for Hyperspectral Images</h2><p><strong>Authors:Yao Ding, Zhili Zhang, Aitao Yang, Yaoming Cai, Xiongwu Xiao, Danfeng Hong, Junsong Yuan</strong></p>
+<p>Self-supervised hyperspectral image (HSI) clustering remains a fundamental yet challenging task due to the absence of labeled data and the inherent complexity of spatial-spectral interactions. While recent advancements have explored innovative approaches, existing methods face critical limitations in clustering accuracy, feature discriminability, computational efficiency, and robustness to noise, hindering their practical deployment. In this paper, a self-supervised efficient low-pass contrastive graph clustering (SLCGC) is introduced for HSIs. Our approach begins with homogeneous region generation, which aggregates pixels into spectrally consistent regions to preserve local spatial-spectral coherence while drastically reducing graph complexity. We then construct a structural graph using an adjacency matrix A and introduce a low-pass graph denoising mechanism to suppress high-frequency noise in the graph topology, ensuring stable feature propagation. A dual-branch graph contrastive learning module is developed, where Gaussian noise perturbations generate augmented views through two multilayer perceptrons (MLPs), and a cross-view contrastive loss enforces structural consistency between views to learn noise-invariant representations. Finally, latent embeddings optimized by this process are clustered via K-means. Extensive experiments and repeated comparative analysis have verified that our SLCGC contains high clustering accuracy, low computational complexity, and strong robustness. The code source will be available at <a target="_blank" rel="noopener" href="https://github.com/DY-HYX">https://github.com/DY-HYX</a>. </p>
+<blockquote>
+<p>自监督型高光谱图像（HSI）聚类仍然是一项基础但具有挑战性的任务，原因在于缺乏标签数据以及空间光谱交互的内在复杂性。尽管最近有诸多进展和创新方法探索，现有方法在聚类精度、特征辨别力、计算效率以及对噪声的鲁棒性方面存在关键局限性，阻碍了其实践部署。本文介绍了一种用于HSI的自监督高效低通对比图聚类（SLCGC）。我们的方法首先从同质区域生成开始，将像素聚集成光谱一致的区域，以保留局部空间光谱一致性，同时大大降低图的复杂性。接着，我们使用邻接矩阵A构建结构图，并引入低通图去噪机制来抑制图拓扑中的高频噪声，以确保特征传播的稳定性。开发了一个双分支图对比学习模块，其中高斯噪声扰动通过两个多层感知器（MLP）生成增强视图，跨视图对比损失强制不同视图之间的结构一致性，以学习噪声不变表示。最后，通过此过程优化的潜在嵌入通过K-means进行聚类。广泛的实验和重复对比分析验证了我们的SLCGC具有高聚类精度、低计算复杂度和强鲁棒性。代码源将在<a target="_blank" rel="noopener" href="https://github.com/DY-HYX%E5%A4%84%E6%8F%90%E4%BE%9B%E3%80%82">https://github.com/DY-HYX处提供。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.03497v2">PDF</a> 12 pages, 9 figures</p>
+<p><strong>Summary</strong>：无监督的基于低通对比图的聚类策略，解决HSI聚类的难点问题，包含无标签数据和高频噪声干扰的问题。通过生成同质区域、构建结构图、引入低通图去噪机制和对比学习模块，实现高效稳定的聚类效果。代码将在GitHub上公开。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>自监督学习应用于高光谱图像聚类，解决无标签数据问题。</li>
+<li>提出高效低通对比图聚类方法（SLCGC），通过生成同质区域降低图复杂性。</li>
+<li>构建结构图并使用低通图去噪机制，确保特征传播稳定并抑制高频噪声干扰。</li>
+<li>引入双分支对比学习模块，学习噪声不变特征表示。</li>
+<li>优化后的潜在嵌入通过K-means进行聚类。</li>
+<li>实验和比较分析显示SLCGC具有高的聚类精度、低的计算复杂度和强的鲁棒性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.03497">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_2_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2502.03497v2/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="Enhancing-Multimodal-Medical-Image-Classification-using-Cross-Graph-Modal-Contrastive-Learning"><a href="#Enhancing-Multimodal-Medical-Image-Classification-using-Cross-Graph-Modal-Contrastive-Learning" class="headerlink" title="Enhancing Multimodal Medical Image Classification using Cross-Graph   Modal Contrastive Learning"></a>Enhancing Multimodal Medical Image Classification using Cross-Graph   Modal Contrastive Learning</h2><p><strong>Authors:Jun-En Ding, Chien-Chin Hsu, Chi-Hsiang Chu, Shuqiang Wang, Feng Liu</strong></p>
+<p>The classification of medical images is a pivotal aspect of disease diagnosis, often enhanced by deep learning techniques. However, traditional approaches typically focus on unimodal medical image data, neglecting the integration of diverse non-image patient data. This paper proposes a novel Cross-Graph Modal Contrastive Learning (CGMCL) framework for multimodal structured data from different data domains to improve medical image classification. The model effectively integrates both image and non-image data by constructing cross-modality graphs and leveraging contrastive learning to align multimodal features in a shared latent space. An inter-modality feature scaling module further optimizes the representation learning process by reducing the gap between heterogeneous modalities. The proposed approach is evaluated on two datasets: a Parkinson’s disease (PD) dataset and a public melanoma dataset. Results demonstrate that CGMCL outperforms conventional unimodal methods in accuracy, interpretability, and early disease prediction. Additionally, the method shows superior performance in multi-class melanoma classification. The CGMCL framework provides valuable insights into medical image classification while offering improved disease interpretability and predictive capabilities. </p>
+<blockquote>
+<p>医疗图像分类是疾病诊断的关键环节，往往可以通过深度学习技术得到增强。然而，传统方法主要关注单模态医疗图像数据，忽视了不同非图像患者数据的整合。本文提出了一种新型的跨图模态对比学习（CGMCL）框架，用于从不同数据域的多模态结构化数据，以提高医疗图像分类的效果。该模型通过构建跨模态图并利用对比学习对齐多模态特征在共享潜在空间，有效地整合了图像和非图像数据。跨模态特征缩放模块进一步优化了表示学习过程，缩小了不同模态之间的差距。所提出的方法在两个数据集上进行了评估：帕金森病（PD）数据集和公共黑色素瘤数据集。结果表明，在准确性、可解释性和早期疾病预测方面，CGMCL优于传统单模态方法。此外，该方法在多类黑色素瘤分类方面也表现出卓越性能。CGMCL框架为医疗图像分类提供了有价值的见解，同时提高了疾病可解释性和预测能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.17494v3">PDF</a> </p>
+<p><strong>摘要</strong><br>    本文提出一种新型的跨图模态对比学习（CGMCL）框架，用于整合不同数据域的多元结构化数据，改善医学图像分类。该框架构建跨模态图并利用对比学习对齐多模态特征于共享潜在空间，通过跨模态特征缩放模块进一步优化表示学习过程，缩小异质模态之间的差距。在帕金森病数据集和公共黑色素瘤数据集上的评估结果表明，CGMCL在准确性、可解释性和早期疾病预测方面优于传统的单模态方法，并且在多类黑色素瘤分类中表现出卓越性能。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>医学图像分类是疾病诊断的重要方面，传统的做法主要关注于单一的医学图像数据，忽视了整合多元化的非图像患者数据。</li>
+<li>本文提出了一种新型的跨图模态对比学习（CGMCL）框架，用于整合图像和非图像数据，通过构建跨模态图和利用对比学习来对齐多模态特征。</li>
+<li>CGMCL框架通过跨模态特征缩放模块优化表示学习过程，缩小异质模态之间的差距。</li>
+<li>在帕金森病和黑色素瘤数据集上的实验结果表明，CGMCL框架在医学图像分类上的性能优于传统的单模态方法。</li>
+<li>CGMCL在准确性、可解释性和早期疾病预测方面展现出优势。</li>
+<li>CGMCL框架对于多类黑色素瘤分类表现出卓越性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.17494">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2410.17494v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2410.17494v3/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2410.17494v3/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2410.17494v3/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2410.17494v3/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Enhancing-medical-vision-language-contrastive-learning-via-inter-matching-relation-modelling"><a href="#Enhancing-medical-vision-language-contrastive-learning-via-inter-matching-relation-modelling" class="headerlink" title="Enhancing medical vision-language contrastive learning via   inter-matching relation modelling"></a>Enhancing medical vision-language contrastive learning via   inter-matching relation modelling</h2><p><strong>Authors:Mingjian Li, Mingyuan Meng, Michael Fulham, David Dagan Feng, Lei Bi, Jinman Kim</strong></p>
+<p>Medical image representations can be learned through medical vision-language contrastive learning (mVLCL) where medical imaging reports are used as weak supervision through image-text alignment. These learned image representations can be transferred to and benefit various downstream medical vision tasks such as disease classification and segmentation. Recent mVLCL methods attempt to align image sub-regions and the report keywords as local-matchings. However, these methods aggregate all local-matchings via simple pooling operations while ignoring the inherent relations between them. These methods therefore fail to reason between local-matchings that are semantically related, e.g., local-matchings that correspond to the disease word and the location word (semantic-relations), and also fail to differentiate such clinically important local-matchings from others that correspond to less meaningful words, e.g., conjunction words (importance-relations). Hence, we propose a mVLCL method that models the inter-matching relations between local-matchings via a relation-enhanced contrastive learning framework (RECLF). In RECLF, we introduce a semantic-relation reasoning module (SRM) and an importance-relation reasoning module (IRM) to enable more fine-grained report supervision for image representation learning. We evaluated our method using six public benchmark datasets on four downstream tasks, including segmentation, zero-shot classification, linear classification, and cross-modal retrieval. Our results demonstrated the superiority of our RECLF over the state-of-the-art mVLCL methods with consistent improvements across single-modal and cross-modal tasks. These results suggest that our RECLF, by modelling the inter-matching relations, can learn improved medical image representations with better generalization capabilities. </p>
+<blockquote>
+<p>通过医学视觉语言对比学习（mVLCL），可以利用医学影像学报告作为图像文本对齐的弱监督来学习医学图像表示。这些学习得到的图像表示可以转移到各种下游医学视觉任务中并为其带来益处，例如疾病分类和分割。最近的mVLCL方法试图将图像子区域和报告关键词对齐为局部匹配。然而，这些方法通过简单的池化操作聚合所有局部匹配，同时忽略了它们之间的内在关系。因此，这些方法无法推理语义相关的局部匹配，例如与疾病词和位置词对应的局部匹配（语义关系），也无法区分这样的临床重要的局部匹配与其他对应较少有意义的词（如连词）的局部匹配（重要性关系）。因此，我们提出了一种mVLCL方法，该方法通过关系增强对比学习框架（RECLF）对局部匹配之间的跨匹配关系进行建模。在RECLF中，我们引入了语义关系推理模块（SRM）和重要性关系推理模块（IRM），以实现更精细的报告监督用于图像表示学习。我们在四个下游任务、六个公共基准数据集上评估了我们的方法，包括分割、零样本分类、线性分类和跨模态检索。我们的结果证明了我们的RECLF在最新mVLCL方法上的优越性，在单模态和跨模态任务上都实现了持续的改进。这些结果表明，通过建模跨匹配关系，我们的RECLF可以学习改进的医疗图像表示，具有更好的泛化能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2401.10501v2">PDF</a> Published at IEEE Transactions on Medical Imaging</p>
+<p><strong>摘要</strong><br>医疗影像资料通过医学视觉语言对比学习（mVLCL）学习表示，通过图像文本对齐利用医学影像报告作为弱监督。这些学习到的图像表示可以转移到各种下游医疗视觉任务中并带来益处，如疾病分类和分割等。最近的mVLCL方法尝试通过局部匹配对齐图像子区域和报告关键词。然而，这些方法通过简单的池化操作聚合所有局部匹配，而忽略了它们之间的内在关系。因此，这些方法无法推理出语义相关的局部匹配，例如与疾病词和位置词对应的局部匹配（语义关系），也无法区分这种临床上重要的局部匹配与其他对应较少意义词汇的匹配，例如连接词（重要性关系）。因此，我们提出了一种mVLCL方法，通过关系增强对比学习框架（RECLF）对局部匹配之间的跨匹配关系进行建模。在RECLF中，我们引入了语义关系推理模块（SRM）和重要性关系推理模块（IRM），以实现更精细的报告监督用于图像表示学习。我们在四个下游任务使用六个公共基准数据集对方法进行了评估，包括分割、零样本分类、线性分类和跨模态检索。结果表明，我们的RECLF在最新的mVLCL方法上具有优越性，在单模态和跨模态任务上均实现了持续的改进。这表明我们的RECLF通过建模跨匹配关系，可以学习改进的医疗图像表示，具有更好的泛化能力。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>医疗视觉语言对比学习（mVLCL）可通过医学图像报告作为弱监督来学习医疗图像表示。</li>
+<li>现有mVLCL方法通过简单池化操作聚合局部匹配，忽略了局部匹配间的内在关系。</li>
+<li>提出的关系增强对比学习框架（RECLF）包含语义关系推理模块（SRM）和重要性关系推理模块（IRM），实现更精细的报告监督。</li>
+<li>RECLF在多个公共数据集和下游任务上的表现优于现有mVLCL方法，包括分割、零样本分类、线性分类和跨模态检索。</li>
+<li>RECLF能够学习改进的医疗图像表示，具有更好的泛化能力。</li>
+<li>通过建模局部匹配间的跨匹配关系，RECLF能够区分语义重要和不太重要的局部匹配。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2401.10501">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2401.10501v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_无监督_半监督_对比学习/2401.10501v2/page_3_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-02-11/%E6%97%A0%E7%9B%91%E7%9D%A3_%E5%8D%8A%E7%9B%91%E7%9D%A3_%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">https://kedreamix.github.io/Talk2Paper/Paper/2025-02-11/%E6%97%A0%E7%9B%91%E7%9D%A3_%E5%8D%8A%E7%9B%91%E7%9D%A3_%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/%E6%97%A0%E7%9B%91%E7%9D%A3-%E5%8D%8A%E7%9B%91%E7%9D%A3-%E5%AF%B9%E6%AF%94%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">无监督/半监督/对比学习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-02-11/Speech/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_Speech/2502.04711v1/page_3_0.jpg" class="responsive-img" alt="Speech">
+                        
+                        <span class="card-title">Speech</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Speech 方向最新论文已更新，请持续关注 Update in 2025-02-11  Evaluating Standard and Dialectal Frisian ASR Multilingual Fine-tuning   and Language Identification for Improved Low-resource Performance
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-11
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Speech/" class="post-category">
+                                    Speech
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Speech/">
+                        <span class="chip bg-color">Speech</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-02-11/%E6%A3%80%E6%B5%8B_%E5%88%86%E5%89%B2_%E8%B7%9F%E8%B8%AA/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-02-11\./crop_检测_分割_跟踪/2502.04268v2/page_5_0.jpg" class="responsive-img" alt="检测/分割/跟踪">
+                        
+                        <span class="card-title">检测/分割/跟踪</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            检测/分割/跟踪 方向最新论文已更新，请持续关注 Update in 2025-02-11  IPSeg Image Posterior Mitigates Semantic Drift in Class-Incremental   Segmentation
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-11
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E6%A3%80%E6%B5%8B-%E5%88%86%E5%89%B2-%E8%B7%9F%E8%B8%AA/" class="post-category">
+                                    检测/分割/跟踪
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E6%A3%80%E6%B5%8B-%E5%88%86%E5%89%B2-%E8%B7%9F%E8%B8%AA/">
+                        <span class="chip bg-color">检测/分割/跟踪</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">10329.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
