@@ -1,0 +1,1424 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="NeRF">
+    <meta name="description" content="NeRF 方向最新论文已更新，请持续关注 Update in 2025-02-15  DenseSplat Densifying Gaussian Splatting SLAM with Neural Radiance   Prior">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>NeRF | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://picx.zhimg.com/v2-de9db48bec8c7b0f5d028c8d47fb5204.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">NeRF</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/NeRF/">
+                                <span class="chip bg-color">NeRF</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                NeRF
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-15
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-02-15
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    5.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    21 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-02-15-更新"><a href="#2025-02-15-更新" class="headerlink" title="2025-02-15 更新"></a>2025-02-15 更新</h1><h2 id="DenseSplat-Densifying-Gaussian-Splatting-SLAM-with-Neural-Radiance-Prior"><a href="#DenseSplat-Densifying-Gaussian-Splatting-SLAM-with-Neural-Radiance-Prior" class="headerlink" title="DenseSplat: Densifying Gaussian Splatting SLAM with Neural Radiance   Prior"></a>DenseSplat: Densifying Gaussian Splatting SLAM with Neural Radiance   Prior</h2><p><strong>Authors:Mingrui Li, Shuhong Liu, Tianchen Deng, Hongyu Wang</strong></p>
+<p>Gaussian SLAM systems excel in real-time rendering and fine-grained reconstruction compared to NeRF-based systems. However, their reliance on extensive keyframes is impractical for deployment in real-world robotic systems, which typically operate under sparse-view conditions that can result in substantial holes in the map. To address these challenges, we introduce DenseSplat, the first SLAM system that effectively combines the advantages of NeRF and 3DGS. DenseSplat utilizes sparse keyframes and NeRF priors for initializing primitives that densely populate maps and seamlessly fill gaps. It also implements geometry-aware primitive sampling and pruning strategies to manage granularity and enhance rendering efficiency. Moreover, DenseSplat integrates loop closure and bundle adjustment, significantly enhancing frame-to-frame tracking accuracy. Extensive experiments on multiple large-scale datasets demonstrate that DenseSplat achieves superior performance in tracking and mapping compared to current state-of-the-art methods. </p>
+<blockquote>
+<p>基于高斯SLAM的系统在实时渲染和精细重建方面优于基于NeRF的系统。然而，它们对大量关键帧的依赖并不适合在真实世界的机器人系统中部署，因为机器人系统通常在稀疏视图条件下运行，这可能导致地图中出现大量空洞。为了应对这些挑战，我们引入了DenseSplat，这是第一个有效结合NeRF和3DGS优势SLAM系统。DenseSplat利用稀疏关键帧和NeRF先验来初始化密集填充地图并无缝填充间隙的基元。它还实现了几何感知基元采样和修剪策略，以管理粒度并提高渲染效率。此外，DenseSplat集成了回路闭合和捆绑调整，大大提高了帧到帧的跟踪精度。在多个大型数据集上的广泛实验表明，与当前最先进的方法相比，DenseSplat在跟踪和映射方面实现了卓越的性能。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.09111v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了DenseSplat，一个结合NeRF和3DGS优势的首个SLAM系统。它通过利用稀疏关键帧和NeRF先验来初始化密集地图的原始数据，实现无缝填充间隙。DenseSplat还实现了几何感知的原始数据采样和修剪策略，以提高渲染效率，并集成了闭环和捆绑调整，显著提高帧间跟踪精度。实验证明，DenseSplat在跟踪和映射方面优于当前最先进的方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>DenseSplat是首个结合NeRF和3DGS优势的SLAM系统。</li>
+<li>它利用稀疏关键帧和NeRF先验来初始化密集地图的原始数据。</li>
+<li>DenseSplat实现了几何感知的原始数据采样和修剪策略，以提高渲染效率。</li>
+<li>DenseSplat集成了闭环和捆绑调整，提高帧间跟踪精度。</li>
+<li>DenseSplat能有效填充地图中的间隙，实现无缝渲染。</li>
+<li>通过大量实验证明，DenseSplat在跟踪和映射方面表现优越。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.09111">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-644edffbfdfb598bccc8c43fd4e24e5d.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-ce7dd727ce1251c15ccd27c0e87078bf.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-c8456faea308391705f3858e3f1b40d7.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-df326a8f60d73891720bfe492188c80b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-6c7a3840a68a6143a0d22e92a3b4808b.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-dd74af6499640b818558216ef52e0418.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Hyperparameter-Optimization-and-Force-Error-Correction-of-Neuroevolution-Potential-for-Predicting-Thermal-Conductivity-of-Wurtzite-GaN"><a href="#Hyperparameter-Optimization-and-Force-Error-Correction-of-Neuroevolution-Potential-for-Predicting-Thermal-Conductivity-of-Wurtzite-GaN" class="headerlink" title="Hyperparameter Optimization and Force Error Correction of Neuroevolution   Potential for Predicting Thermal Conductivity of Wurtzite GaN"></a>Hyperparameter Optimization and Force Error Correction of Neuroevolution   Potential for Predicting Thermal Conductivity of Wurtzite GaN</h2><p><strong>Authors:Zhuo Chen, Yuejin Yuan, Wenyang Ding, Shouhang Li, Meng An, Gang Zhang</strong></p>
+<p>As a representative of wide-bandgap semiconductors, wurtzite gallium nitride (GaN) has been widely utilized in high-power devices due to high breakdown voltage and low specific on resistance. Accurate prediction of wurtzite GaN thermal conductivity is a prerequisite for designing effective thermal management systems of electronic applications. Machine learning driven molecular dynamics simulation offers a promising approach to predicting the thermal conductivity of large-scale systems without requiring predefined parameters. However, these methods often underestimate the thermal conductivity of materials with inherently high thermal conductivity due to the large predicted force error compared with first-principle calculation, posing a critical challenge for their broader application. In this study, we successfully developed a neuroevolution potential for wurtzite GaN and accurately predicted its thermal conductivity, 259 W&#x2F;m-K at room temperatue, achieving excellent agreement with reported experimental measurements. The hyperparameters of neuroevolution potential (NEP) were optimized based on systematic analysis of reproduced energy and force, structural feature, computational efficiency. Furthermore, a force prediction error correction method was implemented, effectively reducing the error caused by the additional force noise in the Langevin thermostat by extrapolating to the zero-force error limit. This study provides valuable insights and hold significant implication for advancing efficient thermal management technologies in wide bandgap semiconductor devices. </p>
+<blockquote>
+<p>作为宽带隙半导体的代表，纤锌矿氮化镓（GaN）由于其高的击穿电压和低的特定开启电阻而广泛应用于高功率设备中。准确预测纤锌矿GaN的热导率是设计电子应用的有效热管理系统的前提条件。机器学习驱动分子动力学模拟提供了一种有前景的方法，可以在不需要预设参数的情况下预测大规模系统的热导率。然而，由于预测出的力误差与第一原理计算相比往往很大，这些方法通常会低估固有高导热率的材料的热导率，这对其更广泛的应用构成了重大挑战。在这项研究中，我们成功开发了一种用于纤锌矿GaN的神经进化势，并准确预测了其热导率，在室温下为259 W&#x2F;m-K，与已报道的实验测量结果吻合良好。神经进化势（NEP）的超参数基于能量和力再现性、结构特征、计算效率的系统分析进行了优化。此外，实施了一种力预测误差校正方法，通过外推到零力误差极限，有效减少了朗之万恒温器附加力噪声引起的误差。本研究为推进宽带隙半导体设备中的高效热管理技术提供了有价值的见解和重要的启示。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.05580v2">PDF</a> 15 pages, 5 figures</p>
+<p><strong>Summary</strong></p>
+<p>宽禁带半导体材料氮化镓（GaN）因其高击穿电压和低特定电阻而在高功率器件中得到广泛应用。本研究成功开发出针对氮化镓的神经演化势（NEP），准确预测了其热导率，为电子应用的热管理系统设计提供了重要依据。研究实现了高效的力预测误差校正方法，减少了兰格文恒温器中的附加力噪声误差。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>宽禁带半导体氮化镓（GaN）在高功率器件中的广泛应用。</li>
+<li>神经演化势（NEP）成功应用于预测氮化镓的热导率。</li>
+<li>在室温下，预测的氮化镓热导率为259 W&#x2F;m-K，与实验测量结果吻合良好。</li>
+<li>研究优化了神经演化势的超参数，基于系统分析能量和力、结构特征、计算效率。</li>
+<li>实施了一种有效的力预测误差校正方法，减少了兰格文恒温器中的附加力噪声误差。</li>
+<li>本研究为高效热管理技术在宽禁带半导体器件中的应用提供了重要见解和启示。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.05580">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-9cdf1f1483e992e23f2c521a91e58146.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-face7d12b37fb503b63c7f8059806950.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-1201ee973d3bb1f36db65c955599ce5a.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="Gaussian-Det-Learning-Closed-Surface-Gaussians-for-3D-Object-Detection"><a href="#Gaussian-Det-Learning-Closed-Surface-Gaussians-for-3D-Object-Detection" class="headerlink" title="Gaussian-Det: Learning Closed-Surface Gaussians for 3D Object Detection"></a>Gaussian-Det: Learning Closed-Surface Gaussians for 3D Object Detection</h2><p><strong>Authors:Hongru Yan, Yu Zheng, Yueqi Duan</strong></p>
+<p>Skins wrapping around our bodies, leathers covering over the sofa, sheet metal coating the car - it suggests that objects are enclosed by a series of continuous surfaces, which provides us with informative geometry prior for objectness deduction. In this paper, we propose Gaussian-Det which leverages Gaussian Splatting as surface representation for multi-view based 3D object detection. Unlike existing monocular or NeRF-based methods which depict the objects via discrete positional data, Gaussian-Det models the objects in a continuous manner by formulating the input Gaussians as feature descriptors on a mass of partial surfaces. Furthermore, to address the numerous outliers inherently introduced by Gaussian splatting, we accordingly devise a Closure Inferring Module (CIM) for the comprehensive surface-based objectness deduction. CIM firstly estimates the probabilistic feature residuals for partial surfaces given the underdetermined nature of Gaussian Splatting, which are then coalesced into a holistic representation on the overall surface closure of the object proposal. In this way, the surface information Gaussian-Det exploits serves as the prior on the quality and reliability of objectness and the information basis of proposal refinement. Experiments on both synthetic and real-world datasets demonstrate that Gaussian-Det outperforms various existing approaches, in terms of both average precision and recall. </p>
+<blockquote>
+<p>身体周围的皮肤、沙发上的皮革、汽车上的金属涂层，这暗示着物体被一系列连续的表面所包围，为我们提供了物体性推断的有用几何先验。在本文中，我们提出了Gaussian-Det，它利用高斯涂抹作为表面表征，用于基于多视角的3D对象检测。与现有的单目或基于NeRF的方法不同，后者通过离散位置数据描述物体，Gaussian-Det通过制定大量部分表面上的特征描述符，以连续的方式对物体进行建模。此外，为了解决高斯涂抹本质上引入的大量异常值，我们相应地设计了一个闭合推断模块（CIM），用于全面的基于表面的物体性推断。CIM首先估计由于高斯涂抹的欠定性给定的部分表面的概率特征残差，然后将它们合并到对象提议的整体表面闭合的整体表示中。通过这种方式，Gaussian-Det利用的表面信息作为物体性质和提议精化的信息和可靠性基础。在合成和真实世界数据集上的实验表明，Gaussian-Det在平均精度和召回率方面都优于各种现有方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.01404v2">PDF</a> Accepted to ICLR 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种基于高斯插值（Gaussian Splatting）的表面表示方法的高斯检测器（Gaussian-Det），用于多视角的3D对象检测。不同于现有的单目或基于NeRF的方法，它通过连续方式建模对象，并使用输入的高斯作为大量部分表面上的特征描述符。为解决高斯插值产生的众多异常值，本文设计了一个闭合推断模块（CIM），用于全面的基于表面的对象性推断。实验表明，Gaussian-Det在合成和真实数据集上的平均精度和召回率均优于各种现有方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Gaussian-Det采用高斯插值作为表面表示方法，用于多视角的3D对象检测。</li>
+<li>与离散位置数据的表示方法不同，Gaussian-Det以连续方式建模对象。</li>
+<li>Gaussian-Det使用输入的高斯作为部分表面上的特征描述符。</li>
+<li>为了解决高斯插值产生的异常值问题，设计了闭合推断模块（CIM）。</li>
+<li>CIM估计部分表面的概率特征残差，并将其合并成对象提案的整体表示。</li>
+<li>表面信息在Gaussian-Det中作为对象性的质量和可靠性先验，以及提案细化的信息基础。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.01404">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-4ba47debb041a4207b9662df44034169.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-490275fc5111a91a4b75aebfc36feca1.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-de9db48bec8c7b0f5d028c8d47fb5204.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="RenderWorld-World-Model-with-Self-Supervised-3D-Label"><a href="#RenderWorld-World-Model-with-Self-Supervised-3D-Label" class="headerlink" title="RenderWorld: World Model with Self-Supervised 3D Label"></a>RenderWorld: World Model with Self-Supervised 3D Label</h2><p><strong>Authors:Ziyang Yan, Wenzhen Dong, Yihua Shao, Yuhang Lu, Liu Haiyang, Jingwen Liu, Haozhe Wang, Zhe Wang, Yan Wang, Fabio Remondino, Yuexin Ma</strong></p>
+<p>End-to-end autonomous driving with vision-only is not only more cost-effective compared to LiDAR-vision fusion but also more reliable than traditional methods. To achieve a economical and robust purely visual autonomous driving system, we propose RenderWorld, a vision-only end-to-end autonomous driving framework, which generates 3D occupancy labels using a self-supervised gaussian-based Img2Occ Module, then encodes the labels by AM-VAE, and uses world model for forecasting and planning. RenderWorld employs Gaussian Splatting to represent 3D scenes and render 2D images greatly improves segmentation accuracy and reduces GPU memory consumption compared with NeRF-based methods. By applying AM-VAE to encode air and non-air separately, RenderWorld achieves more fine-grained scene element representation, leading to state-of-the-art performance in both 4D occupancy forecasting and motion planning from autoregressive world model. </p>
+<blockquote>
+<p>仅使用视觉的端到端自动驾驶系统不仅与激光雷达视觉融合系统相比更具成本优势，而且与传统的自动驾驶系统相比更可靠。为了实现经济高效且稳健的纯视觉自动驾驶系统，我们提出了RenderWorld，这是一个仅使用视觉的端到端自动驾驶框架。它使用基于自监督的高斯Img2Occ模块生成3D占用标签，通过AM-VAE编码这些标签，并利用世界模型进行预测和规划。RenderWorld采用高斯拼贴技术来表示3D场景并渲染2D图像，与基于NeRF的方法相比，这大大提高了分割精度并降低了GPU内存消耗。通过将AM-VAE应用于空气和非空气区域的单独编码，RenderWorld实现了更精细的场景元素表示，从而在基于自回归的世界模型的四维占用预测和运动规划中实现了最先进的性能。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2409.11356v2">PDF</a> Accepted in 2025 IEEE International Conference on Robotics and   Automation (ICRA)</p>
+<p><strong>Summary</strong></p>
+<p>RenderWorld是一个纯视觉端到端的自动驾驶框架，它通过Img2Occ模块生成3D占用标签，采用AM-VAE编码标签，并利用世界模型进行预测和规划。该框架采用高斯拼贴技术表示3D场景并渲染2D图像，提高了分割精度，降低了GPU内存消耗。通过分别编码空气和非空气，RenderWorld实现了更精细的场景元素表示，在4D占用预测和基于自回归世界模型的运动规划中达到了最先进的性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>RenderWorld是一个纯视觉的端到端自动驾驶框架，相比LiDAR-vision融合，更具成本效益和可靠性。</li>
+<li>该框架通过Img2Occ模块生成3D占用标签，并采用AM-VAE进行编码。</li>
+<li>RenderWorld利用世界模型进行预测和规划，提高了分割精度并降低了GPU内存消耗。</li>
+<li>该框架采用高斯拼贴技术表示3D场景并渲染2D图像。</li>
+<li>通过分别编码空气和非空气，RenderWorld实现了更精细的场景元素表示。</li>
+<li>RenderWorld在4D占用预测方面达到了最先进的性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2409.11356">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-baf7ec6465886769e86321f5daf3ecbe.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-207c90cb99b502ce1cfdb31907e6b209.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-e8c84402e24d4635599991ecc685e9a5.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a3f3e3b146969368689386e851723188.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-1fdeedd49485a4f5c42cbcb9b930b499.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-4cbf7368b6081ba9e9241181aadf278d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-eae5ed708c85180798977075179af901.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-46a07a86fb70f464b0d5ca6e1f8a672d.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Dream-in-Style-Text-to-3D-Generation-Using-Stylized-Score-Distillation"><a href="#Dream-in-Style-Text-to-3D-Generation-Using-Stylized-Score-Distillation" class="headerlink" title="Dream-in-Style: Text-to-3D Generation Using Stylized Score Distillation"></a>Dream-in-Style: Text-to-3D Generation Using Stylized Score Distillation</h2><p><strong>Authors:Hubert Kompanowski, Binh-Son Hua</strong></p>
+<p>We present a method to generate 3D objects in styles. Our method takes a text prompt and a style reference image as input and reconstructs a neural radiance field to synthesize a 3D model with the content aligning with the text prompt and the style following the reference image. To simultaneously generate the 3D object and perform style transfer in one go, we propose a stylized score distillation loss to guide a text-to-3D optimization process to output visually plausible geometry and appearance. Our stylized score distillation is based on a combination of an original pretrained text-to-image model and its modified sibling with the key and value features of self-attention layers manipulated to inject styles from the reference image. Comparisons with state-of-the-art methods demonstrated the strong visual performance of our method, further supported by the quantitative results from our user study. </p>
+<blockquote>
+<p>我们提出了一种生成风格化3D物体的方法。该方法以文本提示和风格参考图像作为输入，重建神经辐射场，合成一个与文本提示内容相符、风格参照参考图像的3D模型。为了一次性生成3D物体并同时进行风格转换，我们提出了一种风格化分数蒸馏损失，以引导文本到3D的优化过程，输出视觉上有说服力的几何形状和外观。我们的风格化分数蒸馏损失基于原始预训练的文本到图像模型和经过修改的同胞模型的组合，通过操作自注意力层的键和值特征来注入参考图像的风格。与最先进的方法的比较表明了我们方法的强大视觉性能，定量结果也得到了我们用户研究的进一步支持。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2406.18581v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种生成具有特定风格的3D物体的新方法。该方法以文本提示和风格参考图像为输入，通过重建神经辐射场来合成一个3D模型，该模型的内容与文本提示对齐，风格遵循参考图像。为了同时生成3D物体并进行风格迁移，作者提出了一种风格化得分蒸馏损失，以指导文本到3D的优化过程，输出具有视觉可行性的几何形状和外观。该方法基于预训练的文本到图像模型的原始版本及其修改过的版本，通过操纵自注意力层的键和值特征来注入参考图像的风格。与现有方法的比较结果证明了该方法在视觉性能上的强大表现，用户研究的定量结果也进一步支持了这一点。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>该方法能够通过结合文本提示和风格参考图像，生成具有特定风格的3D物体。</li>
+<li>提出了一种风格化得分蒸馏损失，用于指导文本到3D的优化过程。</li>
+<li>方法结合了预训练的文本到图像模型的原始版本和其修改版本。</li>
+<li>通过操纵自注意力层的键和值特征，将参考图像的风格注入到生成的3D物体中。</li>
+<li>与现有方法相比，该方法在视觉性能上表现出强大的表现。</li>
+<li>用户研究的定量结果支持了该方法的性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2406.18581">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-972f58a22c997f61cd2738703407e308.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-6a813da1b9e0b182ac24fa78afe6c88d.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-42abbb847eaabdaaf40b5161084f3798.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="Learning-Naturally-Aggregated-Appearance-for-Efficient-3D-Editing"><a href="#Learning-Naturally-Aggregated-Appearance-for-Efficient-3D-Editing" class="headerlink" title="Learning Naturally Aggregated Appearance for Efficient 3D Editing"></a>Learning Naturally Aggregated Appearance for Efficient 3D Editing</h2><p><strong>Authors:Ka Leong Cheng, Qiuyu Wang, Zifan Shi, Kecheng Zheng, Yinghao Xu, Hao Ouyang, Qifeng Chen, Yujun Shen</strong></p>
+<p>Neural radiance fields, which represent a 3D scene as a color field and a density field, have demonstrated great progress in novel view synthesis yet are unfavorable for editing due to the implicitness. This work studies the task of efficient 3D editing, where we focus on editing speed and user interactivity. To this end, we propose to learn the color field as an explicit 2D appearance aggregation, also called canonical image, with which users can easily customize their 3D editing via 2D image processing. We complement the canonical image with a projection field that maps 3D points onto 2D pixels for texture query. This field is initialized with a pseudo canonical camera model and optimized with offset regularity to ensure the naturalness of the canonical image. Extensive experiments on different datasets suggest that our representation, dubbed AGAP, well supports various ways of 3D editing (e.g., stylization, instance segmentation, and interactive drawing). Our approach demonstrates remarkable efficiency by being at least 20 times faster per edit compared to existing NeRF-based editing methods. Project page is available at <a target="_blank" rel="noopener" href="https://felixcheng97.github.io/AGAP/">https://felixcheng97.github.io/AGAP/</a>. </p>
+<blockquote>
+<p>神经辐射场通过将三维场景表示为颜色场和密度场，在新视角合成方面取得了巨大的进步，但由于其隐式性不利于编辑。本研究致力于高效三维编辑任务，重点关注编辑速度和用户交互性。为此，我们提出将颜色场学习为明确的二维外观聚合，也称为规范图像，用户可以通过二维图像处理轻松进行三维编辑。我们补充了投影场，将三维点映射到二维像素上进行纹理查询。该字段使用伪规范相机模型进行初始化，并通过偏移规则进行优化，以确保规范图像的自然性。在不同数据集上的大量实验表明，我们的表示方法（称为AGAP）非常支持多种三维编辑方式（例如风格化、实例分割和交互式绘图）。我们的方法展现出显著的效率，每次编辑的速度至少是现有基于NeRF的编辑方法的20倍以上。项目页面可在[<a target="_blank" rel="noopener" href="https://felixcheng97.github.io/AGAP/%E6%89%BE%E5%88%B0%E3%80%82]">https://felixcheng97.github.io/AGAP/找到。]</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2312.06657v2">PDF</a> Project page: <a target="_blank" rel="noopener" href="https://felixcheng97.github.io/AGAP/">https://felixcheng97.github.io/AGAP/</a>; accepted to 3DV   2025</p>
+<p><strong>Summary</strong></p>
+<p>该工作研究了高效的3D编辑任务，聚焦于编辑速度与用户交互性。为此，提出将颜色场学习为明确的2D外观聚合，即所谓的规范图像，用户可以通过2D图像处理轻松进行3D编辑。规范图像辅以投影场，将3D点映射到2D像素以进行纹理查询。该场采用伪规范相机模型进行初始化，并通过偏移规则进行优化，确保规范图像的自然性。在多个数据集上的实验表明，该方法的表示形式——AGAP（规范图像的投影聚合）非常支持多种形式的3D编辑（如风格化、实例分割和交互式绘图）。我们的方法展现出卓越的效率，每次编辑的速度至少是现有NeRF编辑方法的20倍。项目页面可在<a target="_blank" rel="noopener" href="https://felixcheng97.github.io/AGAP/%E6%89%BE%E5%88%B0%E3%80%82">https://felixcheng97.github.io/AGAP/找到。</a></p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>该论文关注Neural Radiance Fields（NeRF）在3D编辑中的效率与用户交互性问题。</li>
+<li>提出了一种新的方法——学习作为明确2D外观聚合的颜色场，称为规范图像，以简化3D编辑。</li>
+<li>引入了投影场，将3D点映射到2D像素，支持纹理查询。</li>
+<li>通过伪规范相机模型和偏移规则优化，确保了规范图像的自然性。</li>
+<li>在多个数据集上进行了实验验证，证明该方法（称为AGAP）支持多种形式的3D编辑。</li>
+<li>AGAP方法的编辑速度显著，至少是现有NeRF编辑方法的20倍。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2312.06657">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-2314714c3a3bde30b33f60f9e4492df5.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-289d6e4d6b8e1e375373df2665fcd0e7.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-582fd5fc3679967ef3163fa6c60a8475.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-5efda2d38206aff1fec6b0b6b57ce160.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-be20237b0b4638a4f3bf48c4bf10625d.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-02-15/NeRF/">https://kedreamix.github.io/Talk2Paper/Paper/2025-02-15/NeRF/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/NeRF/">
+                                    <span class="chip bg-color">NeRF</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-02-15/Diffusion%20Models/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-2dcc09f8fe93c0d9bedcec151c2dae43.jpg" class="responsive-img" alt="Diffusion Models">
+                        
+                        <span class="card-title">Diffusion Models</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-02-15  Diffusing DeBias a Recipe for Turning a Bug into a Feature
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                    Diffusion Models
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Diffusion-Models/">
+                        <span class="chip bg-color">Diffusion Models</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-02-15/3DGS/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-02-15\./crop_3DGS/2410.01404v2/page_0_0.jpg" class="responsive-img" alt="3DGS">
+                        
+                        <span class="card-title">3DGS</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            3DGS 方向最新论文已更新，请持续关注 Update in 2025-02-15  Self-Calibrating Gaussian Splatting for Large Field of View   Reconstruction
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-15
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/3DGS/" class="post-category">
+                                    3DGS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/3DGS/">
+                        <span class="chip bg-color">3DGS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">10737.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
