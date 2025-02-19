@@ -1,0 +1,1485 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Diffusion Models">
+    <meta name="description" content="Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-02-20  Is Noise Conditioning Necessary for Denoising Generative Models?">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Diffusion Models | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://picx.zhimg.com/v2-af1c7fd96c47838da7b7147b338a0e4a.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Diffusion Models</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/Diffusion-Models/">
+                                <span class="chip bg-color">Diffusion Models</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                Diffusion Models
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-02-20
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-02-20
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    8.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    32 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-02-20-更新"><a href="#2025-02-20-更新" class="headerlink" title="2025-02-20 更新"></a>2025-02-20 更新</h1><h2 id="Is-Noise-Conditioning-Necessary-for-Denoising-Generative-Models"><a href="#Is-Noise-Conditioning-Necessary-for-Denoising-Generative-Models" class="headerlink" title="Is Noise Conditioning Necessary for Denoising Generative Models?"></a>Is Noise Conditioning Necessary for Denoising Generative Models?</h2><p><strong>Authors:Qiao Sun, Zhicheng Jiang, Hanhong Zhao, Kaiming He</strong></p>
+<p>It is widely believed that noise conditioning is indispensable for denoising diffusion models to work successfully. This work challenges this belief. Motivated by research on blind image denoising, we investigate a variety of denoising-based generative models in the absence of noise conditioning. To our surprise, most models exhibit graceful degradation, and in some cases, they even perform better without noise conditioning. We provide a theoretical analysis of the error caused by removing noise conditioning and demonstrate that our analysis aligns with empirical observations. We further introduce a noise-unconditional model that achieves a competitive FID of 2.23 on CIFAR-10, significantly narrowing the gap to leading noise-conditional models. We hope our findings will inspire the community to revisit the foundations and formulations of denoising generative models. </p>
+<blockquote>
+<p>普遍认为噪声调节对于去噪扩散模型的成功运作是必不可少的。然而，这项工作对此提出了质疑。受盲图像去噪研究的启发，我们调查了没有噪声调节的各种基于去噪的生成模型。令人惊讶的是，大多数模型表现出了优雅的退化性能，并且在某些情况下，它们在无需噪声调节的情况下表现更佳。我们对因去除噪声调节而产生的误差进行了理论分析，并证明我们的分析与观察到的现象相符。我们还引入了一种无需噪声调节的模型，在CIFAR-10上实现了竞争性的FID分数2.23，显著缩小了与领先的噪声条件模型的差距。我们希望我们的发现能激励社区重新思考去噪生成模型的基础和公式。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.13129v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文挑战了广泛认为噪声调节对于降噪扩散模型成功运作不可或缺的观点。通过借鉴盲图像降噪研究，本文探索了没有噪声调节的基于降噪的生成模型。结果显示，大多数模型在去除噪声调节后仍能优雅地降级，某些情况下性能甚至更佳。本文提供了移除噪声调节所引起的误差的理论分析，并证明该分析与实证观察相符。此外，介绍了一个无需噪声调节的模型，在CIFAR-10上实现了竞争性的FID分数，显著缩小了与领先的噪声条件模型的差距。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>挑战了广泛认为噪声调节对于降噪扩散模型成功运作不可或缺的观点。</li>
+<li>通过借鉴盲图像降噪研究，在没有噪声调节的情况下探索了基于降噪的生成模型。</li>
+<li>大多数模型在去除噪声调节后仍能优雅地降级。</li>
+<li>在某些情况下，模型在无需噪声调节的情况下性能更佳。</li>
+<li>提供了移除噪声调节所引起的误差的理论分析。</li>
+<li>实证观察与理论分析相符。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.13129">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-db0e62cfb1f53e642473603fd9dbc074.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-33eb9509e4d63d73d10e7141c027378d.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-1017a63cc53b4692735b5b096977e6a8.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-2cb9243e8464d4dd186f127d0d1ce528.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Personalized-Image-Generation-with-Deep-Generative-Models-A-Decade-Survey"><a href="#Personalized-Image-Generation-with-Deep-Generative-Models-A-Decade-Survey" class="headerlink" title="Personalized Image Generation with Deep Generative Models: A Decade   Survey"></a>Personalized Image Generation with Deep Generative Models: A Decade   Survey</h2><p><strong>Authors:Yuxiang Wei, Yiheng Zheng, Yabo Zhang, Ming Liu, Zhilong Ji, Lei Zhang, Wangmeng Zuo</strong></p>
+<p>Recent advancements in generative models have significantly facilitated the development of personalized content creation. Given a small set of images with user-specific concept, personalized image generation allows to create images that incorporate the specified concept and adhere to provided text descriptions. Due to its wide applications in content creation, significant effort has been devoted to this field in recent years. Nonetheless, the technologies used for personalization have evolved alongside the development of generative models, with their distinct and interrelated components. In this survey, we present a comprehensive review of generalized personalized image generation across various generative models, including traditional GANs, contemporary text-to-image diffusion models, and emerging multi-model autoregressive models. We first define a unified framework that standardizes the personalization process across different generative models, encompassing three key components, i.e., inversion spaces, inversion methods, and personalization schemes. This unified framework offers a structured approach to dissecting and comparing personalization techniques across different generative architectures. Building upon this unified framework, we further provide an in-depth analysis of personalization techniques within each generative model, highlighting their unique contributions and innovations. Through comparative analysis, this survey elucidates the current landscape of personalized image generation, identifying commonalities and distinguishing features among existing methods. Finally, we discuss the open challenges in the field and propose potential directions for future research. We keep tracing related works at <a target="_blank" rel="noopener" href="https://github.com/csyxwei/Awesome-Personalized-Image-Generation">https://github.com/csyxwei/Awesome-Personalized-Image-Generation</a>. </p>
+<blockquote>
+<p>近年来，生成模型的进步极大地促进了个性化内容创作的发展。给定一组包含用户特定概念的小图像，个性化图像生成能够创建融入指定概念并符合提供的文本描述的图像。由于其内容创作的广泛应用，近年来人们对此领域的投入非常大。然而，个性化技术随着生成模型的发展而演变，它们各自独特的组件相互关联。在这篇综述中，我们对各种生成模型中的通用个性化图像生成进行了全面回顾，包括传统的GANs、当代的文本到图像扩散模型以及新兴的多模式自回归模型。我们首先定义了一个统一的框架，标准化了不同生成模型中的个性化过程，包括三个关键组件，即反转空间、反转方法和个性化方案。这一统一框架提供了一种结构化方法来分析和比较不同生成架构中的个性化技术。基于这一统一框架，我们进一步深入分析了每个生成模型中的个性化技术，突出了其独特贡献和创新之处。通过比较分析，这篇综述阐明了个性化图像生成的当前状况，识别了现有方法的共同点和区别特征。最后，我们讨论了该领域的开放挑战以及未来研究的潜在方向。我们持续追踪相关作品，可访问：<a target="_blank" rel="noopener" href="https://github.com/csyxwei/Awesome-Personalized-Image-Generation%E8%BF%9B%E8%A1%8C%E6%9F%A5%E7%9C%8B%E3%80%82">https://github.com/csyxwei/Awesome-Personalized-Image-Generation进行查看。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.13081v1">PDF</a> 39 pages; under submission; more information:   <a target="_blank" rel="noopener" href="https://github.com/csyxwei/Awesome-Personalized-Image-Generation">https://github.com/csyxwei/Awesome-Personalized-Image-Generation</a></p>
+<p><strong>摘要</strong><br>个性化图像生成：基于先进生成模型的技术进展。该研究综述了不同生成模型中的个性化图像生成技术，包括传统GANs、现代文本到图像扩散模型以及新兴的多模态自回归模型。文章定义了一个统一框架，标准化不同生成模型中的个性化过程，包括反转空间、反转方法和个性化方案三个关键组件。基于此框架，深入分析了每个生成模型中的个性化技术，并比较了现有方法的共性和区别。该综述指出了个性化图像生成领域的当前状况，并探讨了开放挑战和未来研究方向。</p>
+<p><strong>要点掌握</strong></p>
+<ol>
+<li>生成模型的最新进展推动了个性化内容创建的便利化。</li>
+<li>个性化图像生成能够根据用户特定概念和文本描述创建符合要求的图像。</li>
+<li>技术发展与生成模型的演进息息相关，具有其独特且相互关联的组件。</li>
+<li>文章提出了一个统一框架来标准化不同生成模型中的个性化过程，包括反转空间、反转方法和个性化方案。</li>
+<li>对不同生成模型中的个性化技术进行了深入分析，并比较了现有方法的共性和区别。</li>
+<li>综述指出了个性化图像生成领域的挑战，并提供了潜在的研究方向。</li>
+<li>可以通过提供的链接追踪相关领域的研究进展。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.13081">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-b3c08aed10c7cdab53ee2eb15a2d46b3.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-1742a02bdd8948c9f53f825f72d64020.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-580cb78f06656f9c5ba6b2b73950eb01.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-8daa3ac198cb45b241d7a7a0b5652fae.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-41dd7b1b83dac252eb0fe92c65a70758.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="High-Fidelity-Novel-View-Synthesis-via-Splatting-Guided-Diffusion"><a href="#High-Fidelity-Novel-View-Synthesis-via-Splatting-Guided-Diffusion" class="headerlink" title="High-Fidelity Novel View Synthesis via Splatting-Guided Diffusion"></a>High-Fidelity Novel View Synthesis via Splatting-Guided Diffusion</h2><p><strong>Authors:Xiang Zhang, Yang Zhang, Lukas Mehl, Markus Gross, Christopher Schroers</strong></p>
+<p>Despite recent advances in Novel View Synthesis (NVS), generating high-fidelity views from single or sparse observations remains a significant challenge. Existing splatting-based approaches often produce distorted geometry due to splatting errors. While diffusion-based methods leverage rich 3D priors to achieve improved geometry, they often suffer from texture hallucination. In this paper, we introduce SplatDiff, a pixel-splatting-guided video diffusion model designed to synthesize high-fidelity novel views from a single image. Specifically, we propose an aligned synthesis strategy for precise control of target viewpoints and geometry-consistent view synthesis. To mitigate texture hallucination, we design a texture bridge module that enables high-fidelity texture generation through adaptive feature fusion. In this manner, SplatDiff leverages the strengths of splatting and diffusion to generate novel views with consistent geometry and high-fidelity details. Extensive experiments verify the state-of-the-art performance of SplatDiff in single-view NVS. Additionally, without extra training, SplatDiff shows remarkable zero-shot performance across diverse tasks, including sparse-view NVS and stereo video conversion. </p>
+<blockquote>
+<p>尽管最近在新型视图合成（NVS）方面取得了进展，但从单个或稀疏观察生成高保真视图仍然是一个重大挑战。现有的基于平铺的方法由于平铺错误通常会产生几何失真。虽然基于扩散的方法利用丰富的3D先验知识来实现改进的几何效果，但它们常常会出现纹理幻觉。在本文中，我们介绍了SplatDiff，这是一种由像素平铺引导的视频扩散模型，旨在从单个图像合成高保真新型视图。具体来说，我们提出了一种对齐合成策略，以实现目标观点的精确控制和几何一致的视图合成。为了减轻纹理幻觉，我们设计了一个纹理桥梁模块，通过自适应特征融合实现高保真纹理生成。通过这种方式，SplatDiff结合了平铺和扩散的优点，生成了具有一致几何形状和高保真细节的新型视图。大量实验验证了SplatDiff在单视图NVS中的最新性能。此外，无需额外训练，SplatDiff在不同任务中表现出了卓越的零样本性能，包括稀疏视图NVS和立体声视频转换。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.12752v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了SplatDiff模型，这是一种结合像素点扩散和视图合成技术的方法，旨在从单一图像中合成高质量的新视角。通过采用对齐合成策略，实现了对目标视点的精确控制和几何一致的视图合成。设计了一种纹理桥梁模块，以通过自适应特征融合来减轻纹理幻觉。因此，SplatDiff结合了扩散和点云技术的优点，生成了具有一致几何结构和高质量细节的新视角。在单视角视图合成中，其性能处于领先水平，且在稀疏视角视图合成和立体视频转换等任务中展现出卓越表现。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>SplatDiff是一种结合了像素点扩散和视图合成技术的模型，旨在从单一图像生成高质量的新视角。</li>
+<li>通过采用对齐合成策略，实现了对目标视点的精确控制。</li>
+<li>设计了一种纹理桥梁模块，以减轻纹理幻觉，提高纹理生成的准确性。</li>
+<li>SplatDiff结合了扩散和点云技术的优点，生成的新视角具有一致的几何结构和高质量细节。</li>
+<li>该模型在单视角视图合成任务中表现出色，达到了领先水平。</li>
+<li>SplatDiff在稀疏视角视图合成和立体视频转换等任务中展现出卓越表现。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.12752">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-d6c6695eccd2fe6b630c273e1230e558.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-3ad9bfd93db3bba6e65a68c777f216b4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b067baa579b93258b77f5096236da790.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f751c37b5638c2c42c0fa0d922814f25.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-af1c7fd96c47838da7b7147b338a0e4a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-54204dd49883fb90366fb7fdc90dff31.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="3D-Shape-to-Image-Brownian-Bridge-Diffusion-for-Brain-MRI-Synthesis-from-Cortical-Surfaces"><a href="#3D-Shape-to-Image-Brownian-Bridge-Diffusion-for-Brain-MRI-Synthesis-from-Cortical-Surfaces" class="headerlink" title="3D Shape-to-Image Brownian Bridge Diffusion for Brain MRI Synthesis from   Cortical Surfaces"></a>3D Shape-to-Image Brownian Bridge Diffusion for Brain MRI Synthesis from   Cortical Surfaces</h2><p><strong>Authors:Fabian Bongratz, Yitong Li, Sama Elbaroudy, Christian Wachinger</strong></p>
+<p>Despite recent advances in medical image generation, existing methods struggle to produce anatomically plausible 3D structures. In synthetic brain magnetic resonance images (MRIs), characteristic fissures are often missing, and reconstructed cortical surfaces appear scattered rather than densely convoluted. To address this issue, we introduce Cor2Vox, the first diffusion model-based method that translates continuous cortical shape priors to synthetic brain MRIs. To achieve this, we leverage a Brownian bridge process which allows for direct structured mapping between shape contours and medical images. Specifically, we adapt the concept of the Brownian bridge diffusion model to 3D and extend it to embrace various complementary shape representations. Our experiments demonstrate significant improvements in the geometric accuracy of reconstructed structures compared to previous voxel-based approaches. Moreover, Cor2Vox excels in image quality and diversity, yielding high variation in non-target structures like the skull. Finally, we highlight the capability of our approach to simulate cortical atrophy at the sub-voxel level. Our code is available at <a target="_blank" rel="noopener" href="https://github.com/ai-med/Cor2Vox">https://github.com/ai-med/Cor2Vox</a>. </p>
+<blockquote>
+<p>尽管在医学图像生成方面取得了最新的进展，但现有方法仍然难以生成解剖上合理的3D结构。在合成的大脑磁共振成像（MRI）中，特征裂口往往缺失，重建的皮层表面看起来是散乱的，而不是密集卷叠的。为了解决这个问题，我们引入了Cor2Vox，这是基于扩散模型的方法，它将连续的皮层形状先验知识转化为合成的大脑MRI。为了实现这一点，我们利用布朗桥过程，允许形状轮廓和医学图像之间的直接结构化映射。具体来说，我们将布朗桥扩散模型的概念适应到3D，并将其扩展到包含各种互补的形状表示。我们的实验表明，与之前的体素化方法相比，重建结构的几何精度有了显著提高。此外，Cor2Vox在图像质量和多样性方面表现出色，非目标结构（如颅骨）的高变异度得以实现。最后，我们强调了我们的方法在亚体素级别模拟皮层萎缩的能力。我们的代码可在<a target="_blank" rel="noopener" href="https://github.com/ai-med/Cor2Vox%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/ai-med/Cor2Vox找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.12742v1">PDF</a> Accepted by Information Processing in Medical Imaging (IPMI) 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了Cor2Vox，首个基于扩散模型的合成脑MRI生成方法，通过将连续的皮质形状先验知识应用于合成脑MRI中，解决了现有方法在生成具有解剖结构合理性的三维结构方面的问题。利用布朗桥过程实现了形状轮廓与医学图像之间的直接结构映射，显著提高了重建结构的几何精度。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Cor2Vox是首个利用扩散模型解决医学图像生成中解剖结构合理性问题的技术。</li>
+<li>通过引入布朗桥过程，实现了形状轮廓与医学图像之间的直接结构映射。</li>
+<li>Cor2Vox成功将连续的皮质形状先验知识应用于合成脑MRI中。</li>
+<li>与传统的像素级方法相比，Cor2Vox在几何精度上显著提高。</li>
+<li>Cor2Vox在图像质量和多样性方面表现出色，对非目标结构如颅骨的高变异性能进行模拟。</li>
+<li>Cor2Vox具备模拟皮质萎缩的亚像素级能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.12742">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-02-20\./crop_Diffusion Models/2502.12742v1/page_0_0.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-82e9d522c9f13e3b8847bf831182c7c3.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-f525489c3273d55ad672fd43b9673a5d.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-31ad5050d5b50a4c67c501c6ffcdf6f9.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="CHATS-Combining-Human-Aligned-Optimization-and-Test-Time-Sampling-for-Text-to-Image-Generation"><a href="#CHATS-Combining-Human-Aligned-Optimization-and-Test-Time-Sampling-for-Text-to-Image-Generation" class="headerlink" title="CHATS: Combining Human-Aligned Optimization and Test-Time Sampling for   Text-to-Image Generation"></a>CHATS: Combining Human-Aligned Optimization and Test-Time Sampling for   Text-to-Image Generation</h2><p><strong>Authors:Minghao Fu, Guo-Hua Wang, Liangfu Cao, Qing-Guo Chen, Zhao Xu, Weihua Luo, Kaifu Zhang</strong></p>
+<p>Diffusion models have emerged as a dominant approach for text-to-image generation. Key components such as the human preference alignment and classifier-free guidance play a crucial role in ensuring generation quality. However, their independent application in current text-to-image models continues to face significant challenges in achieving strong text-image alignment, high generation quality, and consistency with human aesthetic standards. In this work, we for the first time, explore facilitating the collaboration of human performance alignment and test-time sampling to unlock the potential of text-to-image models. Consequently, we introduce CHATS (Combining Human-Aligned optimization and Test-time Sampling), a novel generative framework that separately models the preferred and dispreferred distributions and employs a proxy-prompt-based sampling strategy to utilize the useful information contained in both distributions. We observe that CHATS exhibits exceptional data efficiency, achieving strong performance with only a small, high-quality funetuning dataset. Extensive experiments demonstrate that CHATS surpasses traditional preference alignment methods, setting new state-of-the-art across various standard benchmarks. </p>
+<blockquote>
+<p>扩散模型已经成为文本到图像生成的主导方法。关键组件，如人类偏好对齐和无分类器引导，在确保生成质量方面发挥着至关重要的作用。然而，它们在当前的文本到图像模型中的独立应用，在实现强大的文本图像对齐、高生成质量和与人类审美标准的一致性方面仍面临重大挑战。在这项工作中，我们首次探索了人类性能对齐和测试时间采样的协作，以解锁文本到图像模型的潜力。因此，我们引入了CHATS（结合人类对齐优化和测试时间采样），这是一种新型生成框架，分别建模首选和不受欢迎的分布，并采用基于代理提示的采样策略，利用两个分布中包含的有用信息。我们发现CHATS表现出卓越的数据效率，仅使用一个小而高质量微调数据集就能实现强劲表现。大量实验表明，CHATS超越了传统偏好对齐方法，在多种标准基准测试中达到了新的技术水准。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.12579v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>文本描述了Diffusion模型在文本到图像生成中的主导地位，并指出了人类偏好对齐和分类器自由指导等关键组件的重要性。然而，当前文本到图像模型独立应用时，仍面临实现强文本图像对齐、高质量生成和符合人类审美标准的一致性的挑战。本文首次探索了人类性能对齐和测试时间采样的协作潜力，并引入了CHATS（结合人类对齐优化和测试时间采样）这一新型生成框架。该框架能够分别建模首选和不受欢迎的分布，并采用基于代理提示的采样策略，利用这两种分布中包含的有用信息。实验表明，CHATS表现出卓越的数据效率，在小型高质量微调数据集上实现了强大的性能，并超越了传统的偏好对齐方法，在各种标准基准测试中均达到最新水平。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Diffusion模型已成为文本到图像生成的主要方法。</li>
+<li>人类偏好对齐和分类器自由指导等组件在保障生成质量方面扮演关键角色。</li>
+<li>当前文本到图像模型仍面临文本图像对齐、高质量生成和符合人类审美标准的一致性的挑战。</li>
+<li>CHATS框架首次探索了人类性能对齐和测试时间采样的协作潜力。</li>
+<li>CHATS框架能够分别建模首选和不受欢迎的分布，并采用基于代理提示的采样策略。</li>
+<li>CHATS展现出卓越的数据效率，在小型高质量微调数据集上实现了强大性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.12579">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-6c7dc6c0bb37a176a0856129f2ae372d.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-a06e6a0f01ac227093f53078b009da97.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-98ee22c9aa15c3b996a03395cdd6c25c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a935b7ef3571a0929dd0b03debed9f03.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-5400cbc35e0029604d909d5ce64d2598.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="DeltaDiff-A-Residual-Guided-Diffusion-Model-for-Enhanced-Image-Super-Resolution"><a href="#DeltaDiff-A-Residual-Guided-Diffusion-Model-for-Enhanced-Image-Super-Resolution" class="headerlink" title="DeltaDiff: A Residual-Guided Diffusion Model for Enhanced Image   Super-Resolution"></a>DeltaDiff: A Residual-Guided Diffusion Model for Enhanced Image   Super-Resolution</h2><p><strong>Authors:Chao Yang, Yong Fan, Cheng Lu, Zhijing Yang</strong></p>
+<p>Recently, the application of diffusion models in super-resolution tasks has become a popular research direction. Existing work is focused on fully migrating diffusion models to SR tasks. The diffusion model is proposed in the field of image generation, so in order to make the generated results diverse, the diffusion model combines random Gaussian noise and distributed sampling to increase the randomness of the model.   However, the essence of super-resolution tasks requires the model to generate high-resolution images with fidelity. Excessive addition of random factors can result in the model generating detailed information that does not belong to the HR image. To address this issue, we propose a new diffusion model called Deltadiff, which uses only residuals between images for diffusion, making the entire diffusion process more stable. The experimental results show that our method surpasses state-of-the-art models and generates results with better fidelity. Our code and model are publicly available at <a target="_blank" rel="noopener" href="https://github.com/continueyang/DeltaDiff">https://github.com/continueyang/DeltaDiff</a> </p>
+<blockquote>
+<p>最近，扩散模型在超分辨率任务中的应用已成为热门的研究方向。现有工作主要集中在将扩散模型完全迁移到SR任务上。扩散模型是应图像生成领域的需求而提出的，因此为了产生多样化的结果，扩散模型结合了随机高斯噪声和分布式采样来增加模型的随机性。然而，超分辨率任务的核心要求模型生成具有保真度的高分辨率图像。过多地增加随机因素可能会导致模型生成不属于高分辨率图像的详细信息。为解决这一问题，我们提出了一种新的扩散模型，称为Deltadiff，它仅使用图像之间的残差进行扩散，使整个扩散过程更加稳定。实验结果表明，我们的方法超越了最先进的模型，生成的结果具有更好的保真度。我们的代码和模型在<a target="_blank" rel="noopener" href="https://github.com/continueyang/DeltaDiff%E5%85%AC%E5%BC%80%E5%8F%AF%E7%94%A8">https://github.com/continueyang/DeltaDiff公开可用</a>。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.12567v1">PDF</a> </p>
+<p><strong>Summary</strong><br>     近期，扩散模型在超分辨率任务中的应用成为热门研究方向。针对如何在超分辨率任务中应用扩散模型使其生成的图像结果既具备多样性又具有保真度的问题，提出了一种名为Deltadiff的新扩散模型。该模型仅使用图像之间的残差进行扩散，使整个扩散过程更加稳定，生成结果超越了现有先进模型并提高了保真度。模型和代码已公开在GitHub上提供。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>扩散模型在超分辨率任务中的应用是当前热门研究方向。</li>
+<li>现有工作侧重于将扩散模型完全迁移到超分辨率任务上。</li>
+<li>扩散模型结合了随机高斯噪声和分布式采样以增加模型的随机性，用于生成多样性的图像结果。</li>
+<li>超分辨率任务要求模型生成具有保真度的高分辨率图像。</li>
+<li>过量添加随机因素可能导致模型生成不属于高分辨率图像的详细信息。</li>
+<li>提出了一种名为Deltadiff的新扩散模型，仅使用图像间的残差进行扩散，使扩散过程更加稳定。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.12567">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-a1a5e5438b65f579f5d65eea6793e753.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-df0c76ec02ff6c5e6735722a4d7e57ee.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-57a773b39d2590f5d4f7b97bf7a21274.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-672d495340aa63d33b8179a08dc73782.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-21ccf6d2fe84e0455e05c2a544198ccc.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-89be4fc6e0d02d7cf57ed2ec0e164f0a.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Comprehensive-Assessment-and-Analysis-for-NSFW-Content-Erasure-in-Text-to-Image-Diffusion-Models"><a href="#Comprehensive-Assessment-and-Analysis-for-NSFW-Content-Erasure-in-Text-to-Image-Diffusion-Models" class="headerlink" title="Comprehensive Assessment and Analysis for NSFW Content Erasure in   Text-to-Image Diffusion Models"></a>Comprehensive Assessment and Analysis for NSFW Content Erasure in   Text-to-Image Diffusion Models</h2><p><strong>Authors:Die Chen, Zhiwen Li, Cen Chen, Xiaodan Li, Jinyan Ye</strong></p>
+<p>Text-to-image (T2I) diffusion models have gained widespread application across various domains, demonstrating remarkable creative potential. However, the strong generalization capabilities of these models can inadvertently led they to generate NSFW content even with efforts on filtering NSFW content from the training dataset, posing risks to their safe deployment. While several concept erasure methods have been proposed to mitigate this issue, a comprehensive evaluation of their effectiveness remains absent. To bridge this gap, we present the first systematic investigation of concept erasure methods for NSFW content and its sub-themes in text-to-image diffusion models. At the task level, we provide a holistic evaluation of 11 state-of-the-art baseline methods with 14 variants. Specifically, we analyze these methods from six distinct assessment perspectives, including three conventional perspectives, i.e., erasure proportion, image quality, and semantic alignment, and three new perspectives, i.e., excessive erasure, the impact of explicit and implicit unsafe prompts, and robustness. At the tool level, we perform a detailed toxicity analysis of NSFW datasets and compare the performance of different NSFW classifiers, offering deeper insights into their performance alongside a compilation of comprehensive evaluation metrics. Our benchmark not only systematically evaluates concept erasure methods, but also delves into the underlying factors influencing their performance at the insight level. By synthesizing insights from various evaluation perspectives, we provide a deeper understanding of the challenges and opportunities in the field, offering actionable guidance and inspiration for advancing research and practical applications in concept erasure. </p>
+<blockquote>
+<p>文本到图像（T2I）扩散模型已广泛应用于各个领域，显示出显著的创新潜力。然而，这些模型具有强大的泛化能力，即使从训练数据集中过滤掉不适当的内容，它们也可能无意中生成不安全的成人内容（NSFW），从而对安全部署构成风险。虽然已经提出了几种概念删除方法来缓解这个问题，但对它们的有效性进行全面评估仍然缺失。为了填补这一空白，我们对文本到图像扩散模型中不安全的成人内容（NSFW）及其子主题的概念删除方法进行了首次系统研究。在任务层面，我们对11种最新基线方法和14种变体进行了全面评估。具体来说，我们从六个不同的评估角度分析了这些方法，包括三个传统角度，即删除比例、图像质量和语义对齐，以及三个新角度，即过度删除、明确和隐含的不安全提示的影响和鲁棒性。在工具层面，我们对NSFW数据集进行了详细的毒性分析，并比较了不同NSFW分类器的性能，提供了关于它们性能的更深入见解，并汇编了全面的评估指标。我们的基准测试不仅系统地评估了概念删除方法，还深入研究了影响它们性能的关键因素。通过从各种评估角度综合见解，我们提供了该领域挑战和机遇的深入了解，为推进概念删除的研究和实际应用提供了可行的指导和灵感。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.12527v1">PDF</a> </p>
+<p><strong>摘要</strong></p>
+<p>文本到图像（T2I）扩散模型在各个领域都有广泛应用，显示出惊人的创造力。然而，这些模型的强大泛化能力可能会无意中生成不适宜公开场合（NSFW）的内容，即使在努力从训练数据集中过滤这些内容时也是如此，这对模型的安全部署构成了风险。为了解决这一难题，本文首次系统地研究了概念消除方法在文本到图像扩散模型中用于处理不适宜公开场合内容的效率及其子主题。在任务层面，我们对最新的基于扩散模型的文本图像合成技术进行了全面的评估对比，挑选了其中最具代表性的十一类基线方法及其十四个变种。我们从六个不同的评估角度对这些方法进行了详细的分析，包括三个传统角度：消除比例、图像质量和语义对齐；以及三个新的角度：过度消除、显性不安全提示和隐性不安全提示的影响、以及鲁棒性。在工具层面，我们对不适宜公开场合的数据集进行了详细的毒性分析，并比较了不同不适宜公开场合分类器的性能。我们的基准测试不仅系统地评估了概念消除方法，还深入探讨了影响它们性能的因素，综合各种评估角度的见解，为推进概念消除领域的进一步研究提供了深刻见解和实际应用的灵感和方向。我们的研究强调了未来的挑战和机遇。旨在推进该领域的发展并为实际应用提供指导。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>文本到图像（T2I）扩散模型具有在各种领域广泛应用的能力并展现出显著的创新潜力。然而，他们有时会生成不适宜公开场合（NSFW）的内容。</li>
+<li>尽管有概念消除方法被提出以解决生成NSFW内容的问题，但对这些方法的有效性进行系统性的评估仍然存在缺口。</li>
+<li>在任务层面，本研究对最新的基线方法进行了全面的评估，包括从六个不同的评估角度对它们进行了详细的分析。这些角度不仅涵盖了传统的评估标准，还包括新的评估视角如过度消除和对于不同提示类型的反应等。</li>
+<li>在工具层面，研究涉及不适宜公开场合数据集的毒性分析以及不同分类器的性能比较，以深入理解概念消除方法的实际性能并定义更全面的评估指标。</li>
+<li>我们的研究深入探讨了影响概念消除方法性能的因素，并提供了一个视角来洞察该领域的挑战和机遇。这不仅有助于推进研究进步，也为实际应用提供了方向。</li>
+<li>研究结果表明对扩散模型在生成过程中的细节进行优化是提高其性能和避免生成不适宜内容的关键所在。通过对这些模型的深入了解和改进将有助于开发更先进且更安全的生成技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.12527">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-eaa534fc906914de1b623653bdc9093a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-ea1dc44282e96d36f1283b72e27b8726.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9a608beb5764a45755dfd65139e53a62.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-c75860f63b5dcc3b9d4c2a061eeca6b3.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b986df6d7b1e9b2d4634830a311414a0.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="SynthVLM-High-Efficiency-and-High-Quality-Synthetic-Data-for-Vision-Language-Models"><a href="#SynthVLM-High-Efficiency-and-High-Quality-Synthetic-Data-for-Vision-Language-Models" class="headerlink" title="SynthVLM: High-Efficiency and High-Quality Synthetic Data for Vision   Language Models"></a>SynthVLM: High-Efficiency and High-Quality Synthetic Data for Vision   Language Models</h2><p><strong>Authors:Zheng Liu, Hao Liang, Bozhou Li, Tianyi Bai, Wentao Xiong, Chong Chen, Conghui He, Wentao Zhang, Bin Cui</strong></p>
+<p>Vision-Language Models (VLMs) have recently emerged, demonstrating remarkable vision-understanding capabilities. However, training these models requires large-scale datasets, which brings challenges related to efficiency, effectiveness, quality, and privacy of web data. In this paper, we introduce SynthVLM, a novel data synthesis and curation method for generating image-caption pairs. Unlike traditional methods, where captions are generated from images, SynthVLM utilizes advanced diffusion models and high-quality captions to automatically synthesize and select high-resolution images from text descriptions, thereby creating precisely aligned image-text pairs. To demonstrate the power of SynthVLM, we introduce SynthVLM-100K, a high-quality dataset consisting of 100,000 curated and synthesized image-caption pairs. In both model and human evaluations, SynthVLM-100K outperforms traditional real-world datasets. Leveraging this dataset, we develop a new family of multimodal large language models (MLLMs), SynthVLM-7B and SynthVLM-13B, which achieve state-of-the-art (SOTA) performance on various vision question-answering (VQA) tasks. Notably, our models outperform LLaVA across most metrics with only 18% pretrain data. Furthermore, SynthVLM-7B and SynthVLM-13B attain SOTA performance on the MMLU benchmark, demonstrating that the high-quality SynthVLM-100K dataset preserves language abilities. To facilitate future research, our dataset and the complete data generating and curating methods are open-sourced at <a target="_blank" rel="noopener" href="https://github.com/starriver030515/SynthVLM">https://github.com/starriver030515/SynthVLM</a>. </p>
+<blockquote>
+<p>视觉语言模型（VLMs）最近崭露头角，展现出卓越的视觉理解能力。然而，训练这些模型需要大规模数据集，这带来了与网页数据效率、有效性、质量和隐私相关的挑战。在本文中，我们介绍了SynthVLM，一种用于生成图像-字幕对的新型数据合成和筛选方法。与传统的从图像生成字幕的方法不同，SynthVLM利用先进的扩散模型和高质量字幕，自动根据文本描述合成和筛选高分辨率图像，从而创建精确对齐的图像-文本对。为了展示SynthVLM的威力，我们推出了SynthVLM-100K，这是一个高质量的数据集，包含10万个经过筛选和合成的图像-字幕对。在模型和人类评估中，SynthVLM-100K的表现都优于传统的现实世界数据集。利用这个数据集，我们开发了一系列新的多模态大型语言模型（MLLMs），包括SynthVLM-7B和SynthVLM-13B。它们在各种视觉问答（VQA）任务上达到了最新技术水平。值得注意的是，我们的模型在大多数指标上都优于LLaVA，而仅使用了18%的预训练数据。此外，SynthVLM-7B和SynthVLM-13B在MMLU基准测试中达到了最新技术水平，证明了高质量SynthVLM-100K数据集保留了语言功能。为了促进未来的研究，我们的数据集以及完整的数据生成和筛选方法已在<a target="_blank" rel="noopener" href="https://github.com/starriver030515/SynthVLM%E4%B8%8A%E5%BC%80%E6%BA%90%E3%80%82">https://github.com/starriver030515/SynthVLM上开源。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2407.20756v4">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>在大规模数据集训练下的视觉语言模型（VLMs）展现出了卓越的视觉理解能力。但数据集质量及其带来的效率问题却逐渐暴露出来。本研究提出了一种新型数据合成与筛选方法SynthVLM，该方法结合先进的扩散模型和高质量文本描述，自动生成精确对齐的图像文本对。基于该方法构建的SynthVLM-100K数据集在模型和人类评估中都超越了传统真实世界数据集。利用该数据集训练的SynthVLM系列多模态大型语言模型（MLLMs）在视觉问答任务上达到最新性能水平。同时，数据集和完整的数据生成与筛选方法已开源共享。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Vision-Language Models (VLMs)展现出强大的视觉理解能力，但大规模数据集训练面临挑战。</li>
+<li>SynthVLM是一种新型数据合成与筛选方法，能生成精确对齐的图像文本对。</li>
+<li>SynthVLM利用扩散模型和高质量文本描述进行图像合成。</li>
+<li>SynthVLM构建的SynthVLM-100K数据集在模型与人类评估中表现优越于传统数据集。</li>
+<li>利用SynthVLM-100K数据集训练的SynthVLM系列多模态大型语言模型（MLLLMs）在视觉问答任务上达到最新性能水平。</li>
+<li>SynthVLM系列模型在多个评估指标上超越了LLaVA模型，仅使用较少的预训练数据。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2407.20756">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-160d879f60f420b19dd5d318499c0336.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-17f116beb20df0e646033a0760c8472f.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-f828c121ad1301ea2ac476a116c3e247.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9d93b23ed5492f2de742638ba9a1ab9b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-75cd58a9f73f7e0939d1ea7deed38a14.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-a4e316ea111606c3bf578867688a7242.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-7c3596e2fff25973325763654f9d19ee.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-02-20/Diffusion%20Models/">https://kedreamix.github.io/Talk2Paper/Paper/2025-02-20/Diffusion%20Models/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/Diffusion-Models/">
+                                    <span class="chip bg-color">Diffusion Models</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-02-20/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">
+                    <div class="card-image">
+                        
+                        <img src="https://pic1.zhimg.com/v2-309e96d5c3a1a942cd89f6ed448e05da.jpg" class="responsive-img" alt="医学图像">
+                        
+                        <span class="card-title">医学图像</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            医学图像 方向最新论文已更新，请持续关注 Update in 2025-02-20  A Dual-Stage Time-Context Network for Speech-Based Alzheimer's Disease   Detection
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-02-20
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/" class="post-category">
+                                    医学图像
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">
+                        <span class="chip bg-color">医学图像</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-02-20/NeRF/">
+                    <div class="card-image">
+                        
+                        <img src="https://pica.zhimg.com/v2-4c44af8dc31b465906bdea00e5a83a7a.jpg" class="responsive-img" alt="NeRF">
+                        
+                        <span class="card-title">NeRF</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            NeRF 方向最新论文已更新，请持续关注 Update in 2025-02-20  Enhancing operational wind downscaling capabilities over Canada   Application of a Conditional Wasserstein GAN methodology
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-02-20
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                    NeRF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/NeRF/">
+                        <span class="chip bg-color">NeRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">11004.4k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
