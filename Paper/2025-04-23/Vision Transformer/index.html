@@ -1,0 +1,1444 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Vision Transformer">
+    <meta name="description" content="Vision Transformer 方向最新论文已更新，请持续关注 Update in 2025-04-23  Impact of Latent Space Dimension on IoT Botnet Detection Performance   VAE-Encoder Versus ViT-Encoder">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Vision Transformer | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://pic1.zhimg.com/v2-722c847def8fad2a116798d8be87ec11.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Vision Transformer</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/Vision-Transformer/">
+                                <span class="chip bg-color">Vision Transformer</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/Vision-Transformer/" class="post-category">
+                                Vision Transformer
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-04-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-04-23
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    7.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    29 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-04-23-更新"><a href="#2025-04-23-更新" class="headerlink" title="2025-04-23 更新"></a>2025-04-23 更新</h1><h2 id="Impact-of-Latent-Space-Dimension-on-IoT-Botnet-Detection-Performance-VAE-Encoder-Versus-ViT-Encoder"><a href="#Impact-of-Latent-Space-Dimension-on-IoT-Botnet-Detection-Performance-VAE-Encoder-Versus-ViT-Encoder" class="headerlink" title="Impact of Latent Space Dimension on IoT Botnet Detection Performance:   VAE-Encoder Versus ViT-Encoder"></a>Impact of Latent Space Dimension on IoT Botnet Detection Performance:   VAE-Encoder Versus ViT-Encoder</h2><p><strong>Authors:Hassan Wasswa, Aziida Nanyonga, Timothy Lynar</strong></p>
+<p>The rapid evolution of Internet of Things (IoT) technology has led to a significant increase in the number of IoT devices, applications, and services. This surge in IoT devices, along with their widespread presence, has made them a prime target for various cyber-attacks, particularly through IoT botnets. As a result, security has become a major concern within the IoT ecosystem. This study focuses on investigating how the latent dimension impacts the performance of different deep learning classifiers when trained on latent vector representations of the train dataset. The primary objective is to compare the outcomes of these models when encoder components from two cutting-edge architectures: the Vision Transformer (ViT) and the Variational Auto-Encoder (VAE) are utilized to project the high dimensional train dataset to the learned low dimensional latent space. The encoder components are employed to project high-dimensional structured .csv IoT botnet traffic datasets to various latent sizes. Evaluated on N-BaIoT and CICIoT2022 datasets, findings reveal that VAE-encoder based dimension reduction outperforms ViT-encoder based dimension reduction for both datasets in terms of four performance metrics including accuracy, precision, recall, and F1-score for all models which can be attributed to absence of spatial patterns in the datasets the ViT model attempts to learn and extract from image instances. </p>
+<blockquote>
+<p>随着物联网（IoT）技术的快速发展，物联网设备、应用和服务数量显著增加。物联网设备的激增及其广泛存在使其成为各种网络攻击的主要目标，特别是通过物联网僵尸网络进行的攻击。因此，安全已成为物联网生态系统中的主要关注点。本研究重点调查潜在维度如何影响在不同深度学习分类器上训练时的性能，这些分类器是在训练数据集的潜在向量表示上训练的。主要目标是比较使用两种前沿架构的编码器组件时的模型结果：视觉转换器（ViT）和变分自动编码器（VAE）。它们被用于将高维度的训练数据集投影到学习到的低维度潜在空间。编码器组件被用于将高维度的结构化.csv物联网僵尸网络流量数据集投影到各种潜在大小。在N-BaIoT和CICIoT2022数据集上进行了评估，研究发现在四项性能指标（准确性、精确性、召回率和F1分数）方面，基于VAE编码器的降维在两组数据集上的表现优于基于ViT编码器的降维方法。这可以归因于数据集缺乏空间模式，而ViT模型试图从图像实例中学习并提取这些模式。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.14879v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>物联网技术的快速发展导致物联网设备、应用和服务数量激增，使得物联网生态系统面临严重的安全威胁，尤其是通过物联网僵尸网络进行的各种网络攻击。本研究聚焦于探讨潜在维度对训练在潜在向量表示上的不同深度学习分类器性能的影响。主要目的是比较使用Vision Transformer（ViT）和变分自编码器（VAE）的编码器组件将高维结构化.csv物联网僵尸网络流量数据集投影到不同的潜在维度空间时的模型表现。在N-BaIoT和CICIoT2022数据集上的评估结果表明，基于VAE编码器的降维在四个性能指标（准确性、精确度、召回率和F1分数）上均优于基于ViT编码器的降维，这可能是由于数据集中不存在空间模式，而ViT模型试图从图像实例中学习并提取这些模式。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>物联网技术的快速发展伴随着物联网设备数量的激增，使其成为网络攻击的主要目标。</li>
+<li>安全已成为物联网生态系统的主要关注点。</li>
+<li>本研究探讨了潜在维度对深度学习分类器性能的影响，特别是在处理物联网僵尸网络流量数据时。</li>
+<li>使用了Vision Transformer（ViT）和变分自编码器（VAE）的编码器组件进行实验。</li>
+<li>实验结果显示，基于VAE编码器的降维在多个性能指标上优于基于ViT编码器的降维。</li>
+<li>这种差异可能源于数据集中缺乏空间模式，而ViT模型试图从这些模式中学习。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.14879">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-8b7661e1667fbc1d8463267295e3685e.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-cd06ad647eb2de3408af274670c9231a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-808c2907db03bd1306548c49933950c7.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-e20565da00174fbaf5cbe3daeece6ea8.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-2915b27c64c9456e2de2e96eb89f7eba.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-3322d4148c9e285102d3d3914471f441.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="ECViT-Efficient-Convolutional-Vision-Transformer-with-Local-Attention-and-Multi-scale-Stages"><a href="#ECViT-Efficient-Convolutional-Vision-Transformer-with-Local-Attention-and-Multi-scale-Stages" class="headerlink" title="ECViT: Efficient Convolutional Vision Transformer with Local-Attention   and Multi-scale Stages"></a>ECViT: Efficient Convolutional Vision Transformer with Local-Attention   and Multi-scale Stages</h2><p><strong>Authors:Zhoujie Qian</strong></p>
+<p>Vision Transformers (ViTs) have revolutionized computer vision by leveraging self-attention to model long-range dependencies. However, ViTs face challenges such as high computational costs due to the quadratic scaling of self-attention and the requirement of a large amount of training data. To address these limitations, we propose the Efficient Convolutional Vision Transformer (ECViT), a hybrid architecture that effectively combines the strengths of CNNs and Transformers. ECViT introduces inductive biases such as locality and translation invariance, inherent to Convolutional Neural Networks (CNNs) into the Transformer framework by extracting patches from low-level features and enhancing the encoder with convolutional operations. Additionally, it incorporates local-attention and a pyramid structure to enable efficient multi-scale feature extraction and representation. Experimental results demonstrate that ECViT achieves an optimal balance between performance and efficiency, outperforming state-of-the-art models on various image classification tasks while maintaining low computational and storage requirements. ECViT offers an ideal solution for applications that prioritize high efficiency without compromising performance. </p>
+<blockquote>
+<p>视觉Transformer（ViT）通过利用自注意力机制对长距离依赖关系进行建模，从而彻底改变了计算机视觉领域。然而，ViT面临挑战，如自注意力的二次扩展导致的高计算成本和对大量训练数据的需求。为了解决这些局限性，我们提出了高效的卷积视觉Transformer（ECViT），这是一种有效结合CNN和Transformer优势的混合架构。ECViT通过在Transformer框架中引入卷积神经网络（CNN）所固有的局部性和平移不变性等归纳偏见，通过从低级特征中提取补丁并增强编码器中的卷积操作来实现。此外，它结合了局部注意力和金字塔结构，以实现高效的多尺度特征提取和表示。实验结果表明，ECViT在性能和效率之间达到了最佳平衡，在各种图像分类任务上的性能超过了最新模型，同时保持了较低的计算和存储需求。对于注重高效率而不牺牲性能的应用，ECViT提供了理想的解决方案。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.14825v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>高效卷积视觉转换器（ECViT）结合了CNN和Transformer的优点，解决了视觉转换器（ViT）面临的高计算成本和需要大量训练数据的问题。通过引入局部性和平移不变性等归纳偏见，以及局部注意力和金字塔结构，ECViT实现了性能与效率之间的优化平衡，在多种图像分类任务上优于最新模型，同时保持低计算和存储要求。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>视觉转换器（ViT）通过自我注意力机制对计算机视觉领域产生了革命性的影响。</li>
+<li>ViT面临高计算成本和需要大量训练数据的问题。</li>
+<li>ECViT是一个混合架构，旨在解决ViT的挑战，结合了CNN和Transformer的优点。</li>
+<li>ECViT通过将CNN的归纳偏见（如局部性和平移不变性）引入Transformer框架来增强性能。</li>
+<li>ECViT通过引入局部注意力和金字塔结构，实现了多尺度特征的有效提取和表示。</li>
+<li>实验结果表明，ECViT在性能和效率之间达到了平衡，在多种图像分类任务上优于其他模型。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.14825">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-a700e5a5585a977448f7a540fca8f88a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b805c1f949665125b705767fb9903849.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a92f41f7150ee991e396ffee15139836.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-eedd34d2dc9cda7ad614964c819a842e.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="Zooming-In-on-Fakes-A-Novel-Dataset-for-Localized-AI-Generated-Image-Detection-with-Forgery-Amplification-Approach"><a href="#Zooming-In-on-Fakes-A-Novel-Dataset-for-Localized-AI-Generated-Image-Detection-with-Forgery-Amplification-Approach" class="headerlink" title="Zooming In on Fakes: A Novel Dataset for Localized AI-Generated Image   Detection with Forgery Amplification Approach"></a>Zooming In on Fakes: A Novel Dataset for Localized AI-Generated Image   Detection with Forgery Amplification Approach</h2><p><strong>Authors:Lvpan Cai, Haowei Wang, Jiayi Ji, YanShu ZhouMen, Yiwei Ma, Xiaoshuai Sun, Liujuan Cao, Rongrong Ji</strong></p>
+<p>The rise of AI-generated image editing tools has made localized forgeries increasingly realistic, posing challenges for visual content integrity. Although recent efforts have explored localized AIGC detection, existing datasets predominantly focus on object-level forgeries while overlooking broader scene edits in regions such as sky or ground. To address these limitations, we introduce \textbf{BR-Gen}, a large-scale dataset of 150,000 locally forged images with diverse scene-aware annotations, which are based on semantic calibration to ensure high-quality samples. BR-Gen is constructed through a fully automated Perception-Creation-Evaluation pipeline to ensure semantic coherence and visual realism. In addition, we further propose \textbf{NFA-ViT}, a Noise-guided Forgery Amplification Vision Transformer that enhances the detection of localized forgeries by amplifying forgery-related features across the entire image. NFA-ViT mines heterogeneous regions in images, \emph{i.e.}, potential edited areas, by noise fingerprints. Subsequently, attention mechanism is introduced to compel the interaction between normal and abnormal features, thereby propagating the generalization traces throughout the entire image, allowing subtle forgeries to influence a broader context and improving overall detection robustness. Extensive experiments demonstrate that BR-Gen constructs entirely new scenarios that are not covered by existing methods. Take a step further, NFA-ViT outperforms existing methods on BR-Gen and generalizes well across current benchmarks. All data and codes are available at <a target="_blank" rel="noopener" href="https://github.com/clpbc/BR-Gen">https://github.com/clpbc/BR-Gen</a>. </p>
+<blockquote>
+<p>人工智能生成的图像编辑工具的兴起使得局部伪造越来越逼真，给视觉内容完整性带来了挑战。尽管最近的努力已经探索了局部AIGC检测，但现有数据集主要集中在对象级别的伪造，而忽略了天空或地面等区域的更广泛的场景编辑。为了解决这些局限性，我们引入了<strong>BR-Gen</strong>，这是一个包含15万张局部伪造图像的大规模数据集，具有基于语义校准的多样化场景感知注释，以确保高质量样本。BR-Gen通过全自动的感知-创建-评估流程构建，以确保语义连贯和视觉真实性。此外，我们进一步提出了<strong>NFA-ViT</strong>，一种噪声引导的伪造放大视觉转换器，通过放大整个图像中的伪造相关特征，增强局部伪造的检测。NFA-ViT通过噪声指纹挖掘图像中的异质区域，即潜在编辑区域。随后，引入注意力机制来促使正常和异常特征之间的交互，从而在整幅图像中传播泛化痕迹，使细微的伪造能够影响更广泛的上下文，提高整体检测稳健性。大量实验表明，BR-Gen构建的场景完全超越了现有方法的覆盖范围。更进一步的是，NFA-ViT在BR-Gen上的表现优于现有方法，并在当前基准测试中具有良好的泛化能力。所有数据和代码可在<a target="_blank" rel="noopener" href="https://github.com/clpbc/BR-Gen%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/clpbc/BR-Gen找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.11922v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了AI生成图像编辑工具的兴起带来的局部篡改挑战。针对现有数据集主要关注对象级篡改，而忽视天空或地面等更广场景编辑的问题，提出了BR-Gen大型本地化伪造图像数据集。该数据集通过全自动的感知-创建-评估流程构建，确保语义连贯和视觉真实性。此外，还提出了NFA-ViT噪声引导伪造放大视觉转换器，通过放大伪造相关特征，增强局部篡改的检测能力。实验表明，BR-Gen数据集开创了全新场景，NFA-ViT在BR-Gen上的表现优于现有方法，并在当前基准测试中具有良好的泛化能力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>AI生成的图像编辑工具使得局部伪造越来越逼真，对视觉内容完整性构成挑战。</li>
+<li>现有数据集主要关注对象级伪造，而忽视更广泛的场景编辑，如天空或地面。</li>
+<li>引入BR-Gen大型本地化伪造图像数据集，通过全自动流程构建，确保语义连贯和视觉真实性。</li>
+<li>提出NFA-ViT噪声引导伪造放大视觉转换器，增强局部篡改检测能力。</li>
+<li>NFA-ViT通过放大伪造相关特征，挖掘图像中的异质区域，引入注意力机制来增强正常与异常特征间的交互。</li>
+<li>NFA-ViT能在细微篡改中影响更广泛的上下文，提高检测稳健性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.11922">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-0e50e348e13ee20dbd74d571a59bd05f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a4f3b990b18034e7e5069a16e847a975.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-1149e5f29122b0b328ed32102afeef58.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-1ff20f0212f1bcd8d63c0eccd9476360.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="MedUnifier-Unifying-Vision-and-Language-Pre-training-on-Medical-Data-with-Vision-Generation-Task-using-Discrete-Visual-Representations"><a href="#MedUnifier-Unifying-Vision-and-Language-Pre-training-on-Medical-Data-with-Vision-Generation-Task-using-Discrete-Visual-Representations" class="headerlink" title="MedUnifier: Unifying Vision-and-Language Pre-training on Medical Data   with Vision Generation Task using Discrete Visual Representations"></a>MedUnifier: Unifying Vision-and-Language Pre-training on Medical Data   with Vision Generation Task using Discrete Visual Representations</h2><p><strong>Authors:Ziyang Zhang, Yang Yu, Yucheng Chen, Xulei Yang, Si Yong Yeo</strong></p>
+<p>Despite significant progress in Vision-Language Pre-training (VLP), current approaches predominantly emphasize feature extraction and cross-modal comprehension, with limited attention to generating or transforming visual content. This gap hinders the model’s ability to synthesize coherent and novel visual representations from textual prompts, thereby reducing the effectiveness of multi-modal learning. In this work, we propose MedUnifier, a unified VLP framework tailored for medical data. MedUnifier seamlessly integrates text-grounded image generation capabilities with multi-modal learning strategies, including image-text contrastive alignment, image-text matching and image-grounded text generation. Unlike traditional methods that reply on continuous visual representations, our approach employs visual vector quantization, which not only facilitates a more cohesive learning strategy for cross-modal understanding but also enhances multi-modal generation quality by effectively leveraging discrete representations. Our framework’s effectiveness is evidenced by the experiments on established benchmarks, including uni-modal tasks (supervised fine-tuning), cross-modal tasks (image-text retrieval and zero-shot image classification), and multi-modal tasks (medical report generation, image synthesis), where it achieves state-of-the-art performance across various tasks. MedUnifier also offers a highly adaptable tool for a wide range of language and vision tasks in healthcare, marking advancement toward the development of a generalizable AI model for medical applications. </p>
+<blockquote>
+<p>尽管视觉语言预训练（VLP）取得了显著进展，但当前的方法主要侧重于特征提取和跨模态理解，对生成或转换视觉内容的关注有限。这一差距阻碍了模型从文本提示中合成连贯且新颖的视觉表示的能力，从而降低了多模态学习的有效性。在此工作中，我们提出了针对医疗数据的统一VLP框架MedUnifier。MedUnifier无缝集成了基于文本的图像生成能力与多模态学习策略，包括图像文本对比对齐、图像文本匹配和基于图像的文本生成。不同于传统方法依赖连续视觉表示，我们的方法采用视觉向量量化，这不仅有助于更连贯的跨模态理解学习策略，而且通过有效利用离散表示提高了多模态生成质量。我们的框架在既定基准测试上的实验证明了其有效性，包括单模态任务（监督微调）、跨模态任务（图像文本检索和零样本图像分类）和多模态任务（医学报告生成、图像合成）。它在各种任务上实现了最先进的性能。MedUnifier还为医疗领域的广泛语言和视觉任务提供了高度适应的工具，标志着在开发用于医学应用的可推广人工智能模型方面取得了进展。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2503.01019v3">PDF</a> To be pubilshed in CVPR 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种针对医疗数据的统一视觉语言预训练框架MedUnifier。该框架融合了文本驱动图像生成能力与多模态学习策略，包括图像文本对比对齐、图像文本匹配和图像驱动文本生成。与传统的连续视觉表示方法不同，MedUnifier采用视觉向量量化技术，既提升了跨模态理解的整合学习策略，又通过有效运用离散表示提高了多模态生成质量。在多个基准测试上，MedUnifier实现了各项任务的卓越性能，包括单模态任务、跨模态任务和多模态任务，并为医疗健康领域提供了广泛适应的语言和视觉任务工具，标志着医疗应用通用人工智能模型的发展进步。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>MedUnifier是一个针对医疗数据的统一视觉语言预训练框架。</li>
+<li>融合了文本驱动图像生成能力与多模态学习策略。</li>
+<li>框架包含图像文本对比对齐、图像文本匹配和图像驱动文本生成。</li>
+<li>采用视觉向量量化技术，提升跨模态理解的整合学习策略及多模态生成质量。</li>
+<li>在多个基准测试中实现卓越性能，包括单模态、跨模态和多模态任务。</li>
+<li>提供了适应于医疗健康领域广泛语言和视觉任务工具。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2503.01019">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-997c6247229567188fb01e92ea809d20.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-0aebc8fa0d049e771d53e80967768da2.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-35cf3560f8fcbbb66ee188f4fcade67b.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Tree-of-Attributes-Prompt-Learning-for-Vision-Language-Models"><a href="#Tree-of-Attributes-Prompt-Learning-for-Vision-Language-Models" class="headerlink" title="Tree of Attributes Prompt Learning for Vision-Language Models"></a>Tree of Attributes Prompt Learning for Vision-Language Models</h2><p><strong>Authors:Tong Ding, Wanhua Li, Zhongqi Miao, Hanspeter Pfister</strong></p>
+<p>Prompt learning has proven effective in adapting vision language models for downstream tasks. However, existing methods usually append learnable prompt tokens solely with the category names to obtain textual features, which fails to fully leverage the rich context indicated in the category name. To address this issue, we propose the Tree of Attributes Prompt learning (TAP), which first instructs LLMs to generate a tree of attributes with a “concept - attribute - description” structure for each category, and then learn the hierarchy with vision and text prompt tokens. Unlike existing methods that merely augment category names with a set of unstructured descriptions, our approach essentially distills structured knowledge graphs associated with class names from LLMs. Furthermore, our approach introduces text and vision prompts designed to explicitly learn the corresponding visual attributes, effectively serving as domain experts. Additionally, the general and diverse descriptions generated based on the class names may be wrong or absent in the specific given images. To address this misalignment, we further introduce a vision-conditional pooling module to extract instance-specific text features. Extensive experimental results demonstrate that our approach outperforms state-of-the-art methods on the zero-shot base-to-novel generalization, cross-dataset transfer, as well as few-shot classification across 11 diverse datasets. Code is available at <a target="_blank" rel="noopener" href="https://github.com/HHenryD/TAP">https://github.com/HHenryD/TAP</a>. </p>
+<blockquote>
+<p>提示学习已证明在适应视觉语言模型以进行下游任务方面非常有效。然而，现有方法通常仅将可学习的提示令牌附加到类别名称上以获得文本特征，这未能充分利用类别名称中指示的丰富上下文。为了解决此问题，我们提出了属性树提示学习（TAP）方法。该方法首先指导大型语言模型为每个类别生成具有“概念-属性-描述”结构的属性树，然后学习与视觉和文本提示令牌对应的层次结构。与仅将类别名称与一组非结构描述相结合的现有方法不同，我们的方法本质上是从大型语言模型中蒸馏出与类名相关的结构化知识图谱。此外，我们的方法引入了用于明确学习相应视觉属性的文本和视觉提示，有效地充当领域专家。基于类名生成的通用且多样的描述在特定给定的图像中可能出错或缺失。为了解决这种不匹配问题，我们进一步引入了一个视觉条件池模块来提取实例特定的文本特征。大量的实验结果证明，我们的方法在零样本基础到新颖的泛化、跨数据集迁移以及在11个不同数据集上的少样本分类方面均优于最先进的方法。代码可访问 <a target="_blank" rel="noopener" href="https://github.com/HHenryD/TAP%E3%80%82">https://github.com/HHenryD/TAP。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.11201v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种名为Tree of Attributes Prompt（TAP）的学习方法，用于改进视觉语言模型的下游任务适应性。TAP通过指导大型语言模型（LLMs）为每个类别生成属性树，形成“概念-属性-描述”的结构，并学习与视觉和文本提示标记的层次结构。相较于仅将类别名称与一系列非结构描述相结合的方法，TAP能提炼与类别名称相关的结构化知识图谱，并引入文本和视觉提示以明确学习相应的视觉属性。同时，为解决特定图像中可能存在的描述错误或缺失问题，引入视觉条件池化模块以提取实例特定的文本特征。实验结果显示，TAP在零样本基础到新颖类别的推广、跨数据集迁移以及在11个不同数据集的少量样本分类任务上均优于现有最先进的方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>TAP通过生成属性树来丰富类别信息的语境表达。</li>
+<li>TAP利用大型语言模型生成与类别名称相关的结构化知识图谱。</li>
+<li>TAP引入文本和视觉提示来学习视觉属性，类似于领域专家。</li>
+<li>针对特定图像可能出现的描述错误或缺失，引入视觉条件池化模块。</li>
+<li>TAP在多个数据集上的实验表现优于现有方法，尤其在零样本学习和少量样本分类任务上。</li>
+<li>TAP方法公开可用，相关代码可访问特定链接。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.11201">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-3898defe56ce39f9a99c26949d694faf.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-722c847def8fad2a116798d8be87ec11.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-874bb9fdbf0b09085549e51626372a42.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="Inspecting-Explainability-of-Transformer-Models-with-Additional-Statistical-Information"><a href="#Inspecting-Explainability-of-Transformer-Models-with-Additional-Statistical-Information" class="headerlink" title="Inspecting Explainability of Transformer Models with Additional   Statistical Information"></a>Inspecting Explainability of Transformer Models with Additional   Statistical Information</h2><p><strong>Authors:Hoang C. Nguyen, Haeil Lee, Junmo Kim</strong></p>
+<p>Transformer becomes more popular in the vision domain in recent years so there is a need for finding an effective way to interpret the Transformer model by visualizing it. In recent work, Chefer et al. can visualize the Transformer on vision and multi-modal tasks effectively by combining attention layers to show the importance of each image patch. However, when applying to other variants of Transformer such as the Swin Transformer, this method can not focus on the predicted object. Our method, by considering the statistics of tokens in layer normalization layers, shows a great ability to interpret the explainability of Swin Transformer and ViT. </p>
+<blockquote>
+<p>近年来，Transformer在视觉领域越来越受欢迎，因此有必要找到一种通过可视化来解释Transformer模型的有效方法。Chefer等人最近的工作能够通过结合注意力层来展示每个图像块的重要性，从而在视觉和多模态任务上有效地可视化Transformer。然而，当应用于Swin Transformer等其他Transformer变体时，这种方法无法关注预测目标。我们的方法考虑了层归一化层中token的统计信息，展示了极高的解释性能力，能够解释Swin Transformer和ViT的可解释性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2311.11378v2">PDF</a> Accepted at Responsible Computer Vision workshop at ECCV 2022</p>
+<p><strong>Summary</strong></p>
+<p>近期Transformer在视觉领域越来越受欢迎，因此亟需找到一种有效的可视化解释方法。Chefer等人通过将注意力层相结合，展示了一种适用于视觉和多模态任务的Transformer可视化方法。但应用到其他变种如Swin Transformer时，该方法无法关注预测目标。而我们的方法则通过考虑层归一化层中的token统计，展现出强大的Swin Transformer和ViT的可解释性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>Transformer模型在视觉领域受到广泛关注。</li>
+<li>可视化解释方法对于理解Transformer模型至关重要。</li>
+<li>Chefer等人的方法适用于视觉和多模态任务的Transformer可视化。</li>
+<li>当应用于Swin Transformer等变体时，现有方法可能无法关注预测目标。</li>
+<li>提出了一种新的方法，通过考虑层归一化层中的token统计来解释Swin Transformer和ViT。</li>
+<li>该新方法具有强大的可解释性能力。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2311.11378">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6e7c73e43e1601e20ca97927424643c1.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-bbf3bcecfd3a91742d74ef4ac1de3823.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-124b962ec5e1110810d53519e65c7b55.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="AnomalyCLIP-Object-agnostic-Prompt-Learning-for-Zero-shot-Anomaly-Detection"><a href="#AnomalyCLIP-Object-agnostic-Prompt-Learning-for-Zero-shot-Anomaly-Detection" class="headerlink" title="AnomalyCLIP: Object-agnostic Prompt Learning for Zero-shot Anomaly   Detection"></a>AnomalyCLIP: Object-agnostic Prompt Learning for Zero-shot Anomaly   Detection</h2><p><strong>Authors:Qihang Zhou, Guansong Pang, Yu Tian, Shibo He, Jiming Chen</strong></p>
+<p>Zero-shot anomaly detection (ZSAD) requires detection models trained using auxiliary data to detect anomalies without any training sample in a target dataset. It is a crucial task when training data is not accessible due to various concerns, eg, data privacy, yet it is challenging since the models need to generalize to anomalies across different domains where the appearance of foreground objects, abnormal regions, and background features, such as defects&#x2F;tumors on different products&#x2F;organs, can vary significantly. Recently large pre-trained vision-language models (VLMs), such as CLIP, have demonstrated strong zero-shot recognition ability in various vision tasks, including anomaly detection. However, their ZSAD performance is weak since the VLMs focus more on modeling the class semantics of the foreground objects rather than the abnormality&#x2F;normality in the images. In this paper we introduce a novel approach, namely AnomalyCLIP, to adapt CLIP for accurate ZSAD across different domains. The key insight of AnomalyCLIP is to learn object-agnostic text prompts that capture generic normality and abnormality in an image regardless of its foreground objects. This allows our model to focus on the abnormal image regions rather than the object semantics, enabling generalized normality and abnormality recognition on diverse types of objects. Large-scale experiments on 17 real-world anomaly detection datasets show that AnomalyCLIP achieves superior zero-shot performance of detecting and segmenting anomalies in datasets of highly diverse class semantics from various defect inspection and medical imaging domains. Code will be made available at <a target="_blank" rel="noopener" href="https://github.com/zqhang/AnomalyCLIP">https://github.com/zqhang/AnomalyCLIP</a>. </p>
+<blockquote>
+<p>零样本异常检测（ZSAD）要求使用辅助数据训练的检测模型能够在目标数据集中无需任何训练样本即可检测异常值。当由于各种原因无法获取训练数据时，这是一项至关重要的任务，例如数据隐私。然而，由于模型需要泛化到不同领域的异常值，因此面临巨大挑战，在这些领域中，前景对象、异常区域和背景特征（如在不同产品&#x2F;器官上的缺陷&#x2F;肿瘤）的外观可能会有很大差异。最近的大型预训练视觉语言模型（VLMs），如CLIP，在各种视觉任务中表现出了强大的零样本识别能力，包括异常检测。然而，它们在ZSAD方面的表现较弱，因为VLMs更侧重于对前景对象的类别语义进行建模，而不是图像中的异常&#x2F;正常情况。在本文中，我们介绍了一种新方法，即AnomalyCLIP，该方法旨在使CLIP适应跨不同领域的准确ZSAD。AnomalyCLIP的关键在于学习对象无关的文本提示，这些提示可以捕获图像中的通用正常和异常情况，而无论其前景对象如何。这使得我们的模型能够关注异常图像区域，而不是对象语义，从而实现对各种对象类型的通用正常和异常识别。在17个真实世界的异常检测数据集上进行的大规模实验表明，AnomalyCLIP在来自各种缺陷检测和医学影像领域的具有各种类别语义的数据集上实现了出色的零样本检测异常值性能。相关代码将在<a target="_blank" rel="noopener" href="https://github.com/zqhang/AnomalyCLIP">https://github.com/zqhang/AnomalyCLIP</a>上发布。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2310.18961v9">PDF</a> Accepted by ICLR 2024</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种基于CLIP模型改进的AnomalyCLIP方法，用于零样本异常检测（ZSAD）。该方法通过引入对象无关的文本提示来学习通用的正常性和异常性特征，从而在多种领域实现准确的异常检测。这种方法重点关注异常图像区域，而不是对象语义，从而在各种数据集上实现优异的零样本异常检测和分割性能。其主要优点是可以应用于具有高度多样性的不同对象类型和数据集，展示出在缺陷检测和医学影像领域广泛的应用前景。关键技术的核心是建立基于异常性与正常性的图像分类与检测框架，用于各类物品上的异常病变分析。目前相关代码已上传至GitHub。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>AnomalyCLIP是一种基于CLIP模型的零样本异常检测改进方法。</li>
+<li>它通过引入对象无关的文本提示来学习通用的正常性和异常性特征。</li>
+<li>AnomalyCLIP重点关注图像中的异常区域，而不是对象语义。</li>
+<li>该方法在多种数据集上实现了优异的零样本异常检测和分割性能。该方法不仅可以在不同类型对象上进行，而且对高度的数据集多样性表现出了优异适用性。本算法展现了极高的灵敏度，对微小病变的识别能力也非常出色。本算法有望在医学影像处理领域得到广泛应用。目前相关代码已上传至GitHub平台供公众查阅与使用。其在无训练样本可用时（如涉及数据隐私等场景）具备极高的实用价值。本算法在处理视频流数据方面也表现出了强大的潜力，特别是在实时监控与实时异常预警的应用场景中。目前学界和产业界都对这类方法表现出了浓厚的兴趣与研究前景。此外，该方法对硬件设备的需求和算法复杂度等关键要素进行了优化处理，使其在真实应用场景中具有更高的实用性和推广价值。此种跨领域的改进模式与方法极有可能在未来的多源融合信息处理技术中发挥着不可或缺的重要作用。这种方法能够处理跨领域的异常情况检测任务。在实际应用中取得了良好的效果，如在生产质量控制、医学影像诊断等领域应用前景广阔。同时，该论文也指出了未来研究方向，包括如何进一步提高模型的泛化能力和鲁棒性等问题值得进一步探讨和研究。例如对多模态数据、多场景融合等领域进行深入研究以提高模型的综合性能与适应能力等。这些研究方向将有助于推动该领域的进一步发展与应用落地。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2310.18961">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-5772267d6d4b4da68d7969ac6ce265cb.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f73f9979f0c975511f28194aeb6a1b86.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-73298b80228ac83b9943ca1279459634.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-04-23/Vision%20Transformer/">https://kedreamix.github.io/Talk2Paper/Paper/2025-04-23/Vision%20Transformer/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/Vision-Transformer/">
+                                    <span class="chip bg-color">Vision Transformer</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-04-23/%E6%A3%80%E6%B5%8B_%E5%88%86%E5%89%B2_%E8%B7%9F%E8%B8%AA/">
+                    <div class="card-image">
+                        
+                        <img src="https://pica.zhimg.com/v2-397502887d6913c096fe6abeecfc7329.jpg" class="responsive-img" alt="检测/分割/跟踪">
+                        
+                        <span class="card-title">检测/分割/跟踪</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            检测/分割/跟踪 方向最新论文已更新，请持续关注 Update in 2025-04-23  Exploring Modality Guidance to Enhance VFM-based Feature Fusion for UDA   in 3D Semantic Segmentation
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-04-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E6%A3%80%E6%B5%8B-%E5%88%86%E5%89%B2-%E8%B7%9F%E8%B8%AA/" class="post-category">
+                                    检测/分割/跟踪
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E6%A3%80%E6%B5%8B-%E5%88%86%E5%89%B2-%E8%B7%9F%E8%B8%AA/">
+                        <span class="chip bg-color">检测/分割/跟踪</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-04-23/%E8%A7%86%E9%A2%91%E7%90%86%E8%A7%A3/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-8a41d61b696fe88ae52cf88b6b3c8ffe.jpg" class="responsive-img" alt="视频理解">
+                        
+                        <span class="card-title">视频理解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            视频理解 方向最新论文已更新，请持续关注 Update in 2025-04-23  An LMM for Efficient Video Understanding via Reinforced Compression of   Video Cubes
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-04-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E8%A7%86%E9%A2%91%E7%90%86%E8%A7%A3/" class="post-category">
+                                    视频理解
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E8%A7%86%E9%A2%91%E7%90%86%E8%A7%A3/">
+                        <span class="chip bg-color">视频理解</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">16355.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
