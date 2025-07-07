@@ -1,0 +1,1761 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Diffusion Models">
+    <meta name="description" content="Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-06-25  DIP Unsupervised Dense In-Context Post-training of Visual   Representations">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Diffusion Models | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://pic1.zhimg.com/v2-cd51a0c4d9d03867bc364d3da271f7b6.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Diffusion Models</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/Diffusion-Models/">
+                                <span class="chip bg-color">Diffusion Models</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                Diffusion Models
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-06-25
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-07-06
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    20k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    81 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-06-25-更新"><a href="#2025-06-25-更新" class="headerlink" title="2025-06-25 更新"></a>2025-06-25 更新</h1><h2 id="DIP-Unsupervised-Dense-In-Context-Post-training-of-Visual-Representations"><a href="#DIP-Unsupervised-Dense-In-Context-Post-training-of-Visual-Representations" class="headerlink" title="DIP: Unsupervised Dense In-Context Post-training of Visual   Representations"></a>DIP: Unsupervised Dense In-Context Post-training of Visual   Representations</h2><p><strong>Authors:Sophia Sirko-Galouchenko, Spyros Gidaris, Antonin Vobecky, Andrei Bursuc, Nicolas Thome</strong></p>
+<p>We introduce DIP, a novel unsupervised post-training method designed to enhance dense image representations in large-scale pretrained vision encoders for in-context scene understanding. Unlike prior approaches that rely on complex self-distillation architectures, our method trains the vision encoder using pseudo-tasks that explicitly simulate downstream in-context scenarios, inspired by meta-learning principles. To enable post-training on unlabeled data, we propose an automatic mechanism for generating in-context tasks that combines a pretrained diffusion model and the vision encoder itself. DIP is simple, unsupervised, and computationally efficient, requiring less than 9 hours on a single A100 GPU. By learning dense representations through pseudo in-context tasks, it achieves strong performance across a wide variety of downstream real-world in-context scene understanding tasks. It outperforms both the initial vision encoder and prior methods, offering a practical and effective solution for improving dense representations. Code available here: <a target="_blank" rel="noopener" href="https://github.com/sirkosophia/DIP">https://github.com/sirkosophia/DIP</a> </p>
+<blockquote>
+<p>我们介绍了DIP，这是一种新型的无监督后训练法，旨在增强大规模预训练视觉编码器的图像密集表示，以实现对上下文场景的理解。不同于依赖复杂自我蒸馏架构的先前方法，我们的方法使用伪任务来明确模拟下游上下文场景，这是受元学习原理的启发。为了在无标签数据上进行后训练，我们提出了一种自动生成上下文任务的机制，它结合了预训练的扩散模型和视觉编码器本身。DIP简单、无监督、计算高效，在单个A100 GPU上耗时不到9小时。它通过伪上下文任务学习密集表示，在多种下游现实场景理解任务中表现出强大的性能。它优于初始的视觉编码器和先前的方法，为改进密集表示提供了实用有效的解决方案。代码可在<a target="_blank" rel="noopener" href="https://github.com/sirkosophia/DIP%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/sirkosophia/DIP找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.18463v1">PDF</a> </p>
+<p><strong>Summary</strong><br>     提出一种新型无监督后训练法DIP，旨在增强大规模预训练视觉编码器的密集图像表示，以提升对上下文场景的理解。该方法通过模拟下游上下文场景生成伪任务，受元学习原理启发，训练视觉编码器。使用预训练的扩散模型和视觉编码器本身生成上下文任务，实现无监督的后训练。DIP方法简单、高效，在单个A100 GPU上不到9小时即可完成。通过学习密集表示，在多种下游现实场景理解任务中表现优异，优于初始视觉编码器和先前方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>DIP是一种新型无监督后训练法，旨在增强视觉编码器的密集图像表示，提升对上下文场景的理解。</li>
+<li>该方法通过模拟下游上下文场景生成伪任务进行训练，受元学习原理启发。</li>
+<li>DIP使用预训练的扩散模型和视觉编码器本身结合，自动生成上下文任务，实现无监督的后训练。</li>
+<li>DIP具有简单、高效的特点，计算成本低，适用于大规模图像数据处理。</li>
+<li>DIP在多种下游现实场景理解任务中表现优异，包括图像分类、目标检测等。</li>
+<li>DIP方法优于初始视觉编码器和先前方法，为改善密集表示提供了实用有效的解决方案。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.18463">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-47810542c001af041a5b8a141272fe3e.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-c39b485894042ea91ba05e70dd94c087.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-793dd8b24adfef17d0068d69d2f18b3c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c8fdc7df2e6fadf603e42bd81f8c3860.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="CPAM-Context-Preserving-Adaptive-Manipulation-for-Zero-Shot-Real-Image-Editing"><a href="#CPAM-Context-Preserving-Adaptive-Manipulation-for-Zero-Shot-Real-Image-Editing" class="headerlink" title="CPAM: Context-Preserving Adaptive Manipulation for Zero-Shot Real Image   Editing"></a>CPAM: Context-Preserving Adaptive Manipulation for Zero-Shot Real Image   Editing</h2><p><strong>Authors:Dinh-Khoi Vo, Thanh-Toan Do, Tam V. Nguyen, Minh-Triet Tran, Trung-Nghia Le</strong></p>
+<p>Editing natural images using textual descriptions in text-to-image diffusion models remains a significant challenge, particularly in achieving consistent generation and handling complex, non-rigid objects. Existing methods often struggle to preserve textures and identity, require extensive fine-tuning, and exhibit limitations in editing specific spatial regions or objects while retaining background details. This paper proposes Context-Preserving Adaptive Manipulation (CPAM), a novel zero-shot framework for complicated, non-rigid real image editing. Specifically, we propose a preservation adaptation module that adjusts self-attention mechanisms to preserve and independently control the object and background effectively. This ensures that the objects’ shapes, textures, and identities are maintained while keeping the background undistorted during the editing process using the mask guidance technique. Additionally, we develop a localized extraction module to mitigate the interference with the non-desired modified regions during conditioning in cross-attention mechanisms. We also introduce various mask-guidance strategies to facilitate diverse image manipulation tasks in a simple manner. Extensive experiments on our newly constructed Image Manipulation BenchmArk (IMBA), a robust benchmark dataset specifically designed for real image editing, demonstrate that our proposed method is the preferred choice among human raters, outperforming existing state-of-the-art editing techniques. </p>
+<blockquote>
+<p>在文本到图像的扩散模型中，使用文本描述编辑自然图像仍然是一个重大挑战，特别是在实现一致生成和处理复杂、非刚性物体方面。现有方法往往难以保留纹理和身份，需要大量微调，并且在编辑特定空间区域或物体时保留背景细节方面存在局限性。本文提出了上下文保留自适应操作（CPAM），这是一种用于复杂、非刚性的真实图像编辑的新型零样本框架。具体来说，我们提出了一个保留适应模块，该模块调整自注意力机制，以有效地保留并独立控制物体和背景。这确保了物体的形状、纹理和身份得以保持，同时在编辑过程中使用遮罩指导技术保持背景不变形。此外，我们开发了一个局部提取模块，以减轻交叉注意力机制中条件设置时非期望修改区域的干扰。我们还介绍了各种遮罩指导策略，以简单的方式促进各种图像操作任务。在我们新构建的图像操作基准测试（IMBA）上的大量实验表明，与人类评估者相比，我们提出的方法是首选，超越了现有的先进编辑技术。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.18438v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种名为CPAM的零样本框架，用于复杂、非刚性的真实图像编辑。该框架通过调整自我关注机制，实现了对象与背景的有效独立控制，从而在编辑过程中保持对象和背景的一致性。使用mask指导技术，能够在保持背景不变的同时，保持对象的形状、纹理和身份。此外，还引入了多种mask指导策略，以简化各种图像操作任务。在专门设计的真实图像编辑基准数据集IMBA上进行的大量实验表明，该方法在人类评估中表现优异，超越了现有的先进编辑技术。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>CPAM是一个用于复杂、非刚性真实图像编辑的零样本框架。</li>
+<li>框架通过调整自我关注机制，实现了对象和背景的有效独立控制。</li>
+<li>使用mask指导技术，能够在编辑过程中保持对象的形状、纹理和身份。</li>
+<li>引入了多种mask指导策略，以简化图像操作任务。</li>
+<li>提出了一个新建的真实图像编辑基准数据集IMBA。</li>
+<li>实验结果表明，CPAM在人类评估中表现优异。</li>
+<li>CPAM超越了现有的先进编辑技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.18438">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-637c31656e40e1f44ae7d183dbe90d51.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-bda7de7f5458ae08eac80388cbe50568.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-ca61544aac989e6612155ce0a0faa1d1.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="Morse-Dual-Sampling-for-Lossless-Acceleration-of-Diffusion-Models"><a href="#Morse-Dual-Sampling-for-Lossless-Acceleration-of-Diffusion-Models" class="headerlink" title="Morse: Dual-Sampling for Lossless Acceleration of Diffusion Models"></a>Morse: Dual-Sampling for Lossless Acceleration of Diffusion Models</h2><p><strong>Authors:Chao Li, Jiawei Fan, Anbang Yao</strong></p>
+<p>In this paper, we present Morse, a simple dual-sampling framework for accelerating diffusion models losslessly. The key insight of Morse is to reformulate the iterative generation (from noise to data) process via taking advantage of fast jump sampling and adaptive residual feedback strategies. Specifically, Morse involves two models called Dash and Dot that interact with each other. The Dash model is just the pre-trained diffusion model of any type, but operates in a jump sampling regime, creating sufficient space for sampling efficiency improvement. The Dot model is significantly faster than the Dash model, which is learnt to generate residual feedback conditioned on the observations at the current jump sampling point on the trajectory of the Dash model, lifting the noise estimate to easily match the next-step estimate of the Dash model without jump sampling. By chaining the outputs of the Dash and Dot models run in a time-interleaved fashion, Morse exhibits the merit of flexibly attaining desired image generation performance while improving overall runtime efficiency. With our proposed weight sharing strategy between the Dash and Dot models, Morse is efficient for training and inference. Our method shows a lossless speedup of 1.78X to 3.31X on average over a wide range of sampling step budgets relative to 9 baseline diffusion models on 6 image generation tasks. Furthermore, we show that our method can be also generalized to improve the Latent Consistency Model (LCM-SDXL, which is already accelerated with consistency distillation technique) tailored for few-step text-to-image synthesis. The code and models are available at <a target="_blank" rel="noopener" href="https://github.com/deep-optimization/Morse">https://github.com/deep-optimization/Morse</a>. </p>
+<blockquote>
+<p>本文介绍了Morse，这是一个简单的高效无损扩散模型双采样框架。Morse的关键洞察力是通过利用快速跳跃采样和自适应残差反馈策略来重新制定迭代生成（从噪声到数据）过程。具体来说，Morse包含两个相互作用的模型，称为Dash和Dot。Dash模型只是任何类型的预训练扩散模型，但在跳跃采样机制下运行，为采样效率改进创造了足够空间。Dot模型显著快于Dash模型，它学会根据Dash模型轨迹当前跳跃采样点的观察生成残差反馈，将噪声估计提升到无需跳跃采样的下一步估计，与Dash模型的估计相匹配。通过以时间交错方式链接Dash和Dot模型的输出，Morse在灵活实现所需的图像生成性能的同时，提高了总体运行效率。通过我们在Dash和Dot模型之间提出的权重共享策略，Morse在训练和推理方面都很高效。我们的方法在采样步骤预算方面相对于9个基线扩散模型在6个图像生成任务上平均无损加速1.78X至3.31X。此外，我们还证明了我们方法可以推广到改进针对少步骤文本到图像合成的Latent Consistency Model（LCM-SDXL，已经使用一致性蒸馏技术加速）。代码和模型可在<a target="_blank" rel="noopener" href="https://github.com/deep-optimization/Morse%E8%8E%B7%E5%BE%97%E3%80%82">https://github.com/deep-optimization/Morse获得。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.18251v1">PDF</a> This work is accepted to ICML 2025. The project page:   <a target="_blank" rel="noopener" href="https://github.com/deep-optimization/Morse">https://github.com/deep-optimization/Morse</a></p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了名为Morse的加速扩散模型框架，它通过采用双采样策略和自适应残差反馈策略来优化迭代生成过程。Morse包含两个相互作用的模型：Dash和Dot。Dash模型是任何类型的预训练扩散模型，采用跳跃采样机制以提高采样效率。Dot模型比Dash模型更快，学会根据Dash模型的当前跳跃采样点生成残差反馈，从而更容易匹配下一步估计。通过交替使用Dash和Dot模型的输出，Morse在提高运行效率的同时灵活实现图像生成性能。此外，Morse还采用权重共享策略，提高了训练和推理效率。在广泛的采样步长预算范围内，相对于9种基线扩散模型，Morse在6项图像生成任务上的平均无损加速达到1.78X至3.31X。此外，该方法还可以推广到用于少步骤文本到图像合成的LCM-SDXL模型的加速。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Morse是一个用于加速扩散模型的简单双采样框架，能无损地提高图像生成效率。</li>
+<li>Morse包含两个模型：Dash和Dot，分别负责不同的采样和反馈生成任务。</li>
+<li>Morse利用跳跃采样和自适应残差反馈策略优化迭代生成过程。</li>
+<li>Morse通过交替使用Dash和Dot模型的输出，实现了图像生成性能和运行效率的提升。</li>
+<li>Morse采用权重共享策略，提高了训练和推理效率。</li>
+<li>Morse相对于多种基线扩散模型，在多项图像生成任务上实现了平均无损加速。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.18251">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-b03ea832be05d042ddcbe61acbc687c4.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-05708ab567db0ad895ccfcbee4651323.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-5dd16ba0285d3520134e85faa72004be.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-474832705962235fd7685e55a9e41d9e.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-558f34ecd7ec39ab0e0fbb70c269d726.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="CDG-MAE-Learning-Correspondences-from-Diffusion-Generated-Views"><a href="#CDG-MAE-Learning-Correspondences-from-Diffusion-Generated-Views" class="headerlink" title="CDG-MAE: Learning Correspondences from Diffusion Generated Views"></a>CDG-MAE: Learning Correspondences from Diffusion Generated Views</h2><p><strong>Authors:Varun Belagali, Pierre Marza, Srikar Yellapragada, Zilinghan Li, Tarak Nath Nandi, Ravi K Madduri, Joel Saltz, Stergios Christodoulidis, Maria Vakalopoulou, Dimitris Samaras</strong></p>
+<p>Learning dense correspondences, critical for application such as video label propagation, is hindered by tedious and unscalable manual annotation. Self-supervised methods address this by using a cross-view pretext task, often modeled with a masked autoencoder, where a masked target view is reconstructed from an anchor view. However, acquiring effective training data remains a challenge - collecting diverse video datasets is difficult and costly, while simple image crops lack necessary pose variations. This paper introduces CDG-MAE, a novel MAE-based self-supervised method that uses diverse synthetic views generated from static images via an image-conditioned diffusion model. These generated views exhibit substantial changes in pose and perspective, providing a rich training signal that overcomes the limitations of video and crop-based anchors. We present a quantitative method to evaluate local and global consistency of generated images, discussing their use for cross-view self-supervised pretraining. Furthermore, we enhance the standard single-anchor MAE setting to a multi-anchor strategy to effectively modulate the difficulty of pretext task. CDG-MAE significantly outperforms state-of-the-art MAE methods reliant only on images and substantially narrows the performance gap to video-based approaches. </p>
+<blockquote>
+<p>学习密集对应关系对于视频标签传播等应用至关重要，但繁琐且不可扩展的手动注释阻碍了其学习。自监督方法通过使用跨视图预训练任务来解决这个问题，通常使用掩码自动编码器进行建模，其中从锚视图重建掩码的目标视图。然而，获取有效的训练数据仍然是一个挑战——收集多样化的视频数据集既困难又成本高昂，而简单的图像裁剪缺乏必要的姿势变化。本文介绍了CDG-MAE，这是一种基于MAE的新型自监督方法，它使用图像条件扩散模型从静态图像生成多样化的合成视图。这些生成的视图在姿势和视角上表现出重大变化，提供了丰富的训练信号，克服了基于视频和裁剪锚点的局限性。我们提出了一种定量方法，以评估生成图像的地方和全球一致性，并讨论它们在跨视图自监督预训练中的使用。此外，我们将标准单锚点MAE设置增强为多锚点策略，以有效地调节预训练任务的难度。CDG-MAE显著优于仅依赖图像的最新MAE方法，并大幅缩小了与基于视频的方法的性能差距。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.18164v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种基于自监督学习的密集对应学习方法CDG-MAE，通过图像条件扩散模型生成多样的合成视图，解决了视频标签传播等应用中手动标注的繁琐和不可扩展的问题。该方法利用静态图像生成具有显著姿势和视角变化的视图，提供丰富的训练信号，克服了视频和基于裁剪的锚点方法的局限性。同时，本文还提出了一种评估生成图像局部和全局一致性的定量方法，并讨论了它们在跨视图自监督预训练中的应用。此外，还增强了标准单锚点MAE设置，采用多锚点策略，以有效调整先验任务的难度。CDG-MAE显著优于仅依赖图像的最新MAE方法，并大大缩小了与基于视频的方法之间的性能差距。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>CDG-MAE是一种基于自监督学习的密集对应学习方法，解决了视频标签传播中的繁琐手动标注问题。</li>
+<li>利用图像条件扩散模型生成多样合成视图，这些视图具有显著变化的姿势和视角。</li>
+<li>生成图像具有丰富训练信号，克服视频和基于裁剪锚点的局限性。</li>
+<li>提出一种定量评估生成图像局部和全局一致性的方法。</li>
+<li>讨论了生成图像在跨视图自监督预训练中的应用。</li>
+<li>增强了标准单锚点MAE设置，采用多锚点策略以有效调整先验任务难度。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.18164">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-0bc9640c3f8e61a92187b8a964ccffbb.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-fb7e98f665e0203aa786aaccfe4bdb42.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-d0a4b992d5cea92474d7f37bb2797711.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-73dcfcdd5403da5b0667fbff652953e9.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Enabling-PSO-Secure-Synthetic-Data-Sharing-Using-Diversity-Aware-Diffusion-Models"><a href="#Enabling-PSO-Secure-Synthetic-Data-Sharing-Using-Diversity-Aware-Diffusion-Models" class="headerlink" title="Enabling PSO-Secure Synthetic Data Sharing Using Diversity-Aware   Diffusion Models"></a>Enabling PSO-Secure Synthetic Data Sharing Using Diversity-Aware   Diffusion Models</h2><p><strong>Authors:Mischa Dombrowski, Bernhard Kainz</strong></p>
+<p>Synthetic data has recently reached a level of visual fidelity that makes it nearly indistinguishable from real data, offering great promise for privacy-preserving data sharing in medical imaging. However, fully synthetic datasets still suffer from significant limitations: First and foremost, the legal aspect of sharing synthetic data is often neglected and data regulations, such as the GDPR, are largley ignored. Secondly, synthetic models fall short of matching the performance of real data, even for in-domain downstream applications. Recent methods for image generation have focused on maximising image diversity instead of fidelity solely to improve the mode coverage and therefore the downstream performance of synthetic data. In this work, we shift perspective and highlight how maximizing diversity can also be interpreted as protecting natural persons from being singled out, which leads to predicate singling-out (PSO) secure synthetic datasets. Specifically, we propose a generalisable framework for training diffusion models on personal data which leads to unpersonal synthetic datasets achieving performance within one percentage point of real-data models while significantly outperforming state-of-the-art methods that do not ensure privacy. Our code is available at <a target="_blank" rel="noopener" href="https://github.com/MischaD/Trichotomy">https://github.com/MischaD/Trichotomy</a>. </p>
+<blockquote>
+<p>合成数据最近已经达到了视觉保真度的水平，使其几乎无法与真实数据区分开，这在医学影像的隐私保护数据共享方面显示出巨大的潜力。然而，完全合成数据集仍存在重大局限性：首先，合成数据的共享方面的法律常常被忽视，数据法规（如GDPR）在很大程度上被忽略。其次，合成模型在匹配真实数据性能方面还存在不足，即使在域内下游应用中也是如此。最近的图像生成方法主要关注最大化图像多样性而非仅仅提高保真度，以此来提高合成数据的模式覆盖率和下游性能。在这项工作中，我们改变了视角并强调了如何最大化多样性也可以被解释为保护自然人免受个别对待，从而导致谓语单一化（PSO）安全的合成数据集。具体来说，我们提出了一个通用的训练扩散模型个人数据的框架，该框架生成的无个人信息的合成数据集的性能与真实数据模型相差不到一个百分点，同时显著优于不能保证隐私的最新方法。我们的代码可在 <a target="_blank" rel="noopener" href="https://github.com/MischaD/Trichotomy">https://github.com/MischaD/Trichotomy</a> 找到。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.17975v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文指出合成数据在视觉保真度方面已经达到近乎无法分辨真伪的水平，对于医学影像等隐私保护领域的数据共享具有巨大潜力。然而，合成数据集仍存在法律忽视和数据性能匹配不足等局限性。研究团队提出了一种基于扩散模型的通用框架，旨在训练个人数据上的合成数据集，在保护个人隐私的同时实现与真实数据模型相近的性能表现。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>合成数据在视觉保真度上已接近真实数据水平，为隐私保护领域的数据共享带来巨大潜力。</li>
+<li>目前合成数据集面临法律和性能匹配问题，例如忽视数据法规（如GDPR）以及模型性能与真实数据存在差距。</li>
+<li>近期图像生成方法侧重于最大化图像多样性以提高合成数据的下游性能，但可能忽视了保真度的重要性。</li>
+<li>研究团队提出了一个基于扩散模型的通用框架，该框架旨在训练合成数据集以实现隐私保护。</li>
+<li>该框架在保护个人隐私的同时，实现了与真实数据模型相近的性能表现，且在性能上显著优于未确保隐私的现有方法。</li>
+<li>合成数据在确保隐私的同时可以提升模型性能，对医学影像等领域的数据共享具有重要意义。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.17975">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-5af4954560077d553135c547a8b81591.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f61ef801244680859ae71b2489a6ce62.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-27c3cc84d7b5007ec2670e9595bf29d4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c27d96314c1811e2fa12cfb385384903.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="Programmable-Room-Interactive-Textured-3D-Room-Meshes-Generation-Empowered-by-Large-Language-Models"><a href="#Programmable-Room-Interactive-Textured-3D-Room-Meshes-Generation-Empowered-by-Large-Language-Models" class="headerlink" title="Programmable-Room: Interactive Textured 3D Room Meshes Generation   Empowered by Large Language Models"></a>Programmable-Room: Interactive Textured 3D Room Meshes Generation   Empowered by Large Language Models</h2><p><strong>Authors:Jihyun Kim, Junho Park, Kyeongbo Kong, Suk-Ju Kang</strong></p>
+<p>We present Programmable-Room, a framework which interactively generates and edits a 3D room mesh, given natural language instructions. For precise control of a room’s each attribute, we decompose the challenging task into simpler steps such as creating plausible 3D coordinates for room meshes, generating panorama images for the texture, constructing 3D meshes by integrating the coordinates and panorama texture images, and arranging furniture. To support the various decomposed tasks with a unified framework, we incorporate visual programming (VP). VP is a method that utilizes a large language model (LLM) to write a Python-like program which is an ordered list of necessary modules for the various tasks given in natural language. We develop most of the modules. Especially, for the texture generating module, we utilize a pretrained large-scale diffusion model to generate panorama images conditioned on text and visual prompts (i.e., layout, depth, and semantic map) simultaneously. Specifically, we enhance the panorama image generation quality by optimizing the training objective with a 1D representation of a panorama scene obtained from bidirectional LSTM. We demonstrate Programmable-Room’s flexibility in generating and editing 3D room meshes, and prove our framework’s superiority to an existing model quantitatively and qualitatively. Project page is available in <a target="_blank" rel="noopener" href="https://jihyun0510.github.io/Programmable_Room_Page/">https://jihyun0510.github.io/Programmable_Room_Page/</a>. </p>
+<blockquote>
+<p>我们推出了Programmable-Room，这是一个框架，可以根据自然语言指令交互地生成和编辑3D房间网格。为了精确控制房间的每个属性，我们将复杂的任务分解为更简单的步骤，例如为房间网格创建合理的3D坐标、为纹理生成全景图像、通过整合坐标和全景纹理图像构建3D网格，以及布置家具。为了用一个统一的框架来支持各种分解任务，我们引入了可视化编程（VP）。VP是一种利用大型语言模型（LLM）来编写类似于Python的程序的方法，该程序是根据自然语言给出的各种任务所需的必要模块的有序列表。我们开发了大部分的模块。特别是纹理生成模块，我们利用预训练的大型扩散模型来根据文本和视觉提示（即布局、深度和语义地图）同时生成全景图像。具体来说，我们通过优化训练目标，使用一个从双向LSTM获得的全景场景的一维表示，提高了全景图像生成的品质。我们展示了Programmable-Room在生成和编辑3D房间网格方面的灵活性，并从定量和定性的角度证明了我们的框架对现有模型的优越性。项目页面可在<a target="_blank" rel="noopener" href="https://jihyun0510.github.io/Programmable_Room_Page/%E8%AE%BF%E9%97%AE%E3%80%82">https://jihyun0510.github.io/Programmable_Room_Page&#x2F;访问。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.17707v1">PDF</a> Accepted by IEEE Transactions on Multimedia</p>
+<p><strong>Summary</strong></p>
+<p>该程序提出了一个名为Programmable-Room的框架，该框架能够根据自然语言指令交互式地生成和编辑3D房间网格。通过分解任务，实现对房间每个属性的精确控制，如生成房间网格的3D坐标、纹理的全景图像生成、结合坐标和全景纹理图像构建3D网格以及家具布置等。为支持各项分解任务，该程序结合了可视化编程（VP）技术。VP利用大型语言模型（LLM）编写Python类程序，以有序列表的形式呈现各种任务所需的模块，并根据自然语言进行划分。该程序大部分模块为自主开发，其中纹理生成模块利用预训练的大型扩散模型，根据文本和视觉提示（如布局、深度和语义地图）生成全景图像。通过优化训练目标，提高了全景图像生成质量。Programmable-Room展现了生成和编辑3D房间网格的灵活性，并在定量和定性方面证明了其框架的优越性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Programmable-Room框架能基于自然语言指令生成和编辑3D房间网格。</li>
+<li>通过分解任务，框架能精确控制房间的每个属性，包括3D坐标、纹理全景图像、3D网格构建和家具布局。</li>
+<li>框架结合了可视化编程技术，利用大型语言模型处理自然语言指令。</li>
+<li>纹理生成模块采用预训练的大型扩散模型，能基于文本和视觉提示生成全景图像。</li>
+<li>通过优化训练目标，提高了全景图像生成的品质。</li>
+<li>Programmable-Room展现了生成和编辑3D房间网格的灵活性。</li>
+<li>与现有模型相比，Programmable-Room框架在定量和定性方面表现出优越性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.17707">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-d0e2abd2543a6f6a300e18632be1442b.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-a16e81e3f814239ee777d4a2764af714.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-5c81cd3e186c4be2de7d124013f8093f.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-13958b7a1b2b043a9733be7c4461dac6.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-941e380c9e8f6cccf14f098a342543ee.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-14c30665d0e6ee88633a4080ff700f83.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="DreamJourney-Perpetual-View-Generation-with-Video-Diffusion-Models"><a href="#DreamJourney-Perpetual-View-Generation-with-Video-Diffusion-Models" class="headerlink" title="DreamJourney: Perpetual View Generation with Video Diffusion Models"></a>DreamJourney: Perpetual View Generation with Video Diffusion Models</h2><p><strong>Authors:Bo Pan, Yang Chen, Yingwei Pan, Ting Yao, Wei Chen, Tao Mei</strong></p>
+<p>Perpetual view generation aims to synthesize a long-term video corresponding to an arbitrary camera trajectory solely from a single input image. Recent methods commonly utilize a pre-trained text-to-image diffusion model to synthesize new content of previously unseen regions along camera movement. However, the underlying 2D diffusion model lacks 3D awareness and results in distorted artifacts. Moreover, they are limited to generating views of static 3D scenes, neglecting to capture object movements within the dynamic 4D world. To alleviate these issues, we present DreamJourney, a two-stage framework that leverages the world simulation capacity of video diffusion models to trigger a new perpetual scene view generation task with both camera movements and object dynamics. Specifically, in stage I, DreamJourney first lifts the input image to 3D point cloud and renders a sequence of partial images from a specific camera trajectory. A video diffusion model is then utilized as generative prior to complete the missing regions and enhance visual coherence across the sequence, producing a cross-view consistent video adheres to the 3D scene and camera trajectory. Meanwhile, we introduce two simple yet effective strategies (early stopping and view padding) to further stabilize the generation process and improve visual quality. Next, in stage II, DreamJourney leverages a multimodal large language model to produce a text prompt describing object movements in current view, and uses video diffusion model to animate current view with object movements. Stage I and II are repeated recurrently, enabling perpetual dynamic scene view generation. Extensive experiments demonstrate the superiority of our DreamJourney over state-of-the-art methods both quantitatively and qualitatively. Our project page: <a target="_blank" rel="noopener" href="https://dream-journey.vercel.app/">https://dream-journey.vercel.app</a>. </p>
+<blockquote>
+<p>持续视图生成旨在从单个输入图像合成与任意相机轨迹相对应的长视频。最近的方法通常利用预先训练的文本到图像的扩散模型，来合成相机移动时先前未见区域的新内容。然而，基本的二维扩散模型缺乏三维意识，导致失真伪影。此外，它们仅限于生成静态三维场景的观点，忽略了捕捉动态四维世界中的物体运动。为了缓解这些问题，我们推出了DreamJourney，这是一个两阶段框架，利用视频扩散模型的世界模拟能力，触发新的持续场景视图生成任务，包括相机运动和物体动力学。具体来说，在第一阶段，DreamJourney首先将输入图像提升到三维点云，并从特定的相机轨迹渲染一系列部分图像。视频扩散模型被用作生成先验，以完成缺失的区域，增强序列中的视觉连贯性，产生符合三维场景和相机轨迹的跨视图一致视频。同时，我们引入了两个简单有效的策略（早期停止和视图填充）来进一步稳定生成过程，提高视觉质量。接下来，在第二阶段，DreamJourney利用多模态大型语言模型生成描述当前视图中物体运动的文本提示，并使用视频扩散模型使当前视图与物体运动相结合。阶段一和阶段二反复进行，实现了持续的动态场景视图生成。大量实验表明，我们的DreamJourney在定量和定性上均优于最先进的方法。我们的项目页面：<a target="_blank" rel="noopener" href="https://dream-journey.vercel.app./">https://dream-journey.vercel.app。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.17705v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>该文介绍了利用视频扩散模型进行无限动态场景视图生成的技术。首先通过阶段一将输入图像提升到三维点云，并从特定相机轨迹渲染一系列部分图像，使用视频扩散模型完成缺失区域并增强序列的视觉连贯性，产生遵循三维场景和相机轨迹的跨视图一致视频。阶段二则利用多模态大型语言模型生成描述当前视图对象运动的文本提示，并使用视频扩散模型进行动画生成。两个阶段的重复进行，实现了持续的动态场景视图生成。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>该技术利用视频扩散模型合成与相机轨迹相对应的长视频，仅从单张输入图像开始。</li>
+<li>现有方法主要使用预训练的文本到图像的扩散模型来合成新的内容，但缺乏三维意识，导致失真和忽略对象动态的问题。</li>
+<li>提出的DreamJourney框架包含两个阶段，第一阶段将输入图像提升到三维点云并渲染一系列部分图像，然后使用视频扩散模型完成缺失区域并增强视觉连贯性。</li>
+<li>第二阶段利用多模态大型语言模型和视频扩散模型来生成和动画化当前视图的对象运动。</li>
+<li>通过重复两个阶段，DreamJourney能实现持续的动态场景视图生成。</li>
+<li>引入两种策略（早期停止和视图填充）来进一步稳定生成过程并提高视觉质量。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.17705">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6c2919b830ab2a8caa12b74ce28ca9f8.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-1e35109d87cff1f0d26dd0ad24e3ecb3.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-cd8bb0c953271c1e1cc62ec179c25dff.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d40e4897bbc16bb580930975b4a567a5.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="Exploring-Strategies-for-Personalized-Radiation-Therapy-Part-II-Predicting-Tumor-Drift-Patterns-with-Diffusion-Models"><a href="#Exploring-Strategies-for-Personalized-Radiation-Therapy-Part-II-Predicting-Tumor-Drift-Patterns-with-Diffusion-Models" class="headerlink" title="Exploring Strategies for Personalized Radiation Therapy Part II   Predicting Tumor Drift Patterns with Diffusion Models"></a>Exploring Strategies for Personalized Radiation Therapy Part II   Predicting Tumor Drift Patterns with Diffusion Models</h2><p><strong>Authors:Hao Peng, Steve Jiang, Robert Timmerman</strong></p>
+<p>Radiation therapy outcomes are decided by two key parameters, dose and timing, whose best values vary substantially across patients. This variability is especially critical in the treatment of brain cancer, where fractionated or staged stereotactic radiosurgery improves safety compared to single fraction approaches, but complicates the ability to predict treatment response. To address this challenge, we employ Personalized Ultra-fractionated Stereotactic Adaptive Radiotherapy (PULSAR), a strategy that dynamically adjusts treatment based on how each tumor evolves over time. However, the success of PULSAR and other adaptive approaches depends on predictive tools that can guide early treatment decisions and avoid both overtreatment and undertreatment. However, current radiomics and dosiomics models offer limited insight into the evolving spatial and temporal patterns of tumor response. To overcome these limitations, we propose a novel framework using Denoising Diffusion Implicit Models (DDIM), which learns data-driven mappings from pre to post treatment imaging. In this study, we developed single step and iterative denoising strategies and compared their performance. The results show that diffusion models can effectively simulate patient specific tumor evolution and localize regions associated with treatment response. The proposed strategy provides a promising foundation for modeling heterogeneous treatment response and enabling early, adaptive interventions, paving the way toward more personalized and biologically informed radiotherapy. </p>
+<blockquote>
+<p>放疗效果由剂量和时间两个关键参数决定，最佳值在不同患者之间有很大的差异。这种差异在脑癌的治疗中尤其关键，分段或分期立体定向放射手术与单次分割方法相比提高了安全性，但预测治疗反应的难度增加。为了应对这一挑战，我们采用了个性化超分段立体定向自适应放疗（PULSAR）策略，该策略根据每个肿瘤的随时间演变情况动态调整治疗。然而，PULSAR和其他自适应方法的成功取决于能够指导早期治疗决策并避免过度治疗和不足治疗的预测工具。然而，当前的放射组学和剂量组学模型对肿瘤反应不断变化的时空模式提供的洞察有限。为了克服这些限制，我们提出了一种使用去噪扩散隐式模型（DDIM）的新框架，该框架学习从治疗前到治疗后的成像数据驱动映射。在这项研究中，我们开发了单步和迭代去噪策略，并比较了它们的性能。结果表明，扩散模型可以有效地模拟患者特定的肿瘤演变，并定位与治疗反应相关的区域。所提出的策略为模拟异质治疗反应和实现早期自适应干预提供了有前途的基础，为更个性化和生物学信息驱动的放射治疗铺平了道路。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.17491v1">PDF</a> </p>
+<p><strong>Summary</strong>：<br>辐射治疗结果取决于剂量和时间两个关键参数，其最佳值在不同患者间差异显著。在治疗脑癌时，这种差异性尤为关键。为应对挑战，我们采用个性化超分割立体定向自适应放疗（PULSAR）策略，根据肿瘤随时间的变化动态调整治疗。但PULSAR等自适应策略的成功取决于能指导早期治疗决策、避免过度或不足治疗的预测工具。当前放射组学和剂量组学模型对肿瘤反应的空间和时间模式了解有限。为克服这些局限，我们提出使用去噪扩散隐模型（DDIM）的新框架，学习从治疗前到治疗后的成像数据驱动映射。研究结果显示，扩散模型能有效模拟患者特定肿瘤演变，定位与治疗反应相关的区域。该策略为实现个性化、生物学信息支持的放射治疗铺平了道路。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>辐射治疗结果受剂量和时间参数影响，最佳值因患者而异。</li>
+<li>在脑癌治疗中，分割或分期立体定向放射手术提高了安全性，但预测治疗反应的能力复杂化。</li>
+<li>PULSAR策略根据肿瘤变化动态调整治疗。</li>
+<li>当前放射组学和剂量组学模型对肿瘤反应的空间和时间模式了解有限。</li>
+<li>去噪扩散隐模型（DDIM）能有效模拟患者特定肿瘤演变。</li>
+<li>扩散模型能定位与治疗反应相关的区域。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.17491">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-baa2422c58392beb183525123b6c48ea.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="A-Prior-Guided-Joint-Diffusion-Model-in-Projection-Domain-for-PET-Tracer-Conversion"><a href="#A-Prior-Guided-Joint-Diffusion-Model-in-Projection-Domain-for-PET-Tracer-Conversion" class="headerlink" title="A Prior-Guided Joint Diffusion Model in Projection Domain for PET Tracer   Conversion"></a>A Prior-Guided Joint Diffusion Model in Projection Domain for PET Tracer   Conversion</h2><p><strong>Authors:Fang Chen, Weifeng Zhang, Xingyu Ai, BingXuan Li, An Li, Qiegen Liu</strong></p>
+<p>Positron emission tomography (PET) is widely used to assess metabolic activity, but its application is limited by the availability of radiotracers. 18F-labeled fluorodeoxyglucose (18F-FDG) is the most commonly used tracer but shows limited effectiveness for certain tumors. In contrast, 6-18F-fluoro-3,4-dihydroxy-L-phenylalanine (18F-DOPA) offers higher specificity for neuroendocrine tumors and neurological disorders. However, the complexity of its synthesis process and constraints on transportation time have limited its clinical application. Among different forms of raw data acquired by the scanner, sinogram is a commonly used representation in PET imaging. Therefore, modeling in projection domain enables more direct utilization of the original information, potentially reducing the accumulation errors during the image reconstruction process. Inspired by these factors, this study proposes a prior-guided joint diffusion model (PJDM) for transforming 18F-FDG PET sinograms into 18F-DOPA PET sinograms. During inference, an initial synthetic 18F-DOPA PET sinogram is first generated using a higher-order hybrid sampler. This sinogram is then degraded and serves as an additional condition to guide the iterative refinement process. Experimental results demonstrated that PJDM effectively improved both sinogram quality and the final synthetic outcomes. The code is available at: <a target="_blank" rel="noopener" href="https://github.com/yqx7150/PJDM">https://github.com/yqx7150/PJDM</a>. </p>
+<blockquote>
+<p>正电子发射断层扫描（PET）广泛用于评估代谢活性，但其应用受到放射性示踪剂可用性的限制。18F标记的氟脱氧葡萄糖（18F-FDG）是最常用的示踪剂，但对于某些肿瘤，其效果有限。相比之下，6-18F-氟-3,4-二羟基-L-苯丙氨酸（18F-DOPA）对神经内分泌肿瘤和神经性疾病具有更高的特异性。然而，其合成过程的复杂性和运输时间的限制阻碍了其临床应用的广泛实施。在众多由扫描仪获得的不同形式的原始数据中，辛格拉姆（sinogram）是PET成像中常用的表示方法。因此，投影域的建模能够更直接地利用原始信息，从而可能减少图像重建过程中的累积误差。受这些因素启发，本研究提出了一种先验引导联合扩散模型（PJDM），用于将18F-FDG PET辛格拉姆转换为18F-DOPA PET辛格拉姆。在推理过程中，首先使用高阶混合采样器生成初始合成18F-DOPA PET辛格拉姆。然后将其退化并作为附加条件来引导迭代优化过程。实验结果表明，PJDM有效提高辛格拉姆的质量和最终合成结果。相关代码可通过以下网址获取：<a target="_blank" rel="noopener" href="https://github.com/yqx7150/PJDM">https://github.com/yqx7150/PJDM</a> 。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.16733v2">PDF</a> </p>
+<p><strong>摘要</strong><br>该文本介绍了一种基于先验知识的联合扩散模型（PJDM），用于将18F-FDG PET正弦图转换为18F-DOPA PET正弦图。PJDM在投影域进行建模，直接利用原始信息，减少图像重建过程中的累积误差。通过初始合成18F-DOPA PET正弦图，然后将其退化并作为迭代优化过程的附加条件进行引导。实验结果表明，PJDM能有效提高正弦图和最终合成结果的质量。相关代码已公开于GitHub上。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>PET在评估代谢活性方面应用广泛，但受限于放射性示踪剂的可用性。</li>
+<li>18F-FDG是最常用的示踪剂，但对某些肿瘤的效用有限。</li>
+<li>相比之下，18F-DOPA对神经内分泌肿瘤和神经系统疾病具有更高的特异性，但由于合成过程复杂及运输时间限制，其临床应用受限。</li>
+<li>研究提出了一种基于先验知识的联合扩散模型（PJDM），用于转换PET正弦图数据，从18F-FDG转换至18F-DOPA。</li>
+<li>该模型直接在投影域建模，有效利用原始信息，减少图像重建过程中的误差积累。</li>
+<li>通过初始合成并退化正弦图来引导迭代优化过程。</li>
+<li>实验结果表明PJDM对提高正弦图和最终合成图像质量有效，相关代码已公开于GitHub上。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.16733">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-78c7bfea79c9107f8a5c0bfe289d7f2e.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-ba8d250fc2424d48be3a9ab765321bb5.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a5b4566556c3c0ebdb91c114b2c2ea67.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c2be39376a8108fc618f8703c6ffca8d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-646ff2a2d0c0164821e1ce7a928e0aa8.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Joint-Reconstruction-of-Activity-and-Attenuation-in-PET-by-Diffusion-Posterior-Sampling-in-Wavelet-Coefficient-Space"><a href="#Joint-Reconstruction-of-Activity-and-Attenuation-in-PET-by-Diffusion-Posterior-Sampling-in-Wavelet-Coefficient-Space" class="headerlink" title="Joint Reconstruction of Activity and Attenuation in PET by Diffusion   Posterior Sampling in Wavelet Coefficient Space"></a>Joint Reconstruction of Activity and Attenuation in PET by Diffusion   Posterior Sampling in Wavelet Coefficient Space</h2><p><strong>Authors:Clémentine Phung-Ngoc, Alexandre Bousse, Antoine De Paepe, Hong-Phuong Dang, Olivier Saut, Dimitris Visvikis</strong></p>
+<p>Attenuation correction (AC) is necessary for accurate activity quantification in positron emission tomography (PET). Conventional reconstruction methods typically rely on attenuation maps derived from a co-registered computed tomography (CT) or magnetic resonance imaging scan. However, this additional scan may complicate the imaging workflow, introduce misalignment artifacts and increase radiation exposure. In this paper, we propose a joint reconstruction of activity and attenuation (JRAA) approach that eliminates the need for auxiliary anatomical imaging by relying solely on emission data. This framework combines wavelet diffusion model (WDM) and diffusion posterior sampling (DPS) to reconstruct fully three-dimensional (3-D) data. Experimental results show our method outperforms maximum likelihood activity and attenuation (MLAA) and MLAA with UNet-based post processing, and yields high-quality noise-free reconstructions across various count settings when time-of-flight (TOF) information is available. It is also able to reconstruct non-TOF data, although the reconstruction quality significantly degrades in low-count (LC) conditions, limiting its practical effectiveness in such settings. This approach represents a step towards stand-alone PET imaging by reducing the dependence on anatomical modalities while maintaining quantification accuracy, even in low-count scenarios when TOF information is available. </p>
+<blockquote>
+<p>衰减校正（AC）在正电子发射断层扫描（PET）的准确活性定量中必不可少。传统重建方法通常依赖于由共注册的计算机断层扫描（CT）或磁共振成像扫描得到的衰减图。然而，这种额外的扫描可能会使成像工作流程复杂化，引入错位伪影并增加辐射暴露。在本文中，我们提出了一种联合重建活动和衰减（JRAA）的方法，该方法仅依靠发射数据，无需辅助解剖成像。该框架结合了小波扩散模型（WDM）和扩散后采样（DPS）来重建全三维（3-D）数据。实验结果表明，我们的方法在有时间飞行（TOF）信息的情况下，性能优于最大似然活动和衰减（MLAA）以及基于UNet的后处理的MLAA，并在各种计数设置下实现了高质量的无噪声重建。尽管在低计数条件下重建质量有所降低，但该方法在无TOF数据的情况下也能进行重建，这在实践中具有一定的有效性。这种方法通过减少对解剖模态的依赖，即使在有时间飞行信息的情况下低计数场景中也能保持量化精度，代表了实现独立PET成像的一步。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2505.18782v3">PDF</a> 10 pages, 9 figures, 1 table</p>
+<p><strong>Summary</strong><br>     本文提出一种联合重建活动度和衰减（JRAA）的方法，该方法利用发射数据，无需辅助的解剖学成像。通过结合小波扩散模型（WDM）和扩散后采样（DPS），重建出全三维数据。实验表明，该方法在有时间飞行（TOF）信息的情况下，在多种计数设置下表现出优于最大似然活动度和衰减（MLAA）及其UNet后处理的方法的性能，且能得到高质量的无噪声重建。尽管该方法能重建非TOF数据，但在低计数条件下重建质量显著降低，限制了其在这些场景中的实际应用效果。此方法为实现独立PET成像提供了可能性，降低了对解剖学模态的依赖，同时保持了量化准确性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>衰减校正（AC）对于正电子发射断层扫描（PET）中的活动量化至关重要。</li>
+<li>传统重建方法依赖于从合并的计算机断层扫描（CT）或磁共振成像扫描得到的衰减图。</li>
+<li>提出的联合重建活动度和衰减（JRAA）方法消除了对辅助解剖学成像的需求，仅依赖发射数据。</li>
+<li>JRAA方法结合小波扩散模型和扩散后采样进行全三维数据重建。</li>
+<li>在有时间飞行（TOF）信息的情况下，JRAA方法在各种计数设置下表现出优越性能。</li>
+<li>JRAA方法在非TOF数据的重建中也能应用，但在低计数条件下重建质量下降。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2505.18782">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-b6ea26bc591260eb3608f7723c3c5179.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-44ede7683cddb537d59457ccedbd19ae.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d656d0ab49e0b73aebe3246052e0a482.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="MDAA-Diff-CT-Guided-Multi-Dose-Adaptive-Attention-Diffusion-Model-for-PET-Denoising"><a href="#MDAA-Diff-CT-Guided-Multi-Dose-Adaptive-Attention-Diffusion-Model-for-PET-Denoising" class="headerlink" title="MDAA-Diff: CT-Guided Multi-Dose Adaptive Attention Diffusion Model for   PET Denoising"></a>MDAA-Diff: CT-Guided Multi-Dose Adaptive Attention Diffusion Model for   PET Denoising</h2><p><strong>Authors:Xiaolong Niu, Zanting Ye, Xu Han, Yanchao Huang, Hao Sun, Hubing Wu, Lijun Lu</strong></p>
+<p>Acquiring high-quality Positron Emission Tomography (PET) images requires administering high-dose radiotracers, which increases radiation exposure risks. Generating standard-dose PET (SPET) from low-dose PET (LPET) has become a potential solution. However, previous studies have primarily focused on single low-dose PET denoising, neglecting two critical factors: discrepancies in dose response caused by inter-patient variability, and complementary anatomical constraints derived from CT images. In this work, we propose a novel CT-Guided Multi-dose Adaptive Attention Denoising Diffusion Model (MDAA-Diff) for multi-dose PET denoising. Our approach integrates anatomical guidance and dose-level adaptation to achieve superior denoising performance under low-dose conditions. Specifically, this approach incorporates a CT-Guided High-frequency Wavelet Attention (HWA) module, which uses wavelet transforms to separate high-frequency anatomical boundary features from CT images. These extracted features are then incorporated into PET imaging through an adaptive weighted fusion mechanism to enhance edge details. Additionally, we propose the Dose-Adaptive Attention (DAA) module, a dose-conditioned enhancement mechanism that dynamically integrates dose levels into channel-spatial attention weight calculation. Extensive experiments on 18F-FDG and 68Ga-FAPI datasets demonstrate that MDAA-Diff outperforms state-of-the-art approaches in preserving diagnostic quality under reduced-dose conditions. Our code is publicly available. </p>
+<blockquote>
+<p>获取高质量的正电子发射断层扫描（PET）图像需要给予高剂量放射性示踪剂，这增加了辐射暴露风险。从低剂量PET（LPET）生成标准剂量PET（SPET）已成为一种可能的解决方案。然而，以往的研究主要集中在单一低剂量PET去噪上，忽略了两个关键因素：由患者间差异引起的剂量反应差异，以及从CT图像中得到的互补解剖约束。在这项工作中，我们提出了一种新型的CT引导多剂量自适应注意力去噪扩散模型（MDAA-Diff）用于多剂量PET去噪。我们的方法结合了解剖指导和剂量水平适应，以在低剂量条件下实现卓越的去噪性能。具体来说，该方法采用CT引导的高频小波注意力（HWA）模块，利用小波变换从CT图像中分离出高频解剖边界特征。这些提取的特征然后通过自适应加权融合机制融入到PET成像中，以增强边缘细节。此外，我们提出了剂量自适应注意力（DAA）模块，这是一种剂量调节增强机制，动态地将剂量水平集成到通道空间注意力权重计算中。在18F-FDG和68Ga-FAPI数据集上的大量实验表明，MDAA-Diff在降低剂量条件下保持诊断质量方面优于最先进的方法。我们的代码公开可用。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2505.05112v2">PDF</a> </p>
+<p><strong>摘要</strong></p>
+<p>获取高质量的发射型计算机断层扫描（PET）图像需要给予大剂量放射性示踪剂，从而增加了辐射暴露风险。低剂量PET（LPET）生成标准剂量PET（SPET）已成为一种可能的解决方案。然而，以前的研究主要集中在单剂量PET去噪上，忽略了由患者间差异引起的剂量反应差异以及来自CT图像的互补解剖约束这两个关键因素。在这项研究中，我们提出了一种新型的CT引导多剂量自适应注意力去噪扩散模型（MDAA-Diff），用于多剂量PET去噪。我们的方法结合了解剖指导和剂量水平自适应，以实现低剂量条件下的卓越去噪性能。具体来说，该方法采用CT引导的高频小波注意力（HWA）模块，利用小波变换从CT图像中分离出高频解剖边界特征。这些提取的特征通过自适应加权融合机制融入到PET成像中，以增强边缘细节。此外，我们还提出了剂量自适应注意力（DAA）模块，这是一种根据剂量条件增强的机制，动态地将剂量水平纳入通道空间注意力权重计算。在18F-FDG和68Ga-FAPI数据集上的大量实验表明，MDAA-Diff在降低剂量条件下保留诊断质量方面优于现有技术。我们的代码已公开可用。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>高剂量放射性示踪剂在PET成像中的使用增加了辐射暴露风险，提出通过生成标准剂量PET（SPET）来解决这一问题。</li>
+<li>现有研究主要关注单一低剂量PET去噪，忽略了患者间差异引起的剂量反应差异和CT图像的解剖约束。</li>
+<li>提出了一种新型的CT引导多剂量自适应注意力去噪扩散模型（MDAA-Diff），结合了解剖指导和剂量水平自适应。</li>
+<li>采用CT引导的高频小波注意力（HWA）模块，通过小波变换提取CT图像中的高频解剖边界特征，并将其融入PET成像中增强边缘细节。</li>
+<li>提出剂量自适应注意力（DAA）模块，动态结合剂量水平进行计算，增强去噪效果。</li>
+<li>在多个数据集上的实验表明，MDAA-Diff在降低剂量条件下能保留诊断质量，优于现有技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2505.05112">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-33da8d114b4aeb60ab3d1ec7cffd13b4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-72fb0ab82d2eb4551957a3c0446571de.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-4c8b8e643f982798fdc7076b26c61567.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="InstructAttribute-Fine-grained-Object-Attributes-editing-with-Instruction"><a href="#InstructAttribute-Fine-grained-Object-Attributes-editing-with-Instruction" class="headerlink" title="InstructAttribute: Fine-grained Object Attributes editing with   Instruction"></a>InstructAttribute: Fine-grained Object Attributes editing with   Instruction</h2><p><strong>Authors:Xingxi Yin, Jingfeng Zhang, Yue Deng, Zhi Li, Yicheng Li, Yin Zhang</strong></p>
+<p>Text-to-image (T2I) diffusion models are widely used in image editing due to their powerful generative capabilities. However, achieving fine-grained control over specific object attributes, such as color and material, remains a considerable challenge. Existing methods often fail to accurately modify these attributes or compromise structural integrity and overall image consistency. To fill this gap, we introduce Structure Preservation and Attribute Amplification (SPAA), a novel training-free framework that enables precise generation of color and material attributes for the same object by intelligently manipulating self-attention maps and cross-attention values within diffusion models. Building on SPAA, we integrate multi-modal large language models (MLLMs) to automate data curation and instruction generation. Leveraging this object attribute data collection engine, we construct the Attribute Dataset, encompassing a comprehensive range of colors and materials across diverse object categories. Using this generated dataset, we propose InstructAttribute, an instruction-tuned model that enables fine-grained and object-level attribute editing through natural language prompts. This capability holds significant practical implications for diverse fields, from accelerating product design and e-commerce visualization to enhancing virtual try-on experiences. Extensive experiments demonstrate that InstructAttribute outperforms existing instruction-based baselines, achieving a superior balance between attribute modification accuracy and structural preservation. </p>
+<blockquote>
+<p>文本到图像（T2I）扩散模型由于其强大的生成能力而在图像编辑中得到了广泛应用。然而，实现对特定对象属性（如颜色和材质）的精细控制仍然是一个巨大的挑战。现有方法往往无法准确修改这些属性，或者会损害结构完整性和整体图像一致性。为了填补这一空白，我们引入了无训练框架——结构保留与属性放大（SPAA），通过智能操作扩散模型中的自注意力图和跨注意力值，实现对同一对象的颜色和材质属性的精确生成。基于SPAA，我们集成了多模态大型语言模型（MLLMs）来自动进行数据整理和指令生成。利用该对象属性数据收集引擎，我们构建了属性数据集，涵盖了各类对象中的多种颜色和材质。使用这个生成的数据集，我们提出了指令属性模型InstructAttribute，这是一个通过自然语言提示实现精细粒度和对象级别的属性编辑的指令调优模型。这种能力对于加速产品设计、电子商务可视化以及增强虚拟试穿体验等多个领域都具有重要的实际意义。大量实验表明，InstructAttribute在属性修改精度和结构保留之间取得了出色的平衡，超越了现有的指令基准模型。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2505.00751v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>文本介绍了针对文本转图像（T2I）扩散模型的一项新技术——结构保留与属性放大（SPAA）。该技术解决了现有方法在修改特定对象属性（如颜色和材质）时面临的挑战，能够在不损害结构完整性和整体图像一致性的情况下，精确生成颜色和材质属性。此外，该研究还结合了多模态大型语言模型（MLLMs）构建了属性数据集，并提出了基于指令调校的模型InstructAttribute，可实现通过自然语言提示进行精细化和对象级的属性编辑。这项技术在产品设计、电子商务可视化以及虚拟试穿体验等领域具有实际意义，并在实验中表现出优于现有指令基准的性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>T2I扩散模型广泛应用于图像编辑，但在精细控制特定对象属性方面存在挑战。</li>
+<li>SPAA框架解决了现有方法在修改颜色和材质属性方面的不足，通过智能操作扩散模型中的自注意力图和跨注意力值，实现精确生成属性。</li>
+<li>结合MLLMs构建属性数据集，用于自动化数据整理和指令生成。</li>
+<li>提出InstructAttribute模型，通过自然语言提示实现精细化和对象级的属性编辑。</li>
+<li>InstructAttribute在平衡属性修改准确性和结构保留方面表现出优异性能。</li>
+<li>该技术对于产品设计、电子商务可视化及虚拟试穿体验等领域具有实际意义。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2505.00751">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-d71edee45541a3c5266dc5b93d026f26.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b955e4ee4e9e6adc35cce6d758e83a4d.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-269319fa013775b4924b05fa8ed39030.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-57605603ab8bebde709309f0c1dd4742.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f5cef4073e32a7d768575249995abf59.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-beae8194358085e26d4d8c3ff9f26b7d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-5b06582b7db4887a343daf19d43cffd4.jpg" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="From-Easy-to-Hard-Building-a-Shortcut-for-Differentially-Private-Image-Synthesis"><a href="#From-Easy-to-Hard-Building-a-Shortcut-for-Differentially-Private-Image-Synthesis" class="headerlink" title="From Easy to Hard: Building a Shortcut for Differentially Private Image   Synthesis"></a>From Easy to Hard: Building a Shortcut for Differentially Private Image   Synthesis</h2><p><strong>Authors:Kecen Li, Chen Gong, Xiaochen Li, Yuzhong Zhao, Xinwen Hou, Tianhao Wang</strong></p>
+<p>Differentially private (DP) image synthesis aims to generate synthetic images from a sensitive dataset, alleviating the privacy leakage concerns of organizations sharing and utilizing synthetic images. Although previous methods have significantly progressed, especially in training diffusion models on sensitive images with DP Stochastic Gradient Descent (DP-SGD), they still suffer from unsatisfactory performance. In this work, inspired by curriculum learning, we propose a two-stage DP image synthesis framework, where diffusion models learn to generate DP synthetic images from easy to hard. Unlike existing methods that directly use DP-SGD to train diffusion models, we propose an easy stage in the beginning, where diffusion models learn simple features of the sensitive images. To facilitate this easy stage, we propose to use &#96;central images’, simply aggregations of random samples of the sensitive dataset. Intuitively, although those central images do not show details, they demonstrate useful characteristics of all images and only incur minimal privacy costs, thus helping early-phase model training. We conduct experiments to present that on the average of four investigated image datasets, the fidelity and utility metrics of our synthetic images are 33.1% and 2.1% better than the state-of-the-art method. </p>
+<blockquote>
+<p>差分隐私（DP）图像合成旨在从敏感数据集中生成合成图像，从而减轻组织和机构共享和利用合成图像时的隐私泄露担忧。尽管之前的方法已经有了显著进展，特别是在使用差分隐私随机梯度下降法（DP-SGD）对敏感图像进行扩散模型训练方面，但它们仍然存在性能不佳的问题。在这项工作中，我们受到课程学习的启发，提出了一个两阶段的差分隐私图像合成框架，其中扩散模型从易到难学习生成差分隐私合成图像。与现有方法直接使用DP-SGD训练扩散模型不同，我们在开始时提出了一个简单阶段，让扩散模型学习敏感图像的简单特征。为了促进这一简单阶段，我们建议使用“中心图像”，即敏感数据集随机样本的简单集合。直观地看，虽然这些中心图像不显示细节，但它们展示了所有图像的有用特征并且只产生微小的隐私成本，从而有助于早期模型训练。我们进行实验表明，在调查的四个图像数据集的平均值上，我们的合成图像的保真度和效用指标比现有最先进的方法分别提高了33.1%和2.1%。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.01395v2">PDF</a> Accepted at IEEE S&amp;P (Oakland) 2025; code available at   <a target="_blank" rel="noopener" href="https://github.com/SunnierLee/DP-FETA">https://github.com/SunnierLee/DP-FETA</a>; revised proofs in App.A</p>
+<p><strong>Summary</strong><br>差分隐私（DP）图像合成旨在从敏感数据集中生成合成图像，以缓解组织和公众对共享和利用合成图像时的隐私泄露担忧。尽管之前的方法，特别是在使用DP随机梯度下降（DP-SGD）训练扩散模型方面取得了显著进展，但它们仍然表现不佳。在这项工作中，受到课程学习的启发，我们提出了一个两阶段的DP图像合成框架，其中扩散模型从易到难学习生成DP合成图像。与现有方法直接使用DP-SGD训练扩散模型不同，我们在开始时加入了一个简单的阶段，让扩散模型学习敏感图像的简单特征。为了促进这一简单阶段，我们建议使用“中心图像”，即敏感数据集的随机样本的集合。尽管这些中心图像不显示细节，但它们展示了所有图像的有用特征并且只产生最小的隐私成本，从而有助于早期阶段的模型训练。实验表明，在调查的四个图像数据集上，我们生成的合成图像的保真度和效用指标均优于现有最佳方法，分别提高了33.1%和2.1%。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>差分隐私（DP）图像合成旨在解决共享和利用合成图像时的隐私泄露问题。</li>
+<li>现有方法在DP图像合成方面的表现仍有待提升。</li>
+<li>提出了一个两阶段的DP图像合成框架，从简单到复杂训练扩散模型。</li>
+<li>在早期阶段，使用“中心图像”促进模型学习敏感图像的简单特征。</li>
+<li>中心图像能够展示数据集的有用特征且对隐私影响较小。</li>
+<li>实验结果显示，在多个图像数据集上，该方法生成的合成图像优于现有最佳方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.01395">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-73d28dd1194b4c75f39845c82c6de24e.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-057fbc3069c27194f932c6d9bf2e86e8.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-056f1fa86a5dc437744152f00acbd9d9.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-4f5727ea66791288146d0419b49be13d.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-37d2c4519a6cc14fb1017219f4ed3e59.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-e7218dc417e1af5c4e584533c7c216eb.jpg" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="MIFNet-Learning-Modality-Invariant-Features-for-Generalizable-Multimodal-Image-Matching"><a href="#MIFNet-Learning-Modality-Invariant-Features-for-Generalizable-Multimodal-Image-Matching" class="headerlink" title="MIFNet: Learning Modality-Invariant Features for Generalizable   Multimodal Image Matching"></a>MIFNet: Learning Modality-Invariant Features for Generalizable   Multimodal Image Matching</h2><p><strong>Authors:Yepeng Liu, Zhichao Sun, Baosheng Yu, Yitian Zhao, Bo Du, Yongchao Xu, Jun Cheng</strong></p>
+<p>Many keypoint detection and description methods have been proposed for image matching or registration. While these methods demonstrate promising performance for single-modality image matching, they often struggle with multimodal data because the descriptors trained on single-modality data tend to lack robustness against the non-linear variations present in multimodal data. Extending such methods to multimodal image matching often requires well-aligned multimodal data to learn modality-invariant descriptors. However, acquiring such data is often costly and impractical in many real-world scenarios. To address this challenge, we propose a modality-invariant feature learning network (MIFNet) to compute modality-invariant features for keypoint descriptions in multimodal image matching using only single-modality training data. Specifically, we propose a novel latent feature aggregation module and a cumulative hybrid aggregation module to enhance the base keypoint descriptors trained on single-modality data by leveraging pre-trained features from Stable Diffusion models. %, our approach generates robust and invariant features across diverse and unknown modalities. We validate our method with recent keypoint detection and description methods in three multimodal retinal image datasets (CF-FA, CF-OCT, EMA-OCTA) and two remote sensing datasets (Optical-SAR and Optical-NIR). Extensive experiments demonstrate that the proposed MIFNet is able to learn modality-invariant feature for multimodal image matching without accessing the targeted modality and has good zero-shot generalization ability. The code will be released at <a target="_blank" rel="noopener" href="https://github.com/lyp-deeplearning/MIFNet">https://github.com/lyp-deeplearning/MIFNet</a>. </p>
+<blockquote>
+<p>针对图像匹配或注册，已经提出了许多关键点检测与描述方法。虽然这些方法在单模态图像匹配上表现出有前景的性能，但它们通常在多模态数据上表现挣扎，因为那些在单模态数据上训练的描述符往往缺乏对多模态数据中存在的非线性变异的稳健性。将这些方法扩展到多模态图像匹配通常需要精准对齐的多模态数据来学习模态不变描述符。然而，在现实的许多场景中，获取这样的数据往往成本高昂且不切实际。为了应对这一挑战，我们提出了一种模态不变特征学习网络（MIFNet），仅使用单模态训练数据，为多模态图像匹配中的关键点描述计算模态不变特征。具体来说，我们提出了一种新型潜在特征聚合模块和累积混合聚合模块，以利用来自Stable Diffusion模型的预训练特征，增强在单模态数据上训练的基准关键点描述符。我们的方法能够在多样且未知的模式下生成稳健和不变的特征。我们在三个多模态视网膜图像数据集（CF-FA、CF-OCT、EMA-OCTA）和两个遥感数据集（Optical-SAR和Optical-NIR）上与最近的关键点检测和描述方法进行验证。大量实验表明，所提出的MIFNet能够在不接触目标模态的情况下学习多模态图像匹配的模态不变特征，并具有良好的零样本泛化能力。代码将发布在<a target="_blank" rel="noopener" href="https://github.com/lyp-deeplearning/MIFNet%E3%80%82">https://github.com/lyp-deeplearning/MIFNet。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.11299v2">PDF</a> Accept by IEEE TIP 2025</p>
+<p><strong>Summary</strong><br>     针对多模态图像匹配中的挑战，提出一种模态不变特征学习网络（MIFNet），利用单模态训练数据计算关键点的模态不变特征。通过新型潜在特征聚合模块和累积混合聚合模块增强基于单模态数据训练的基础关键描述符，并借助Stable Diffusion模型的预训练特征。实验验证，MIFNet在多种模态视网膜图像数据集和遥感数据集中表现出良好的零样本泛化能力和模态不变特征学习能力，无需访问目标模态。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>多模态图像匹配面临挑战：现有方法在单模态图像匹配上表现良好，但在多模态数据上缺乏鲁棒性。</li>
+<li>MIFNet被提出以解决此挑战：计算关键点的模态不变特征，适用于多模态图像匹配。</li>
+<li>MIFNet利用单模态训练数据：不需要多模态对齐数据，降低了获取成本。</li>
+<li>新型潜在特征聚合模块和累积混合聚合模块：增强基于单模态数据训练的基础关键描述符。</li>
+<li>利用Stable Diffusion模型的预训练特征：提升特征的质量和泛化能力。</li>
+<li>在多个数据集上的实验验证：显示MIFNet的零样本泛化能力和模态不变特征学习能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.11299">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-f11bc00029b21dc77a003d01fd22e422.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-76b23b0417fbc9c7d57258fc22b14d9c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9301b36cd8ac02cc2062bcc8adb298ea.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-3a83d029a462456056eed4b9a0746dcc.jpg" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1><h2 id="CDI-Copyrighted-Data-Identification-in-Diffusion-Models"><a href="#CDI-Copyrighted-Data-Identification-in-Diffusion-Models" class="headerlink" title="CDI: Copyrighted Data Identification in Diffusion Models"></a>CDI: Copyrighted Data Identification in Diffusion Models</h2><p><strong>Authors:Jan Dubiński, Antoni Kowalczuk, Franziska Boenisch, Adam Dziedzic</strong></p>
+<p>Diffusion Models (DMs) benefit from large and diverse datasets for their training. Since this data is often scraped from the Internet without permission from the data owners, this raises concerns about copyright and intellectual property protections. While (illicit) use of data is easily detected for training samples perfectly re-created by a DM at inference time, it is much harder for data owners to verify if their data was used for training when the outputs from the suspect DM are not close replicas. Conceptually, membership inference attacks (MIAs), which detect if a given data point was used during training, present themselves as a suitable tool to address this challenge. However, we demonstrate that existing MIAs are not strong enough to reliably determine the membership of individual images in large, state-of-the-art DMs. To overcome this limitation, we propose CDI, a framework for data owners to identify whether their dataset was used to train a given DM. CDI relies on dataset inference techniques, i.e., instead of using the membership signal from a single data point, CDI leverages the fact that most data owners, such as providers of stock photography, visual media companies, or even individual artists, own datasets with multiple publicly exposed data points which might all be included in the training of a given DM. By selectively aggregating signals from existing MIAs and using new handcrafted methods to extract features for these datasets, feeding them to a scoring model, and applying rigorous statistical testing, CDI allows data owners with as little as 70 data points to identify with a confidence of more than 99% whether their data was used to train a given DM. Thereby, CDI represents a valuable tool for data owners to claim illegitimate use of their copyrighted data. We make the code available at <a target="_blank" rel="noopener" href="https://github.com/sprintml/copyrighted_data_identification">https://github.com/sprintml/copyrighted_data_identification</a> </p>
+<blockquote>
+<p>扩散模型（DMs）受益于大规模、多样化的数据集进行训练。由于这些数据通常未经数据所有者许可就从互联网上抓取，这引发了关于版权和知识产权保护的担忧。虽然（非法）使用数据很容易检测到训练样本被扩散模型在推理时完美重建的情况，但当怀疑的扩散模型输出不是紧密副本时，数据所有者很难验证其数据是否用于训练。从概念上讲，成员推理攻击（MIAs）能够检测给定数据点是否用于训练，似乎是一个解决这一挑战的合理工具。然而，我们证明现有的MIAs不足以可靠地确定大型、最先进的DM中个别图像的会员身份。为了克服这一局限性，我们提出了CDI，一个数据所有者用来判断其数据集是否用于训练特定扩散模型的框架。CDI依赖于数据集推理技术，即不是使用单个数据点的成员信号，而是利用大多数数据所有者（如库存照片提供商、视觉媒体公司甚至个人艺术家）拥有多个可能包含在特定扩散模型训练中的公开数据点这一事实。通过有选择地聚合现有MIAs的信号，并使用新的手工方法来提取这些数据集的特征，将其输入评分模型并进行严格的统计测试，CDI允许数据所有者使用至少70个数据点以超过99%的置信度来识别他们的数据是否用于训练特定的扩散模型。因此，CDI是数据所有者要求制止对其版权数据的非法使用的一种有价值工具。我们在<a target="_blank" rel="noopener" href="https://github.com/sprintml/copyrighted_data_identification%E4%B8%8A%E6%8F%90%E4%BE%9B%E4%BA%86%E4%BB%A3%E7%A0%81%E3%80%82">https://github.com/sprintml/copyrighted_data_identification上提供了代码。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2411.12858v3">PDF</a> Accepted at CVPR2025 (Conference on Computer Vision and Pattern   Recognition) Code available at   <a target="_blank" rel="noopener" href="https://github.com/sprintml/copyrighted_data_identification">https://github.com/sprintml/copyrighted_data_identification</a></p>
+<p><strong>摘要</strong></p>
+<p>扩散模型（DMs）训练受益于大规模、多样化的数据集，但这些数据往往未经数据所有者许可从互联网抓取，引发版权和知识产权保护的担忧。对于训练样本的非法使用，如果DM在推理阶段完美复现这些样本，则容易检测。然而，当输出并非精确复制时，数据所有者难以证明其数据是否被用于训练。成员推理攻击（MIAs）作为一种检测给定数据点是否用于训练的工具，对此挑战具有概念上的适用性。但研究指出现有MIAs不足以可靠判断大型前沿DM中单个图像的成员身份。为解决此局限性，我们提出CDI框架，帮助数据所有者判断其数据集是否被用于训练特定DM。CDI依赖数据集推理技术，即并非使用单个数据点的成员信号，而是利用大多数数据所有者（如库存照片提供商、视觉媒体公司或个人艺术家）拥有多个可能包含在特定DM训练中的公开数据点这一事实。通过有选择地聚合来自现有MIAs的信号，并使用新的手工方法提取这些数据集的特征，将其输入评分模型并进行严格的统计测试，CDI允许拥有仅70个数据点的数据所有者以超过99%的置信度判断其数据是否被用于训练特定DM。因此，CDI是数据所有者主张其版权数据被非法使用时的宝贵工具。我们已将代码公开在<a target="_blank" rel="noopener" href="https://github.com/sprintml/copyrighted_data_identification%E3%80%82">https://github.com/sprintml/copyrighted_data_identification。</a></p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>扩散模型（DMs）经常从互联网抓取大规模、多样化的数据集进行训练，引发版权问题。</li>
+<li>当DM输出并非精确复制训练样本时，数据所有者难以证明其数据是否被用于训练DM。</li>
+<li>成员推理攻击（MIAs）在判断DM是否使用了特定数据方面具有一定价值，但现有MIAs不足以进行可靠判断。</li>
+<li>提出的CDI框架基于数据集推理技术，利用数据所有者的多个公开数据点来识别其数据集是否被用于训练DM。</li>
+<li>CDI通过结合现有MIAs的信号和新的手工方法提取数据集特征，进行严格的统计测试。</li>
+<li>仅需70个数据点，CDI便能以超过99%的置信度判断数据是否被用于训练特定DM。</li>
+<li>CDI工具对于数据所有者主张其版权数据被非法使用具有重要意义。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2411.12858">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-17ab5960dae55dd2a8455b195093fb8f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9e240e888a7f18fd52399f4ff537f0cf.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-738e8aeb0108b3ce8663f2b34aba62ca.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-72b15d678625686eb0ce0c6155205ab9.jpg" align="middle">
+</details>
+
+
+<h1 id="-14"><a href="#-14" class="headerlink" title=""></a></h1><h2 id="Leveraging-Model-Guidance-to-Extract-Training-Data-from-Personalized-Diffusion-Models"><a href="#Leveraging-Model-Guidance-to-Extract-Training-Data-from-Personalized-Diffusion-Models" class="headerlink" title="Leveraging Model Guidance to Extract Training Data from Personalized   Diffusion Models"></a>Leveraging Model Guidance to Extract Training Data from Personalized   Diffusion Models</h2><p><strong>Authors:Xiaoyu Wu, Jiaru Zhang, Zhiwei Steven Wu</strong></p>
+<p>Diffusion Models (DMs) have become powerful image generation tools, especially for few-shot fine-tuning where a pretrained DM is fine-tuned on a small image set to capture specific styles or objects. Many people upload these personalized checkpoints online, fostering communities such as Civitai and HuggingFace. However, model owners may overlook the data leakage risks when releasing fine-tuned checkpoints. Moreover, concerns regarding copyright violations arise when unauthorized data is used during fine-tuning. In this paper, we ask: “Can training data be extracted from these fine-tuned DMs shared online?” A successful extraction would present not only data leakage threats but also offer tangible evidence of copyright infringement. To answer this, we propose FineXtract, a framework for extracting fine-tuning data. Our method approximates fine-tuning as a gradual shift in the model’s learned distribution – from the original pretrained DM toward the fine-tuning data. By extrapolating the models before and after fine-tuning, we guide the generation toward high-probability regions within the fine-tuned data distribution. We then apply a clustering algorithm to extract the most probable images from those generated using this extrapolated guidance. Experiments on DMs fine-tuned with datasets including WikiArt, DreamBooth, and real-world checkpoints posted online validate the effectiveness of our method, extracting about 20% of fine-tuning data in most cases. The code is available <a target="_blank" rel="noopener" href="https://github.com/Nicholas0228/FineXtract">https://github.com/Nicholas0228/FineXtract</a>. </p>
+<blockquote>
+<p>扩散模型（DMs）已成为强大的图像生成工具，特别是在小样本微调中，预训练的DM被微调以捕捉特定风格或对象的小图像集。许多人在线上传这些个性化的检查点，促进了如Civitai和HuggingFace等社区的发展。然而，在发布微调检查点时，模型所有者可能会忽略数据泄露的风险。此外，当微调过程中使用未经授权的数据时，会出现版权违规的担忧。在本文中，我们提出的问题是：“可以从在线共享的这些微调后的DMs中提取训练数据吗？”成功的提取不仅会带来数据泄露的威胁，而且提供了版权侵权的切实证据。为了回答这个问题，我们提出了FineXtract，一个用于提取微调数据的框架。我们的方法将微调近似为模型学习分布的一个逐渐变化——从原始的预训练DM向微调数据变化。通过外推微调前后的模型，我们引导生成进入微调数据分布内的概率较高的区域。然后，我们应用聚类算法从使用这种外推指导生成的图像中提取最可能的图像。在使用WikiArt、DreamBooth和在线发布的现实世界检查点对DMs进行微调的实验验证了我们的方法的有效性，在大多数情况下，我们能够提取约20%的微调数据。代码可在<a target="_blank" rel="noopener" href="https://github.com/Nicholas0228/FineXtract">此链接</a>找到。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.03039v2">PDF</a> Accepted at the International Conference on Machine Learning (ICML)   2025</p>
+<p><strong>摘要</strong></p>
+<p>扩散模型（DMs）已成为强大的图像生成工具，特别是在小样数据微调中，预训练的DM通过微调少量的图像集来捕捉特定的风格或对象。本文探讨了从在线共享的微调扩散模型中提取训练数据的问题。我们提出FineXtract框架来提取微调数据，通过外推模型在微调前后的变化，引导生成向微调数据分布的高概率区域，并应用聚类算法从生成的图像中提取最可能的图像。实验证明，该方法在大多数情况下可有效提取约20%的微调数据。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>扩散模型（DMs）在图像生成领域表现出强大的能力，尤其在小样数据微调方面。</li>
+<li>人们会在网上上传个性化的检查点，从而促进了社区的发展，但也带来了数据泄露风险。</li>
+<li>存在对版权侵犯的担忧，当未经授权的数据用于微调时。</li>
+<li>FineXtract框架被提出来提取微调数据，通过将微调视为模型学习分布的一个渐变变化来实现。</li>
+<li>通过外推模型在微调前后的变化，可以引导生成向微调数据分布的高概率区域。</li>
+<li>应用聚类算法可以从生成的图像中提取最可能的图像。</li>
+<li>实验证明，该方法在提取在线共享的微调扩散模型的训练数据方面是有效的，提取的数据量约为20%。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.03039">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-0c0035a8d0c167a3583e03a6343d99e2.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-5ca3fa2a3cea0af4ab46ac95c2941be7.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-e54bb752f5019594faa254a91ef1aed4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-632725741617ec8f08ed7b8d82652280.jpg" align="middle">
+</details>
+
+
+<h1 id="-15"><a href="#-15" class="headerlink" title=""></a></h1><h2 id="Bridging-Geometric-Diffusion-and-Energy-Minimization-A-Unified-Framework-for-Neural-Message-Passing"><a href="#Bridging-Geometric-Diffusion-and-Energy-Minimization-A-Unified-Framework-for-Neural-Message-Passing" class="headerlink" title="Bridging Geometric Diffusion and Energy Minimization: A Unified   Framework for Neural Message Passing"></a>Bridging Geometric Diffusion and Energy Minimization: A Unified   Framework for Neural Message Passing</h2><p><strong>Authors:Qitian Wu, David Wipf, Junchi Yan</strong></p>
+<p>Learning representations for structured data with certain geometries (e.g., observed or unobserved) is a fundamental challenge, wherein message passing neural networks (MPNNs) have become a de facto class of model solutions. In this paper, we propose an energy-constrained diffusion model as a principled mathematical framework for understanding the mechanism of MPNNs and navigating novel architectural designs. Inspired by physical systems, the model combines the inductive bias of diffusion on manifolds with layer-wise constraints of energy minimization. We identify that the diffusion operators have a one-to-one correspondence with the energy functions implicitly descended by the diffusion process, and the finite-difference iteration for solving the energy-constrained diffusion system induces the propagation layers of various types of MPNNs operating on observed or latent structures. This leads to a unified perspective on common neural architectures whose computational flows can be cast as message passing (or its special case), including MLP, GCN, GIN, APPNP, GCNII, GAT, and Transformers. Building on these insights, we devise a new class of neural message passing models, dubbed diffusion-inspired Transformers, whose global attention layers are derived from the principled energy-constrained diffusion framework. Across diverse datasets, ranging from real-world networks to images, texts, and physical particles, we demonstrate that the new model achieves promising performance in scenarios where the data structures are observed (as a graph), partially observed, or entirely unobserved. </p>
+<blockquote>
+<p>对于具有特定几何结构（无论是观察到的还是未观察到的）的结构化数据的学习表示是一个基本挑战，其中消息传递神经网络（MPNNs）已成为一种模型解决方案的实际类别。在本文中，我们提出了一种能量约束扩散模型，作为理解MPNN机制并探索新型架构设计的基本原则数学框架。该模型受到物理系统的启发，结合了流形上扩散的归纳偏见和能量最小化的逐层约束。我们发现扩散算子与扩散过程隐含下降的能函数之间存在一一对应关系，解决能量约束扩散系统的有限差分迭代引发了各种类型的MPNN传播层，这些层在观察到的或潜在的结构上运行。这为常见的神经网络架构提供了一个统一的视角，其计算流程可以转换为消息传递（或其特殊情况），包括MLP、GCN、GIN、APPNP、GCNII、GAT和Transformer。基于这些见解，我们开发了一类新的神经网络消息传递模型，称为“扩散启发式Transformer”，其全局注意力层源于有原则的能量约束扩散框架。在真实世界网络、图像、文本和物理粒子等多种数据集上，我们证明了新模型在处理观察到的（作为图形）、部分观察到的或完全未观察到的数据结构场景中均取得了有前景的性能。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2409.09111v2">PDF</a> Accepted to Journal of Machine Learning Research (JMLR). Extended   version from DIFFormer in ICLR 2023</p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种能量约束扩散模型，作为理解消息传递神经网络（MPNNs）机制的原则性数学框架，并探索新型架构设计。模型结合流形上的扩散归纳偏见与能量最小化的逐层约束。扩散算子与能量函数有一一对应关系，通过求解能量约束扩散系统的有限差分迭代，诱导各种MPNNs的传播层在观测或潜在结构上进行操作。这提供了一个统一视角，重新审视计算流可转换为消息传递或其特殊情况的常见神经网络架构。基于这些见解，我们设计了一种新型的神经网络消息传递模型——扩散启发式Transformer，其全局注意力层源于原则性的能量约束扩散框架。在多种数据集上，无论是网络、图像、文本还是物理粒子，新模型在数据结构被观测、部分观测或完全未被观测的场景中均表现出良好性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>论文提出一种基于能量约束扩散模型的数学框架，用以理解消息传递神经网络（MPNNs）的工作原理。</li>
+<li>模型结合了流形上的扩散归纳偏见和能量最小化的逐层约束，为新型神经网络架构设计提供灵感。</li>
+<li>论文揭示了扩散算子与能量函数之间的对应关系，并通过有限差分迭代模拟扩散过程，从而理解不同类型的MPNNs传播层。</li>
+<li>模型提供了一个统一视角，涵盖多种计算流可转换为消息传递或其特殊情况的神经网络架构。</li>
+<li>基于该框架，论文设计了一种新型的神经网络消息传递模型——扩散启发式Transformer，其全局注意力层源于能量约束扩散原理。</li>
+<li>新模型在多种数据集上表现出良好性能，包括网络、图像、文本和物理粒子等。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2409.09111">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-84fc55b59892ca0edc99f9047c6d1bef.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-cd51a0c4d9d03867bc364d3da271f7b6.jpg" align="middle">
+</details>
+
+
+<h1 id="-16"><a href="#-16" class="headerlink" title=""></a></h1><h2 id="EDA-DM-Enhanced-Distribution-Alignment-for-Post-Training-Quantization-of-Diffusion-Models"><a href="#EDA-DM-Enhanced-Distribution-Alignment-for-Post-Training-Quantization-of-Diffusion-Models" class="headerlink" title="EDA-DM: Enhanced Distribution Alignment for Post-Training Quantization   of Diffusion Models"></a>EDA-DM: Enhanced Distribution Alignment for Post-Training Quantization   of Diffusion Models</h2><p><strong>Authors:Xuewen Liu, Zhikai Li, Junrui Xiao, Mengjuan Chen, Jianquan Li, Qingyi Gu</strong></p>
+<p>Diffusion models have achieved great success in image generation tasks. However, the lengthy denoising process and complex neural networks hinder their low-latency applications in real-world scenarios. Quantization can effectively reduce model complexity, and post-training quantization (PTQ), which does not require fine-tuning, is highly promising for compressing and accelerating diffusion models. Unfortunately, we find that due to the highly dynamic activations, existing PTQ methods suffer from distribution mismatch issues at both calibration sample level and reconstruction output level, which makes the performance far from satisfactory. In this paper, we propose EDA-DM, a standardized PTQ method that efficiently addresses the above issues. Specifically, at the calibration sample level, we extract information from the density and diversity of latent space feature maps, which guides the selection of calibration samples to align with the overall sample distribution; and at the reconstruction output level, we theoretically analyze the reasons for previous reconstruction failures and, based on this insight, optimize block reconstruction using the Hessian loss of layers, aligning the outputs of quantized model and full-precision model at different network granularity. Extensive experiments demonstrate that EDA-DM significantly outperforms the existing PTQ methods across various models and datasets. Our method achieves a 1.83 times speedup and 4 times compression for the popular Stable-Diffusion on MS-COCO, with only a 0.05 loss in CLIP score. Code is available at <a target="_blank" rel="noopener" href="http://github.com/BienLuky/EDA-DM">http://github.com/BienLuky/EDA-DM</a> . </p>
+<blockquote>
+<p>扩散模型在图像生成任务中取得了巨大成功。然而，漫长的去噪过程和复杂的神经网络阻碍了其在现实场景中的低延迟应用。量化可以有效地降低模型复杂度，而不需要微调的后训练量化（PTQ）在压缩和加速扩散模型方面前景广阔。然而，我们发现由于激活高度动态，现有的PTQ方法在校准样本级别和重建输出级别都存在分布不匹配问题，这使得性能远不能令人满意。在本文中，我们提出了EDA-DM，一种标准化的PTQ方法，有效地解决了上述问题。具体而言，在校准样本级别，我们从潜在空间特征图的密度和多样性中提取信息，这有助于选择校准样本以符合总体样本分布；在重建输出级别，我们分析了之前重建失败的原因，并在此基础上，利用层的高斯损失优化块重建，使量化模型和全精度模型在不同网络粒度上的输出保持一致。大量实验表明，在各种模型和数据集上，EDA-DM显著优于现有的PTQ方法。我们的方法在MS-COCO上的流行Stable-Diffusion上实现了1.83倍的速度提升和4倍的压缩，同时CLIP分数只损失了0.05。相关代码可访问<a target="_blank" rel="noopener" href="http://github.com/BienLuky/EDA-DM%E8%8E%B7%E5%8F%96%E3%80%82">http://github.com/BienLuky/EDA-DM获取。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2401.04585v3">PDF</a> Code: <a target="_blank" rel="noopener" href="http://github.com/BienLuky/EDA-DM">http://github.com/BienLuky/EDA-DM</a></p>
+<p><strong>摘要</strong></p>
+<p>扩散模型在图像生成任务中取得了巨大成功，但其去噪过程冗长、神经网络复杂，限制了其在现实场景中的低延迟应用。量化可以有效降低模型复杂度，后训练量化（PTQ）在不需微调的情况下展现出对压缩和加速扩散模型的巨大潜力。然而，由于激活高度动态，现有PTQ方法在校准样本级和重建输出级存在分布不匹配问题，性能难以令人满意。本文提出EDA-DM，一种标准化的PTQ方法，有效解决上述问题。在校准样本级，我们从潜在空间特征图的密度和多样性中提取信息，指导校准样本的选择，以与整体样本分布对齐；在重建输出级，我们分析以往重建失败的原因，基于此优化块重建，使用层的高斯损失，在不同网络粒度上对齐量化模型和全精度模型的输出。大量实验表明，EDA-DM在多种模型和数据集上显著优于现有PTQ方法。我们的方法为流行的Stable-Diffusion在MS-COCO上实现了1.83倍加速和4倍压缩，CLIP分数仅下降0.05。相关代码可通过<a target="_blank" rel="noopener" href="http://github.com/BienLuky/EDA-DM%E8%8E%B7%E5%8F%96%E3%80%82">http://github.com/BienLuky/EDA-DM获取。</a></p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>扩散模型在图像生成中表现优秀，但在实际低延迟应用中因过程冗长和神经网络复杂而受到限制。</li>
+<li>量化是降低模型复杂度的一种有效方法，后训练量化（PTQ）为扩散模型的压缩和加速提供巨大潜力。</li>
+<li>现有PTQ方法面临校准样本级和重建输出级的分布不匹配问题。</li>
+<li>EDA-DM是一种标准化的PTQ方法，通过提取潜在空间特征图的信息来解决分布不匹配问题，并在重建输出级进行优化。</li>
+<li>EDA-DM在多种模型和数据集上表现优于其他PTQ方法。</li>
+<li>在MS-COCO上的Stable-Diffusion实验表明，EDA-DM实现了加速和压缩的同时，仅牺牲了微小的CLIP分数。</li>
+<li>相关研究代码已公开可访问。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2401.04585">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-8debd6f060b745ad809f948626979bcf.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-dc47b6e79dbab89a7b5ddb4db83adbdd.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-364df4a10ea6c94030cfceed0bc1efed.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-e1aa5d3321ab8d370bed0fdd79f0c375.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-e551bed7695698713efbc14c2b430fc8.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-19bbc781fa77d41749c606ded0e1eb54.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-dee974f3939dd76c5a4f660cd5633e55.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d2ad4f8265e489e3e5ae3beec40f4751.jpg" align="middle">
+</details>
+
+
+<h1 id="-17"><a href="#-17" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-06-25/Diffusion%20Models/">https://kedreamix.github.io/Talk2Paper/Paper/2025-06-25/Diffusion%20Models/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/Diffusion-Models/">
+                                    <span class="chip bg-color">Diffusion Models</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-06-25/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-baa2422c58392beb183525123b6c48ea.jpg" class="responsive-img" alt="医学图像">
+                        
+                        <span class="card-title">医学图像</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            医学图像 方向最新论文已更新，请持续关注 Update in 2025-06-25  RAG-6DPose Retrieval-Augmented 6D Pose Estimation via Leveraging CAD as   Knowledge Base
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-06-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/" class="post-category">
+                                    医学图像
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">
+                        <span class="chip bg-color">医学图像</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-06-25/NeRF/">
+                    <div class="card-image">
+                        
+                        <img src="https://pic1.zhimg.com/v2-56ca28009d5260476c56072194780a5b.jpg" class="responsive-img" alt="NeRF">
+                        
+                        <span class="card-title">NeRF</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            NeRF 方向最新论文已更新，请持续关注 Update in 2025-06-25  MCN-SLAM Multi-Agent Collaborative Neural SLAM with Hybrid Implicit   Neural Scene Representation
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-06-25
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                    NeRF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/NeRF/">
+                        <span class="chip bg-color">NeRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">22950.1k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
