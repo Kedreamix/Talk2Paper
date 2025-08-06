@@ -1,0 +1,1810 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="3DGS">
+    <meta name="description" content="3DGS 方向最新论文已更新，请持续关注 Update in 2025-08-06  Uncertainty Estimation for Novel Views in Gaussian Splatting from   Primitive-Based Representations of Error and Visibility">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>3DGS | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://picx.zhimg.com/v2-e6853f3bb5b1f7bcfd4c0da8bf95a38c.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">3DGS</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/3DGS/">
+                                <span class="chip bg-color">3DGS</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/3DGS/" class="post-category">
+                                3DGS
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-08-06
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-08-06
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    20.6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    83 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-08-06-更新"><a href="#2025-08-06-更新" class="headerlink" title="2025-08-06 更新"></a>2025-08-06 更新</h1><h2 id="Uncertainty-Estimation-for-Novel-Views-in-Gaussian-Splatting-from-Primitive-Based-Representations-of-Error-and-Visibility"><a href="#Uncertainty-Estimation-for-Novel-Views-in-Gaussian-Splatting-from-Primitive-Based-Representations-of-Error-and-Visibility" class="headerlink" title="Uncertainty Estimation for Novel Views in Gaussian Splatting from   Primitive-Based Representations of Error and Visibility"></a>Uncertainty Estimation for Novel Views in Gaussian Splatting from   Primitive-Based Representations of Error and Visibility</h2><p><strong>Authors:Thomas Gottwald, Edgar Heinert, Matthias Rottmann</strong></p>
+<p>In this work, we present a novel method for uncertainty estimation (UE) in Gaussian Splatting. UE is crucial for using Gaussian Splatting in critical applications such as robotics and medicine. Previous methods typically estimate the variance of Gaussian primitives and use the rendering process to obtain pixel-wise uncertainties. Our method establishes primitive representations of error and visibility of trainings views, which carries meaningful uncertainty information. This representation is obtained by projection of training error and visibility onto the primitives. Uncertainties of novel views are obtained by rendering the primitive representations of uncertainty for those novel views, yielding uncertainty feature maps. To aggregate these uncertainty feature maps of novel views, we perform a pixel-wise regression on holdout data. In our experiments, we analyze the different components of our method, investigating various combinations of uncertainty feature maps and regression models. Furthermore, we considered the effect of separating splatting into foreground and background. Our UEs show high correlations to true errors, outperforming state-of-the-art methods, especially on foreground objects. The trained regression models show generalization capabilities to new scenes, allowing uncertainty estimation without the need for holdout data. </p>
+<blockquote>
+<p>在这项工作中，我们提出了一种用于高斯涂抹（Gaussian Splatting）中的不确定性估计（UE）的新方法。不确定性估计是使用高斯涂抹于机器人和医学等关键应用中的关键。以前的方法通常估计高斯基元（Gaussian primitives）的方差，并使用渲染过程获得像素级的不确定性。我们的方法建立了训练视图误差和可见性的基元表示，其中包含有意义的不确定性信息。这种表示是通过将训练误差和可见性投影到基元上获得的。新型视图的不确定性是通过渲染这些新型视图的基元不确定性表示而获得的，从而产生不确定性特征图。为了聚合这些新型视图的不确定性特征图，我们在预留数据上进行像素级回归。在我们的实验中，我们分析了我们方法的不同组成部分，研究了不确定性特征图和回归模型的各种组合。此外，我们还考虑了将涂抹分为前景和背景的影响。我们的不确定性估计与真实误差高度相关，尤其是在前景对象上，优于最新方法。经过训练的回归模型对新场景具有通用性，允许在没有预留数据的情况下进行不确定性估计。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.02443v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种用于高斯混合模型中的不确定性估计（UE）的新方法。该方法对于在机器人和医学等关键应用中使用高斯混合模型至关重要。与之前的方法相比，我们的方法建立了训练视图的误差和可见性的原始表示，包含有意义的不确定性信息。通过投影训练误差和可见性来获得这种表示。通过渲染这些新颖视图的不确定性原始表示，我们获得了不确定性特征图。为了汇总这些不确定性特征图，我们对保留数据执行像素级回归。实验表明，我们的方法在分析不同组件和考虑前景与背景的分离效果时表现出优越性，与真实误差高度相关，并优于现有方法，特别是在前景对象上。训练的回归模型具有对新场景的泛化能力，无需保留数据即可进行不确定性估计。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>提出了用于高斯混合模型中的不确定性估计的新方法。</li>
+<li>建立了训练视图的误差和可见性的原始表示，包含有意义的不确定性信息。</li>
+<li>通过渲染新颖视图的不确定性原始表示获得不确定性特征图。</li>
+<li>通过像素级回归汇总不确定性特征图。</li>
+<li>实验表明，该方法与真实误差高度相关，优于现有方法。</li>
+<li>训练的回归模型具有对新场景的泛化能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.02443">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-fd84d36eeb4452e09e6b2183b7fc4b5f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-41b718d8ec6ccf47cf2eae2867b3be1f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9a336803d49d8ae8c234514500fbbebf.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="SplatSSC-Decoupled-Depth-Guided-Gaussian-Splatting-for-Semantic-Scene-Completion"><a href="#SplatSSC-Decoupled-Depth-Guided-Gaussian-Splatting-for-Semantic-Scene-Completion" class="headerlink" title="SplatSSC: Decoupled Depth-Guided Gaussian Splatting for Semantic Scene   Completion"></a>SplatSSC: Decoupled Depth-Guided Gaussian Splatting for Semantic Scene   Completion</h2><p><strong>Authors:Rui Qian, Haozhi Cao, Tianchen Deng, Shenghai Yuan, Lihua Xie</strong></p>
+<p>Monocular 3D Semantic Scene Completion (SSC) is a challenging yet promising task that aims to infer dense geometric and semantic descriptions of a scene from a single image. While recent object-centric paradigms significantly improve efficiency by leveraging flexible 3D Gaussian primitives, they still rely heavily on a large number of randomly initialized primitives, which inevitably leads to 1) inefficient primitive initialization and 2) outlier primitives that introduce erroneous artifacts. In this paper, we propose SplatSSC, a novel framework that resolves these limitations with a depth-guided initialization strategy and a principled Gaussian aggregator. Instead of random initialization, SplatSSC utilizes a dedicated depth branch composed of a Group-wise Multi-scale Fusion (GMF) module, which integrates multi-scale image and depth features to generate a sparse yet representative set of initial Gaussian primitives. To mitigate noise from outlier primitives, we develop the Decoupled Gaussian Aggregator (DGA), which enhances robustness by decomposing geometric and semantic predictions during the Gaussian-to-voxel splatting process. Complemented with a specialized Probability Scale Loss, our method achieves state-of-the-art performance on the Occ-ScanNet dataset, outperforming prior approaches by over 6.3% in IoU and 4.1% in mIoU, while reducing both latency and memory consumption by more than 9.3%. The code will be released upon acceptance. </p>
+<blockquote>
+<p>单目3D语义场景补全（SSC）是一项具有挑战性但前景光明的任务，旨在从单张图像中推断场景的密集几何和语义描述。虽然最近的以对象为中心的模式通过利用灵活的3D高斯原始数据显著提高了效率，但它们仍然严重依赖于大量随机初始化的原始数据，这不可避免地导致1）原始数据初始化效率低下和2）异常原始数据引入错误伪影。在本文中，我们提出了SplatSSC，这是一种解决这些限制的新颖框架，采用深度引导初始化策略和有原则的高斯聚合器。SplatSSC不是进行随机初始化，而是利用由组级多尺度融合（GMF）模块组成的专用深度分支，该模块融合多尺度图像和深度特征来生成稀疏但有代表性的初始高斯原始数据集。为了减轻异常原始数据带来的噪声，我们开发了去耦高斯聚合器（DGA），通过在高斯到体素贴图过程中分解几何和语义预测，提高了方法的稳健性。结合专用的概率尺度损失，我们的方法在Occ-ScanNet数据集上实现了最新性能，在IoU和mIoU上分别超越了先前的方法6.3%和4.1%，同时降低了超过9.3%的延迟和内存消耗。代码在接受后将予以发布。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.02261v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种名为SplatSSC的新型框架，用于解决单目三维语义场景完成（SSC）任务中遇到的原始初始化效率低下和异常原始引入错误伪影的问题。通过深度引导的初始化和原则性的高斯聚集策略，SplatSSC改善了传统随机初始化方法，实现了高效且准确的场景描述。在Occ-ScanNet数据集上，该方法实现了最先进的性能，提高了交并比（IoU）和平均交并比（mIoU）超过先前的方法，同时降低了延迟和内存消耗。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>单目三维语义场景完成（SSC）旨在从单一图像中推断场景的密集几何和语义描述，是一个具有挑战但前景广阔的任务。</li>
+<li>现有对象中心范式虽然通过灵活的3D高斯原始提高了效率，但仍存在原始初始化效率低下和异常原始引入错误伪影的问题。</li>
+<li>SplatSSC框架通过深度引导的初始化和原则性的高斯聚集策略解决了这些问题。</li>
+<li>SplatSSC使用专门的深度分支和Group-wise Multi-scale Fusion（GMF）模块生成稀疏但有代表性的初始高斯原始。</li>
+<li>Decoupled Gaussian Aggregator（DGA）的开发减轻了异常原始带来的噪声，通过在高斯到体素溅出过程中分解几何和语义预测增强了稳健性。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.02261">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-a5b0df6296c83d2db5a9c659b10d60dd.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-2ac9a0a9d59a915a6f48e0b7e6c63dc6.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-a70d797503a71d46634136d87713c7c8.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f44a5c8f4291960b356295b4b35ea01d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-0b0149b2d046efa2741088a74368cd01.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="GaussianCross-Cross-modal-Self-supervised-3D-Representation-Learning-via-Gaussian-Splatting"><a href="#GaussianCross-Cross-modal-Self-supervised-3D-Representation-Learning-via-Gaussian-Splatting" class="headerlink" title="GaussianCross: Cross-modal Self-supervised 3D Representation Learning   via Gaussian Splatting"></a>GaussianCross: Cross-modal Self-supervised 3D Representation Learning   via Gaussian Splatting</h2><p><strong>Authors:Lei Yao, Yi Wang, Yi Zhang, Moyun Liu, Lap-Pui Chau</strong></p>
+<p>The significance of informative and robust point representations has been widely acknowledged for 3D scene understanding. Despite existing self-supervised pre-training counterparts demonstrating promising performance, the model collapse and structural information deficiency remain prevalent due to insufficient point discrimination difficulty, yielding unreliable expressions and suboptimal performance. In this paper, we present GaussianCross, a novel cross-modal self-supervised 3D representation learning architecture integrating feed-forward 3D Gaussian Splatting (3DGS) techniques to address current challenges. GaussianCross seamlessly converts scale-inconsistent 3D point clouds into a unified cuboid-normalized Gaussian representation without missing details, enabling stable and generalizable pre-training. Subsequently, a tri-attribute adaptive distillation splatting module is incorporated to construct a 3D feature field, facilitating synergetic feature capturing of appearance, geometry, and semantic cues to maintain cross-modal consistency. To validate GaussianCross, we perform extensive evaluations on various benchmarks, including ScanNet, ScanNet200, and S3DIS. In particular, GaussianCross shows a prominent parameter and data efficiency, achieving superior performance through linear probing (&lt;0.1% parameters) and limited data training (1% of scenes) compared to state-of-the-art methods. Furthermore, GaussianCross demonstrates strong generalization capabilities, improving the full fine-tuning accuracy by 9.3% mIoU and 6.1% AP$_{50}$ on ScanNet200 semantic and instance segmentation tasks, respectively, supporting the effectiveness of our approach. The code, weights, and visualizations are publicly available at \href{<a target="_blank" rel="noopener" href="https://rayyoh.github.io/GaussianCross/%7D%7Bhttps://rayyoh.github.io/GaussianCross/%7D">https://rayyoh.github.io/GaussianCross/}{https://rayyoh.github.io/GaussianCross/}</a>. </p>
+<blockquote>
+<p>点云信息的表达和稳健性对于3D场景理解具有重要意义。尽管现有的自监督预训练模型表现出有前景的性能，但由于点云辨别难度不足，模型崩溃和结构信息缺失的问题仍然普遍存在，导致表达不可靠和性能不佳。针对这些挑战，本文提出了GaussianCross，这是一种新型跨模态自监督3D表示学习架构，它集成了前馈3D高斯喷射（3DGS）技术。GaussianCross能够无缝地将尺度不一致的3D点云转换为统一的立方体归一化高斯表示，而不损失任何细节，从而实现稳定和可泛化的预训练。随后，融入了一个三属性自适应蒸馏喷射模块，以构建3D特征场，这有助于协同捕获外观、几何和语义线索的特征，以保持跨模态一致性。为了验证GaussianCross的有效性，我们在各种基准测试集上进行了广泛评估，包括ScanNet、ScanNet200和S3DIS。尤其值得一提的是，GaussianCross在参数和数据效率方面表现出色，通过线性探测（&lt;0.1%的参数）和有限数据训练（1%的场景）实现了卓越的性能，超过了最先进的方法。此外，GaussianCross显示出强大的泛化能力，在ScanNet200的语义和实例分割任务上，全精细调整准确度提高了9.3% mIoU和6.1% AP50，这支持了我们方法的有效性。代码、权重和可视化结果可在[<a target="_blank" rel="noopener" href="https://rayyoh.github.io/GaussianCross/]%E5%85%AC%E5%BC%80%E8%AE%BF%E9%97%AE%E3%80%82">https://rayyoh.github.io/GaussianCross/]公开访问。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.02172v1">PDF</a> 14 pages, 8 figures, accepted by MM’25</p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种名为GaussianCross的新型跨模态自监督三维表示学习架构，集成前馈三维高斯塑形技术（3DGS），解决现有模型在点云处理中的坍塌和结构信息缺失问题。GaussianCross可将尺度不一致的三维点云转换为统一的立方体归一化高斯表示，同时保留细节，实现稳定和可泛化的预训练。此外，通过引入三属性自适应蒸馏塑形模块构建三维特征场，融合外观、几何和语义线索，保持跨模态一致性。在ScanNet、ScanNet200和S3DIS等多个基准测试上，GaussianCross展现出卓越的性能和参数、数据效率。其强大的泛化能力在ScanNet200语义和实例分割任务上分别提高了9.3% mIoU和6.1% AP50。代码、权重和可视化已公开。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>GaussianCross是一种新型跨模态自监督三维表示学习架构，集成3DGS技术解决模型坍塌和信息缺失问题。</li>
+<li>GaussianCross可将尺度不一致的点云转换为统一的高斯表示，实现稳定且可泛化的预训练。</li>
+<li>三属性自适应蒸馏塑形模块用于构建三维特征场，融合多种线索，保持跨模态一致性。</li>
+<li>GaussianCross在多个基准测试上表现优越，参数和数据效率高。</li>
+<li>GaussianCross在语义和实例分割任务上表现出强大的泛化能力。</li>
+<li>代码、权重和可视化已公开供公众访问。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.02172">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-7d00798a2e5680ef7d323ba7e809bce2.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-21ca576e212c0afc364b1bcf1c751a69.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-ba9980705229881f3a518f41b85dc721.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="ScrewSplat-An-End-to-End-Method-for-Articulated-Object-Recognition"><a href="#ScrewSplat-An-End-to-End-Method-for-Articulated-Object-Recognition" class="headerlink" title="ScrewSplat: An End-to-End Method for Articulated Object Recognition"></a>ScrewSplat: An End-to-End Method for Articulated Object Recognition</h2><p><strong>Authors:Seungyeon Kim, Junsu Ha, Young Hun Kim, Yonghyeon Lee, Frank C. Park</strong></p>
+<p>Articulated object recognition – the task of identifying both the geometry and kinematic joints of objects with movable parts – is essential for enabling robots to interact with everyday objects such as doors and laptops. However, existing approaches often rely on strong assumptions, such as a known number of articulated parts; require additional inputs, such as depth images; or involve complex intermediate steps that can introduce potential errors – limiting their practicality in real-world settings. In this paper, we introduce ScrewSplat, a simple end-to-end method that operates solely on RGB observations. Our approach begins by randomly initializing screw axes, which are then iteratively optimized to recover the object’s underlying kinematic structure. By integrating with Gaussian Splatting, we simultaneously reconstruct the 3D geometry and segment the object into rigid, movable parts. We demonstrate that our method achieves state-of-the-art recognition accuracy across a diverse set of articulated objects, and further enables zero-shot, text-guided manipulation using the recovered kinematic model. </p>
+<blockquote>
+<p>关节对象识别——识别具有可动部件的对象的几何形状和运动关节的任务——是实现机器人与门、笔记本电脑等日常对象交互的关键。然而，现有方法通常依赖于强大的假设，例如已知关节部件的数量；需要额外的输入，如深度图像；或涉及可能引入潜在错误的复杂中间步骤——这限制了它们在现实世界的实用性。在本文中，我们介绍了ScrewSplat，这是一种简单的端到端方法，仅使用RGB观察结果。我们的方法通过随机初始化螺杆轴开始，然后对其进行迭代优化，以恢复对象的底层运动学结构。通过与高斯拼贴相结合，我们同时重建了对象的3D几何形状，并将其分割成刚性可移动部件。我们证明我们的方法在多种关节对象上实现了最先进的识别精度，并进一步使用恢复的运动学模型实现了零样本、文本引导的操控。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.02146v1">PDF</a> 26 pages, 12 figures, Conference on Robot Learning (CoRL) 2025</p>
+<p><strong>摘要</strong><br>     机器人对带有活动部件的日常物体的互动识别至关重要，包括对物体的几何形状和活动关节的识别。然而，现有的方法往往依赖于强烈的假设，如已知的活动部件数量；需要额外的输入，如深度图像；或者涉及可能引入错误的复杂中间步骤，这在现实世界的实际应用中受到限制。本文介绍了一种名为ScrewSplat的简单端到端方法，它仅使用RGB观察结果进行操作。我们的方法通过随机初始化螺丝轴开始，然后对其进行迭代优化，以恢复物体的底层运动学结构。通过与高斯贴图技术的结合，我们同时重建了物体的三维几何形状，并将物体分割成刚性、可移动的部分。我们证明，我们的方法在多种活动物体上实现了最先进的识别精度，并进一步利用恢复的运动学模型实现了零样本文本指导操作。</p>
+<p><strong>要点</strong></p>
+<ol>
+<li>机器人对日常物体的互动识别非常重要，涉及识别物体的几何形状和活动关节。</li>
+<li>现有方法存在局限性，如强烈假设、需要额外输入和复杂中间步骤。</li>
+<li>本文介绍了一种名为ScrewSplat的简洁端到端方法，仅使用RGB观察结果。</li>
+<li>ScrewSplat通过随机初始化螺丝轴并迭代优化，以恢复物体的底层运动学结构。</li>
+<li>结合高斯贴图技术，ScrewSplat同时重建了三维几何形状并将物体分割成可移动部分。</li>
+<li>ScrewSplat在多种活动物体上实现了最先进的识别精度。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.02146">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-6d34cf027991968dd0d1f22ef8f1567a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-e6853f3bb5b1f7bcfd4c0da8bf95a38c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-02edcf145c54c18fc762f06d7c9e1815.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-af1205b2939f71d240eba585368c444f.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="LT-Gaussian-Long-Term-Map-Update-Using-3D-Gaussian-Splatting-for-Autonomous-Driving"><a href="#LT-Gaussian-Long-Term-Map-Update-Using-3D-Gaussian-Splatting-for-Autonomous-Driving" class="headerlink" title="LT-Gaussian: Long-Term Map Update Using 3D Gaussian Splatting for   Autonomous Driving"></a>LT-Gaussian: Long-Term Map Update Using 3D Gaussian Splatting for   Autonomous Driving</h2><p><strong>Authors:Luqi Cheng, Zhangshuo Qi, Zijie Zhou, Chao Lu, Guangming Xiong</strong></p>
+<p>Maps play an important role in autonomous driving systems. The recently proposed 3D Gaussian Splatting (3D-GS) produces rendering-quality explicit scene reconstruction results, demonstrating the potential for map construction in autonomous driving scenarios. However, because of the time and computational costs involved in generating Gaussian scenes, how to update the map becomes a significant challenge. In this paper, we propose LT-Gaussian, a map update method for 3D-GS-based maps. LT-Gaussian consists of three main components: Multimodal Gaussian Splatting, Structural Change Detection Module, and Gaussian-Map Update Module. Firstly, the Gaussian map of the old scene is generated using our proposed Multimodal Gaussian Splatting. Subsequently, during the map update process, we compare the outdated Gaussian map with the current LiDAR data stream to identify structural changes. Finally, we perform targeted updates to the Gaussian-map to generate an up-to-date map. We establish a benchmark for map updating on the nuScenes dataset to quantitatively evaluate our method. The experimental results show that LT-Gaussian can effectively and efficiently update the Gaussian-map, handling common environmental changes in autonomous driving scenarios. Furthermore, by taking full advantage of information from both new and old scenes, LT-Gaussian is able to produce higher quality reconstruction results compared to map update strategies that reconstruct maps from scratch. Our open-source code is available at <a target="_blank" rel="noopener" href="https://github.com/ChengLuqi/LT-gaussian">https://github.com/ChengLuqi/LT-gaussian</a>. </p>
+<blockquote>
+<p>地图在自动驾驶系统中扮演着重要角色。最近提出的3D高斯展布（3D-GS）技术能够产生高质量的渲染效果，展现出在自动驾驶场景构建地图的潜力。然而，由于生成高斯场景所需的时间和计算成本，如何更新地图成为了一大挑战。在本文中，我们提出了一种基于3D-GS地图的地图更新方法LT-Gaussian。LT-Gaussian主要包括三个组成部分：多模态高斯展布、结构变化检测模块和高斯地图更新模块。首先，我们使用提出的多模态高斯展布生成旧场景的高斯地图。随后，在地图更新过程中，我们将过时的高斯地图与当前的激光雷达数据流进行比较，以识别结构变化。最后，我们对高斯地图进行有针对性的更新，以生成最新的地图。我们在nuScenes数据集上建立了地图更新的基准测试，以定量评估我们的方法。实验结果表明，LT-Gaussian能够有效且高效地更新高斯地图，处理自动驾驶场景中常见的环境变化。此外，通过充分利用新旧场景的信息，LT-Gaussian能够产生比那些从头开始重建的地图更新策略更高质量的重建结果。我们的开源代码可在<a target="_blank" rel="noopener" href="https://github.com/ChengLuqi/LT-gaussian%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/ChengLuqi/LT-gaussian找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.01704v1">PDF</a> Accepted by IV 2025</p>
+<p><strong>Summary</strong></p>
+<p>基于三维高斯映射的地图更新方法对于自动驾驶系统至关重要。本文提出的LT-Gaussian算法针对地图更新提供了新的解决方案。通过引入三个核心组件，包括多模态高斯拼贴、结构变化检测模块和高斯地图更新模块，LT-Gaussian能够高效且有效地更新高斯地图，并处理自动驾驶场景中的常见环境变化。此外，该算法利用新旧场景的信息优势，生成高质量的重建结果。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>LT-Gaussian针对基于三维高斯映射的地图更新提出了一种新的解决方案。</li>
+<li>LT-Gaussian包含三个核心组件：多模态高斯拼贴、结构变化检测模块和高斯地图更新模块。</li>
+<li>多模态高斯拼贴被用来生成旧的场景的高斯地图。</li>
+<li>在地图更新过程中，通过与当前激光雷达数据流的对比，检测结构变化。</li>
+<li>针对变化部分进行的高斯地图更新能够生成更新的地图。</li>
+<li>在nuScenes数据集上建立的地图更新基准测试证明LT-Gaussian能有效且高效地更新高斯地图。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.01704">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-46e69ea7ba130f25abe1419d71eb1574.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-2163f01c65cb8c76f7717e53237cf3a3.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-4b5e6b31a69782d7cd35317164709dd7.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-4e9ce1e4e8264dd49652444aecdea365.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-c179231a9725a30ac661e30b8f908f73.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="DisCo3D-Distilling-Multi-View-Consistency-for-3D-Scene-Editing"><a href="#DisCo3D-Distilling-Multi-View-Consistency-for-3D-Scene-Editing" class="headerlink" title="DisCo3D: Distilling Multi-View Consistency for 3D Scene Editing"></a>DisCo3D: Distilling Multi-View Consistency for 3D Scene Editing</h2><p><strong>Authors:Yufeng Chi, Huimin Ma, Kafeng Wang, Jianmin Li</strong></p>
+<p>While diffusion models have demonstrated remarkable progress in 2D image generation and editing, extending these capabilities to 3D editing remains challenging, particularly in maintaining multi-view consistency. Classical approaches typically update 3D representations through iterative refinement based on a single editing view. However, these methods often suffer from slow convergence and blurry artifacts caused by cross-view inconsistencies. Recent methods improve efficiency by propagating 2D editing attention features, yet still exhibit fine-grained inconsistencies and failure modes in complex scenes due to insufficient constraints. To address this, we propose \textbf{DisCo3D}, a novel framework that distills 3D consistency priors into a 2D editor. Our method first fine-tunes a 3D generator using multi-view inputs for scene adaptation, then trains a 2D editor through consistency distillation. The edited multi-view outputs are finally optimized into 3D representations via Gaussian Splatting. Experimental results show DisCo3D achieves stable multi-view consistency and outperforms state-of-the-art methods in editing quality. </p>
+<blockquote>
+<p>虽然扩散模型在二维图像生成和编辑方面取得了显著的进步，但将其能力扩展到三维编辑仍然具有挑战性，特别是在保持多视图一致性方面。传统的方法通常基于单个编辑视图通过迭代优化来更新三维表示。然而，这些方法通常遭受慢收敛和由跨视图不一致导致的模糊伪影的困扰。最近的方法通过传播二维编辑注意力特征来提高效率，但由于约束不足，在复杂场景中仍然存在细微的不一致性和失败模式。为了解决这一问题，我们提出了DisCo3D这一新颖框架，它将三维一致性先验知识蒸馏到二维编辑器中。我们的方法首先使用多视图输入对三维生成器进行微调，以适应场景，然后通过一致性蒸馏训练二维编辑器。最后，将编辑后的多视图输出通过高斯平铺优化为三维表示。实验结果表明，DisCo3D实现了稳定的多视图一致性，并在编辑质量方面优于最先进的方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.01684v1">PDF</a> 17 pages, 7 figures</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了将扩散模型应用于3D编辑的挑战，尤其是保持多视角一致性方面。为解决此问题，提出了一种新型框架DisCo3D，它通过蒸馏3D一致性先验知识到2D编辑器中，通过微调3D生成器并使用多视角输入进行场景适应，然后训练2D编辑器进行一致性蒸馏。编辑后的多视角输出通过高斯投影优化为3D表示。实验结果表明，DisCo3D实现了稳定的多视角一致性，并在编辑质量方面优于现有方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>扩散模型在3D编辑中面临多视角一致性维持的挑战。</li>
+<li>现有方法通过单一编辑视角的迭代优化来更新3D表示，但存在速度慢、易出现模糊伪影的问题。</li>
+<li>最近的方法通过传播2D编辑注意力特征提高了效率，但仍存在细微不一致性以及在复杂场景中的失败模式。</li>
+<li>DisCo3D框架通过蒸馏3D一致性先验知识到2D编辑器中来解决这些问题。</li>
+<li>DisCo3D首先通过多视角输入微调3D生成器进行场景适应。</li>
+<li>然后训练2D编辑器进行一致性蒸馏，编辑后的多视角输出通过高斯投影优化为3D表示。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.01684">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-4a117273ec868473f031e8060cd8087f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-3b9873b5aec74e27324485962ade360a.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-063a346421ade1f5bd884a5f90321bba.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-b2beefad62b673bb452dfaf939621967.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Can3Tok-Canonical-3D-Tokenization-and-Latent-Modeling-of-Scene-Level-3D-Gaussians"><a href="#Can3Tok-Canonical-3D-Tokenization-and-Latent-Modeling-of-Scene-Level-3D-Gaussians" class="headerlink" title="Can3Tok: Canonical 3D Tokenization and Latent Modeling of Scene-Level 3D   Gaussians"></a>Can3Tok: Canonical 3D Tokenization and Latent Modeling of Scene-Level 3D   Gaussians</h2><p><strong>Authors:Quankai Gao, Iliyan Georgiev, Tuanfeng Y. Wang, Krishna Kumar Singh, Ulrich Neumann, Jae Shin Yoon</strong></p>
+<p>3D generation has made significant progress, however, it still largely remains at the object-level. Feedforward 3D scene-level generation has been rarely explored due to the lack of models capable of scaling-up latent representation learning on 3D scene-level data. Unlike object-level generative models, which are trained on well-labeled 3D data in a bounded canonical space, scene-level generations with 3D scenes represented by 3D Gaussian Splatting (3DGS) are unbounded and exhibit scale inconsistency across different scenes, making unified latent representation learning for generative purposes extremely challenging. In this paper, we introduce Can3Tok, the first 3D scene-level variational autoencoder (VAE) capable of encoding a large number of Gaussian primitives into a low-dimensional latent embedding, which effectively captures both semantic and spatial information of the inputs. Beyond model design, we propose a general pipeline for 3D scene data processing to address scale inconsistency issue. We validate our method on the recent scene-level 3D dataset DL3DV-10K, where we found that only Can3Tok successfully generalizes to novel 3D scenes, while compared methods fail to converge on even a few hundred scene inputs during training and exhibit zero generalization ability during inference. Finally, we demonstrate image-to-3DGS and text-to-3DGS generation as our applications to demonstrate its ability to facilitate downstream generation tasks. </p>
+<blockquote>
+<p>虽然三维生成技术已经取得了显著进展，但它仍然主要停留在对象级别。由于缺乏能够在三维场景级别数据上扩展潜在表示学习的模型，前馈三维场景级别生成的研究很少。与在有限规范空间中训练的对象级生成模型不同，以三维高斯贴图（3DGS）表示的三维场景的场景级生成是无界的，并且在不同场景之间表现出尺度不一致性，这使得用于生成目的的统一潜在表示学习极具挑战性。在本文中，我们介绍了Can3Tok，这是一款首款能够在大规模的三维场景级别上使用变分自编码器（VAE）编码大量高斯原语到一个低维度潜在嵌入物的三维场景级模型。它能有效地捕获输入数据的语义和空间信息。除了模型设计之外，我们还提出了针对三维场景数据处理的一般流程来解决尺度不一致的问题。我们在最新的场景级三维数据集DL3DV-10K上验证了我们的方法，发现只有Can3Tok能够成功推广到新的三维场景，而相比之下其他方法甚至在数百个场景输入的训练过程中无法收敛，并且在推理过程中没有泛化能力。最后，我们展示了图像到3DGS和文本到3DGS的应用来展示它促进下游生成任务的能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.01464v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了Can3Tok模型，这是一种针对三维场景数据的场景级变分自编码器（VAE）。该模型能够编码大量的高斯基本体到一个低维度的潜在嵌入空间，有效捕捉输入的场景语义和空间信息。此外，为了解决规模不一致性问题，还提出了针对三维场景数据处理的通用流程。相较于其他方法，Can3Tok成功推广到新型三维场景，并在DL3DV-10K数据集上验证了其有效性。最后，展示了图像到三维高斯喷溅（3DGS）和文字到三维高斯喷溅的生成应用。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>3D generation目前主要停留在物体级别，场景级别的生成研究较少。</li>
+<li>缺乏能够在三维场景级别数据上进行规模化潜在表示学习的模型是主要原因。</li>
+<li>Can3Tok是首个针对三维场景数据的场景级变分自编码器（VAE）。</li>
+<li>Can3Tok模型能将大量高斯基本体编码进低维潜在嵌入空间，捕捉场景的语义和空间信息。</li>
+<li>提出了一种针对三维场景数据处理的通用流程来解决规模不一致性问题。</li>
+<li>在DL3DV-10K数据集上验证了Can3Tok的有效性，相比其他方法具有更好的泛化能力。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.01464">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-189df16fb2529c9cc027e56a6e5eccc6.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-68d6af8c2c0cbcb48ecb22e8dd4170e5.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-370854fdb2151a6ac9821cae90419dbb.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-f6fd9c4ee44fd11c769f51c6d8882a71.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-22de937dd2d314234a537bf0c90332b1.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-4cfbc8ff32df1ca086a5afb945b9bdcc.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="MoGA-3D-Generative-Avatar-Prior-for-Monocular-Gaussian-Avatar-Reconstruction"><a href="#MoGA-3D-Generative-Avatar-Prior-for-Monocular-Gaussian-Avatar-Reconstruction" class="headerlink" title="MoGA: 3D Generative Avatar Prior for Monocular Gaussian Avatar   Reconstruction"></a>MoGA: 3D Generative Avatar Prior for Monocular Gaussian Avatar   Reconstruction</h2><p><strong>Authors:Zijian Dong, Longteng Duan, Jie Song, Michael J. Black, Andreas Geiger</strong></p>
+<p>We present MoGA, a novel method to reconstruct high-fidelity 3D Gaussian avatars from a single-view image. The main challenge lies in inferring unseen appearance and geometric details while ensuring 3D consistency and realism. Most previous methods rely on 2D diffusion models to synthesize unseen views; however, these generated views are sparse and inconsistent, resulting in unrealistic 3D artifacts and blurred appearance. To address these limitations, we leverage a generative avatar model, that can generate diverse 3D avatars by sampling deformed Gaussians from a learned prior distribution. Due to limited 3D training data, such a 3D model alone cannot capture all image details of unseen identities. Consequently, we integrate it as a prior, ensuring 3D consistency by projecting input images into its latent space and enforcing additional 3D appearance and geometric constraints. Our novel approach formulates Gaussian avatar creation as model inversion by fitting the generative avatar to synthetic views from 2D diffusion models. The generative avatar provides an initialization for model fitting, enforces 3D regularization, and helps in refining pose. Experiments show that our method surpasses state-of-the-art techniques and generalizes well to real-world scenarios. Our Gaussian avatars are also inherently animatable. For code, see https:&#x2F;&#x2F; zj-dong.github.io&#x2F; MoGA&#x2F;. </p>
+<blockquote>
+<p>我们提出了MoGA这一新方法，它能够从单视图图像重建出高保真度的三维高斯头像。主要挑战在于在保障三维一致性和真实感的同时推断出看不见的外观和几何细节。过去的大多数方法都依赖于二维扩散模型来合成看不见的视图，然而这些生成的视图稀疏且不一致，导致三维人工制品不真实和外观模糊。为了解决这些局限，我们利用生成头像模型，通过从学习到的先验分布中采样变形的高斯函数来生成多样化的三维头像。由于三维训练数据有限，仅使用这样的三维模型无法捕获未见过身份的所有图像细节。因此，我们将其整合为先验，通过将输入图像投影到其潜在空间并施加额外的三维外观和几何约束来确保三维一致性。我们的新方法将高斯头像创建公式化为模型反演，通过将生成的头像拟合到二维扩散模型的合成视图来实现。生成的头像为模型拟合提供了初始化，强制实施三维正则化，并有助于细化姿态。实验表明，我们的方法超越了最先进的技术并在现实世界场景中具有良好的通用性。我们的高斯头像本质上是可动画的。有关代码，请参见：[<a target="_blank" rel="noopener" href="https://zj-dong.github.io/MoGA/]">https://zj-dong.github.io/MoGA/]</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.23597v2">PDF</a> ICCV 2025 (Highlight), Project Page: <a target="_blank" rel="noopener" href="https://zj-dong.github.io/MoGA/">https://zj-dong.github.io/MoGA/</a></p>
+<p><strong>Summary</strong><br>     提出了一种名为MoGA的新方法，可从单视图图像重建高保真3D高斯化身。该方法主要挑战在于推断出未见的外观和几何细节，同时确保3D一致性和逼真性。与大多数先前方法不同，MoGA采用生成化身模型，通过从学习到的先验分布中采样变形高斯来生成多样化的3D化身。通过将生成化身模型作为先验，并将输入图像投影到其潜在空间并施加额外的3D外观和几何约束来确保3D一致性。MoGA将高斯化身创建公式化为模型反演问题，通过将生成化身拟合到来自2D扩散模型的合成视图来实现。实验表明，该方法优于最新技术并在真实场景中具有良好泛化能力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>MoGA是一种从单视图图像重建高保真3D高斯化身的新方法。</li>
+<li>该方法主要解决如何推断未见的外观和几何细节，并确保3D一致性和逼真性。</li>
+<li>MoGA采用生成化身模型，通过采样变形高斯来生成多样化的3D化身。</li>
+<li>为了确保3D一致性，将生成化身模型作为先验，并施加额外的约束。</li>
+<li>MoGA通过将生成化身拟合到来自2D扩散模型的合成视图来实现模型反演。</li>
+<li>实验证明MoGA优于现有技术，并在真实场景中具有良好的泛化能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.23597">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-0c663b898eadc9571c2253777a4e53b4.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-92c4cfb63cc8def479f57a52e048adf5.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-4030795a97d1504b3de20f5c85aeca83.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="GSCache-Real-Time-Radiance-Caching-for-Volume-Path-Tracing-using-3D-Gaussian-Splatting"><a href="#GSCache-Real-Time-Radiance-Caching-for-Volume-Path-Tracing-using-3D-Gaussian-Splatting" class="headerlink" title="GSCache: Real-Time Radiance Caching for Volume Path Tracing using 3D   Gaussian Splatting"></a>GSCache: Real-Time Radiance Caching for Volume Path Tracing using 3D   Gaussian Splatting</h2><p><strong>Authors:David Bauer, Qi Wu, Hamid Gadirov, Kwan-Liu Ma</strong></p>
+<p>Real-time path tracing is rapidly becoming the standard for rendering in entertainment and professional applications. In scientific visualization, volume rendering plays a crucial role in helping researchers analyze and interpret complex 3D data. Recently, photorealistic rendering techniques have gained popularity in scientific visualization, yet they face significant challenges. One of the most prominent issues is slow rendering performance and high pixel variance caused by Monte Carlo integration. In this work, we introduce a novel radiance caching approach for path-traced volume rendering. Our method leverages advances in volumetric scene representation and adapts 3D Gaussian splatting to function as a multi-level, path-space radiance cache. This cache is designed to be trainable on the fly, dynamically adapting to changes in scene parameters such as lighting configurations and transfer functions. By incorporating our cache, we achieve less noisy, higher-quality images without increasing rendering costs. To evaluate our approach, we compare it against a baseline path tracer that supports uniform sampling and next-event estimation and the state-of-the-art for neural radiance caching. Through both quantitative and qualitative analyses, we demonstrate that our path-space radiance cache is a robust solution that is easy to integrate and significantly enhances the rendering quality of volumetric visualization applications while maintaining comparable computational efficiency. </p>
+<blockquote>
+<p>实时路径追踪正在迅速成为娱乐和专业应用渲染的标准。在科学可视化中，体渲染在研究分析复杂三维数据时扮演着至关重要的角色。近年来，虽然写实渲染技术在科学可视化中越来越受欢迎，但它们面临着巨大的挑战。最突出的问题之一是Monte Carlo积分导致的渲染性能缓慢和高像素方差。在这项工作中，我们为路径追踪体积渲染引入了一种新型辐射缓存方法。我们的方法利用体积场景表示的进展，并适应三维高斯溅射作为多级路径空间辐射缓存。该缓存被设计为可即时训练，动态适应场景参数的变化，如照明配置和传输函数。通过采用我们的缓存，我们可以在不增加渲染成本的情况下实现噪声更少、质量更高的图像。为了评估我们的方法，我们将它与支持均匀采样和下一个事件估计的基本路径追踪器以及最新的神经辐射缓存技术进行了比较。通过定量和定性分析，我们证明我们的路径空间辐射缓存是一种稳健的解决方案，易于集成，在保持相当的计算效率的同时，显著提高了体积可视化应用的渲染质量。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.19718v2">PDF</a> </p>
+<p><strong>Summary</strong><br>实时路径追踪正在迅速成为娱乐和专业应用中渲染的标准。在科学可视化中，体积渲染扮演着帮助研究人员分析和解释复杂3D数据的重要角色。尽管最近光栅化渲染技术在科学可视化中受到欢迎，但它们面临着巨大的挑战。其中最突出的问题是渲染性能缓慢和由蒙特卡洛积分引起的高像素方差。在这项工作中，我们引入了一种新型的辐射缓存路径追踪体积渲染方法。我们的方法利用了体积场景表示的进展，并将三维高斯涂抹技术适应于作为多层次路径空间辐射缓存工作。该缓存设计能够在飞行时进行训练，动态适应场景参数的变化，如照明配置和传输功能。通过结合我们的缓存，我们可以在不增加渲染成本的情况下实现更少的噪声和更高质量的图像。我们通过将其与基线路径追踪器和支持均匀采样和下一个事件估计的最先进技术进行比较，来评估我们的方法。通过定量和定性分析，我们证明了我们的路径空间辐射缓存是一种可靠的解决方案，易于集成，并能显著提高体积可视化应用程序的渲染质量，同时保持相当的计算效率。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>实时路径追踪已成为娱乐和专业应用中渲染的主流技术。</li>
+<li>科学可视化中体积渲染在分析复杂3D数据方面起着关键作用。</li>
+<li>蒙特卡洛积分在光栅化渲染技术中引发高像素方差和渲染性能缓慢的问题。</li>
+<li>引入了一种新型的路径空间辐射缓存方法用于体积渲染。</li>
+<li>该方法利用体积场景表示的进展，并采用三维高斯涂抹技术作为多层次路径空间辐射缓存。</li>
+<li>缓存设计能动态适应场景参数变化，提高渲染质量并减少噪声。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.19718">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-bd8c347981b7bf8e3a3a2171c0c5754b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d63b06ef49ade5451ccfe1f6713ed3b0.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-099b61f6d92ca708e5ffd372b76ff432.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-1baff9d6451ae49a6f73274ee56ffef5.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="GS-Occ3D-Scaling-Vision-only-Occupancy-Reconstruction-with-Gaussian-Splatting"><a href="#GS-Occ3D-Scaling-Vision-only-Occupancy-Reconstruction-with-Gaussian-Splatting" class="headerlink" title="GS-Occ3D: Scaling Vision-only Occupancy Reconstruction with Gaussian   Splatting"></a>GS-Occ3D: Scaling Vision-only Occupancy Reconstruction with Gaussian   Splatting</h2><p><strong>Authors:Baijun Ye, Minghui Qin, Saining Zhang, Moonjun Gong, Shaoting Zhu, Zebang Shen, Luan Zhang, Lu Zhang, Hao Zhao, Hang Zhao</strong></p>
+<p>Occupancy is crucial for autonomous driving, providing essential geometric priors for perception and planning. However, existing methods predominantly rely on LiDAR-based occupancy annotations, which limits scalability and prevents leveraging vast amounts of potential crowdsourced data for auto-labeling. To address this, we propose GS-Occ3D, a scalable vision-only framework that directly reconstructs occupancy. Vision-only occupancy reconstruction poses significant challenges due to sparse viewpoints, dynamic scene elements, severe occlusions, and long-horizon motion. Existing vision-based methods primarily rely on mesh representation, which suffer from incomplete geometry and additional post-processing, limiting scalability. To overcome these issues, GS-Occ3D optimizes an explicit occupancy representation using an Octree-based Gaussian Surfel formulation, ensuring efficiency and scalability. Additionally, we decompose scenes into static background, ground, and dynamic objects, enabling tailored modeling strategies: (1) Ground is explicitly reconstructed as a dominant structural element, significantly improving large-area consistency; (2) Dynamic vehicles are separately modeled to better capture motion-related occupancy patterns. Extensive experiments on the Waymo dataset demonstrate that GS-Occ3D achieves state-of-the-art geometry reconstruction results. By curating vision-only binary occupancy labels from diverse urban scenes, we show their effectiveness for downstream occupancy models on Occ3D-Waymo and superior zero-shot generalization on Occ3D-nuScenes. It highlights the potential of large-scale vision-based occupancy reconstruction as a new paradigm for scalable auto-labeling. Project Page: <a target="_blank" rel="noopener" href="https://gs-occ3d.github.io/">https://gs-occ3d.github.io/</a> </p>
+<blockquote>
+<p>占用信息对于自动驾驶至关重要，它为感知和规划提供了必要的几何先验知识。然而，现有方法主要依赖于基于激光雷达的占用注释，这限制了可扩展性，并阻止了大量潜在的众包数据用于自动标注。为了解决这一问题，我们提出了GS-Occ3D，这是一个可扩展的仅视觉框架，可直接重建占用信息。仅使用视觉的占用信息重建由于稀疏的视点、动态的场景元素、严重的遮挡和长距离运动而面临重大挑战。现有的基于视觉的方法主要依赖于网格表示，这会导致几何不完整和额外的后处理，从而限制了可扩展性。为了克服这些问题，GS-Occ3D使用基于八叉树的高斯曲面片（Gaussian Surfel）优化显式占用表示，确保效率和可扩展性。此外，我们将场景分解为静态背景、地面和动态物体，以实现定制建模策略：（1）地面被明确重建为主要的结构元素，这显著提高了大面积的一致性；（2）动态车辆则进行单独建模，以更好地捕捉与运动相关的占用模式。在Waymo数据集上的广泛实验表明，GS-Occ3D达到了最新的几何重建效果。我们从各种城市场景中整理出仅使用视觉的二进制占用标签，并展示了它们在Occ3D-Waymo上的下游占用模型的有效性，以及在Occ3D-nuScenes上的出色零样本泛化能力。这凸显了大规模基于视觉的占用信息重建作为新的可扩展自动标注模式潜力。项目页面：<a target="_blank" rel="noopener" href="https://gs-occ3d.github.io/">https://gs-occ3d.github.io/</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.19451v3">PDF</a> ICCV 2025. Project Page: <a target="_blank" rel="noopener" href="https://gs-occ3d.github.io/">https://gs-occ3d.github.io/</a></p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种名为GS-Occ3D的仅视觉感知的可扩展框架，用于直接重建占用空间。该框架解决了仅依靠LiDAR的占用标注方法存在的可扩展性问题，并能够利用大量的潜在众包数据进行自动标注。GS-Occ3D采用基于Octree的Gaussian Surfel公式优化占用表示，解决了现有视觉方法在处理稀疏视点、动态场景元素、严重遮挡和长距离运动时的挑战。通过分解场景为静态背景、地面和动态物体，实现了针对性的建模策略，显著提高了占用重建的效果。实验结果表明，GS-Occ3D在Waymo数据集上实现了最先进的几何重建效果，并展示了大规模视觉感知占用重建作为新的可扩展自动标注方法的前景。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>GS-Occ3D是一个仅视觉感知的框架，用于直接重建占用空间，解决了依赖LiDAR的占用标注方法的局限性。</li>
+<li>该框架能够利用大量的潜在众包数据进行自动标注，提高了可扩展性。</li>
+<li>GS-Occ3D采用基于Octree的Gaussian Surfel公式优化占用表示，解决了现有视觉方法在处理各种场景挑战时的问题。</li>
+<li>场景被分解为静态背景、地面和动态物体，以实现针对性的建模策略。</li>
+<li>地面作为主导结构元素被显式重建，提高了大区域的一致性。</li>
+<li>动态车辆被单独建模，以更好地捕捉运动相关的占用模式。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.19451">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-f4a0cff5ebd538878c2f6676936d3c09.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-5337e1b374c7dc1047f328770ee538cf.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9874a664ee8860ec1f69c92d5e11e58a.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="Occlusion-Aware-Temporally-Consistent-Amodal-Completion-for-3D-Human-Object-Interaction-Reconstruction"><a href="#Occlusion-Aware-Temporally-Consistent-Amodal-Completion-for-3D-Human-Object-Interaction-Reconstruction" class="headerlink" title="Occlusion-Aware Temporally Consistent Amodal Completion for 3D   Human-Object Interaction Reconstruction"></a>Occlusion-Aware Temporally Consistent Amodal Completion for 3D   Human-Object Interaction Reconstruction</h2><p><strong>Authors:Hyungjun Doh, Dong In Lee, Seunggeun Chi, Pin-Hao Huang, Kwonjoon Lee, Sangpil Kim, Karthik Ramani</strong></p>
+<p>We introduce a novel framework for reconstructing dynamic human-object interactions from monocular video that overcomes challenges associated with occlusions and temporal inconsistencies. Traditional 3D reconstruction methods typically assume static objects or full visibility of dynamic subjects, leading to degraded performance when these assumptions are violated-particularly in scenarios where mutual occlusions occur. To address this, our framework leverages amodal completion to infer the complete structure of partially obscured regions. Unlike conventional approaches that operate on individual frames, our method integrates temporal context, enforcing coherence across video sequences to incrementally refine and stabilize reconstructions. This template-free strategy adapts to varying conditions without relying on predefined models, significantly enhancing the recovery of intricate details in dynamic scenes. We validate our approach using 3D Gaussian Splatting on challenging monocular videos, demonstrating superior precision in handling occlusions and maintaining temporal stability compared to existing techniques. </p>
+<blockquote>
+<p>我们引入了一种新的从单目视频中重建动态人机交互的框架，该框架克服了与遮挡和时间不一致相关的挑战。传统的3D重建方法通常假设物体是静态的或动态主体完全可见，当这些假设被违反时，特别是在发生相互遮挡的场景中，会导致性能下降。为了解决这一问题，我们的框架利用模态完成来推断部分遮挡区域的完整结构。与在单个帧上运行的传统方法不同，我们的方法结合了时间上下文，强制视频序列之间的连贯性，以逐步优化和稳定重建。这种无模板的策略能够适应不同的条件，而不依赖于预定义的模型，从而显著提高了动态场景中细节的恢复。我们使用单目视频上的三维高斯拼贴法验证了我们的方法，该方法在处理遮挡和保持时间稳定性方面表现出较高的精度，优于现有技术。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.08137v2">PDF</a> ACM MM 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种从单目视频中重建动态人-物体交互的新型框架，该框架克服了与遮挡和暂时不一致相关的挑战。传统3D重建方法通常假设物体静态或动态主体的完全可见性，当这些假设不成立时，特别是在发生相互遮挡的场景中，性能会下降。为解决这一问题，我们的框架利用模态完成法推断部分遮挡区域的完整结构。与传统在单个帧上操作的方法不同，我们的方法结合了时间上下文，强制视频序列之间的连贯性，以逐步精细和调整重建。这种无模板的策略适应于各种条件，而不依赖于预设模型，显著提高了在动态场景中恢复细节的能力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>新型框架能够重建单目视频中的动态人-物体交互。</li>
+<li>该框架克服了遮挡和暂时不一致的挑战。</li>
+<li>传统3D重建方法通常假设物体静态或完全可见，但在实际场景中这些假设可能不成立。</li>
+<li>框架利用模态完成法推断部分遮挡区域的完整结构。</li>
+<li>与只在单个帧上操作的方法不同，该框架结合了时间上下文，保持视频序列之间的连贯性。</li>
+<li>无模板策略使其适应各种条件，无需依赖预设模型。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.08137">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-500aaec2355f11738d9faf3985db308f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b60ec09ad6c0d9ab5fb47c0db1aba86b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d51f4726f06cad14d2161db44429b26c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-008b3117a9208e938d4af5d2a105cadb.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="SegmentDreamer-Towards-High-fidelity-Text-to-3D-Synthesis-with-Segmented-Consistency-Trajectory-Distillation"><a href="#SegmentDreamer-Towards-High-fidelity-Text-to-3D-Synthesis-with-Segmented-Consistency-Trajectory-Distillation" class="headerlink" title="SegmentDreamer: Towards High-fidelity Text-to-3D Synthesis with   Segmented Consistency Trajectory Distillation"></a>SegmentDreamer: Towards High-fidelity Text-to-3D Synthesis with   Segmented Consistency Trajectory Distillation</h2><p><strong>Authors:Jiahao Zhu, Zixuan Chen, Guangcong Wang, Xiaohua Xie, Yi Zhou</strong></p>
+<p>Recent advancements in text-to-3D generation improve the visual quality of Score Distillation Sampling (SDS) and its variants by directly connecting Consistency Distillation (CD) to score distillation. However, due to the imbalance between self-consistency and cross-consistency, these CD-based methods inherently suffer from improper conditional guidance, leading to sub-optimal generation results. To address this issue, we present SegmentDreamer, a novel framework designed to fully unleash the potential of consistency models for high-fidelity text-to-3D generation. Specifically, we reformulate SDS through the proposed Segmented Consistency Trajectory Distillation (SCTD), effectively mitigating the imbalance issues by explicitly defining the relationship between self- and cross-consistency. Moreover, SCTD partitions the Probability Flow Ordinary Differential Equation (PF-ODE) trajectory into multiple sub-trajectories and ensures consistency within each segment, which can theoretically provide a significantly tighter upper bound on distillation error. Additionally, we propose a distillation pipeline for a more swift and stable generation. Extensive experiments demonstrate that our SegmentDreamer outperforms state-of-the-art methods in visual quality, enabling high-fidelity 3D asset creation through 3D Gaussian Splatting (3DGS). </p>
+<blockquote>
+<p>近期文本到3D生成的进展通过直接将一致性蒸馏（CD）与得分蒸馏相联系，提高了得分蒸馏采样（SDS）及其变体的视觉质量。然而，由于自一致性和跨一致性之间的不平衡，这些基于CD的方法不可避免地存在不当的条件指导，导致生成结果不佳。为了解决这一问题，我们提出了SegmentDreamer，这是一个旨在充分释放一致性模型潜力的高保真文本到3D生成的新型框架。具体来说，我们通过提出的分段一致性轨迹蒸馏（SCTD）重新定义了SDS，通过明确自一致性和跨一致性之间的关系，有效地缓解了不平衡问题。此外，SCTD将概率流常微分方程（PF-ODE）轨迹划分为多个子轨迹，确保每个段内的一致性，这在理论上可以为蒸馏误差提供更紧密的上界。我们还提出了一种更快速稳定的蒸馏管道。大量实验表明，我们的SegmentDreamer在视觉质量上超过了最先进的方法，通过3D高斯拼贴（3DGS）实现了高保真3D资产创建。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.05256v2">PDF</a> Accepted by ICCV 2025, project page:   <a target="_blank" rel="noopener" href="https://zjhjojo.github.io/segmentdreamer/">https://zjhjojo.github.io/segmentdreamer/</a></p>
+<p><strong>Summary</strong></p>
+<p>文本描述了最新进展在文本到三维生成的技术，介绍了Score Distillation Sampling（SDS）及其变体的视觉质量提升方法。文章指出CD（一致性蒸馏）技术与其他技术相结合的优势，但由于自我一致性和跨一致性之间的不平衡问题，这些基于CD的方法存在潜在的性能障碍。为解决这个问题，文章提出了SegmentDreamer框架，通过分段一致性轨迹蒸馏（SCTD）技术重新定义了SDS，有效解决了不平衡问题，并优化了概率流常微分方程（PF-ODE）轨迹的多个子轨迹，确保每个分段内的一致性。此外，文章还提出了更快速稳定的生成蒸馏管道。实验证明，SegmentDreamer在视觉质量上超过了现有方法，并通过三维高斯拼贴（3DGS）实现了高保真三维资产创建。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>文本到三维生成技术有所提升，通过Score Distillation Sampling（SDS）及其变体改进视觉质量。</li>
+<li>一致性蒸馏（CD）技术在提升文本到三维生成效果方面具有优势。</li>
+<li>CD-based方法存在自我一致性和跨一致性不平衡问题，导致条件指导不当和生成结果不佳。</li>
+<li>SegmentDreamer框架通过分段一致性轨迹蒸馏（SCTD）解决了CD方法的不平衡问题。</li>
+<li>SCTD技术重新定义了SDS，优化了概率流常微分方程（PF-ODE）轨迹的子轨迹。</li>
+<li>SegmentDreamer提出更快速稳定的生成蒸馏管道。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.05256">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-b35e4c2b6dd83884e355fd3f3e3f951b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-abf0cfc2a5689de7a7784f9c2d6d4a95.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-402f17b41318a68e0409c7186b25c0ea.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-34b5118dd8f3dd8ef66aba5f1f56b1af.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-85115c22e044cae71a63fe33062374cc.jpg" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="TSGS-Improving-Gaussian-Splatting-for-Transparent-Surface-Reconstruction-via-Normal-and-De-lighting-Priors"><a href="#TSGS-Improving-Gaussian-Splatting-for-Transparent-Surface-Reconstruction-via-Normal-and-De-lighting-Priors" class="headerlink" title="TSGS: Improving Gaussian Splatting for Transparent Surface   Reconstruction via Normal and De-lighting Priors"></a>TSGS: Improving Gaussian Splatting for Transparent Surface   Reconstruction via Normal and De-lighting Priors</h2><p><strong>Authors:Mingwei Li, Pu Pang, Hehe Fan, Hua Huang, Yi Yang</strong></p>
+<p>Reconstructing transparent surfaces is essential for tasks such as robotic manipulation in labs, yet it poses a significant challenge for 3D reconstruction techniques like 3D Gaussian Splatting (3DGS). These methods often encounter a transparency-depth dilemma, where the pursuit of photorealistic rendering through standard $\alpha$-blending undermines geometric precision, resulting in considerable depth estimation errors for transparent materials. To address this issue, we introduce Transparent Surface Gaussian Splatting (TSGS), a new framework that separates geometry learning from appearance refinement. In the geometry learning stage, TSGS focuses on geometry by using specular-suppressed inputs to accurately represent surfaces. In the second stage, TSGS improves visual fidelity through anisotropic specular modeling, crucially maintaining the established opacity to ensure geometric accuracy. To enhance depth inference, TSGS employs a first-surface depth extraction method. This technique uses a sliding window over $\alpha$-blending weights to pinpoint the most likely surface location and calculates a robust weighted average depth. To evaluate the transparent surface reconstruction task under realistic conditions, we collect a TransLab dataset that includes complex transparent laboratory glassware. Extensive experiments on TransLab show that TSGS achieves accurate geometric reconstruction and realistic rendering of transparent objects simultaneously within the efficient 3DGS framework. Specifically, TSGS significantly surpasses current leading methods, achieving a 37.3% reduction in chamfer distance and an 8.0% improvement in F1 score compared to the top baseline. The code and dataset are available at <a target="_blank" rel="noopener" href="https://longxiang-ai.github.io/TSGS/">https://longxiang-ai.github.io/TSGS/</a>. </p>
+<blockquote>
+<p>重建透明表面对于实验室的机器人操作等任务至关重要，然而，它为3D重建技术（例如3D高斯拼贴（3DGS））带来了重大挑战。这些方法经常面临透明度与深度之间的两难困境，其中通过标准alpha混合追求逼真的渲染会破坏几何精度，导致对透明材料的深度估计出现重大误差。为了解决这一问题，我们引入了透明表面高斯拼贴（TSGS）这一新框架，它将几何学习与外观优化分离。在几何学习阶段，TSGS通过使用抑制镜面反射的输入来准确表示表面。在第二阶段，TSGS通过各向异性镜面建模提高视觉保真度，关键的是保持已建立的透明度以确保几何精度。为了提高深度推断能力，TSGS采用了一种基于首表面深度提取方法的技术。该技术通过alpha混合权重上的滑动窗口来精确定位表面位置，并计算一个稳健的加权平均深度。为了在实际条件下评估透明表面重建任务，我们收集了一个TransLab数据集，其中包含复杂的透明实验室玻璃器皿。在TransLab上的广泛实验表明，TSGS能够在高效的3DGS框架内实现透明物体的准确几何重建和逼真渲染。具体来说，TSGS大大超越了当前的主流方法，与顶级基线相比，车身距离减少了37.3%，F1分数提高了8.0%。代码和数据集可在[<a target="_blank" rel="noopener" href="https://longxiang-ai.github.io/TSGS/]%E4%B8%8A%E6%89%BE%E5%88%B0%E3%80%82">https://longxiang-ai.github.io/TSGS/]上找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.12799v2">PDF</a> Project page: <a target="_blank" rel="noopener" href="https://longxiang-ai.github.io/TSGS/">https://longxiang-ai.github.io/TSGS/</a> . Accepted by ACM   MM 2025</p>
+<p><strong>Summary</strong></p>
+<p>透明表面重建是实验室机器人操作等任务的关键，但对于3D重建技术（如3D高斯贴片技术）而言是一项挑战。标准的融合方法会损害几何精度，导致深度估计错误。为解决这一问题，我们提出透明表面高斯贴片技术（TSGS），该技术将几何学习与外观优化分开。首先，TSGS使用抑制镜面反射的图像来准确表示表面几何结构；接着，通过各向异性镜面模型提高视觉保真度并维持透明度保证几何精度。为增强深度推断，TSGS采用首表面深度提取方法。我们在具有复杂透明实验室器皿的TransLab数据集上进行了广泛实验，证明TSGS在透明物体准确几何重建和真实感渲染方面具有卓越性能，相较于现有顶尖方法有明显提升。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>透明表面重建是实验室机器人操作等任务的关键挑战。</li>
+<li>传统3D重建技术在处理透明物体时面临透明度与深度估计的困境。</li>
+<li>TSGS技术通过分离几何学习与外观优化来解决这一问题。</li>
+<li>TSGS使用抑制镜面反射的图像进行几何学习，确保准确表示表面结构。</li>
+<li>TSGS采用各向异性镜面模型提高视觉质量并保持透明度以维持几何精度。</li>
+<li>TSGS采用首表面深度提取技术以增强深度推断。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.12799">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-c96dd672a9af70f0e311c11d631f306a.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-e5eb595d5d5a7026406088483b85581b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-38dc100224377513c478bce2ec3f899c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-215b505a4bbae5e4a4c42db3f4487ba9.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-cb9dd20b5b6a58525db2dead2a9108a6.jpg" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="Embracing-Dynamics-Dynamics-aware-4D-Gaussian-Splatting-SLAM"><a href="#Embracing-Dynamics-Dynamics-aware-4D-Gaussian-Splatting-SLAM" class="headerlink" title="Embracing Dynamics: Dynamics-aware 4D Gaussian Splatting SLAM"></a>Embracing Dynamics: Dynamics-aware 4D Gaussian Splatting SLAM</h2><p><strong>Authors:Zhicong Sun, Jacqueline Lo, Jinxing Hu</strong></p>
+<p>Simultaneous localization and mapping (SLAM) technology has recently achieved photorealistic mapping capabilities thanks to the real-time, high-fidelity rendering enabled by 3D Gaussian Splatting (3DGS). However, due to the static representation of scenes, current 3DGS-based SLAM encounters issues with pose drift and failure to reconstruct accurate maps in dynamic environments. To address this problem, we present D4DGS-SLAM, the first SLAM method based on 4DGS map representation for dynamic environments. By incorporating the temporal dimension into scene representation, D4DGS-SLAM enables high-quality reconstruction of dynamic scenes. Utilizing the dynamics-aware InfoModule, we can obtain the dynamics, visibility, and reliability of scene points, and filter out unstable dynamic points for tracking accordingly. When optimizing Gaussian points, we apply different isotropic regularization terms to Gaussians with varying dynamic characteristics. Experimental results on real-world dynamic scene datasets demonstrate that our method outperforms state-of-the-art approaches in both camera pose tracking and map quality. </p>
+<blockquote>
+<p>同时定位与地图构建（SLAM）技术最近由于3D高斯拼贴（3DGS）所实现的实时高保真渲染而获得了逼真的映射能力。然而，由于场景静态表示，当前基于3DGS的SLAM在动态环境中遇到了姿态漂移和无法重建准确地图的问题。为了解决这个问题，我们提出了D4DGS-SLAM，这是基于4DGS地图表示的用于动态环境的第一个SLAM方法。通过将时间维度融入场景表示，D4DGS-SLAM能够实现动态场景的高质量重建。通过使用动力学感知的InfoModule，我们可以获得场景点的动力学、可见性和可靠性，并相应地过滤出不稳定动态点进行跟踪。在优化高斯点时，我们对具有不同动态特征的高斯应用不同的等距正则化项。在真实世界动态场景数据集上的实验结果证明，我们的方法在相机姿态追踪和地图质量方面均优于最新技术。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.04844v2">PDF</a> This paper has been accepted by IROS 2025</p>
+<p><strong>Summary</strong></p>
+<p>基于三维高斯融合（3DGS）技术的实时渲染能力，同步定位与地图构建（SLAM）技术已实现了逼真的映射功能。然而，由于场景静态表示的限制，当前基于3DGS的SLAM在动态环境中存在姿态漂移和无法准确重建地图的问题。为解决此问题，我们提出了基于四维高斯融合（4DGS）地图表示的SLAM方法——D4DGS-SLAM。通过引入时间维度进行场景表示，D4DGS-SLAM可实现动态场景的高质量重建。利用动力学感知的InfoModule，我们可以获取场景的动态性、可见性和可靠性信息，并据此过滤出不稳定动态点进行跟踪。在优化高斯点时，我们对具有不同动态特性的高斯应用不同的等距正则化项。在真实世界动态场景数据集上的实验结果表明，我们的方法在相机姿态跟踪和地图质量方面均优于现有技术。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>基于三维高斯融合（3DGS）技术的同步定位与地图构建（SLAM）技术已实现了逼真的映射功能。</li>
+<li>当前基于3DGS的SLAM在动态环境中存在姿态漂移和地图精度问题。</li>
+<li>为解决动态环境下的姿态漂移问题，首次提出了基于四维高斯融合（4DGS）地图表示的SLAM方法——D4DGS-SLAM。</li>
+<li>D4DGS-SLAM通过引入时间维度，实现了动态场景的高质量重建。</li>
+<li>D4DGS-SLAM利用动力学感知的InfoModule过滤不稳定动态点，并优化高斯点以改善性能。</li>
+<li>D4DGS-SLAM在相机姿态跟踪和地图质量方面表现出优异性能，优于现有技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.04844">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-13b05007705666e76fd708ff9c72fa4a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a08f69537ef4a6979b3534f5fa2e41e7.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-d42d0b8d2aebdf35382119bbda140b10.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-b7d02519756333f4917233046a79057e.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-1257604e10c63d4aefcfa2cb6be3823e.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b626be3672932bd3e937cfeb894f6bf0.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-04fbb9c58b035b46c97099238d9fd1f3.jpg" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1><h2 id="StableGS-A-Floater-Free-Framework-for-3D-Gaussian-Splatting"><a href="#StableGS-A-Floater-Free-Framework-for-3D-Gaussian-Splatting" class="headerlink" title="StableGS: A Floater-Free Framework for 3D Gaussian Splatting"></a>StableGS: A Floater-Free Framework for 3D Gaussian Splatting</h2><p><strong>Authors:Luchao Wang, Qian Ren, Kaimin Liao, Hua Wang, Zhi Chen, Yaohua Tang</strong></p>
+<p>3D Gaussian Splatting (3DGS) reconstructions are plagued by stubborn <code>floater&quot; artifacts that degrade their geometric and visual fidelity. We are the first to reveal the root cause: a fundamental conflict in the 3DGS optimization process where the opacity gradients of floaters vanish when their blended color reaches a pseudo-equilibrium of canceling errors against the background, trapping them in a spurious local minimum. To resolve this, we propose StableGS, a novel framework that decouples geometric regularization from final appearance rendering. Its core is a Dual Opacity architecture that creates two separate rendering paths: a </code>Geometric Regularization Path” to bear strong depth-based constraints for structural correctness, and an &#96;&#96;Appearance Refinement Path” to generate high-fidelity details upon this stable foundation. We complement this with a synergistic set of geometric constraints: a self-supervised depth consistency loss and an external geometric prior enabled by our efficient global scale optimization algorithm. Experiments on multiple benchmarks show StableGS not only eliminates floaters but also resolves the common blur-artifact trade-off, achieving state-of-the-art geometric accuracy and visual quality. </p>
+<blockquote>
+<p>3DGS重建过程中受到“漂浮物”问题的困扰，这个问题会导致其几何和视觉真实感降低。我们是首个揭示其原因的团队：在优化过程中存在一个基本冲突，即漂浮物的不透明度梯度在其混合颜色达到与背景相抵消的伪平衡状态时消失，使它们陷入一个虚假的局部最小值。为了解决这一问题，我们提出了StableGS，这是一个将几何正则化与最终外观渲染解耦的新型框架。其核心是双重不透明度架构，该架构创建了两条单独的渲染路径：“几何正则化路径”，用于承受基于深度的强大结构约束；“外观细化路径”，在稳定的基准上生成高保真细节。我们以一组协同几何约束来补充它：通过自我监督的深度一致性损失和由我们的高效全局尺度优化算法启用的外部几何先验。在多个基准测试上的实验表明，StableGS不仅消除了漂浮物问题，还解决了常见的模糊伪影权衡问题，实现了最先进的几何精度和视觉质量。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2503.18458v3">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文指出3D Gaussian Splatting（3DGS）重建中存在的“浮子”伪影问题，分析其根本原因为优化过程中的基本冲突。为解决这一问题，提出StableGS框架，采用双重透明度架构，创建两个独立渲染路径，分别负责结构正确性的几何正则化和在此基础上生成高保真细节的外观优化路径。同时引入一系列几何约束，包括自监督深度一致性损失和由高效全局尺度优化算法实现的外部几何先验。实验表明，StableGS不仅能消除浮子伪影，还能解决常见的模糊伪影权衡问题，实现最先进的几何精度和视觉质量。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>3DGS重建存在“浮子”伪影问题，影响几何和视觉保真度。</li>
+<li>浮子伪影的根本原因是优化过程中的基本冲突，导致透明度梯度消失。</li>
+<li>StableGS框架采用双重透明度架构，创建两个独立渲染路径：几何正则化和外观优化路径。</li>
+<li>StableGS引入自监督深度一致性损失和外部几何先验，提高结构正确性和高保真细节生成。</li>
+<li>StableGS解决了浮子伪影问题，实现了更精确的几何重建。</li>
+<li>StableGS在多个基准测试上的实验结果表明，其几何精度和视觉质量达到最新水平。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2503.18458">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-22708a26b343f1d394e2fb1ae390c296.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-6ee5b04d4c8947f65f84f25ec2897d82.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-aee465b898244da28060f7fb911464f1.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-aaaa2a65f45fa9b56a26b3cccbcf468b.jpg" align="middle">
+</details>
+
+
+<h1 id="-14"><a href="#-14" class="headerlink" title=""></a></h1><h2 id="Surgical-Gaussian-Surfels-Highly-Accurate-Real-time-Surgical-Scene-Rendering-using-Gaussian-Surfels"><a href="#Surgical-Gaussian-Surfels-Highly-Accurate-Real-time-Surgical-Scene-Rendering-using-Gaussian-Surfels" class="headerlink" title="Surgical Gaussian Surfels: Highly Accurate Real-time Surgical Scene   Rendering using Gaussian Surfels"></a>Surgical Gaussian Surfels: Highly Accurate Real-time Surgical Scene   Rendering using Gaussian Surfels</h2><p><strong>Authors:Idris O. Sunmola, Zhenjun Zhao, Samuel Schmidgall, Yumeng Wang, Paul Maria Scheikl, Viet Pham, Axel Krieger</strong></p>
+<p>Accurate geometric reconstruction of deformable tissues in monocular endoscopic video remains a fundamental challenge in robot-assisted minimally invasive surgery. Although recent volumetric and point primitive methods based on neural radiance fields (NeRF) and 3D Gaussian primitives have efficiently rendered surgical scenes, they still struggle with handling artifact-free tool occlusions and preserving fine anatomical details. These limitations stem from unrestricted Gaussian scaling and insufficient surface alignment constraints during reconstruction. To address these issues, we introduce Surgical Gaussian Surfels (SGS), which transform anisotropic point primitives into surface-aligned elliptical splats by constraining the scale component of the Gaussian covariance matrix along the view-aligned axis. We also introduce the Fully Fused Deformation Multilayer Perceptron (FFD-MLP), a lightweight Multi-Layer Perceptron (MLP) that predicts accurate surfel motion fields up to 5x faster than a standard MLP. This is coupled with locality constraints to handle complex tissue deformations. We use homodirectional view-space positional gradients to capture fine image details by splitting Gaussian Surfels in over-reconstructed regions. In addition, we define surface normals as the direction of the steepest density change within each Gaussian surfel primitive, enabling accurate normal estimation without requiring monocular normal priors. We evaluate our method on two in-vivo surgical datasets, where it outperforms current state-of-the-art methods in surface geometry, normal map quality, and rendering efficiency, while remaining competitive in real-time rendering performance. We make our code available at <a target="_blank" rel="noopener" href="https://github.com/aloma85/SurgicalGaussianSurfels">https://github.com/aloma85/SurgicalGaussianSurfels</a> </p>
+<blockquote>
+<p>在单目内窥镜视频中，可变形组织的精确几何重建仍然是机器人辅助微创手术中的一项基本挑战。尽管最近基于神经辐射场（NeRF）和3D高斯原始点的体积和点原始方法已经有效地呈现了手术场景，但它们仍然在处理无工具遮挡物和保留精细解剖细节方面存在困难。这些局限性源于高斯缩放的无限制性和重建过程中表面对齐约束的不足。为了解决这些问题，我们引入了手术高斯曲面元素（Surgical Gaussian Surfels，SGS），它将各向异性的点原始元素通过约束高斯协方差矩阵的尺度成分在视图对齐轴上转换为表面对齐的椭圆平板。我们还引入了全融合变形多层感知器（Fully Fused Deformation Multilayer Perceptron，FFD-MLP），这是一个轻量级的多层感知器（MLP），它能够以比标准MLP快5倍的速度预测准确的曲面元素运动场。这与局部约束相结合，可以处理复杂的组织变形。我们通过将同方向视图空间位置梯度用于捕获图像细节，将高斯曲面元素在过度重建区域中拆分。此外，我们将表面法线定义为每个高斯曲面元素原始内部密度变化最陡峭的方向，从而能够在不需要单眼正常先验的情况下进行准确的法线估计。我们在两个体内手术数据集上评估了我们的方法，该方法在表面几何、法线图质量和渲染效率方面优于当前最新技术，同时在实时渲染性能方面保持竞争力。我们的代码可在<a target="_blank" rel="noopener" href="https://github.com/aloma85/SurgicalGaussianSurfels%E8%8E%B7%E5%8F%96%E3%80%82">https://github.com/aloma85/SurgicalGaussianSurfels获取。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2503.04079v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了在机器人辅助的微创手术中，基于神经辐射场和3D高斯原语的方法在处理工具遮挡和保留精细解剖细节方面的局限性。为解决这些问题，提出了Surgical Gaussian Surfels（SGS）方法，通过将各向异性点原始转换为表面对齐的椭圆平板，并约束高斯协方差矩阵的尺度成分来改进重建。同时，引入Fully Fused Deformation Multilayer Perceptron（FFD-MLP）网络，预测准确的surfel运动场，速度比标准MLP快5倍。此外，通过同方向视图空间位置梯度捕捉图像细节，并通过定义高斯surfel原语内最陡峭密度变化方向为表面法线，实现准确法线估计。实验表明，该方法在表面几何、法线图质量和渲染效率方面优于当前最先进的方案，并在实时渲染性能上保持竞争力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>神径辐射场和高斯原始方法在手术场景重建中面临工具遮挡和解剖细节保留的挑战。</li>
+<li>Surgical Gaussian Surfels（SGS）通过约束高斯协方差矩阵的尺度成分来解决这些问题，并将各向异性点原始转换为表面对齐的椭圆平板。</li>
+<li>引入Fully Fused Deformation Multilayer Perceptron（FFD-MLP）网络，预测准确的surfel运动场，速度更快。</li>
+<li>通过同方向视图空间位置梯度捕捉图像细节，实现精细图像重建。</li>
+<li>通过定义高斯surfel原语内的表面法线，实现准确法线估计，无需单眼法线先验。</li>
+<li>在两个体内手术数据集上的实验表明，该方法在表面几何、法线图质量和渲染效率方面优于当前最先进的方案。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2503.04079">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-a00ed29a89b9c55709272ec166b41eed.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-b5632a38c3c76e0367ef17cb99f19afa.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-e11699f2118b90a03ce7f350aa3d6822.jpg" align="middle">
+</details>
+
+
+<h1 id="-15"><a href="#-15" class="headerlink" title=""></a></h1><h2 id="AutoOcc-Automatic-Open-Ended-Semantic-Occupancy-Annotation-via-Vision-Language-Guided-Gaussian-Splatting"><a href="#AutoOcc-Automatic-Open-Ended-Semantic-Occupancy-Annotation-via-Vision-Language-Guided-Gaussian-Splatting" class="headerlink" title="AutoOcc: Automatic Open-Ended Semantic Occupancy Annotation via   Vision-Language Guided Gaussian Splatting"></a>AutoOcc: Automatic Open-Ended Semantic Occupancy Annotation via   Vision-Language Guided Gaussian Splatting</h2><p><strong>Authors:Xiaoyu Zhou, Jingqi Wang, Yongtao Wang, Yufei Wei, Nan Dong, Ming-Hsuan Yang</strong></p>
+<p>Obtaining high-quality 3D semantic occupancy from raw sensor data remains an essential yet challenging task, often requiring extensive manual labeling. In this work, we propose AutoOcc, a vision-centric automated pipeline for open-ended semantic occupancy annotation that integrates differentiable Gaussian splatting guided by vision-language models. We formulate the open-ended semantic 3D occupancy reconstruction task to automatically generate scene occupancy by combining attention maps from vision-language models and foundation vision models. We devise semantic-aware Gaussians as intermediate geometric descriptors and propose a cumulative Gaussian-to-voxel splatting algorithm that enables effective and efficient occupancy annotation. Our framework outperforms existing automated occupancy annotation methods without human labels. AutoOcc also enables open-ended semantic occupancy auto-labeling, achieving robust performance in both static and dynamically complex scenarios. </p>
+<blockquote>
+<p>从原始传感器数据中获取高质量的三维语义占用仍然是一项重要而具有挑战性的任务，通常需要大量的手动标记。在这项工作中，我们提出了AutoOcc，这是一个以视觉为中心的开放式语义占用注释的自动化管道，它集成了由视觉语言模型引导的可区分的高斯拼贴。我们将开放式语义三维占用重建任务表述为通过结合视觉语言模型和基础视觉模型的注意力图来自动生成场景占用。我们设计语义感知高斯作为中间几何描述符，并提出一种累积的高斯到体素拼贴算法，以实现有效和高效的占用注释。我们的框架在不需要人工标签的情况下，优于现有的自动占用注释方法。AutoOcc还实现了开放式语义占用的自动标记，在静态和动态复杂的场景中都能实现稳健的性能。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.04981v3">PDF</a> ICCV 2025 Hightlight (main conference)</p>
+<p><strong>Summary</strong></p>
+<p>本文提出了AutoOcc，一个面向开放式语义占用的自动化注释管道。该方法结合了可微分的Gaussian splatting和视觉语言模型，用于自动生成场景占用。通过设计语义感知高斯作为中间几何描述符，并结合累积的高斯到体素splatting算法，实现了高效且有效的占用注释。该方法超越了现有无需人工标签的占用注释方法，并可在静态和动态复杂场景中实现稳健性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>AutoOcc是一个面向开放式语义占用的自动化注释管道，集成了可微分的Gaussian splatting和视觉语言模型。</li>
+<li>通过结合注意力图和视觉语言模型，提出了场景占用的自动生成方法。</li>
+<li>设计了语义感知高斯作为中间几何描述符，为占用注释提供了有效手段。</li>
+<li>采用了累积的高斯到体素splatting算法，提高了占用注释的效率。</li>
+<li>该方法超越了现有无需人工标签的占用注释方法。</li>
+<li>AutoOcc能够在复杂场景，包括静态和动态场景中实现稳健的占用注释性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.04981">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-1c9e9ff01175ff981c31d8ba500317a0.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-a5afb72485466d4514b8db49e03131ad.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-4e0988260dc40d29b8f7236f7fbfd046.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-7a0a04d960e4b8d68d339c83ed86c8f1.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c3411938e6f62d14de99d1ef63af8f1d.jpg" align="middle">
+</details>
+
+
+<h1 id="-16"><a href="#-16" class="headerlink" title=""></a></h1><h2 id="Momentum-GS-Momentum-Gaussian-Self-Distillation-for-High-Quality-Large-Scene-Reconstruction"><a href="#Momentum-GS-Momentum-Gaussian-Self-Distillation-for-High-Quality-Large-Scene-Reconstruction" class="headerlink" title="Momentum-GS: Momentum Gaussian Self-Distillation for High-Quality Large   Scene Reconstruction"></a>Momentum-GS: Momentum Gaussian Self-Distillation for High-Quality Large   Scene Reconstruction</h2><p><strong>Authors:Jixuan Fan, Wanhua Li, Yifei Han, Tianru Dai, Yansong Tang</strong></p>
+<p>3D Gaussian Splatting has demonstrated notable success in large-scale scene reconstruction, but challenges persist due to high training memory consumption and storage overhead. Hybrid representations that integrate implicit and explicit features offer a way to mitigate these limitations. However, when applied in parallelized block-wise training, two critical issues arise since reconstruction accuracy deteriorates due to reduced data diversity when training each block independently, and parallel training restricts the number of divided blocks to the available number of GPUs. To address these issues, we propose Momentum-GS, a novel approach that leverages momentum-based self-distillation to promote consistency and accuracy across the blocks while decoupling the number of blocks from the physical GPU count. Our method maintains a teacher Gaussian decoder updated with momentum, ensuring a stable reference during training. This teacher provides each block with global guidance in a self-distillation manner, promoting spatial consistency in reconstruction. To further ensure consistency across the blocks, we incorporate block weighting, dynamically adjusting each block’s weight according to its reconstruction accuracy. Extensive experiments on large-scale scenes show that our method consistently outperforms existing techniques, achieving a 12.8% improvement in LPIPS over CityGaussian with much fewer divided blocks and establishing a new state of the art. Project page: <a target="_blank" rel="noopener" href="https://jixuan-fan.github.io/Momentum-GS_Page/">https://jixuan-fan.github.io/Momentum-GS_Page/</a> </p>
+<blockquote>
+<p>3D高斯贴图在大规模场景重建中取得了显著的成功，但仍然存在挑战，因为存在较高的训练内存消耗和存储开销。融合隐式和显式特征的混合表示提供了一种缓解这些限制的方法。然而，在并行块式训练中应用时，会出现两个问题：一是重建精度因每个块独立训练时数据多样性减少而下降，二是并行训练将块的数量限制为可用的GPU数量。为了解决这些问题，我们提出了Momentum-GS，这是一种基于动量自蒸馏技术的新方法，旨在促进块之间的一致性和准确性，同时解除块数量与物理GPU数量的耦合。我们的方法维护了一个使用动量更新的教师高斯解码器，以确保训练过程中的稳定参考。这位教师以自蒸馏的方式为每个块提供全局指导，促进重建的空间一致性。为了进一步增强块之间的一致性，我们引入了块权重，根据重建精度动态调整每个块的权重。在大规模场景上的大量实验表明，我们的方法始终优于现有技术，在CityGaussian上的LPIPS提高了12.8%，并且使用的块更少，创下了新的世界纪录。项目页面：[<a target="_blank" rel="noopener" href="https://jixuan-fan.github.io/Momentum-GS_Page/]">https://jixuan-fan.github.io/Momentum-GS_Page/]</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.04887v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>在大规模场景重建领域，3D高斯渲染技术已经取得显著进展，但仍有内存消耗大和存储开销的问题待解决。为此，研究者提出混合表示法以融合隐式和显式特征来解决这些问题。然而，在并行块级训练中，该方法面临两个关键问题：重建精度下降和数据多样性减少的问题。为了克服这些缺陷，研究者提出Momentum-GS方法，采用基于动量的自我蒸馏技术来提高各块之间的一致性和准确性，并将块的数目与实际的GPU数量分开计算。实验表明，该方法在大型场景上的表现优于现有技术，相较于CityGaussian提高了LPIPS得分12.8%，并实现了更少的块分割，成为业界新的领跑者。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>3D高斯渲染技术在大型场景重建中取得显著进展，但仍面临内存消耗大和存储开销的问题。</li>
+<li>混合表示法试图通过结合隐式和显式特征来解决上述问题。但在并行块级训练中重建精度和多样性的问题限制了其性能。</li>
+<li>Momentum-GS方法通过引入基于动量的自我蒸馏技术来提高块间的一致性和准确性。</li>
+<li>Momentum-GS解决了并行训练中的两个关键问题：重建精度下降和数据多样性减少的问题。它通过引入教师高斯解码器并提供全局指导来实现这一目标。此外，还引入了块权重机制来确保重建的一致性。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.04887">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6c02707dbc6f7f334f08b77ce6443c21.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-46f7ed7647aa71ead67b18f53075d002.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-728e43ce77c3b7e74455c88fef4c4960.jpg" align="middle">
+</details>
+
+
+<h1 id="-17"><a href="#-17" class="headerlink" title=""></a></h1><h2 id="Sequential-Gaussian-Avatars-with-Hierarchical-Motion-Context"><a href="#Sequential-Gaussian-Avatars-with-Hierarchical-Motion-Context" class="headerlink" title="Sequential Gaussian Avatars with Hierarchical Motion Context"></a>Sequential Gaussian Avatars with Hierarchical Motion Context</h2><p><strong>Authors:Wangze Xu, Yifan Zhan, Zhihang Zhong, Xiao Sun</strong></p>
+<p>The emergence of neural rendering has significantly advanced the rendering quality of 3D human avatars, with the recently popular 3DGS technique enabling real-time performance. However, SMPL-driven 3DGS human avatars still struggle to capture fine appearance details due to the complex mapping from pose to appearance during fitting. In this paper, we propose SeqAvatar, which excavates the explicit 3DGS representation to better model human avatars based on a hierarchical motion context. Specifically, we utilize a coarse-to-fine motion conditions that incorporate both the overall human skeleton and fine-grained vertex motions for non-rigid deformation. To enhance the robustness of the proposed motion conditions, we adopt a spatio-temporal multi-scale sampling strategy to hierarchically integrate more motion clues to model human avatars. Extensive experiments demonstrate that our method significantly outperforms 3DGS-based approaches and renders human avatars orders of magnitude faster than the latest NeRF-based models that incorporate temporal context, all while delivering performance that is at least comparable or even superior. Project page: <a target="_blank" rel="noopener" href="https://zezeaaa.github.io/projects/SeqAvatar/">https://zezeaaa.github.io/projects/SeqAvatar/</a> </p>
+<blockquote>
+<p>神经渲染的出现极大地提高了3D人类虚拟形象的渲染质量，最近流行的3DGS技术能够实现实时性能。然而，SMPL驱动的3DGS人类虚拟形象仍然难以捕捉精细的外观细节，因为在拟合过程中从姿势到外观的映射非常复杂。在本文中，我们提出了SeqAvatar，它挖掘了明确的3DGS表示，以基于分层运动上下文更好地建模人类虚拟形象。具体来说，我们利用从粗到细的运动条件，结合整体人类骨骼和精细顶点运动进行非刚性变形。为了提高所提出运动条件的稳健性，我们采用时空多尺度采样策略，分层融合更多运动线索来建模人类虚拟形象。大量实验表明，我们的方法显著优于基于3DGS的方法，并且与采用时间上下文的最新NeRF模型相比，渲染人类虚拟形象的速度要快得多，同时性能至少相当甚至更优。项目页面：<a target="_blank" rel="noopener" href="https://zezeaaa.github.io/projects/SeqAvatar/">https://zezeaaa.github.io/projects/SeqAvatar/</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2411.16768v2">PDF</a> ICCV2025</p>
+<p><strong>Summary</strong></p>
+<p>神经网络渲染技术的出现显著提高了3D人类角色的渲染质量，特别是流行的3DGS技术能够实现实时性能。然而，基于SMPL的3DGS人类角色在拟合过程中仍然难以捕捉精细的外观细节。本文提出SeqAvatar，通过挖掘明确的3DGS表示并基于分层运动上下文对人物角色进行更好的建模来解决这个问题。具体而言，它采用从粗到细的运动条件，结合整体人物骨骼和精细顶点运动来实现非刚体变形。为了增强运动条件的稳健性，研究采用了时空多尺度采样策略来分层整合更多运动线索。实验表明，该方法显著优于基于3DGS的方法，并且渲染速度比最新结合时间上下文的NeRF模型快得多，同时性能至少与之相当或更优。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>神经网络渲染技术提高了3D人类角色的渲染质量，特别是3DGS技术可实现实时性能。</li>
+<li>基于SMPL的3DGS方法在捕捉角色精细外观细节方面存在挑战。</li>
+<li>SeqAvatar通过挖掘明确的3DGS表示来解决这一问题，基于分层运动上下文对人物角色进行建模。</li>
+<li>SeqAvatar采用从粗到细的运动条件，结合整体人物骨骼和精细顶点运动来实现非刚体变形。</li>
+<li>为了增强运动条件的稳健性，采用了时空多尺度采样策略。</li>
+<li>实验显示SeqAvatar显著优于基于3DGS的方法，并且渲染速度更快。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2411.16768">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-cb83d7e77d65ada5ff7333865bdea540.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-d261ad94b4dae0a70a6749252521491a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-15db0196306fea2d774c45d12abea292.jpg" align="middle">
+</details>
+
+
+<h1 id="-18"><a href="#-18" class="headerlink" title=""></a></h1><h2 id="RoboGSim-A-Real2Sim2Real-Robotic-Gaussian-Splatting-Simulator"><a href="#RoboGSim-A-Real2Sim2Real-Robotic-Gaussian-Splatting-Simulator" class="headerlink" title="RoboGSim: A Real2Sim2Real Robotic Gaussian Splatting Simulator"></a>RoboGSim: A Real2Sim2Real Robotic Gaussian Splatting Simulator</h2><p><strong>Authors:Xinhai Li, Jialin Li, Ziheng Zhang, Rui Zhang, Fan Jia, Tiancai Wang, Haoqiang Fan, Kuo-Kun Tseng, Ruiping Wang</strong></p>
+<p>Efficient acquisition of real-world embodied data has been increasingly critical. However, large-scale demonstrations captured by remote operation tend to take extremely high costs and fail to scale up the data size in an efficient manner. Sampling the episodes under a simulated environment is a promising way for large-scale collection while existing simulators fail to high-fidelity modeling on texture and physics. To address these limitations, we introduce the RoboGSim, a real2sim2real robotic simulator, powered by 3D Gaussian Splatting and the physics engine. RoboGSim mainly includes four parts: Gaussian Reconstructor, Digital Twins Builder, Scene Composer, and Interactive Engine. It can synthesize the simulated data with novel views, objects, trajectories, and scenes. RoboGSim also provides an online, reproducible, and safe evaluation for different manipulation policies. The real2sim and sim2real transfer experiments show a high consistency in the texture and physics. We compared the test results of RoboGSim data and real robot data on both RoboGSim and real robot platforms. The experimental results show that the RoboGSim data model can achieve zero-shot performance on the real robot, with results comparable to real robot data. Additionally, in experiments with novel perspectives and novel scenes, the RoboGSim data model performed even better on the real robot than the real robot data model. This not only helps reduce the sim2real gap but also addresses the limitations of real robot data collection, such as its single-source and high cost. We hope RoboGSim serves as a closed-loop simulator for fair comparison on policy learning. More information can be found on our project page <a target="_blank" rel="noopener" href="https://robogsim.github.io/">https://robogsim.github.io/</a>. </p>
+<blockquote>
+<p>现实世界体感数据的高效采集变得越来越关键。然而，通过远程操作捕获的大规模演示往往成本极高，且未能以高效的方式扩大数据量。在模拟环境下对情节进行采样是大规模采集的一种有前途的方式，但现有模拟器在纹理和物理方面的高保真建模存在不足。为了解决这些局限性，我们引入了RoboGSim，这是一个由3D高斯拼贴和物理引擎驱动的real2sim2real机器人模拟器。RoboGSim主要包括四个部分：高斯重建器、数字孪生构建器、场景作曲家和交互引擎。它可以合成具有新颖视角、物体、轨迹和场景模拟数据。RoboGSim还为不同的操作策略提供了在线、可重复和安全的评估。纹理和物理的实拟与拟实转移实验表现出高度一致性。我们在RoboGSim平台和真实机器人平台上对RoboGSim数据和真实机器人数据进行了测试结果的比较。实验结果表明，RoboGSim数据模型能够在真实机器人上实现零射效果，其性能与真实机器人数据相当。此外，在具有新颖视角和场景的实验中，RoboGSim数据模型在真实机器人上的表现甚至比真实机器人数据模型更好。这不仅有助于缩小模拟与现实的差距，还解决了真实机器人数据采集的局限性，如单一来源和高成本的问题。我们希望RoboGSim能作为闭环模拟器，为策略学习的公平比较提供服务。更多信息请访问我们的项目页面<a target="_blank" rel="noopener" href="https://robogsim.github.io/%E3%80%82">https://robogsim.github.io/。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2411.11839v2">PDF</a> </p>
+<p><strong>摘要</strong></p>
+<p>本文介绍了RoboGSim模拟器，通过利用3D高斯Splatting和物理引擎技术解决了远程操作大规模演示所面临的问题。该模拟器主要由高斯重建器、数字双胞胎建造器、场景组合器和交互引擎四部分组成，可以合成模拟数据并展示新颖的视图、物体、轨迹和场景。此外，RoboGSim提供了在线、可重复和安全的评估不同操作策略的平台。通过真实到模拟再到真实的转移实验，展现了其在纹理和物理方面的高度一致性。实验结果显示，RoboGSim数据模型能在真实机器人上实现零射击性能，与真实机器人数据结果相当。并且在新型视角和场景的实验中，RoboGSim数据模型甚至表现更佳。该模拟器不仅有助于缩小模拟与真实之间的差距，还解决了真实机器人数据采集的局限性，如单一来源和高成本问题。期望RoboGSim能作为闭环模拟器，为策略学习提供公平比较的平台。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>RoboGSim是一个基于3D高斯Splatting和物理引擎技术的模拟器，旨在解决大规模收集现实机器人数据的高成本和无法有效扩展的问题。</li>
+<li>RoboGSim包括四个主要部分，能够合成模拟数据并展示不同的视图、物体、轨迹和场景。</li>
+<li>该模拟器提供了在线、可重复和安全的评估平台，用于不同操作策略的评价。</li>
+<li>RoboGSim在真实到模拟再到真实的转移实验中展现了其在纹理和物理方面的高度一致性。</li>
+<li>实验结果显示，RoboGSim数据模型在真实机器人上的性能与真实机器人数据相当，甚至在某些情况下表现更佳。</li>
+<li>该模拟器有助于缩小模拟与真实机器人之间的差距，并解决真实机器人数据采集的局限性。</li>
+<li>RoboGSim的预期作用是为策略学习提供一个公平比较的平台，作为一个闭环模拟器。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2411.11839">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-8d37866108e7d5961faa547561960239.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c91135dc54fc8bcae5e560c8a86ae642.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-9a81a1b8aa96e99125104a5b6b2aa8d1.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-5681edf3d4b0cfbd92f580dad17a538d.jpg" align="middle">
+</details>
+
+
+<h1 id="-19"><a href="#-19" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-08-06/3DGS/">https://kedreamix.github.io/Talk2Paper/Paper/2025-08-06/3DGS/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/3DGS/">
+                                    <span class="chip bg-color">3DGS</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-08-06/NeRF/">
+                    <div class="card-image">
+                        
+                        <img src="https://pic1.zhimg.com/v2-f41e461634289951c99dea6a22e2b222.jpg" class="responsive-img" alt="NeRF">
+                        
+                        <span class="card-title">NeRF</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            NeRF 方向最新论文已更新，请持续关注 Update in 2025-08-06  ASDR Exploiting Adaptive Sampling and Data Reuse for CIM-based Instant   Neural Rendering
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-08-06
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                    NeRF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/NeRF/">
+                        <span class="chip bg-color">NeRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-08-06/%E5%85%83%E5%AE%87%E5%AE%99_%E8%99%9A%E6%8B%9F%E4%BA%BA/">
+                    <div class="card-image">
+                        
+                        <img src="https://pic1.zhimg.com/v2-823ccf16ce1a587fe983b141c93f6b52.jpg" class="responsive-img" alt="元宇宙/虚拟人">
+                        
+                        <span class="card-title">元宇宙/虚拟人</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            元宇宙/虚拟人 方向最新论文已更新，请持续关注 Update in 2025-08-06  Is It Really You? Exploring Biometric Verification Scenarios in   Photorealistic Talking-Head Avatar Videos
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-06
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E5%85%83%E5%AE%87%E5%AE%99-%E8%99%9A%E6%8B%9F%E4%BA%BA/" class="post-category">
+                                    元宇宙/虚拟人
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E5%85%83%E5%AE%87%E5%AE%99-%E8%99%9A%E6%8B%9F%E4%BA%BA/">
+                        <span class="chip bg-color">元宇宙/虚拟人</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">24801.4k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
