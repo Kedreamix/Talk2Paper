@@ -1,0 +1,1752 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="医学图像">
+    <meta name="description" content="医学图像 方向最新论文已更新，请持续关注 Update in 2025-08-23  Hessian-based lightweight neural network for brain vessel segmentation   on a minimal training dataset">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>医学图像 | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://picx.zhimg.com/v2-85b76ff49610b77e13804b71b66ab455.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">医学图像</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">
+                                <span class="chip bg-color">医学图像</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/" class="post-category">
+                                医学图像
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-08-23
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-08-23
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    18.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    78 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-08-23-更新"><a href="#2025-08-23-更新" class="headerlink" title="2025-08-23 更新"></a>2025-08-23 更新</h1><h2 id="Hessian-based-lightweight-neural-network-for-brain-vessel-segmentation-on-a-minimal-training-dataset"><a href="#Hessian-based-lightweight-neural-network-for-brain-vessel-segmentation-on-a-minimal-training-dataset" class="headerlink" title="Hessian-based lightweight neural network for brain vessel segmentation   on a minimal training dataset"></a>Hessian-based lightweight neural network for brain vessel segmentation   on a minimal training dataset</h2><p><strong>Authors:Alexandra Bernadotte, Elfimov Nikita, Mikhail Shutov, Ivan Menshikov</strong></p>
+<p>Accurate segmentation of blood vessels in brain magnetic resonance angiography (MRA) is essential for successful surgical procedures, such as aneurysm repair or bypass surgery. Currently, annotation is primarily performed through manual segmentation or classical methods, such as the Frangi filter, which often lack sufficient accuracy. Neural networks have emerged as powerful tools for medical image segmentation, but their development depends on well-annotated training datasets. However, there is a notable lack of publicly available MRA datasets with detailed brain vessel annotations.   To address this gap, we propose a novel semi-supervised learning lightweight neural network with Hessian matrices on board for 3D segmentation of complex structures such as tubular structures, which we named HessNet. The solution is a Hessian-based neural network with only 6000 parameters. HessNet can run on the CPU and significantly reduces the resource requirements for training neural networks. The accuracy of vessel segmentation on a minimal training dataset reaches state-of-the-art results. It helps us create a large, semi-manually annotated brain vessel dataset of brain MRA images based on the IXI dataset (annotated 200 images). Annotation was performed by three experts under the supervision of three neurovascular surgeons after applying HessNet. It provides high accuracy of vessel segmentation and allows experts to focus only on the most complex important cases. The dataset is available at <a target="_blank" rel="noopener" href="https://git.scinalytics.com/terilat/VesselDatasetPartly">https://git.scinalytics.com/terilat/VesselDatasetPartly</a>. </p>
+<blockquote>
+<p>在脑部磁共振血管造影（MRA）中，对血管进行精确分割对于成功的手术程序至关重要，例如动脉瘤修复或搭桥手术。目前，注释主要通过手动分割或经典方法（如Frangi滤波器）进行，但这些方法往往缺乏足够的准确性。神经网络已作为医学图像分割的强大工具出现，但其发展取决于经过良好注释的训练数据集。然而，存在明显的缺乏带有详细脑血管注释的公开MRA数据集。为了解决这一差距，我们提出了一种新型半监督学习轻量级神经网络，该网络在板上配备了Hessian矩阵，用于对管状结构等复杂结构进行3D分割，我们将其命名为HessNet。该解决方案是基于Hessian的神经网络，仅有600related参数。HessNet可在CPU上运行，显着降低了训练神经网络所需的资源要求。在最小训练数据集上的血管分割精度达到了业界领先的结果。它帮助我们基于IXI数据集创建了一个大规模的半手动注释的脑部血管数据集（注释了200张图像）。在神经血管外科医生的监督下，三名专家在应用了HessNet之后进行了注释。它提供了高精度的血管分割，并允许专家专注于最复杂且最重要的病例。数据集可在<a target="_blank" rel="noopener" href="https://git.scinalytics.com/terilat/VesselDatasetPartly%E6%89%BE%E5%88%B0%E3%80%82">https://git.scinalytics.com/terilat/VesselDatasetPartly找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15660v1">PDF</a> 11 pages, 2 figures</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了在脑磁共振血管造影（MRA）中准确分割血管的重要性，并指出目前主要依赖手动分割或经典方法（如Frangi滤波器），但准确性不足。神经网络在医学图像分割中具有潜力，但缺乏详细的MRA数据集。为解决这一问题，本文提出了一种基于Hessian矩阵的半监督学习轻量化神经网络（HessNet），用于3D复杂结构（如管状结构）的分割。HessNet仅包含6000个参数，可在CPU上运行，显著降低了训练神经网络所需的资源。在小型训练数据集上的血管分割精度达到了最新水平。利用HessNet，基于IXI数据集创建了一个大型半手动注释的脑MRA图像脑血管数据集，专家可在神经血管外科医生的监督下标注图像，确保高精确度。数据集可在<a target="_blank" rel="noopener" href="https://git.scinalytics.com/terilat/VesselDatasetPartly">链接</a>获取。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>准确的大脑血管分割对成功进行外科手术（如动脉瘤修复和搭桥手术）至关重要。</li>
+<li>当前方法（如手动分割和Frangi滤波器）在血管分割方面的准确性不足。</li>
+<li>神经网络在医学图像分割中具有优势，但需要良好的注释训练数据集。</li>
+<li>缺乏具有详细大脑血管注释的公开MRA数据集。</li>
+<li>提出了一种基于Hessian矩阵的半监督学习轻量化神经网络（HessNet），用于复杂结构（如管状结构）的3D分割。</li>
+<li>HessNet可在CPU上运行，显著降低训练神经网络所需的资源。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15660">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-e8c2b256eab2d4d548cb90012f1f28c3.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-0e1e5dd1f04a5164ff0765d9a7822a21.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Lunar-geochemistry-from-X-ray-line-flux-ratios-using-CLASS-on-Chandrayaan-2"><a href="#Lunar-geochemistry-from-X-ray-line-flux-ratios-using-CLASS-on-Chandrayaan-2" class="headerlink" title="Lunar geochemistry from X-ray line flux ratios using CLASS on   Chandrayaan 2"></a>Lunar geochemistry from X-ray line flux ratios using CLASS on   Chandrayaan 2</h2><p><strong>Authors:R. Kumar, Y. Rai, S. Srijan, A. Bansal, Ameya V Singh, A. Kumar, H. Mhatre, M. Goyal, S. Swain, S. Patidar, Aditya P Saikia, A. Ahmad, S. Narendranath, Netra S Pillai, R. Kashyap, V. Bhalerao</strong></p>
+<p>Global lunar chemical maps are essential for understanding the origin and evolution of the Moon, its surface characteristics, and its potential for resource extraction. Lunar elemental abundance maps have been derived using X-ray and gamma ray spectroscopy previously but are limited in coverage or have coarse spatial resolution. Here we used X-ray fluorescence line intensity of O, Mg, Al, Si, Ca and Fe derived from five years of data from the Chandrayaan-2 Large Area Soft X-ray Spectrometer (CLASS) to generate global O&#x2F;Si, Mg&#x2F;Si, Al&#x2F;Si, Mg&#x2F;Al, Ca&#x2F;Si and Fe&#x2F;Si line intensity ratio maps at a resolution of 5.3 km&#x2F;pixel. We have developed an independent data analysis methodology for CLASS, based on open source Python packages. Our analysis shows that the Mg&#x2F;Al map best represents the geochemical differences between the major terranes, consistent with the findings of the Apollo 15 and 16 X-ray Fluorescence Spectrometer (XRS) maps. We have also shown a good correlation of the line intensity ratios with the abundance ratios from CLASS using published elemental abundance maps. Further, we apply Gaussian mixture models to the Mg&#x2F;Si vs Al&#x2F;Si density maps to map geochemically distinct regions on the Moon that could be of interest for future investigations. </p>
+<blockquote>
+<p>全球月球化学地图对于了解月球的起源和演化、月球表面特征以及其资源提取潜力至关重要。之前已经使用X射线和伽马射线光谱法得到了月球元素丰度地图，但其覆盖范围有限或空间分辨率较低。这里我们使用了来自“嫦娥二号”大型区域软X射线光谱仪（CLASS）五年的数据，从中提取了氧、镁、铝、硅、钙和铁的X射线荧光线强度，生成了全球O&#x2F;Si、Mg&#x2F;Si、Al&#x2F;Si、Mg&#x2F;Al、Ca&#x2F;Si和Fe&#x2F;Si线强度比率地图，分辨率为每像素5.3公里。我们基于开源Python包开发了一种独立的CLASS数据分析方法。分析表明，Mg&#x2F;Al地图最能反映主要地形的地球化学差异，这与阿波罗15号和16号X射线荧光光谱仪（XRS）地图的发现相一致。我们还展示了线强度比率与CLASS发布的元素丰度地图中的丰度比率之间的良好相关性。此外，我们对Mg&#x2F;Si与Al&#x2F;Si密度图应用高斯混合模型，在月球上绘制出地球化学特征明显的区域，这些区域可能对未来的研究感兴趣。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15563v1">PDF</a> 12 pages, 9 figures. Submitted to the Planetary Science Journal</p>
+<p><strong>Summary</strong></p>
+<p>全球月球化学地图对于了解月球的起源和演化、表面特征以及资源提取潜力至关重要。以往利用X射线和伽马射线光谱法得到月球元素丰度地图，但覆盖范围有限或空间分辨率较粗。本研究利用来自“月船二号”大型区域软X射线光谱仪（CLASS）五年的数据，生成了全球O&#x2F;Si、Mg&#x2F;Si、Al&#x2F;Si、Mg&#x2F;Al、Ca&#x2F;Si和Fe&#x2F;Si线强度比率地图，空间分辨率为5.3公里&#x2F;像素。研究采用基于开源Python包独立数据分析方法，发现Mg&#x2F;Al地图最能反映主要地形的地球化学差异，并与阿波罗15号和16号的X射线荧光光谱仪（XRS）地图的发现相一致。此外，线强度比率与CLASS发布的元素丰度地图之间也呈现出良好的相关性。研究还应用高斯混合模型对Mg&#x2F;Si与Al&#x2F;Si密度地图进行分析，以绘制月球上地球化学特征不同的区域，为未来的研究提供兴趣点。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>全球月球化学地图对理解月球特性及资源提取至关重要。</li>
+<li>利用月船二号CLASS数据生成了高分辨月球元素比例地图。</li>
+<li>独立数据分析方法基于开源Python包。</li>
+<li>Mg&#x2F;Al地图反映主要地形地球化学差异，与阿波罗XRS地图一致。</li>
+<li>线强度比率与元素丰度地图间存在良好相关性。</li>
+<li>高斯混合模型用于分析Mg&#x2F;Si与Al&#x2F;Si密度地图。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15563">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-bb54fabd1165128d5a19f4279b97c80c.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-173f01fd1813e1aad4b65256de2f9724.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-85b76ff49610b77e13804b71b66ab455.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-ef8b56575b52e623bfd28334f55c2e73.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-2de44e7cffbbb87f236550c408651ff9.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="LGMSNet-Thinning-a-medical-image-segmentation-model-via-dual-level-multiscale-fusion"><a href="#LGMSNet-Thinning-a-medical-image-segmentation-model-via-dual-level-multiscale-fusion" class="headerlink" title="LGMSNet: Thinning a medical image segmentation model via dual-level   multiscale fusion"></a>LGMSNet: Thinning a medical image segmentation model via dual-level   multiscale fusion</h2><p><strong>Authors:Chengqi Dong, Fenghe Tang, Rongge Mao, Xinpei Gao, S. Kevin Zhou</strong></p>
+<p>Medical image segmentation plays a pivotal role in disease diagnosis and treatment planning, particularly in resource-constrained clinical settings where lightweight and generalizable models are urgently needed. However, existing lightweight models often compromise performance for efficiency and rarely adopt computationally expensive attention mechanisms, severely restricting their global contextual perception capabilities. Additionally, current architectures neglect the channel redundancy issue under the same convolutional kernels in medical imaging, which hinders effective feature extraction. To address these challenges, we propose LGMSNet, a novel lightweight framework based on local and global dual multiscale that achieves state-of-the-art performance with minimal computational overhead. LGMSNet employs heterogeneous intra-layer kernels to extract local high-frequency information while mitigating channel redundancy. In addition, the model integrates sparse transformer-convolutional hybrid branches to capture low-frequency global information. Extensive experiments across six public datasets demonstrate LGMSNet’s superiority over existing state-of-the-art methods. In particular, LGMSNet maintains exceptional performance in zero-shot generalization tests on four unseen datasets, underscoring its potential for real-world deployment in resource-limited medical scenarios. The whole project code is in <a target="_blank" rel="noopener" href="https://github.com/cq-dong/LGMSNet">https://github.com/cq-dong/LGMSNet</a>. </p>
+<blockquote>
+<p>医学图像分割在疾病诊断和治疗计划制定中发挥着至关重要的作用，特别是在资源受限的临床环境中，急需轻便且通用的模型。然而，现有的轻便模型往往为了在效率上做出妥协而牺牲了性能，并且很少采用计算昂贵的注意力机制，这严重限制了它们的全局上下文感知能力。此外，当前架构忽略了医学影像中同一卷积核下的通道冗余问题，这阻碍了有效的特征提取。为了应对这些挑战，我们提出了LGMSNet，这是一种基于局部和全局双重多尺度的新型轻便框架，以最小的计算开销实现了最先进的性能。LGMSNet采用异质内层核来提取局部高频信息，同时减轻通道冗余。此外，该模型结合了稀疏的transformer卷积混合分支来捕获低频全局信息。在六个公共数据集上的广泛实验表明，LGMSNet在现有最先进的方法中表现出卓越的性能。特别是在四个未见数据集上的零样本泛化测试中，LGMSNet保持了出色的性能，突显其在资源受限的医学场景中进行实际部署的潜力。整个项目代码位于<a target="_blank" rel="noopener" href="https://github.com/cq-dong/LGMSNet%E3%80%82">https://github.com/cq-dong/LGMSNet。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15476v1">PDF</a> Accepted by ECAI 2025</p>
+<p><strong>Summary</strong><br>医学图像分割在疾病诊断和治疗计划中具有至关重要的作用，特别是在资源受限的临床环境中。现有轻量化模型通常需要在性能和效率之间做出妥协，并且很少采用计算量较大的注意力机制，这严重限制了其全局上下文感知能力。为解决这些问题，提出了LGMSNet，一种基于局部和全局双多尺度的轻量化框架，以最小的计算开销实现了最先进的性能。LGMSNet采用异质内核来提取局部高频信息并减轻通道冗余问题，同时结合稀疏transformer-卷积混合分支捕获低频全局信息。在六个公共数据集上的广泛实验表明，LGMSNet在未见数据集上的零样本泛化测试中表现出卓越的性能，突显其在资源受限医学场景中的实际应用潜力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>医学图像分割在疾病诊断和治疗计划中起重要作用，特别是在资源受限环境中。</li>
+<li>现有轻量化模型需要在性能和效率之间进行权衡，且缺乏全局上下文感知能力。</li>
+<li>LGMSNet是一种基于局部和全局双多尺度的轻量化框架，旨在解决上述问题。</li>
+<li>LGMSNet采用异质内核提取局部高频信息并减轻通道冗余。</li>
+<li>模型结合稀疏transformer-卷积混合分支捕获低频全局信息。</li>
+<li>在多个公共数据集上的实验表明LGMSNet具有卓越性能，特别是在未见数据集的零样本泛化测试中。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15476">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-25ca82867e3f3e7d85c4420295d1fb61.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c3e78a3dcf8ee39b96c06605a07db111.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-2e39bb91ad713f51e00f1d509c0cb3f2.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d8b22167f8f0d9e9ba6db671e523fc33.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-bb6d35aed56fc790b27b8c51734706bd.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-6bd6a2e0bf94011bed177eced4cbb96d.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-d15c61b0f85afeaef97f519ae4eb66d6.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-50ee63021da9ab7e1ce24f4eae03c08a.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-b35f2010b7575195fd3b9cd1c275d433.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="Bridging-Generalization-and-Personalization-in-Wearable-Human-Activity-Recognition-via-On-Device-Few-Shot-Learning"><a href="#Bridging-Generalization-and-Personalization-in-Wearable-Human-Activity-Recognition-via-On-Device-Few-Shot-Learning" class="headerlink" title="Bridging Generalization and Personalization in Wearable Human Activity   Recognition via On-Device Few-Shot Learning"></a>Bridging Generalization and Personalization in Wearable Human Activity   Recognition via On-Device Few-Shot Learning</h2><p><strong>Authors:Pixi Kang, Julian Moosmann, Mengxi Liu, Bo Zhou, Michele Magno, Paul Lukowicz, Sizhen Bian</strong></p>
+<p>Human Activity Recognition (HAR) using wearable devices has advanced significantly in recent years, yet its generalization remains limited when models are deployed to new users. This degradation in performance is primarily due to user-induced concept drift (UICD), highlighting the importance of efficient personalization. In this paper, we present a hybrid framework that first generalizes across users and then rapidly adapts to individual users using few-shot learning directly on-device. By updating only the classifier layer with user-specific data, our method achieves robust personalization with minimal computational and memory overhead. We implement this framework on the energy-efficient RISC-V-based GAP9 microcontroller and validate it across three diverse HAR scenarios: RecGym, QVAR-Gesture, and Ultrasound-Gesture. Post-deployment adaptation yields consistent accuracy improvements of 3.73%, 17.38%, and 3.70% respectively. These results confirm that fast, lightweight, and effective personalization is feasible on embedded platforms, paving the way for scalable and user-aware HAR systems in the wild \footnote{<a target="_blank" rel="noopener" href="https://github.com/kangpx/onlineTiny2023%7D">https://github.com/kangpx/onlineTiny2023}</a>. </p>
+<blockquote>
+<p>使用可穿戴设备进行人类活动识别（HAR）近年来取得了显著进展，但当模型部署给新用户时，其通用性仍然有限。这种性能下降主要是由于用户引起的概念漂移（UICD）所导致的，这强调了有效个性化方法的重要性。在本文中，我们提出了一种混合框架，该框架首先实现跨用户通用化，然后使用少量样本学习直接在设备上快速适应个别用户。通过仅使用用户特定数据更新分类器层，我们的方法可以在计算量和内存开销极小的情况下实现稳健的个性化。我们在能效高的RISC-V基GAP9微控制器上实现了该框架，并在三种不同的HAR场景中进行了验证：RecGym、QVAR手势和超声手势。部署后的适应分别产生了稳定的准确性提高3.73%、提高高达个人本身的初次测准确度之前上均能进步三点的这种基本替代不同化学贵格的演练与实际稍有损失不一样占十分重要的研究成果认可这表明嵌入式平台上快速、轻便、有效的个性化方法是可行的，为野外可扩展和用户感知的HAR系统铺平了道路。如需更多信息，请访问我们的GitHub页面：[<a target="_blank" rel="noopener" href="https://github.com/kangpx/onlineTiny2023]%E3%80%82">https://github.com/kangpx/onlineTiny2023]。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15413v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>这篇论文提出了一种混合框架，该框架首先实现跨用户泛化，然后通过少量样本学习快速适应个体用户。通过仅更新分类器层以包含用户特定数据，该方法实现了具有最小计算和内存开销的稳健个性化。在RISC-V架构的GAP9微控制器上实现了该框架，并在三种不同的HAR场景中进行了验证，显示出有效性和可靠性。该方法在部署后快速适应不同场景的能力使HAR系统的泛化能力得到提高。因此，实现在嵌入式平台上的快速、轻量级且有效的个性化是可行的。具体验证方法可以参考该论文的GitHub页面^<a target="_blank" rel="noopener" href="https://github.com/kangpx/onlineTiny2023">链接为额外注释，已跳过其内容</a>。该工作为未来在真实世界环境下构建可扩展和用户感知的HAR系统铺平了道路。</p>
+<p><strong>Key Takeaways</strong></p>
+<p>以下是该文本的关键要点：</p>
+<ul>
+<li>提出了一种混合框架，能够跨用户泛化并快速适应个体用户。</li>
+<li>通过仅更新分类器层实现稳健个性化，减少计算和内存开销。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15413">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-831cd3ded6fa5ac005a3f4883bb7ad54.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-16e24959a44ec0159ec473a1c85cc2ff.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-739a8d3ea27b95505ff4dc3a8622afee.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-a176505d6f8c28f9d1f5cb6b88977706.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Bladder-Cancer-Diagnosis-with-Deep-Learning-A-Multi-Task-Framework-and-Online-Platform"><a href="#Bladder-Cancer-Diagnosis-with-Deep-Learning-A-Multi-Task-Framework-and-Online-Platform" class="headerlink" title="Bladder Cancer Diagnosis with Deep Learning: A Multi-Task Framework and   Online Platform"></a>Bladder Cancer Diagnosis with Deep Learning: A Multi-Task Framework and   Online Platform</h2><p><strong>Authors:Jinliang Yu, Mingduo Xie, Yue Wang, Tianfan Fu, Xianglai Xu, Jiajun Wang</strong></p>
+<p>Clinical cystoscopy, the current standard for bladder cancer diagnosis, suffers from significant reliance on physician expertise, leading to variability and subjectivity in diagnostic outcomes. There is an urgent need for objective, accurate, and efficient computational approaches to improve bladder cancer diagnostics.   Leveraging recent advancements in deep learning, this study proposes an integrated multi-task deep learning framework specifically designed for bladder cancer diagnosis from cystoscopic images. Our framework includes a robust classification model using EfficientNet-B0 enhanced with Convolutional Block Attention Module (CBAM), an advanced segmentation model based on ResNet34-UNet++ architecture with self-attention mechanisms and attention gating, and molecular subtyping using ConvNeXt-Tiny to classify molecular markers such as HER-2 and Ki-67. Additionally, we introduce a Gradio-based online diagnostic platform integrating all developed models, providing intuitive features including multi-format image uploads, bilingual interfaces, and dynamic threshold adjustments.   Extensive experimentation demonstrates the effectiveness of our methods, achieving outstanding accuracy (93.28%), F1-score (82.05%), and AUC (96.41%) for classification tasks, and exceptional segmentation performance indicated by a Dice coefficient of 0.9091. The online platform significantly improved the accuracy, efficiency, and accessibility of clinical bladder cancer diagnostics, enabling practical and user-friendly deployment. The code is publicly available.   Our multi-task framework and integrated online tool collectively advance the field of intelligent bladder cancer diagnosis by improving clinical reliability, supporting early tumor detection, and enabling real-time diagnostic feedback. These contributions mark a significant step toward AI-assisted decision-making in urology. </p>
+<blockquote>
+<p>临床膀胱镜检查是目前膀胱癌诊断的标准，但其对医生专业知识的依赖性强，导致诊断结果存在变异性和主观性。因此，急需客观、准确、高效的计算方法来改进膀胱癌的诊断。本研究利用深度学习领域的最新进展，提出了一个专为膀胱癌诊断设计的多任务深度学习框架。该框架包括一个使用EfficientNet-B0并结合卷积块注意力模块（CBAM）的稳健分类模型，一个基于ResNet34-UNet++架构并使用自注意机制和注意力门的高级分割模型，以及使用ConvNeXt-Tiny进行分子亚型的分类，如HER-2和Ki-67等分子标记。此外，我们还引入了一个基于Gradio的在线诊断平台，该平台集成了所有已开发的模型，提供了多格式图像上传、双语界面和动态阈值调整等直观功能。广泛的实验证明了我们的方法的有效性，在分类任务中取得了出色的准确率（93.28%）、F1分数（82.05%）和AUC（96.41%），分割性能也十分突出，Dice系数为0.9091。在线平台显著提高了膀胱癌诊断的准确性、效率和可及性，实现了实用且用户友好的部署。相关代码已公开可用。我们的多任务框架和集成在线工具共同推动了智能膀胱癌诊断领域的发展，提高了临床可靠性，支持早期肿瘤检测，并能够实现实时诊断反馈。这些贡献标志着在泌尿科领域实现人工智能辅助决策的重大进步。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15379v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文本介绍了针对膀胱癌诊断的智能多任务深度学习框架以及基于该框架的在线诊断平台。该框架利用深度学习技术，通过集成分类模型、分割模型和分子分型技术，实现了膀胱癌诊断的客观化、精确性和高效性。此外，开发了一种基于Gradio的在线诊断平台，提高了诊断的准确性、效率和可及性。研究表明，该方法具有良好的性能表现，并公开了相关代码。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>临床膀胱癌诊断现状存在依赖医生经验和主观判断的问题，需要客观、准确和高效的计算方法来改进。</li>
+<li>研究提出了一种基于深度学习的多任务深度学习框架，用于膀胱癌诊断。包括用于分类的EfficientNet-B0与CBAM结合模型、用于分割的ResNet34-UNet++架构以及用于分子分型的ConvNeXt-Tiny模型。</li>
+<li>开发了基于Gradio的在线诊断平台，集成了所有开发的模型，并提供了多格式图像上传、双语界面和动态阈值调整等直观功能。</li>
+<li>实验结果表明，该方法在分类任务上表现出较高的准确性、F1分数和AUC值，在分割任务上也取得了优异的Dice系数。</li>
+<li>在线平台显著提高了膀胱癌诊断的准确性、效率和可及性，实现了实用且用户友好的部署。</li>
+<li>代码已公开，为智能膀胱癌诊断领域的研究和应用提供了有价值的资源。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15379">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-531dd75dff3a709e286b18b268a1fb6a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-368c7238fcb7cd8031b8c41bcbf8d7a2.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-bc276dde7519e823897569b5d534f2be.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="TPA-Temporal-Prompt-Alignment-for-Fetal-Congenital-Heart-Defect-Classification"><a href="#TPA-Temporal-Prompt-Alignment-for-Fetal-Congenital-Heart-Defect-Classification" class="headerlink" title="TPA: Temporal Prompt Alignment for Fetal Congenital Heart Defect   Classification"></a>TPA: Temporal Prompt Alignment for Fetal Congenital Heart Defect   Classification</h2><p><strong>Authors:Darya Taratynova, Alya Almsouti, Beknur Kalmakhanbet, Numan Saeed, Mohammad Yaqub</strong></p>
+<p>Congenital heart defect (CHD) detection in ultrasound videos is hindered by image noise and probe positioning variability. While automated methods can reduce operator dependence, current machine learning approaches often neglect temporal information, limit themselves to binary classification, and do not account for prediction calibration. We propose Temporal Prompt Alignment (TPA), a method leveraging foundation image-text model and prompt-aware contrastive learning to classify fetal CHD on cardiac ultrasound videos. TPA extracts features from each frame of video subclips using an image encoder, aggregates them with a trainable temporal extractor to capture heart motion, and aligns the video representation with class-specific text prompts via a margin-hinge contrastive loss. To enhance calibration for clinical reliability, we introduce a Conditional Variational Autoencoder Style Modulation (CVAESM) module, which learns a latent style vector to modulate embeddings and quantifies classification uncertainty. Evaluated on a private dataset for CHD detection and on a large public dataset, EchoNet-Dynamic, for systolic dysfunction, TPA achieves state-of-the-art macro F1 scores of 85.40% for CHD diagnosis, while also reducing expected calibration error by 5.38% and adaptive ECE by 6.8%. On EchoNet-Dynamic’s three-class task, it boosts macro F1 by 4.73% (from 53.89% to 58.62%). Temporal Prompt Alignment (TPA) is a framework for fetal congenital heart defect (CHD) classification in ultrasound videos that integrates temporal modeling, prompt-aware contrastive learning, and uncertainty quantification. </p>
+<blockquote>
+<p>先天性心脏缺陷（CHD）的超声视频检测受到图像噪声和探头定位可变性的阻碍。虽然自动化方法可以减少对操作员的依赖，但当前的机器学习方法常常忽略了时间信息，仅限于二元分类，并且没有考虑到预测校准。我们提出了Temporal Prompt Alignment（TPA）方法，该方法利用基础图像文本模型和提示感知对比学习来对胎儿CHD进行心脏超声视频分类。TPA通过图像编码器从视频的每个帧中提取特征，并使用可训练的时间提取器来捕捉心脏运动，并通过边距铰链对比损失将视频表示与特定类别的文本提示对齐。为了提高临床可靠性的校准，我们引入了条件变分自动编码器风格调制（CVAESM）模块，该模块学习潜在的风格向量来调制嵌入并量化分类的不确定性。在用于CHD检测的私有数据集和用于收缩功能障碍的大型公共数据集EchoNet-Dynamic上进行了评估，TPA达到了最先进的宏观F1分数，CHD诊断的F1分数为85.40%，同时降低了期望校准误差5.38%和自适应ECE 6.8%。在EchoNet-Dynamic的三类任务中，它提高了宏观F1分数4.73%（从53.89%到58.62%）。Temporal Prompt Alignment（TPA）是一个用于超声视频中胎儿先天性心脏缺陷（CHD）分类的框架，它集成了时间建模、提示感知对比学习和不确定性量化。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15298v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种基于图像-文本模型和提示感知对比学习的先天性心脏缺陷（CHD）分类方法，称为Temporal Prompt Alignment（TPA）。该方法能够从超声视频中提取特征，捕捉心脏运动，并与类别特定的文本提示对齐。为增强分类的临床可靠性，引入条件变分自编码器风格调制模块来学习潜在的风格向量以调整嵌入并量化分类的不确定性。评估结果表明，TPA在私人数据集上的CHD检测以及公共数据集EchoNet-Dynamic上的收缩功能障碍均达到了先进水平，并在多类任务上实现了宏观F1分数的显著提升。总体来说，Temporal Prompt Alignment是一个结合了时间建模、提示感知对比学习和不确定性量化的框架，用于胎儿先天性心脏缺陷的分类。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>先天性心脏缺陷（CHD）在超声视频检测中面临图像噪声和探头定位可变性的挑战。</li>
+<li>当前机器学习方法忽略了时间信息，仅限于二元分类，并且未考虑预测校准。</li>
+<li>提出一种名为Temporal Prompt Alignment（TPA）的方法，利用图像-文本模型和提示感知对比学习对先天性心脏缺陷进行分类。</li>
+<li>TPA使用图像编码器从视频子剪辑的每一帧中提取特征，并用可训练的时间提取器捕捉心脏运动。</li>
+<li>通过引入条件变分自编码器风格调制模块（CVAESM），增强分类的临床可靠性并量化分类的不确定性。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15298">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-030996daf9bd8cb52b94e81ec5ee0eb4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-f9c9db43549a41cab485975de73cf808.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-c1009bc92687fed60d1a4721a21222e3.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-52c859f24dd0635029fbebedaf093932.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Conditional-Cube-Attack-on-Round-Reduced-ASCON"><a href="#Conditional-Cube-Attack-on-Round-Reduced-ASCON" class="headerlink" title="Conditional Cube Attack on Round-Reduced ASCON"></a>Conditional Cube Attack on Round-Reduced ASCON</h2><p><strong>Authors:Zheng Li, Xiaoyang Dong, Xiaoyun Wang</strong></p>
+<p>This paper evaluates the secure level of authenticated encryption \textsc{Ascon} against cube-like method. \textsc{Ascon} submitted by Dobraunig \emph{et<del>al.} is one of 16 survivors of the 3rd round CAESAR competition. The cube-like method is first used by Dinur \emph{et</del>al.} to analyze Keccak keyed modes. At CT-RSA 2015, Dobraunig \emph{et<del>al.} applied this method to 5&#x2F;6-round reduced \textsc{Ascon}, whose structure is similar to Keccak keyed modes. However, for \textsc{Ascon} the non-linear layer is more complex and state is much smaller, which make it hard for the attackers to select enough cube variables that do not multiply with each other after the first round. This seems to be the reason why the best previous key-recovery attack is on 6-round \textsc{Ascon}, while for Keccak keyed modes (Keccak-MAC and Keyak) the attacked round is no less than 7-round.   In this paper, we generalize the conditional cube attack proposed by Huang \emph{et</del>al.}, and find new cubes depending on some key bit conditions for 5&#x2F;6-round reduced \textsc{Ascon}, and translate the previous theoretic 6-round attack with $2^{66}$ time complexity to a practical one with $2^{40}$ time complexity. Moreover, we propose the first 7-round key-recovery attack on \textsc{Ascon}. By introducing \emph{the cube-like key-subset technique}, we divide the full key space into many subsets according to different key conditions. For each key subset, we launch the cube tester to determine if the key falls into it. Finally, we recover the full key space by testing all the key subsets. The total time complexity is about $2^{103.9}$. In addition, for a weak-key subset, whose size is $2^{117}$, the attack is more efficient and costs only $2^{77}$ time complexity. Those attacks do not threaten the full round (12 rounds) \textsc{Ascon}. </p>
+<blockquote>
+<p>本文评估了认证加密算法\Asco对抗立方体攻击的安全级别。由Dobraunig等人提交的\Asco是第三轮CAESAR竞赛中幸存的16个算法之一。立方体攻击方法最初由Dinur等人用于分析Keccak密钥模式。在CT-RSA 2015年会议上，Dobraunig等人将此方法应用于经过减少的5&#x2F;6轮\Asco，其结构与Keccak密钥模式相似。然而，对于\Asco来说，其非线性层更加复杂且状态更小，这使得攻击者难以选择足够的立方体变量，这些变量在第一轮之后不会相互相乘。这似乎就是为什么之前的最佳密钥恢复攻击针对的是经过减少的6轮\Asco的原因，而对于Keccak密钥模式（Keccak-MAC和Keyak），攻击轮次不少于第7轮。在本文中，我们推广了Huang等人提出的条件立方体攻击，并针对经过减少的5&#x2F;6轮\Asco找到了依赖于某些密钥位条件的新的立方体，并将之前的理论上的针对经过减少的6轮攻击的$2^{66}$的时间复杂度转化为具有实际可行性的$2^{40}$的时间复杂度。此外，我们首次提出了针对\Asco的针对经过减少的7轮的密钥恢复攻击。通过引入立方体类似密钥子集技术，我们根据不同的密钥条件将完整的密钥空间划分为多个子集。对于每个密钥子集，我们启动立方体测试器来确定密钥是否属于它。最后，我们通过测试所有密钥子集来恢复完整的密钥空间。总的时间复杂度大约是$2^{103.9}$。此外，对于大小为$2^{117}$的弱密钥子集，攻击更为有效且仅耗时$2^{77}$的时间复杂度。这些攻击不会威胁到经过完整设计（总共进行三轮加解）的完整的原始版的Ascon算法的安全性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.15172v1">PDF</a> </p>
+<p><strong>Summary</strong>：<br>本文评估了身份验证加密方法Ascón的安全性，采用立方体攻击方法进行研究。文章对Ascón进行了条件立方体攻击，提出了新的立方体结构，并将理论上的六轮攻击转化为实际攻击，降低了时间复杂度。同时，文章还提出了针对Ascón的首个七轮密钥恢复攻击，通过引入立方体密钥子集技术，将整个密钥空间划分为多个子集进行测试，最终恢复出完整的密钥空间。但攻击并不威胁到完整的Ascón安全性。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>Ascón通过了立方体攻击方法的评估。</li>
+<li>条件立方体攻击应用于Ascón的新立方体结构提出。</li>
+<li>将理论上的六轮攻击转化为实际攻击，时间复杂度降低。</li>
+<li>首次提出了针对Ascón的七轮密钥恢复攻击。</li>
+<li>通过立方体密钥子集技术将整个密钥空间划分为多个子集进行测试。</li>
+<li>最终成功恢复出完整的密钥空间，总时间复杂度约为$2^{103.9}$。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.15172">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-a0c8def00d742f948c37657aec6f9d7a.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-a03f874477c439a1184ec848c99de2d4.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-a65dd172e3e5a4715789b619f22ea7f7.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-1301aff1037872fa0ce3351763bd68ff.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-c1cf1c7f6869b63684e8fe7c8e700fcf.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="Cohort-Aware-Agents-for-Individualized-Lung-Cancer-Risk-Prediction-Using-a-Retrieval-Augmented-Model-Selection-Framework"><a href="#Cohort-Aware-Agents-for-Individualized-Lung-Cancer-Risk-Prediction-Using-a-Retrieval-Augmented-Model-Selection-Framework" class="headerlink" title="Cohort-Aware Agents for Individualized Lung Cancer Risk Prediction Using   a Retrieval-Augmented Model Selection Framework"></a>Cohort-Aware Agents for Individualized Lung Cancer Risk Prediction Using   a Retrieval-Augmented Model Selection Framework</h2><p><strong>Authors:Chongyu Qu, Allen J. Luna, Thomas Z. Li, Junchao Zhu, Junlin Guo, Juming Xiong, Kim L. Sandler, Bennett A. Landman, Yuankai Huo</strong></p>
+<p>Accurate lung cancer risk prediction remains challenging due to substantial variability across patient populations and clinical settings – no single model performs best for all cohorts. To address this, we propose a personalized lung cancer risk prediction agent that dynamically selects the most appropriate model for each patient by combining cohort-specific knowledge with modern retrieval and reasoning techniques. Given a patient’s CT scan and structured metadata – including demographic, clinical, and nodule-level features – the agent first performs cohort retrieval using FAISS-based similarity search across nine diverse real-world cohorts to identify the most relevant patient population from a multi-institutional database. Second, a Large Language Model (LLM) is prompted with the retrieved cohort and its associated performance metrics to recommend the optimal prediction algorithm from a pool of eight representative models, including classical linear risk models (e.g., Mayo, Brock), temporally-aware models (e.g., TDVIT, DLSTM), and multi-modal computer vision-based approaches (e.g., Liao, Sybil, DLS, DLI). This two-stage agent pipeline – retrieval via FAISS and reasoning via LLM – enables dynamic, cohort-aware risk prediction personalized to each patient’s profile. Building on this architecture, the agent supports flexible and cohort-driven model selection across diverse clinical populations, offering a practical path toward individualized risk assessment in real-world lung cancer screening. </p>
+<blockquote>
+<p>精确预测肺癌风险仍然是一个挑战，因为不同患者群体和临床环境之间存在很大的差异——没有任何单一模型适用于所有群体。为了解决这一问题，我们提出了一种个性化的肺癌风险预测代理，该代理通过结合特定人群的知识与现代检索和推理技术，动态为每位患者选择最合适的模型。给定患者的CT扫描和结构化元数据（包括人口统计、临床和结节级特征），代理首先使用基于FAISS的相似性搜索在九个多样化的真实世界群体中进行人群检索，以识别与多机构数据库中最相关的人群。其次，使用大型语言模型（LLM）根据检索到的群体及其相关性能指标，从八个代表性模型中推荐最佳的预测算法，包括经典线性风险模型（例如Mayo、Brock）、时间感知模型（例如TDVIT、DLSTM）和多模态计算机视觉方法（例如Liao、Sybil、DLS、DLI）。这种两阶段的代理管道——通过FAISS进行检索，通过LLM进行推理——实现了针对每个患者资料的动态、人群感知风险预测。基于这一架构，代理支持在多样化的临床人群中实现灵活和基于人群模型的选择，为真实世界肺癌筛查中的个性化风险评估提供了实际路径。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.14940v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>该文本介绍了一种个性化肺癌风险预测模型，它通过结合患者人群特定的知识以及现代检索和推理技术，针对每个患者动态选择最合适的预测模型。模型首先通过基于FAISS的相似性搜索在多个真实世界的患者人群中检索最相关的患者群体，然后使用大型语言模型（LLM）推荐最佳的预测算法。这种两阶段模型管道实现了针对每个患者个人资料的动态、人群感知的风险预测。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>肺癌风险预测具有挑战性，因为不同患者人群和临床环境之间存在很大的变异性。</li>
+<li>提出了一种个性化肺癌风险预测模型，能结合特定人群知识和现代检索及推理技术为患者动态选择最合适的预测模型。</li>
+<li>该模型首先使用基于FAISS的相似性搜索在多个真实世界的人群中检索最相关的患者群体。</li>
+<li>利用大型语言模型（LLM）推荐最佳预测算法，从八个代表性模型中选取。</li>
+<li>模型包括经典线性风险模型、时间感知模型和基于多模态计算机视觉的方法。</li>
+<li>该模型管道通过动态、人群感知的风险预测实现了个性化的风险评估。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.14940">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-02643eda2817bcee9fc6aee66b94dec2.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-401cfeec5ffc0725a1de2c129cf933f8.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-6993cc35db0e246b9fb29b865fea4bef.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-536954ecb68d3f79f317f64d583fc7cb.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="TOM-An-Open-Source-Tongue-Segmentation-Method-with-Multi-Teacher-Distillation-and-Task-Specific-Data-Augmentation"><a href="#TOM-An-Open-Source-Tongue-Segmentation-Method-with-Multi-Teacher-Distillation-and-Task-Specific-Data-Augmentation" class="headerlink" title="TOM: An Open-Source Tongue Segmentation Method with Multi-Teacher   Distillation and Task-Specific Data Augmentation"></a>TOM: An Open-Source Tongue Segmentation Method with Multi-Teacher   Distillation and Task-Specific Data Augmentation</h2><p><strong>Authors:Jiacheng Xie, Ziyang Zhang, Biplab Poudel, Congyu Guo, Yang Yu, Guanghui An, Xiaoting Tang, Lening Zhao, Chunhui Xu, Dong Xu</strong></p>
+<p>Tongue imaging serves as a valuable diagnostic tool, particularly in Traditional Chinese Medicine (TCM). The quality of tongue surface segmentation significantly affects the accuracy of tongue image classification and subsequent diagnosis in intelligent tongue diagnosis systems. However, existing research on tongue image segmentation faces notable limitations, and there is a lack of robust and user-friendly segmentation tools. This paper proposes a tongue image segmentation model (TOM) based on multi-teacher knowledge distillation. By incorporating a novel diffusion-based data augmentation method, we enhanced the generalization ability of the segmentation model while reducing its parameter size. Notably, after reducing the parameter count by 96.6% compared to the teacher models, the student model still achieves an impressive segmentation performance of 95.22% mIoU. Furthermore, we packaged and deployed the trained model as both an online and offline segmentation tool (available at <a target="_blank" rel="noopener" href="https://itongue.cn/">https://itongue.cn/</a>), allowing TCM practitioners and researchers to use it without any programming experience. We also present a case study on TCM constitution classification using segmented tongue patches. Experimental results demonstrate that training with tongue patches yields higher classification performance and better interpretability than original tongue images. To our knowledge, this is the first open-source and freely available tongue image segmentation tool. </p>
+<blockquote>
+<p>舌成像作为一种诊断工具，在中医中具有重要价值。舌表面分割的质量显著影响智能舌诊断系统中舌图像分类和随后诊断的准确性。然而，现有的舌图像分割研究面临显著局限性，缺乏稳健且用户友好的分割工具。本文提出了一种基于多教师知识蒸馏的舌图像分割模型（TOM）。通过引入一种新型基于扩散的数据增强方法，我们提高了分割模型的泛化能力，同时减小了其参数规模。值得注意的是，与教师模型相比，我们将参数数量减少了96.6%，学生模型仍实现了95.22%的mIoU分割性能。此外，我们将训练好的模型打包部署为一个在线和离线的分割工具（可在[<a target="_blank" rel="noopener" href="https://itongue.cn/%E8%AE%BF%E9%97%AE%EF%BC%89%EF%BC%8C%E4%BD%BF%E4%B8%AD%E5%8C%BB%E4%BB%8E%E4%B8%9A%E8%80%85%E5%92%8C%E7%A0%94%E7%A9%B6%E4%BA%BA%E5%91%98%E6%97%A0%E9%9C%80%E7%BC%96%E7%A8%8B%E7%BB%8F%E9%AA%8C%E5%8D%B3%E5%8F%AF%E4%BD%BF%E7%94%A8%E3%80%82%E6%88%91%E4%BB%AC%E8%BF%98%E5%B1%95%E7%A4%BA%E4%BA%86%E4%B8%80%E9%A1%B9%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8%E5%88%86%E5%89%B2%E8%88%8C%E7%89%87%E8%BF%9B%E8%A1%8C%E4%B8%AD%E5%8C%BB%E4%BD%93%E8%B4%A8%E5%88%86%E7%B1%BB%E7%9A%84%E6%A1%88%E4%BE%8B%E7%A0%94%E7%A9%B6%E3%80%82%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C%E8%A1%A8%E6%98%8E%EF%BC%8C%E4%BD%BF%E7%94%A8%E8%88%8C%E7%89%87%E8%BF%9B%E8%A1%8C%E8%AE%AD%E7%BB%83%E5%8F%AF%E4%BB%A5%E8%8E%B7%E5%BE%97%E6%AF%94%E4%BD%BF%E7%94%A8%E5%8E%9F%E5%A7%8B%E8%88%8C%E5%9B%BE%E5%83%8F%E6%9B%B4%E9%AB%98%E7%9A%84%E5%88%86%E7%B1%BB%E6%80%A7%E8%83%BD%E5%92%8C%E6%9B%B4%E5%A5%BD%E7%9A%84%E5%8F%AF%E8%A7%A3%E9%87%8A%E6%80%A7%E3%80%82%E6%8D%AE%E6%88%91%E4%BB%AC%E6%89%80%E7%9F%A5%EF%BC%8C%E8%BF%99%E6%98%AF%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%BC%80%E6%BA%90%E4%B8%94%E5%85%8D%E8%B4%B9%E4%BD%BF%E7%94%A8%E7%9A%84%E8%88%8C%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2%E5%B7%A5%E5%85%B7%E3%80%82">https://itongue.cn/访问），使中医从业者和研究人员无需编程经验即可使用。我们还展示了一项关于使用分割舌片进行中医体质分类的案例研究。实验结果表明，使用舌片进行训练可以获得比使用原始舌图像更高的分类性能和更好的可解释性。据我们所知，这是第一个开源且免费使用的舌图像分割工具。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.14932v1">PDF</a> Tongue segmentation, data augmentation, synthetic data for AI   training, prompt engineering, Segment Anything Model, knowledge distillation,   tongue classification</p>
+<p><strong>Summary</strong><br>     舌象成像在中医诊断中具有重要价值。本文提出了一种基于多教师知识蒸馏的舌图像分割模型（TOM），通过引入扩散式数据增强方法，提高了分割模型的泛化能力并减小了参数规模。该模型不仅在线和线下均可作为分割工具使用，而且实现了较高的分割性能。此外，研究还展示了使用分割舌斑进行中医体质分类的案例研究，结果表明使用舌斑进行训练可以提高分类性能和解释性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>舌象成像在中医诊断中具重要价值。</li>
+<li>现有舌图像分割技术存在局限性和缺乏稳健、用户友好的分割工具。</li>
+<li>本文提出了一种基于多教师知识蒸馏的舌图像分割模型（TOM）。</li>
+<li>引入扩散式数据增强方法，提高模型的泛化能力并减小参数规模。</li>
+<li>模型实现较高的分割性能，达到95.22%的mIoU。</li>
+<li>该模型被打包并部署为在线和线下分割工具，网址为<a target="_blank" rel="noopener" href="https://itongue.cn/%E3%80%82">https://itongue.cn/。</a></li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.14932">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-dc2c526f5bf91b3533e3f34f9bae8fe7.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-dcad6da5076022ee8ef1e0faa7254fb1.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Pixels-Under-Pressure-Exploring-Fine-Tuning-Paradigms-for-Foundation-Models-in-High-Resolution-Medical-Imaging"><a href="#Pixels-Under-Pressure-Exploring-Fine-Tuning-Paradigms-for-Foundation-Models-in-High-Resolution-Medical-Imaging" class="headerlink" title="Pixels Under Pressure: Exploring Fine-Tuning Paradigms for Foundation   Models in High-Resolution Medical Imaging"></a>Pixels Under Pressure: Exploring Fine-Tuning Paradigms for Foundation   Models in High-Resolution Medical Imaging</h2><p><strong>Authors:Zahra TehraniNasab, Amar Kumar, Tal Arbel</strong></p>
+<p>Advancements in diffusion-based foundation models have improved text-to-image generation, yet most efforts have been limited to low-resolution settings. As high-resolution image synthesis becomes increasingly essential for various applications, particularly in medical imaging domains, fine-tuning emerges as a crucial mechanism for adapting these powerful pre-trained models to task-specific requirements and data distributions. In this work, we present a systematic study, examining the impact of various fine-tuning techniques on image generation quality when scaling to high resolution 512x512 pixels. We benchmark a diverse set of fine-tuning methods, including full fine-tuning strategies and parameter-efficient fine-tuning (PEFT). We dissect how different fine-tuning methods influence key quality metrics, including Fr&#39;echet Inception Distance (FID), Vendi score, and prompt-image alignment. We also evaluate the utility of generated images in a downstream classification task under data-scarce conditions, demonstrating that specific fine-tuning strategies improve both generation fidelity and downstream performance when synthetic images are used for classifier training and evaluation on real images. Our code is accessible through the project website - <a target="_blank" rel="noopener" href="https://tehraninasab.github.io/PixelUPressure/">https://tehraninasab.github.io/PixelUPressure/</a>. </p>
+<blockquote>
+<p>基于扩散的基础模型的进步已经提高了文本到图像生成的能力，但大多数努力都局限于低分辨率环境。随着高分辨率图像合成在各个领域，特别是在医学影像领域变得越来越重要，微调作为一种适应这些强大预训练模型以满足特定任务和数据分布需求的机制显得至关重要。在这项工作中，我们进行了系统研究，探讨了各种微调技术对图像生成质量的影响，特别是在扩展到高分辨率（512x512像素）时。我们对一系列微调方法进行了基准测试，包括全微调策略和参数高效微调（PEFT）。我们分析了不同的微调方法如何影响关键的质量指标，包括Fréchet Inception Distance（FID）、Vendi分数和提示图像对齐。我们还评估了在数据稀缺条件下生成图像在下游分类任务中的实用性，证明了特定的微调策略在提高生成保真度和下游性能方面的作用，尤其是在使用合成图像进行分类器训练和评估真实图像时。我们的代码可通过项目网站访问：<a target="_blank" rel="noopener" href="https://tehraninasab.github.io/PixelUPressure/">网站链接</a>。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.14931v1">PDF</a> </p>
+<p><strong>Summary</strong><br>     本文研究了不同精细调整技术对高分辨率（512x512像素）图像生成质量的影响。文章探讨了多种精细调整方法，包括全精细调整策略和参数高效精细调整（PEFT）。研究结果表明，不同的精细调整方法会影响关键质量指标，如Fréchet Inception Distance（FID）、Vendi分数和提示图像对齐等。此外，在数据稀缺的条件下，对生成图像在下游分类任务中的实用性进行了评估，证明了特定的精细调整策略在提高生成图像保真度和下游性能方面的有效性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>扩散基础模型在文本到图像生成方面的进展已有所提升，但大多数努力仅限于低分辨率设置。</li>
+<li>高分辨率图像合成在各种应用，特别是在医学影像领域变得越来越重要。</li>
+<li>精细调整是适应这些强大预训练模型以符合特定任务和数据处理分布的关键机制。</li>
+<li>研究对多种精细调整方法进行了系统研究，包括全精细调整和参数高效精细调整（PEFT）。</li>
+<li>不同精细调整方法会影响图像生成的关键质量指标，如Fréchet Inception Distance（FID）、Vendi分数和提示图像对齐。</li>
+<li>在数据稀缺的条件下，生成图像在下游分类任务中的实用性得到了评估。</li>
+<li>特定的精细调整策略在提高生成图像的保真度和下游性能方面都表现出了有效性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.14931">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-24b5e255333bc23fe8e7fd6b3303f695.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-d298fd1b29c541fbe1a1072c0de8e9b7.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-8437485d2fa7378f378692998b70984b.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-254bac17c7d446ad0532493b44de52cf.jpg" align="middle">
+<img src="https://pica.zhimg.com/v2-76cda3b8341cd4a1101be33ae98eed77.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-385b0047c6b1694df75a6a175bb5b15b.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-10b945a712957721da21e7664d62509f.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="LV-Net-Anatomy-aware-lateral-ventricle-shape-modeling-with-a-case-study-on-Alzheimer’s-disease"><a href="#LV-Net-Anatomy-aware-lateral-ventricle-shape-modeling-with-a-case-study-on-Alzheimer’s-disease" class="headerlink" title="LV-Net: Anatomy-aware lateral ventricle shape modeling with a case study   on Alzheimer’s disease"></a>LV-Net: Anatomy-aware lateral ventricle shape modeling with a case study   on Alzheimer’s disease</h2><p><strong>Authors:Wonjung Park, Suhyun Ahn, Jinah Park</strong></p>
+<p>Lateral ventricle (LV) shape analysis holds promise as a biomarker for neurological diseases; however, challenges remain due to substantial shape variability across individuals and segmentation difficulties arising from limited MRI resolution. We introduce LV-Net, a novel framework for producing individualized 3D LV meshes from brain MRI by deforming an anatomy-aware joint LV-hippocampus template mesh. By incorporating anatomical relationships embedded within the joint template, LV-Net reduces boundary segmentation artifacts and improves reconstruction robustness. In addition, by classifying the vertices of the template mesh based on their anatomical adjacency, our method enhances point correspondence across subjects, leading to more accurate LV shape statistics. We demonstrate that LV-Net achieves superior reconstruction accuracy, even in the presence of segmentation imperfections, and delivers more reliable shape descriptors across diverse datasets. Finally, we apply LV-Net to Alzheimer’s disease analysis, identifying LV subregions that show significantly associations with the disease relative to cognitively normal controls. The codes for LV shape modeling are available at <a target="_blank" rel="noopener" href="https://github.com/PWonjung/LV_Shape_Modeling">https://github.com/PWonjung/LV_Shape_Modeling</a>. </p>
+<blockquote>
+<p>侧脑室（LV）形态分析作为神经疾病的生物标志物具有广阔前景，但由于个体间形态差异较大以及MRI分辨率有限导致的分割困难，仍存在挑战。我们引入了LV-Net，这是一个新型框架，通过变形一个了解结构的联合LV-海马模板网格，从脑部MRI生成个性化的3D LV网格。通过融入联合模板内的结构关系，LV-Net减少了边界分割伪影，提高了重建的稳健性。此外，通过基于其结构邻接对模板网格的顶点进行分类，我们的方法增强了不同受试者间的点对应关系，从而得到更准确的LV形态统计。我们证明，即使在存在分割缺陷的情况下，LV-Net也能实现较高的重建精度，并在各种数据集中提供更可靠的形状描述符。最后，我们将LV-Net应用于阿尔茨海默病分析，识别出与认知正常对照相比，与疾病显著相关的LV子区域。LV形态建模的代码可在<a target="_blank" rel="noopener" href="https://github.com/PWonjung/LV_Shape_Modeling%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/PWonjung/LV_Shape_Modeling找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.06055v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>基于医学图像的研究，LV（侧脑室）形状分析作为神经性疾病的生物标志物具有潜力，但仍然存在挑战，如个体间形状差异大以及MRI分辨率限制导致的分割困难。本文引入LV-Net框架，通过变形解剖联合LV-海马模板网格，从脑部MRI生成个性化3D LV网格。LV-Net利用联合模板中的解剖关系，减少了边界分割伪影，提高了重建的稳健性。此外，该方法通过对模板网格的顶点按其解剖部位进行分类，增强了跨主体的点对应关系，从而获得更准确的LV形状统计信息。实验表明，LV-Net即使在存在分割缺陷的情况下也能实现较高的重建精度，并且在不同的数据集中提供更可靠的形状描述。最后，LV-Net在阿尔茨海默病分析中的应用，识别出与正常认知对照组相比，与疾病密切相关的LV子区域。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>LV（侧脑室）形状分析作为神经性疾病的生物标志物具有潜力，但仍面临个体间形状差异及MRI分辨率限制的挑战。</li>
+<li>LV-Net框架能够生成个性化的3D LV网格，通过变形解剖联合LV-海马模板网格实现。</li>
+<li>LV-Net利用解剖关系减少边界分割伪影，提高重建稳健性。</li>
+<li>通过分类模板网格的顶点，LV-Net增强跨主体点对应关系，获得更准确LV形状统计。</li>
+<li>LV-Net实现高重建精度，即使在存在分割缺陷的情况下。</li>
+<li>LV-Net提供可靠形状描述，适用于不同数据集。</li>
+<li>LV-Net成功应用于阿尔茨海默病分析，识别出与疾病相关的LV子区域。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.06055">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-33c0526247fb38285ada9022f7d84318.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-cbaaee67cc94ff96ddb71af6a305f93e.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-1210d3c13b4375a4d2010cbd19704150.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-77d5acbe19955fed079a0ed47b1db8eb.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-1b66ea3cfcfafc6271a4766387036dd0.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="Discriminating-Distal-Ischemic-Stroke-from-Seizure-Induced-Stroke-Mimics-Using-Dynamic-Susceptibility-Contrast-MRI"><a href="#Discriminating-Distal-Ischemic-Stroke-from-Seizure-Induced-Stroke-Mimics-Using-Dynamic-Susceptibility-Contrast-MRI" class="headerlink" title="Discriminating Distal Ischemic Stroke from Seizure-Induced Stroke Mimics   Using Dynamic Susceptibility Contrast MRI"></a>Discriminating Distal Ischemic Stroke from Seizure-Induced Stroke Mimics   Using Dynamic Susceptibility Contrast MRI</h2><p><strong>Authors:Marijn Borghouts, Richard McKinley, Manuel Köstner, Josien Pluim, Roland Wiest, Ruisheng Su</strong></p>
+<p>Distinguishing acute ischemic strokes (AIS) from stroke mimics (SMs), particularly in cases involving medium and small vessel occlusions, remains a significant diagnostic challenge. While computed tomography (CT) based protocols are commonly used in emergency settings, their sensitivity for detecting distal occlusions is limited. This study explores the potential of magnetic resonance perfusion (MRP) imaging as a tool for differentiating distal AIS from epileptic seizures, a prevalent SM. Using a retrospective dataset of 162 patients (129 AIS, 33 seizures), we extracted region-wise perfusion map descriptors (PMDs) from dynamic susceptibility contrast (DSC) images. Statistical analyses identified several brain regions, located mainly in the temporal and occipital lobe, exhibiting significant group differences in certain PMDs. Hemispheric asymmetry analyses further highlighted these regions as discriminative. A logistic regression model trained on PMDs achieved an area under the receiver operating characteristic (AUROC) curve of 0.90, and an area under the precision recall curve (AUPRC) of 0.74, with a specificity of 92% and a sensitivity of 73%, suggesting strong performance in distinguishing distal AIS from seizures. These findings support further exploration of MRP-based PMDs as interpretable features for distinguishing true strokes from various mimics. The code is openly available at our GitHub <a target="_blank" rel="noopener" href="https://github.com/Marijn311/PMD_extraction_and_analysis%7Bgithub.com/Marijn311/PMD/_extraction/_and/_analysis">https://github.com/Marijn311/PMD_extraction_and_analysis{github.com/Marijn311/PMD\_extraction\_and\_analysis</a> </p>
+<blockquote>
+<p>在急性缺血性中风（AIS）与中风模仿者（SMs）之间进行区分，特别是在涉及中、小血管闭塞的情况下，仍然是一个重要的诊断挑战。虽然基于计算机断层扫描（CT）的协议在紧急情况下常用，但其在检测远端闭塞方面的敏感性有限。本研究探讨了磁共振灌注（MRP）成像在区分远端AIS与常见SM癫痫发作方面的潜力。通过回顾分析包含129例AIS和33例癫痫发作的162例患者数据集，我们从动态易感性对比图像中提取区域灌注映射描述符（PMDs）。统计分析发现主要位于颞叶和枕叶的某些大脑区域在某些PMDs上存在显著的群体差异。半球不对称分析进一步强调了这些区域的鉴别作用。使用PMD训练的逻辑回归模型在受试者工作特征曲线（AUROC）下的面积达到0.90，在精确度召回曲线（AUPRC）下的面积达到0.74，特异度为92%，灵敏度为73%，在区分远端AIS与癫痫发作方面表现出良好的性能。这些发现支持进一步探索基于MRP的PMD作为区分真实中风与各种模仿者的可解释特征。代码公开在我们的GitHub上可用：<a target="_blank" rel="noopener" href="https://github.com/Marijn311/PMD_extraction_and_analysis">github.com&#x2F;Marijn311&#x2F;PMD_extraction_and_analysis</a>。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.04404v2">PDF</a> Accepted to SWITCH2025</p>
+<p><strong>Summary</strong></p>
+<p>本研究探讨了磁共振灌注（MRP）成像在区分远端急性缺血性脑卒中（AIS）与常见的卒中模仿（SM）——癫痫发作为例的潜力。通过对动态磁敏感对比（DSC）图像的区域灌注图描述符（PMDs）的分析，研究在位于颞叶和枕叶等主要区域的特定PMDs表现出显著的组间差异。一个基于PMDs的逻辑回归模型在区分远端AIS与癫痫发作方面表现出良好的性能，其ROC曲线下的面积为0.90，精确度召回曲线下的面积为0.74，特异度为92%，敏感度为73%。这为进一步探索基于MRP的PMDs作为区分真实卒中与各种模仿的可解释特征提供了支持。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>急性缺血性脑卒中（AIS）与卒中模仿（SM）之间的诊断仍然具有挑战性，特别是在涉及中小血管闭塞的情况下。</li>
+<li>计算机断层扫描（CT）在检测远端闭塞方面的灵敏度有限。</li>
+<li>本研究使用磁共振灌注（MRP）成像来区分远端AIS和常见的SM——癫痫发作。</li>
+<li>通过动态磁敏感对比（DSC）图像分析，发现某些大脑区域的灌注图描述符（PMDs）存在显著的组间差异。</li>
+<li>这些差异在颞叶和枕叶等主要区域尤为明显。</li>
+<li>基于PMDs的逻辑回归模型在区分远端AIS与癫痫发作方面表现出良好的性能，ROC曲线下的面积为0.90。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.04404">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-bce5b49a639e97b110dfcc487a5fe8a2.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-6b795dafe913f2a29bc42196e705d42a.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-8432043833d4cc8e8270253d155b091f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-828cdd3087da5565b3ef7747149e2388.jpg" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="Cross-Modality-Masked-Learning-for-Survival-Prediction-in-ICI-Treated-NSCLC-Patients"><a href="#Cross-Modality-Masked-Learning-for-Survival-Prediction-in-ICI-Treated-NSCLC-Patients" class="headerlink" title="Cross-Modality Masked Learning for Survival Prediction in ICI Treated   NSCLC Patients"></a>Cross-Modality Masked Learning for Survival Prediction in ICI Treated   NSCLC Patients</h2><p><strong>Authors:Qilong Xing, Zikai Song, Bingxin Gong, Lian Yang, Junqing Yu, Wei Yang</strong></p>
+<p>Accurate prognosis of non-small cell lung cancer (NSCLC) patients undergoing immunotherapy is essential for personalized treatment planning, enabling informed patient decisions, and improving both treatment outcomes and quality of life. However, the lack of large, relevant datasets and effective multi-modal feature fusion strategies pose significant challenges in this domain. To address these challenges, we present a large-scale dataset and introduce a novel framework for multi-modal feature fusion aimed at enhancing the accuracy of survival prediction. The dataset comprises 3D CT images and corresponding clinical records from NSCLC patients treated with immune checkpoint inhibitors (ICI), along with progression-free survival (PFS) and overall survival (OS) data. We further propose a cross-modality masked learning approach for medical feature fusion, consisting of two distinct branches, each tailored to its respective modality: a Slice-Depth Transformer for extracting 3D features from CT images and a graph-based Transformer for learning node features and relationships among clinical variables in tabular data. The fusion process is guided by a masked modality learning strategy, wherein the model utilizes the intact modality to reconstruct missing components. This mechanism improves the integration of modality-specific features, fostering more effective inter-modality relationships and feature interactions. Our approach demonstrates superior performance in multi-modal integration for NSCLC survival prediction, surpassing existing methods and setting a new benchmark for prognostic models in this context. </p>
+<blockquote>
+<p>对接受免疫治疗的非小细胞肺癌（NSCLC）患者进行准确的预后评估对于个性化治疗计划的制定、患者决策的知情以及改善治疗结果和生活质量至关重要。然而，缺乏相关的大型数据集和有效的多模式特征融合策略，给这一领域带来了重大挑战。为了应对这些挑战，我们提出了一个大规模的数据集，并介绍了一个旨在提高生存预测准确性的多模式特征融合的新框架。数据集包含接受免疫检查点抑制剂（ICI）治疗的NSCLC患者的3D CT图像和相应的临床记录，以及无进展生存（PFS）和总生存（OS）数据。我们还提出了一种用于医学特征融合的跨模态掩膜学习方法，包括两个针对其各自模态的分支：一个切片深度转换器，用于从CT图像中提取3D特征；一个基于图的转换器，用于学习节点特征和表格数据中的临床变量之间的关系。融合过程由掩膜模态学习策略引导，该策略使模型利用完整模态来重建缺失组件。这种机制改善了模态特定特征的集成，促进了更有效的跨模态关系和特征交互。我们的方法在NSCLC生存预测的多模式集成中展示了卓越的性能，超越了现有方法，为这一背景下的预后模型设定了新的基准。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.06994v2">PDF</a> MICCAI 2025</p>
+<p><strong>摘要</strong><br>肺癌精准预后预测在个性化治疗、患者决策以及治疗成果与质量提升等方面都具有重要作用。面对相关数据集缺失以及多模态特征融合策略的局限性等挑战，我们提出了一个大型数据集与新型多模态特征融合框架来提高生存预测的准确性。数据集涵盖了接受免疫检查点抑制剂治疗的非小细胞肺癌患者的3D CT图像、相关临床记录以及无进展生存和总生存数据。我们进一步提出了跨模态掩膜学习方法进行医学特征融合，包括针对两种不同模态的专门分支：用于从CT图像中提取3D特征的Slice-Depth Transformer，以及用于学习临床变量节点特征和关系的图基Transformer。融合过程由掩膜模态学习策略引导，该策略使模型利用完整模态来重建缺失部分，提高了模态特定特征的集成，促进了跨模态的有效关系和特征交互。我们的方法在NSCLC生存预测的多模态融合中表现出卓越性能，超越了现有方法，为这一领域的预后模型设定了新的基准。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>非小细胞肺癌的精准预后预测对个性化治疗与患者决策至关重要。</li>
+<li>缺乏大型相关数据集和多模态特征融合策略是当前的挑战。</li>
+<li>提出了一种大型数据集，包含接受免疫检查点抑制剂治疗的NSCLC患者的3D图像和临床记录。</li>
+<li>介绍了一种新型多模态特征融合框架，旨在提高生存预测的准确性。</li>
+<li>提出了跨模态掩膜学习方法进行医学特征融合，包括Slice-Depth Transformer和图基Transformer。</li>
+<li>融合过程采用掩膜模态学习策略，提高了模态特征的集成。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.06994">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-246ea51e25e85e52ed37d318368844f2.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-f6a91c6b1ccc6d77ad6e8601895211e4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-42ad508ede0e6fb7a61e6d81ea77d246.jpg" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="MCA-RG-Enhancing-LLMs-with-Medical-Concept-Alignment-for-Radiology-Report-Generation"><a href="#MCA-RG-Enhancing-LLMs-with-Medical-Concept-Alignment-for-Radiology-Report-Generation" class="headerlink" title="MCA-RG: Enhancing LLMs with Medical Concept Alignment for Radiology   Report Generation"></a>MCA-RG: Enhancing LLMs with Medical Concept Alignment for Radiology   Report Generation</h2><p><strong>Authors:Qilong Xing, Zikai Song, Youjia Zhang, Na Feng, Junqing Yu, Wei Yang</strong></p>
+<p>Despite significant advancements in adapting Large Language Models (LLMs) for radiology report generation (RRG), clinical adoption remains challenging due to difficulties in accurately mapping pathological and anatomical features to their corresponding text descriptions. Additionally, semantic agnostic feature extraction further hampers the generation of accurate diagnostic reports. To address these challenges, we introduce Medical Concept Aligned Radiology Report Generation (MCA-RG), a knowledge-driven framework that explicitly aligns visual features with distinct medical concepts to enhance the report generation process. MCA-RG utilizes two curated concept banks: a pathology bank containing lesion-related knowledge, and an anatomy bank with anatomical descriptions. The visual features are aligned with these medical concepts and undergo tailored enhancement. We further propose an anatomy-based contrastive learning procedure to improve the generalization of anatomical features, coupled with a matching loss for pathological features to prioritize clinically relevant regions. Additionally, a feature gating mechanism is employed to filter out low-quality concept features. Finally, the visual features are corresponding to individual medical concepts, and are leveraged to guide the report generation process. Experiments on two public benchmarks (MIMIC-CXR and CheXpert Plus) demonstrate that MCA-RG achieves superior performance, highlighting its effectiveness in radiology report generation. </p>
+<blockquote>
+<p>尽管在将大型语言模型（LLM）适应于放射学报告生成（RRG）方面取得了重大进展，但由于将病理和解剖特征准确映射到相应的文本描述中的困难，其在临床上的应用仍然具有挑战性。此外，语义无关的特征提取进一步阻碍了准确诊断报告的生成。为了解决这些挑战，我们引入了医学概念对齐放射学报告生成（MCA-RG），这是一个知识驱动框架，通过明确地将视觉特征与独特的医学概念对齐，以增强报告生成过程。MCA-RG利用两个精选的概念库：一个包含病变相关知识的病理库和一个包含解剖描述的解剖库。视觉特征与这些医学概念对齐，并进行有针对性的增强。我们进一步提出了一种基于解剖学的对比学习程序，以提高解剖特征的泛化能力，并结合病理特征的匹配损失来优先处理临床相关区域。此外，还采用了特征门控机制来过滤掉低质量的概念特征。最后，将视觉特征与单个医学概念相对应，并用于指导报告生成过程。在两个公共基准测试（MIMIC-CXR和CheXpert Plus）上的实验表明，MCA-RG取得了卓越的性能，突显其在放射学报告生成中的有效性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.06992v2">PDF</a> MICCAI 2025</p>
+<p><strong>Summary</strong><br>医学图像报告生成领域虽然已有大型语言模型的应用尝试，但由于病理和解剖特征与文本描述之间的映射困难以及语义无关的特征提取问题，临床采纳仍面临挑战。为解决这些问题，我们提出医学概念对齐的放射学报告生成框架（MCA-RG），通过明确对齐视觉特征与特定的医学概念来强化报告生成过程。该框架利用两个精选的概念库：包含病变相关知识的病理学库和包含解剖学描述的解剖学库。实验结果表明，MCA-RG在公开数据集上表现优越。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>LLMs在放射学报告生成中的应用面临病理和解剖特征与文本映射困难的问题。</li>
+<li>MCA-RG是一个知识驱动框架，旨在解决上述问题，通过明确对齐视觉特征与医学概念来强化报告生成。</li>
+<li>框架包含两个概念库：病理学库和解剖学库，用于对齐视觉特征。</li>
+<li>解剖学对比学习程序和匹配损失用于改善特征泛化能力和关注临床重要区域。</li>
+<li>特征门控机制用于过滤低质量概念特征。</li>
+<li>实验结果证明MCA-RG在放射学报告生成中的优越性。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.06992">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-4ab59bf4a3c405444b804ad988e4e236.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-872b9774df4bb8a8be8b77965a2f750f.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-9dfa6df4a223444bbe292cc0df5aa4d3.jpg" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1><h2 id="Physics-Driven-Autoregressive-State-Space-Models-for-Medical-Image-Reconstruction"><a href="#Physics-Driven-Autoregressive-State-Space-Models-for-Medical-Image-Reconstruction" class="headerlink" title="Physics-Driven Autoregressive State Space Models for Medical Image   Reconstruction"></a>Physics-Driven Autoregressive State Space Models for Medical Image   Reconstruction</h2><p><strong>Authors:Bilal Kabas, Fuat Arslan, Valiyeh A. Nezhad, Saban Ozturk, Emine U. Saritas, Tolga Çukur</strong></p>
+<p>Medical image reconstruction from undersampled acquisitions is an ill-posed inverse problem requiring accurate recovery of anatomical structures from incomplete measurements. Physics-driven (PD) network models have gained prominence for this task by integrating data-consistency mechanisms with learned priors, enabling improved performance over purely data-driven approaches. However, reconstruction quality still hinges on the network’s ability to disentangle artifacts from true anatomical signals-both of which exhibit complex, multi-scale contextual structure. Convolutional neural networks (CNNs) capture local correlations but often struggle with non-local dependencies. While transformers aim to alleviate this limitation, practical implementations involve design compromises to reduce computational cost by balancing local and non-local sensitivity, occasionally resulting in performance comparable to CNNs. To address these challenges, we propose MambaRoll, a novel physics-driven autoregressive state space model (SSM) for high-fidelity and efficient image reconstruction. MambaRoll employs an unrolled architecture where each cascade autoregressively predicts finer-scale feature maps conditioned on coarser-scale representations, enabling consistent multi-scale context propagation. Each stage is built on a hierarchy of scale-specific PD-SSM modules that capture spatial dependencies while enforcing data consistency through residual correction. To further improve scale-aware learning, we introduce a Deep Multi-Scale Decoding (DMSD) loss, which provides supervision at intermediate spatial scales in alignment with the autoregressive design. Demonstrations on accelerated MRI and sparse-view CT reconstructions show that MambaRoll consistently outperforms state-of-the-art CNN-, transformer-, and SSM-based methods. </p>
+<blockquote>
+<p>从欠采样采集中进行医学图像重建是一个不适定的逆问题，需要从不完全的测量中准确恢复解剖结构。物理驱动（PD）网络模型通过整合数据一致性和学习先验机制而在此任务中崭露头角，相比纯粹的数据驱动方法实现了性能提升。然而，重建质量仍然取决于网络区分伪影和真实解剖信号的能力，这两者都表现出复杂的多尺度上下文结构。卷积神经网络（CNN）能够捕捉局部相关性，但经常对非局部依赖性处理得吃力。虽然变压器旨在缓解这一局限性，但实际应用中的实现需要在减少计算成本的同时平衡局部和非局部敏感性，偶尔会导致性能与CNN相当。为了应对这些挑战，我们提出了MambaRoll，这是一种用于高保真和高效图像重建的新型物理驱动自回归状态空间模型（SSM）。MambaRoll采用展开架构，其中每个级联自回归预测基于较粗糙尺度表示的较细尺度特征图，从而实现一致的多尺度上下文传播。每个阶段都建立在层次化的尺度特定PD-SSM模块上，这些模块能够捕获空间依赖性，同时通过残差修正来强制数据一致性。为了进一步提高尺度感知学习，我们引入了深度多尺度解码（DMSD）损失，该损失在自回归设计的中间空间尺度上提供监督。在加速MRI和稀疏视图CT重建的演示中，MambaRoll始终优于最先进的CNN、变压器和SSM方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.09331v3">PDF</a> 10 pages, 10 figures</p>
+<p><strong>摘要</strong></p>
+<p>本文提出一种名为MambaRoll的新型物理驱动自回归状态空间模型（SSM），用于高保真和高效的医学图像重建。该模型采用解卷架构，每个阶段自回归地预测更精细尺度的特征图，这些预测基于较粗糙尺度的表示，从而实现一致的多尺度上下文传播。每个阶段都建立在层次化的尺度特定PD-SSM模块上，这些模块在捕获空间依赖性的同时，通过残差校正强制执行数据一致性。为进一步提高尺度感知学习，引入深度多尺度解码（DMSD）损失，在自回归设计对齐的中间空间尺度上提供监督。在加速MRI和稀疏视图CT重建的演示中，MambaRoll一致地优于基于CNN、transformer和SSM的方法。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>医学图像重建是从不完全测量中准确恢复解剖结构的一个不适定逆问题。</li>
+<li>物理驱动（PD）网络模型通过整合数据一致性与学习先验，在医学图像重建任务中表现优异。</li>
+<li>现有方法（如卷积神经网络和变压器）在解决非局部依赖性和多尺度上下文结构方面存在挑战。</li>
+<li>MambaRoll模型采用自回归状态空间模型（SSM）架构，旨在实现高保真和高效的图像重建。</li>
+<li>MambaRoll在每个阶段使用层次化的尺度特定PD-SSM模块，捕获空间依赖性并强制执行数据一致性。</li>
+<li>引入深度多尺度解码（DMSD）损失，以改进尺度感知学习并符合自回归设计。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.09331">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic1.zhimg.com/v2-1de9fc933a4964be4d76fba26a831bb0.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-0e9a09825a1dd78af938042a11c2a2a3.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-ae5a8d36dc036d075467db1dcfc56574.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-1770dcf3a4d3f41b383313db5778a6d1.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-2b116141a43095928fe2764299ddee60.jpg" align="middle">
+</details>
+
+
+<h1 id="-14"><a href="#-14" class="headerlink" title=""></a></h1><h2 id="Kinetic-Diffusion-Rotation-Algorithm-for-Dose-Estimation-in-Electron-Beam-Therapy"><a href="#Kinetic-Diffusion-Rotation-Algorithm-for-Dose-Estimation-in-Electron-Beam-Therapy" class="headerlink" title="Kinetic-Diffusion-Rotation Algorithm for Dose Estimation in Electron   Beam Therapy"></a>Kinetic-Diffusion-Rotation Algorithm for Dose Estimation in Electron   Beam Therapy</h2><p><strong>Authors:Klaas Willems, Vince Maes, Zhirui Tang, Giovanni Samaey</strong></p>
+<p>Monte Carlo methods are state-of-the-art when it comes to dosimetric computations in radiotherapy. However, the execution time of these methods suffers in high-collisional regimes. We address this problem by introducing a kinetic-diffusion particle tracing scheme. This algorithm, first proposed in the context of neutral transport in fusion energy, relies on explicit simulation of the kinetic motion in low-collisional regimes and dynamically switches to motion based on a random walk in high-collisional regimes. The random walk motion maintains the first two moments (mean and variance) of the kinetic motion. We derive an analytic formula for the mean kinetic motion and discuss the addition of a multiple scattering distribution to the algorithm. In contrast to neutral transport, the radiation transfer setting does not readily admit to an analytical expression for the variance of the kinetic motion, and we therefore resort to the use of a lookup table. We test the algorithm for dosimetric computations in radiation therapy on a 2D CT scan of a lung patient. Using a simple particle model, our Python implementation of the algorithm is nearly 33 times faster than an equivalent kinetic simulation at the cost of a small modeling error. </p>
+<blockquote>
+<p>蒙特卡洛方法在放射治疗剂量计算方面属于最先进技术。然而，这些方法的执行时间在碰撞率较高的情况下会受到很大影响。我们通过引入一种动力学扩散粒子追踪方案来解决这个问题。该算法最初在核聚变能量中的中性粒子传输背景下提出，依赖于在低碰撞率环境中显式模拟动力学运动，并在高碰撞率环境中动态切换到基于随机游走的运动。随机游走运动保持了动力学运动的前两个矩（均值和方差）。我们为平均动力学运动推导了一个分析公式，并讨论了向算法中添加多重散射分布的问题。与中性粒子传输不同，辐射传输设置不便于接受动力学运动的方差的分析表达式，因此我们使用查找表。我们在肺部患者的2D CT扫描上测试了该算法在放射治疗剂量计算中的应用。使用简单的粒子模型，我们的算法Python实现比等效动力学模拟速度快近33倍，只需付出较小的建模误差代价。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.05063v3">PDF</a> </p>
+<p><strong>Summary</strong><br>     针对放疗中的剂量计算，提出一种基于动力学扩散粒子追踪方案的蒙特卡罗方法改进算法。该算法在低碰撞体制下显式模拟动力学运动，并在高碰撞体制下采用基于随机游走的运动。通过推导平均动力学运动的解析公式，并加入多重散射分布，在辐射传输环境中实现了快速且相对准确的剂量计算。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>蒙特卡罗方法在放疗剂量计算中处于前沿地位，但在高碰撞体制下执行时间较长。</li>
+<li>提出一种基于动力学扩散粒子追踪方案的算法，解决这一问题。</li>
+<li>该算法在低碰撞体制下显式模拟动力学运动，并在高碰撞体制下采用随机游走运动。</li>
+<li>算法通过推导平均动力学运动的解析公式，并加入多重散射分布，提高计算准确性。</li>
+<li>辐射传输环境不支持对动力学运动的方差进行解析表达式计算，因此采用查找表。</li>
+<li>在二维肺部CT扫描上测试该算法进行放疗剂量计算。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.05063">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-375d598d512b74db1258117d8c679465.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-52fe3f0b5d558ed2fbfcd39872b2a201.jpg" align="middle">
+</details>
+
+
+<h1 id="-15"><a href="#-15" class="headerlink" title=""></a></h1><h2 id="From-Few-to-More-Scribble-based-Medical-Image-Segmentation-via-Masked-Context-Modeling-and-Continuous-Pseudo-Labels"><a href="#From-Few-to-More-Scribble-based-Medical-Image-Segmentation-via-Masked-Context-Modeling-and-Continuous-Pseudo-Labels" class="headerlink" title="From Few to More: Scribble-based Medical Image Segmentation via Masked   Context Modeling and Continuous Pseudo Labels"></a>From Few to More: Scribble-based Medical Image Segmentation via Masked   Context Modeling and Continuous Pseudo Labels</h2><p><strong>Authors:Zhisong Wang, Yiwen Ye, Ziyang Chen, Minglei Shu, Yanning Zhang, Yong Xia</strong></p>
+<p>Scribble-based weakly supervised segmentation methods have shown promising results in medical image segmentation, significantly reducing annotation costs. However, existing approaches often rely on auxiliary tasks to enforce semantic consistency and use hard pseudo labels for supervision, overlooking the unique challenges faced by models trained with sparse annotations. These models must predict pixel-wise segmentation maps from limited data, making it crucial to handle varying levels of annotation richness effectively. In this paper, we propose MaCo, a weakly supervised model designed for medical image segmentation, based on the principle of “from few to more.” MaCo leverages Masked Context Modeling (MCM) and Continuous Pseudo Labels (CPL). MCM employs an attention-based masking strategy to perturb the input image, ensuring that the model’s predictions align with those of the original image. CPL converts scribble annotations into continuous pixel-wise labels by applying an exponential decay function to distance maps, producing confidence maps that represent the likelihood of each pixel belonging to a specific category, rather than relying on hard pseudo labels. We evaluate MaCo on three public datasets, comparing it with other weakly supervised methods. Our results show that MaCo outperforms competing methods across all datasets, establishing a new record in weakly supervised medical image segmentation. </p>
+<blockquote>
+<p>基于涂画弱监督的分割方法在汽车图像分割方面展现出了良好的结果，显著降低了标注成本。然而，现有方法通常依赖辅助任务来强制执行语义一致性，并使用硬伪标签进行监督，从而忽略了用稀疏注释训练的模型所面临的独特挑战。这些模型必须从有限数据中预测像素级的分割图，因此有效处理不同级别的注释丰富度至关重要。在本文中，我们提出了MaCo，这是一种为医学图像分割设计的弱监督模型，基于“从少到多”的原则。MaCo利用掩模上下文建模（MCM）和连续伪标签（CPL）。MCM采用基于注意力的掩模策略来扰动输入图像，确保模型的预测与原始图像的预测一致。CPL通过应用指数衰减函数将涂画注释转换为连续的像素级标签，生成置信图，表示每个像素属于特定类别的可能性，而不是依赖硬伪标签。我们在三个公共数据集上评估了MaCo，并将其与其他弱监督方法进行了比较。结果表明，MaCo在所有数据集上的表现均优于其他方法，在弱监督医学图像分割方面创造了新的纪录。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2408.12814v2">PDF</a> 13 pages, 10 figures, 10 tables, JBHI</p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种基于弱监督的医学图像分割模型MaCo，采用“从少到多”的设计原则。模型结合Masked Context Modeling（MCM）和Continuous Pseudo Labels（CPL）技术，有效处理稀疏标注数据，预测像素级分割图。实验证明，MaCo在三个公开数据集上的表现均超越其他弱监督方法，创下了新的纪录。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Scribble-based弱监督分割方法在医学图像分割中展现出降低标注成本的优势。</li>
+<li>现有方法常借助辅助任务来加强语义一致性，但忽视了稀疏标注数据带来的挑战。</li>
+<li>MaCo模型利用Masked Context Modeling（MCM）和Continuous Pseudo Labels（CPL）技术应对挑战。</li>
+<li>MCM通过注意力机制干扰输入图像，确保模型预测与原始图像一致。</li>
+<li>CPL将涂鸦标注转化为连续的像素级标签，通过指数衰减函数生成置信图。</li>
+<li>MaCo模型在三个公开数据集上的表现优于其他弱监督方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2408.12814">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pica.zhimg.com/v2-ccdb8f6ce9b8801210c1a602ffc13349.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-0fe36c1b35274c09d7ac96da113f4174.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-31c19c70afa172eb462b47d3cafeadf3.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-1de92d5bdab8f19bc9b36b6fcd2b2988.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-bb65e798f2f120f8dffcb2c51208edd9.jpg" align="middle">
+</details>
+
+
+<h1 id="-16"><a href="#-16" class="headerlink" title=""></a></h1><h2 id="Fast-DDPM-Fast-Denoising-Diffusion-Probabilistic-Models-for-Medical-Image-to-Image-Generation"><a href="#Fast-DDPM-Fast-Denoising-Diffusion-Probabilistic-Models-for-Medical-Image-to-Image-Generation" class="headerlink" title="Fast-DDPM: Fast Denoising Diffusion Probabilistic Models for Medical   Image-to-Image Generation"></a>Fast-DDPM: Fast Denoising Diffusion Probabilistic Models for Medical   Image-to-Image Generation</h2><p><strong>Authors:Hongxu Jiang, Muhammad Imran, Teng Zhang, Yuyin Zhou, Muxuan Liang, Kuang Gong, Wei Shao</strong></p>
+<p>Denoising diffusion probabilistic models (DDPMs) have achieved unprecedented success in computer vision. However, they remain underutilized in medical imaging, a field crucial for disease diagnosis and treatment planning. This is primarily due to the high computational cost associated with (1) the use of large number of time steps (e.g., 1,000) in diffusion processes and (2) the increased dimensionality of medical images, which are often 3D or 4D. Training a diffusion model on medical images typically takes days to weeks, while sampling each image volume takes minutes to hours. To address this challenge, we introduce Fast-DDPM, a simple yet effective approach capable of improving training speed, sampling speed, and generation quality simultaneously. Unlike DDPM, which trains the image denoiser across 1,000 time steps, Fast-DDPM trains and samples using only 10 time steps. The key to our method lies in aligning the training and sampling procedures to optimize time-step utilization. Specifically, we introduced two efficient noise schedulers with 10 time steps: one with uniform time step sampling and another with non-uniform sampling. We evaluated Fast-DDPM across three medical image-to-image generation tasks: multi-image super-resolution, image denoising, and image-to-image translation. Fast-DDPM outperformed DDPM and current state-of-the-art methods based on convolutional networks and generative adversarial networks in all tasks. Additionally, Fast-DDPM reduced the training time to 0.2x and the sampling time to 0.01x compared to DDPM. Our code is publicly available at: <a target="_blank" rel="noopener" href="https://github.com/mirthAI/Fast-DDPM">https://github.com/mirthAI/Fast-DDPM</a>. </p>
+<blockquote>
+<p>去噪扩散概率模型（DDPMs）在计算机视觉领域取得了前所未有的成功。然而，它们在医学成像领域的应用仍然被低估，而医学成像对于疾病诊断和治疗计划至关重要。这主要是因为与（1）扩散过程中使用的大量时间步数（例如，1000步）和（2）医学图像增加的维度（通常为3D或4D）相关的计算成本高昂。在医学图像上训练扩散模型通常需要几天到几周的时间，而对每个图像体积进行采样则需要几分钟到几小时。为了解决这一挑战，我们引入了Fast-DDPM，这是一种简单而有效的方法，可以同时提高训练速度、采样速度和生成质量。与DDPM不同，它在整个训练过程中跨一千个时间步训练图像去噪器，而Fast-DDPM仅使用十个时间步进行训练和采样。我们的方法的关键在于对齐训练和采样过程以优化时间步长的利用。具体来说，我们引入了两种具有十个时间步的高效噪声调度器：一种具有均匀时间步长采样，另一种具有非均匀采样。我们在三项医学图像到图像生成任务中评估了Fast-DDPM：多图像超分辨率、图像去噪和图像到图像转换。Fast-DDPM在所有任务中都优于DDPM和基于卷积网络和生成对抗网络的最先进方法。此外，Fast-DDPM将训练时间缩短至DDPM的0.2倍，采样时间缩短至DDPM的0.01倍。我们的代码公开在：<a target="_blank" rel="noopener" href="https://github.com/mirthAI/Fast-DDPM">https://github.com/mirthAI/Fast-DDPM</a>。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2405.14802v3">PDF</a> </p>
+<p><strong>摘要</strong><br>    快速DDPM模型优化了训练与采样过程，能在医疗图像领域以较少的步骤实现高质量的图像生成。相较于DDPM模型使用的一千步扩散过程，快速DDPM仅使用十个步骤即可完成训练和采样过程。模型包含两个噪声调度器以提高效率，包括均匀和非均匀采样步骤。实验结果显示，在多种医疗图像生成任务中，快速DDPM模型均优于DDPM模型和当前其他先进的卷积网络模型与生成对抗网络模型，并且在训练与采样时间上显著缩短了原有模型所需的时间。其代码已公开分享于网址：<a target="_blank" rel="noopener" href="https://github.com/mirthAI/Fast-DDPM%E3%80%82">https://github.com/mirthAI/Fast-DDPM。</a></p>
+<p><strong>关键要点</strong></p>
+<ol>
+<li>快速DDPM模型适用于医疗图像领域，通过优化训练和采样过程提高了效率。</li>
+<li>与DDPM模型相比，快速DDPM通过使用更少的步骤实现了训练和采样过程的提速。通过两个高效的噪声调度器（均匀与非均匀采样步骤）提高了时间步长的利用率。</li>
+<li>在多种医疗图像生成任务中，快速DDPM模型表现出超越其他先进模型的优势，如多图像超分辨率、图像去噪和图像转换任务等。</li>
+<li>与其他模型相比，快速DDPM模型显著缩短了训练时间和采样时间。这对于实际应用中的快速响应和高效处理至关重要。</li>
+<li>该模型的公开代码可供研究者和开发者使用，进一步推动了其在医疗图像处理领域的应用和发展。</li>
+<li>快速DDPM模型的引入为医疗图像处理领域带来了新的视角和解决方案，有望推动该领域的进一步发展。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2405.14802">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-66f3f979a11c37d422d7825cf371bd3f.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-49dcefa62fbe94e1da22230d4282a004.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-b6fe4f49d2628659ff7ddd8f9e5919e0.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-491c4c5948d4b29c67ee3f8e573971c4.jpg" align="middle">
+<img src="https://picx.zhimg.com/v2-da26bd395e39747c5897d0ecd8ca1045.jpg" align="middle">
+<img src="https://pic1.zhimg.com/v2-e5cc024d598392bc76826984d4bab24b.jpg" align="middle">
+</details>
+
+
+<h1 id="-17"><a href="#-17" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-08-23/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">https://kedreamix.github.io/Talk2Paper/Paper/2025-08-23/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F/">
+                                    <span class="chip bg-color">医学图像</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-08-23/TTS/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-891dee2cf88e1c7f060e56ae86df1f95.jpg" class="responsive-img" alt="TTS">
+                        
+                        <span class="card-title">TTS</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            TTS 方向最新论文已更新，请持续关注 Update in 2025-08-23  Sadeed Advancing Arabic Diacritization Through Small Language Model
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-08-23
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/TTS/" class="post-category">
+                                    TTS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/TTS/">
+                        <span class="chip bg-color">TTS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-08-23/Diffusion%20Models/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-c71b5e238d840e076feb4e10f2993009.jpg" class="responsive-img" alt="Diffusion Models">
+                        
+                        <span class="card-title">Diffusion Models</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-08-23  CineScale Free Lunch in High-Resolution Cinematic Visual Generation
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-08-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                    Diffusion Models
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Diffusion-Models/">
+                        <span class="chip bg-color">Diffusion Models</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">26522.9k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
