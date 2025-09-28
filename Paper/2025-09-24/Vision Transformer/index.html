@@ -1,0 +1,1557 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Vision Transformer">
+    <meta name="description" content="Vision Transformer 方向最新论文已更新，请持续关注 Update in 2025-09-24  Degradation-Aware All-in-One Image Restoration via Latent Prior Encoding">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Vision Transformer | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17024v1/page_0_0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Vision Transformer</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/Vision-Transformer/">
+                                <span class="chip bg-color">Vision Transformer</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/Vision-Transformer/" class="post-category">
+                                Vision Transformer
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-09-24
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-09-28
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    11.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    46 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-09-24-更新"><a href="#2025-09-24-更新" class="headerlink" title="2025-09-24 更新"></a>2025-09-24 更新</h1><h2 id="Degradation-Aware-All-in-One-Image-Restoration-via-Latent-Prior-Encoding"><a href="#Degradation-Aware-All-in-One-Image-Restoration-via-Latent-Prior-Encoding" class="headerlink" title="Degradation-Aware All-in-One Image Restoration via Latent Prior Encoding"></a>Degradation-Aware All-in-One Image Restoration via Latent Prior Encoding</h2><p><strong>Authors:S M A Sharif, Abdur Rehman, Fayaz Ali Dharejo, Radu Timofte, Rizwan Ali Naqvi</strong></p>
+<p>Real-world images often suffer from spatially diverse degradations such as haze, rain, snow, and low-light, significantly impacting visual quality and downstream vision tasks. Existing all-in-one restoration (AIR) approaches either depend on external text prompts or embed hand-crafted architectural priors (e.g., frequency heuristics); both impose discrete, brittle assumptions that weaken generalization to unseen or mixed degradations. To address this limitation, we propose to reframe AIR as learned latent prior inference, where degradation-aware representations are automatically inferred from the input without explicit task cues. Based on latent priors, we formulate AIR as a structured reasoning paradigm: (1) which features to route (adaptive feature selection), (2) where to restore (spatial localization), and (3) what to restore (degradation semantics). We design a lightweight decoding module that efficiently leverages these latent encoded cues for spatially-adaptive restoration. Extensive experiments across six common degradation tasks, five compound settings, and previously unseen degradations demonstrate that our method outperforms state-of-the-art (SOTA) approaches, achieving an average PSNR improvement of 1.68 dB while being three times more efficient. </p>
+<blockquote>
+<p>现实世界中的图像经常受到空间多样化的退化影响，如雾霾、雨水、雪和暗光，这会对图像质量和下游视觉任务产生显著影响。现有的全能恢复（AIR）方法要么依赖于外部文本提示，要么嵌入手工构建的结构先验（如频率启发式）；两者都施加离散、脆弱的假设，削弱了其对未见或混合退化的泛化能力。为了解决这一局限性，我们提出将AIR重新构建为学习潜在先验推理，其中退化感知表示自动从输入中推断出来，无需明确的任务提示。基于潜在先验，我们将AIR制定为结构化推理模式：（1）选择哪些特征进行路由（自适应特征选择）、（2）在哪里恢复（空间定位）和（3）恢复什么（退化语义）。我们设计了一个轻量级的解码模块，该模块能够高效利用这些潜在编码线索进行空间自适应恢复。在六个常见的退化任务、五个复合场景和之前未见的退化情况下的广泛实验表明，我们的方法超越了最新技术的方法，平均PSNR值提高了1.68分贝，同时效率提高了三倍。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.17792v1">PDF</a> </p>
+<p><strong>Summary</strong><br>空间多样退化如雾霾、雨水、雪和暗光等现实问题对图像质量和视觉任务产生显著影响。现有的一站式恢复方法依赖外部文本提示或手工架构先验，存在通用性弱的缺点。我们提出通过潜在先验推理来解决这一问题，自动从输入中推断退化感知表示，将其制定为结构化推理模式，包括特征路由、恢复位置和退化语义。我们设计了一个轻量级的解码模块，能够高效利用这些潜在线索进行空间自适应恢复。实验表明，我们的方法在六种常见退化任务、五种复合设置和未知退化上超越了现有方法，平均PSNR提高了1.68dB，且效率提高了三倍。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>现实问题中的图像经常面临多种空间退化挑战。</li>
+<li>现有的一站式图像恢复方法存在通用性不足的问题。</li>
+<li>提出通过潜在先验推理来解决这一问题，自动从输入中推断退化感知表示。</li>
+<li>将图像恢复制定为结构化推理模式，包括特征路由、恢复位置和退化语义。</li>
+<li>设计了一个轻量级的解码模块，利用潜在线索进行空间自适应恢复。</li>
+<li>实验表明，该方法在多种退化任务上超越了现有方法。</li>
+<li>该方法在提高恢复质量的同时，也提高了效率。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.17792">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17792v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17792v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17792v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Dual-View-Alignment-Learning-with-Hierarchical-Prompt-for-Class-Imbalance-Multi-Label-Classification"><a href="#Dual-View-Alignment-Learning-with-Hierarchical-Prompt-for-Class-Imbalance-Multi-Label-Classification" class="headerlink" title="Dual-View Alignment Learning with Hierarchical-Prompt for   Class-Imbalance Multi-Label Classification"></a>Dual-View Alignment Learning with Hierarchical-Prompt for   Class-Imbalance Multi-Label Classification</h2><p><strong>Authors:Sheng Huang, Jiexuan Yan, Beiyan Liu, Bo Liu, Richang Hong</strong></p>
+<p>Real-world datasets often exhibit class imbalance across multiple categories, manifesting as long-tailed distributions and few-shot scenarios. This is especially challenging in Class-Imbalanced Multi-Label Image Classification (CI-MLIC) tasks, where data imbalance and multi-object recognition present significant obstacles. To address these challenges, we propose a novel method termed Dual-View Alignment Learning with Hierarchical Prompt (HP-DVAL), which leverages multi-modal knowledge from vision-language pretrained (VLP) models to mitigate the class-imbalance problem in multi-label settings. Specifically, HP-DVAL employs dual-view alignment learning to transfer the powerful feature representation capabilities from VLP models by extracting complementary features for accurate image-text alignment. To better adapt VLP models for CI-MLIC tasks, we introduce a hierarchical prompt-tuning strategy that utilizes global and local prompts to learn task-specific and context-related prior knowledge. Additionally, we design a semantic consistency loss during prompt tuning to prevent learned prompts from deviating from general knowledge embedded in VLP models. The effectiveness of our approach is validated on two CI-MLIC benchmarks: MS-COCO and VOC2007. Extensive experimental results demonstrate the superiority of our method over SOTA approaches, achieving mAP improvements of 10.0% and 5.2% on the long-tailed multi-label image classification task, and 6.8% and 2.9% on the multi-label few-shot image classification task. </p>
+<blockquote>
+<p>现实世界的数据集通常在多个类别之间表现出类别不平衡，表现为长尾分布和少量样本场景。这在类别不平衡的多标签图像分类（CI-MLIC）任务中尤其具有挑战性，其中数据不平衡和多目标识别构成了重大障碍。为了应对这些挑战，我们提出了一种新的方法，称为基于层次提示的双视图对齐学习（HP-DVAL），它利用视觉语言预训练（VLP）模型的多模态知识来缓解多标签设置中的类别不平衡问题。具体来说，HP-DVAL采用双视图对齐学习，通过提取图像和文本对齐的互补特征，从VLP模型转移强大的特征表示能力。为了更好地适应CI-MLIC任务，我们引入了一种层次化的提示调整策略，利用全局和局部提示来学习特定任务和上下文相关的先验知识。此外，我们在提示调整过程中设计了一种语义一致性损失，以防止学习到的提示偏离VLP模型中的通用知识。我们的方法在MS-COCO和VOC2007两个CI-MLIC基准测试上的有效性得到了验证。大量的实验结果证明，我们的方法优于最新方法，在长尾多标签图像分类任务上提高了10.0%和5.2%的mAP，在多标签少量样本图像分类任务上提高了6.8%和2.9%的mAP。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.17747v1">PDF</a> accepted by IEEE Transactions on Image Processing</p>
+<p><strong>Summary</strong></p>
+<p>本文提出了针对类别不平衡多标签图像分类（CI-MLIC）任务的新的挑战，介绍了一种名为HP-DVAL的双视图对齐学习方法。该方法利用视觉语言预训练（VLP）模型的多模态知识，通过双视图对齐学习提取互补特征，实现图像与文本准确对齐。为适应CI-MLIC任务，引入层次化提示调整策略，并利用全局和局部提示学习特定任务和上下文相关知识。在MS-COCO和VOC2007两个CI-MLIC基准测试集上的实验结果表明，该方法优于现有方法，在长尾多标签图像分类任务上提高了mAP值10.0%和5.2%，在多标签小样本图像分类任务上提高了mAP值6.8%和2.9%。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>类别不平衡和多目标识别在CI-MLIC任务中是重大挑战。</li>
+<li>提出了HP-DVAL双视图对齐学习方法，利用视觉语言预训练模型应对这些挑战。</li>
+<li>HP-DVAL通过双视图对齐学习实现图像与文本准确对齐，提取互补特征。</li>
+<li>引入层次化提示调整策略，利用全局和局部提示学习特定任务和上下文相关知识。</li>
+<li>设计了语义一致性损失，防止学习到的提示偏离预训练模型中的通用知识。</li>
+<li>在MS-COCO和VOC2007基准测试集上的实验结果表明，该方法显著优于现有方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.17747">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17747v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17747v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17747v1/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="Visual-Instruction-Pretraining-for-Domain-Specific-Foundation-Models"><a href="#Visual-Instruction-Pretraining-for-Domain-Specific-Foundation-Models" class="headerlink" title="Visual Instruction Pretraining for Domain-Specific Foundation Models"></a>Visual Instruction Pretraining for Domain-Specific Foundation Models</h2><p><strong>Authors:Yuxuan Li, Yicheng Zhang, Wenhao Tang, Yimian Dai, Ming-Ming Cheng, Xiang Li, Jian Yang</strong></p>
+<p>Modern computer vision is converging on a closed loop in which perception, reasoning and generation mutually reinforce each other. However, this loop remains incomplete: the top-down influence of high-level reasoning on the foundational learning of low-level perceptual features is not yet underexplored. This paper addresses this gap by proposing a new paradigm for pretraining foundation models in downstream domains. We introduce Visual insTruction Pretraining (ViTP), a novel approach that directly leverages reasoning to enhance perception. ViTP embeds a Vision Transformer (ViT) backbone within a Vision-Language Model and pretrains it end-to-end using a rich corpus of visual instruction data curated from target downstream domains. ViTP is powered by our proposed Visual Robustness Learning (VRL), which compels the ViT to learn robust and domain-relevant features from a sparse set of visual tokens. Extensive experiments on 16 challenging remote sensing and medical imaging benchmarks demonstrate that ViTP establishes new state-of-the-art performance across a diverse range of downstream tasks. The code is available at github.com&#x2F;zcablii&#x2F;ViTP. </p>
+<blockquote>
+<p>现代计算机视觉正在形成一个闭环，感知、推理和生成在其中相互加强。然而，这个循环仍然不完整：高级推理对低级感知特征基础学习的自上而下影响尚未得到充分探索。本文通过为下游领域的基础模型预训练提出一种新的范式来解决这一差距。我们引入了视觉指令预训练（ViTP），这是一种利用推理来直接增强感知的新型方法。ViTP将视觉转换器（ViT）主干嵌入到视觉语言模型中，并使用从目标下游领域精心挑选的丰富视觉指令数据对其进行端到端的预训练。ViTP由我们提出的视觉稳健性学习（VRL）赋能，它促使ViT从少量的视觉标记中学习稳健和与领域相关的特征。在16个具有挑战性的遥感医疗成像基准测试上的广泛实验表明，ViTP在不同下游任务上取得了最新最先进的性能。代码可在github.com&#x2F;zcablii&#x2F;ViTP找到。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.17562v1">PDF</a> </p>
+<p><strong>Summary</strong><br>视觉Transformer在下游领域预训练模型的新范式。提出ViTP（视觉指令预训练）方法，直接利用推理增强感知能力。通过ViT（视觉Transformer）骨干网嵌入视觉语言模型，并利用从目标下游领域收集的大量视觉指令数据进行端到端的预训练。通过VRL（视觉稳健学习）促使ViT从稀疏的视觉令牌集中学习稳健且与领域相关的特征。在远程感应和医学影像等领域的基准测试中表现优异。代码已上传至GitHub。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>现代计算机视觉正在形成一个感知、推理和生成相互加强的闭环，但高级推理对基础感知特征学习的影响尚未得到充分探索。</li>
+<li>本文提出ViTP方法，旨在通过引入推理来增强感知能力，填补这一空白。</li>
+<li>ViTP利用视觉Transformer（ViT）骨干网嵌入视觉语言模型，进行下游领域的预训练。</li>
+<li>ViTP使用丰富的视觉指令数据来预训练模型，这些数据从目标下游领域收集。</li>
+<li>引入的VRL方法促使ViT从稀疏的视觉令牌中学习稳健且与领域相关的特征。</li>
+<li>在多个基准测试中，ViTP表现出卓越性能，特别是在远程感应和医学影像领域。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.17562">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17562v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17562v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17562v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17562v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="Informative-Text-Image-Alignment-for-Visual-Affordance-Learning-with-Foundation-Models"><a href="#Informative-Text-Image-Alignment-for-Visual-Affordance-Learning-with-Foundation-Models" class="headerlink" title="Informative Text-Image Alignment for Visual Affordance Learning with   Foundation Models"></a>Informative Text-Image Alignment for Visual Affordance Learning with   Foundation Models</h2><p><strong>Authors:Qian Zhang, Lin Zhang, Xing Fang, Mingxin Zhang, Zhiyuan Wei, Ran Song, Wei Zhang</strong></p>
+<p>Visual affordance learning is crucial for robots to understand and interact effectively with the physical world. Recent advances in this field attempt to leverage pre-trained knowledge of vision-language foundation models to learn affordance properties with limited training data, providing a novel paradigm for visual affordance learning. However, these methods overlook the significance of maintaining feature alignment between visual images and language descriptions for identifying affordance areas with textual guidance, and thus may lead to suboptimal results. In this paper, we present an informative framework for text-guided affordance learning, which involves information-based constraints to achieve text-image alignment at feature level. Specifically, we design an affordance mutual information constraint that helps learn appropriate textual prompts and task-oriented visual features simultaneously by maximizing the mutual information between the features of the affordance areas in the input images and the corresponding textual prompts. In addition, we propose an object-level information constraint that maximizes the mutual information between the visual features of a given object and the text features of the category it belongs to. This enables the model to capture high-quality representations for the object, providing more reliable semantic priors for identifying affordance regions. Experimental results on the AGD20K dataset show that the proposed method outperforms existing approaches and achieves the new state-of-the-art in one-shot affordance learning. </p>
+<blockquote>
+<p>视觉动作学习对于机器人有效地理解和与物理世界交互至关重要。该领域的最新进展试图利用视觉语言基础模型的预训练知识来学习动作属性，以有限的训练数据进行动作属性的学习，为视觉动作学习提供了新颖的模式。然而，这些方法忽视了在文本指导下维持视觉图像和语言描述之间特征对齐的重要性，从而可能无法有效地识别动作区域并导致结果不理想。在本文中，我们提出了一个信息丰富的文本引导动作学习框架，该框架涉及基于信息的约束来实现文本图像在特征层面的对齐。具体来说，我们设计了一个动作互信息约束，通过最大化输入图像中的动作区域特征与相应的文本提示之间的互信息，同时学习适当的文本提示和任务导向的视觉特征。此外，我们提出了一个对象级别的信息约束，通过最大化给定对象的视觉特征与其所属类别的文本特征之间的互信息，使得模型能够捕捉对象的高质量表示，为识别动作区域提供更可靠的语义先验。在AGD20K数据集上的实验结果表明，该方法优于现有方法并实现了单次动作学习的新技术状态。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.17074v1">PDF</a> Submitted to the IEEE International Conference on Robotics and   Automation (ICRA) 2026</p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种基于文本指导的视觉表现学习框架，利用信息约束在特征层面实现文本与图像的对齐。设计了一种表现互惠信息约束，通过最大化输入图像中的表现区域特征与相应文本提示之间的互惠信息，同时学习适当的文本提示和任务导向的视觉特征。此外，还提出了对象级别的信息约束，能够最大化给定对象的视觉特征与其所属类别文本特征之间的互惠信息，为识别表现区域提供可靠的语义先验。在AGD20K数据集上的实验结果表明，该方法优于现有方法，在一站式表现学习中达到新的先进水平。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>视觉表现学习对于机器人理解和有效与物理世界交互至关重要。</li>
+<li>最近的研究尝试利用视觉语言基础模型的预训练知识来学习表现属性，以减少训练数据的需求。</li>
+<li>现有方法忽略了在识别表现区域时，保持视觉图像和语言描述之间特征对齐的重要性。</li>
+<li>本文提出了一种基于文本指导的视觉表现学习框架，通过信息约束实现文本与图像在特征层面的对齐。</li>
+<li>引入表现互惠信息约束，通过最大化表现区域特征与文本提示之间的互惠信息，同时学习文本提示与视觉特征。</li>
+<li>提出对象级别的信息约束，能够捕捉对象的高质量表示，为识别表现区域提供更可靠的语义先验。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.17074">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17074v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17074v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17074v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17074v1/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17074v1/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17074v1/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="When-Color-Space-Decoupling-Meets-Diffusion-for-Adverse-Weather-Image-Restoration"><a href="#When-Color-Space-Decoupling-Meets-Diffusion-for-Adverse-Weather-Image-Restoration" class="headerlink" title="When Color-Space Decoupling Meets Diffusion for Adverse-Weather Image   Restoration"></a>When Color-Space Decoupling Meets Diffusion for Adverse-Weather Image   Restoration</h2><p><strong>Authors:Wenxuan Fang, Jili Fan, Chao Wang, Xiantao Hu, Jiangwei Weng, Ying Tai, Jian Yang, Jun Li</strong></p>
+<p>Adverse Weather Image Restoration (AWIR) is a highly challenging task due to the unpredictable and dynamic nature of weather-related degradations. Traditional task-specific methods often fail to generalize to unseen or complex degradation types, while recent prompt-learning approaches depend heavily on the degradation estimation capabilities of vision-language models, resulting in inconsistent restorations. In this paper, we propose \textbf{LCDiff}, a novel framework comprising two key components: \textit{Lumina-Chroma Decomposition Network} (LCDN) and \textit{Lumina-Guided Diffusion Model} (LGDM). LCDN processes degraded images in the YCbCr color space, separately handling degradation-related luminance and degradation-invariant chrominance components. This decomposition effectively mitigates weather-induced degradation while preserving color fidelity. To further enhance restoration quality, LGDM leverages degradation-related luminance information as a guiding condition, eliminating the need for explicit degradation prompts. Additionally, LGDM incorporates a \textit{Dynamic Time Step Loss} to optimize the denoising network, ensuring a balanced recovery of both low- and high-frequency features in the image. Finally, we present DriveWeather, a comprehensive all-weather driving dataset designed to enable robust evaluation. Extensive experiments demonstrate that our approach surpasses state-of-the-art methods, setting a new benchmark in AWIR. The dataset and code are available at: <a target="_blank" rel="noopener" href="https://github.com/fiwy0527/LCDiff">https://github.com/fiwy0527/LCDiff</a>. </p>
+<blockquote>
+<p>恶劣天气图像恢复（AWIR）是一项极具挑战性的任务，因为天气相关的退化是不可预测和动态的。传统的针对特定任务的方法往往不能推广到未见过的或复杂的退化类型，而最近的提示学习的方法严重依赖于视觉语言模型的退化估计能力，导致恢复结果不一致。在本文中，我们提出了一个新的框架LCDiff，它包含两个关键组件：亮度-色度分解网络（LCDN）和亮度引导扩散模型（LGDM）。LCDN在YCbCr颜色空间处理退化图像，分别处理与退化相关的亮度和退化不变的色度组件。这种分解有效地减轻了天气引起的退化，同时保持颜色保真度。为了进一步改善恢复质量，LGDM利用与退化相关的亮度信息作为指导条件，消除了对明确退化提示的需求。此外，LGDM还采用了一种动态时间步长损失来优化去噪网络，确保图像中低频和高频特征的平衡恢复。最后，我们推出了DriveWeather，这是一个全面的全天候驾驶数据集，旨在实现稳健的评估。大量实验表明，我们的方法超越了最先进的方法，在AWIR中树立了新的基准。数据集和代码可在：<a target="_blank" rel="noopener" href="https://github.com/fiwy0527/LCDiff%E8%8E%B7%E5%8F%96%E3%80%82">https://github.com/fiwy0527/LCDiff获取。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.17024v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种新型的图像恢复框架LCDiff，用于应对恶劣天气下的图像恢复（AWIR）挑战。该框架包含两个关键组件：Lumina-Chroma分解网络（LCDN）和Lumina-Guided扩散模型（LGDM）。LCDN在YCbCr色彩空间处理退化图像，分别处理与退化相关的亮度和不变色度成分，有效减轻天气引起的退化，同时保持色彩保真。LGDM利用与退化相关的亮度信息作为指导条件，进一步提高恢复质量，并引入动态时间步长损失来优化去噪网络，确保图像中低频和高频特征的平衡恢复。此外，还推出了DriveWeather全天气驾驶数据集，用于稳健评估。实验表明，该方法优于现有技术，为AWIR设定了新的基准。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>LCDiff框架被提出，用于应对恶劣天气图像恢复（AWIR）的挑战。</li>
+<li>LCDiff包含两个关键组件：LCDN和LGDM。</li>
+<li>LCDN在YCbCr色彩空间处理图像，分离亮度和色度成分，以提高恢复效果。</li>
+<li>LGDM利用亮度信息作为指导条件，动态时间步长损失优化去噪网络。</li>
+<li>DriveWeather数据集的推出为AWIR提供了稳健的评估平台。</li>
+<li>实验表明，LCDiff方法优于现有技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.17024">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17024v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17024v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17024v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17024v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.17024v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="V-CECE-Visual-Counterfactual-Explanations-via-Conceptual-Edits"><a href="#V-CECE-Visual-Counterfactual-Explanations-via-Conceptual-Edits" class="headerlink" title="V-CECE: Visual Counterfactual Explanations via Conceptual Edits"></a>V-CECE: Visual Counterfactual Explanations via Conceptual Edits</h2><p><strong>Authors:Nikolaos Spanos, Maria Lymperaiou, Giorgos Filandrianos, Konstantinos Thomas, Athanasios Voulodimos, Giorgos Stamou</strong></p>
+<p>Recent black-box counterfactual generation frameworks fail to take into account the semantic content of the proposed edits, while relying heavily on training to guide the generation process. We propose a novel, plug-and-play black-box counterfactual generation framework, which suggests step-by-step edits based on theoretical guarantees of optimal edits to produce human-level counterfactual explanations with zero training. Our framework utilizes a pre-trained image editing diffusion model, and operates without access to the internals of the classifier, leading to an explainable counterfactual generation process. Throughout our experimentation, we showcase the explanatory gap between human reasoning and neural model behavior by utilizing both Convolutional Neural Network (CNN), Vision Transformer (ViT) and Large Vision Language Model (LVLM) classifiers, substantiated through a comprehensive human evaluation. </p>
+<blockquote>
+<p>最近的黑盒反事实生成框架忽略了提议编辑的语义内容，同时严重依赖于训练来指导生成过程。我们提出了一种新颖、即插即用的黑盒反事实生成框架，该框架基于最优编辑的理论保证，提出逐步编辑建议，以零训练生成人类水平的反事实解释。我们的框架利用预先训练的图像编辑扩散模型，无需访问分类器的内部，从而实现可解释的反事实生成过程。在我们的实验中，我们展示了人类推理和神经网络模型行为之间的解释差距，这通过综合人类评估得到证实，包括卷积神经网络（CNN）、视觉转换器（ViT）和大视觉语言模型（LVLM）分类器。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.16567v1">PDF</a> Accepted in NeurIPS 2025</p>
+<p><strong>Summary</strong><br>文本提出一种新的零训练的黑盒对抗性生成框架，它通过理论保证最优编辑，并基于预训练的图像编辑扩散模型进行逐步编辑建议，生成人类级别的对抗性解释，无需访问分类器的内部信息。该框架填补了人类推理和神经网络模型行为之间的解释鸿沟，并通过CNN、Vision Transformer和LVLM分类器的综合人类评估得到证实。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>现有黑盒对抗生成框架忽视了提议编辑的语义内容，而依赖大量训练来指导生成过程。</li>
+<li>提出一种新型零训练黑盒对抗生成框架，基于理论保证进行最优编辑建议，生成人类级别的对抗解释。</li>
+<li>利用预训练的图像编辑扩散模型进行操作，无需访问分类器的内部信息。</li>
+<li>该框架填补了人类推理和神经网络模型行为之间的解释鸿沟。</li>
+<li>通过CNN、Vision Transformer和LVLM分类器的综合人类评估验证了框架的有效性。</li>
+<li>框架具有可插拔性，可轻松集成到其他系统中。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.16567">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.16567v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.16567v1/page_2_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Which-Direction-to-Choose-An-Analysis-on-the-Representation-Power-of-Self-Supervised-ViTs-in-Downstream-Tasks"><a href="#Which-Direction-to-Choose-An-Analysis-on-the-Representation-Power-of-Self-Supervised-ViTs-in-Downstream-Tasks" class="headerlink" title="Which Direction to Choose? An Analysis on the Representation Power of   Self-Supervised ViTs in Downstream Tasks"></a>Which Direction to Choose? An Analysis on the Representation Power of   Self-Supervised ViTs in Downstream Tasks</h2><p><strong>Authors:Yannis Kaltampanidis, Alexandros Doumanoglou, Dimitrios Zarpalas</strong></p>
+<p>Self-Supervised Learning (SSL) for Vision Transformers (ViTs) has recently demonstrated considerable potential as a pre-training strategy for a variety of computer vision tasks, including image classification and segmentation, both in standard and few-shot downstream contexts. Two pre-training objectives dominate the landscape of SSL techniques: Contrastive Learning and Masked Image Modeling. Features (or tokens) extracted from the final transformer attention block – specifically, the keys, queries, and values – as well as features obtained after the final block’s feed-forward layer, have become a common foundation for addressing downstream tasks. However, in many existing approaches, these pre-trained ViT features are further processed through additional transformation layers, often involving lightweight heads or combined with distillation, to achieve superior task performance. Although such methods can improve task outcomes, to the best of our knowledge, a comprehensive analysis of the intrinsic representation capabilities of unaltered ViT features has yet to be conducted. This study aims to bridge this gap by systematically evaluating the use of these unmodified features across image classification and segmentation tasks, in both standard and few-shot contexts. The classification and segmentation rules that we use are either hyperplane based (as in logistic regression) or cosine-similarity based, both of which rely on the presence of interpretable directions in the ViT’s latent space. Based on the previous rules and without the use of additional feature transformations, we conduct an analysis across token types, tasks, and pre-trained ViT models. This study provides insights into the optimal choice for token type and decision rule based on the task, context, and the pre-training objective, while reporting detailed findings on two widely-used datasets. </p>
+<blockquote>
+<p>自监督学习（SSL）对于视觉转换器（ViTs）已经显示出巨大的潜力，作为一种预训练策略，它可以应用于各种计算机视觉任务，包括标准和少样本下游环境中的图像分类和分割。在SSL技术中，两种预训练目标占据主导地位：对比学习和掩模图像建模。从最终的转换器注意力块中提取的特征（或令牌），特别是键、查询和值，以及从最后一个块的前馈层之后获得的特征，已经成为解决下游任务的常见基础。然而，在许多现有方法中，这些预训练的ViT特征会经过额外的转换层进行处理，通常涉及轻量级头部或与蒸馏相结合，以实现卓越的任务性能。尽管这些方法可以改善任务结果，但据我们所知，尚未对未经修改的ViT特征的内在表示能力进行全面分析。本研究旨在通过系统地评估这些未修改的特征在图像分类和分割任务中的应用来弥补这一空白，无论是在标准还是在少样本环境中皆是如此。我们使用的分类和分割规则是基于超平面的（如逻辑回归），或是基于余弦相似性的，两者都依赖于ViT潜在空间中可解释方向的存在。基于之前的规则和没有使用额外的特征转换，我们对令牌类型、任务和预训练的ViT模型进行了分析。本研究为基于任务、上下文和预训练目标的令牌类型和决策规则的最佳选择提供了见解，并在两个广泛使用的数据集上报告了详细的发现。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.15272v1">PDF</a> 24 pages, XAI 2025</p>
+<p><strong>摘要</strong><br>     视觉Transformer的自监督学习（SSL）作为多种计算机视觉任务的预训练策略，已展现出巨大潜力，包括图像分类和分割，以及标准和少镜头下游环境。SSL技术的主要预训练目标包括对比学习和掩模图像建模。本研究旨在系统地评估未经修改的特征在图像分类和分割任务中的使用，涉及标记类型、任务和预训练视觉Transformer模型的选择。基于以前的规定，不使用额外的特征转换，我们分析了不同语境下的任务选择对于标记类型和决策规则的最优选择，同时报告了在两个广泛使用数据集上的详细发现。我们的研究有助于了解视觉Transformer的内在表示能力，并为未来的研究提供有价值的见解。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>自监督学习（SSL）已成为视觉Transformer（ViT）预训练的有效策略，适用于多种计算机视觉任务。</li>
+<li>SSL技术的主要预训练目标包括对比学习和掩模图像建模。</li>
+<li>未经修改的视觉Transformer特征在图像分类和分割任务中具有潜力。</li>
+<li>研究系统地评估了不同标记类型、任务和预训练模型的选择。</li>
+<li>分析表明，在决策过程中应考虑到任务、上下文和预训练目标来选择最佳的标记类型和决策规则。</li>
+<li>研究报告了在两个常用数据集上的详细发现，为理解视觉Transformer的内在表示能力提供了有价值的信息。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.15272">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.15272v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.15272v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="ViSpec-Accelerating-Vision-Language-Models-with-Vision-Aware-Speculative-Decoding"><a href="#ViSpec-Accelerating-Vision-Language-Models-with-Vision-Aware-Speculative-Decoding" class="headerlink" title="ViSpec: Accelerating Vision-Language Models with Vision-Aware   Speculative Decoding"></a>ViSpec: Accelerating Vision-Language Models with Vision-Aware   Speculative Decoding</h2><p><strong>Authors:Jialiang Kang, Han Shu, Wenshuo Li, Yingjie Zhai, Xinghao Chen</strong></p>
+<p>Speculative decoding is a widely adopted technique for accelerating inference in large language models (LLMs), yet its application to vision-language models (VLMs) remains underexplored, with existing methods achieving only modest speedups (&lt;1.5x). This gap is increasingly significant as multimodal capabilities become central to large-scale models. We hypothesize that large VLMs can effectively filter redundant image information layer by layer without compromising textual comprehension, whereas smaller draft models struggle to do so. To address this, we introduce Vision-Aware Speculative Decoding (ViSpec), a novel framework tailored for VLMs. ViSpec employs a lightweight vision adaptor module to compress image tokens into a compact representation, which is seamlessly integrated into the draft model’s attention mechanism while preserving original image positional information. Additionally, we extract a global feature vector for each input image and augment all subsequent text tokens with this feature to enhance multimodal coherence. To overcome the scarcity of multimodal datasets with long assistant responses, we curate a specialized training dataset by repurposing existing datasets and generating extended outputs using the target VLM with modified prompts. Our training strategy mitigates the risk of the draft model exploiting direct access to the target model’s hidden states, which could otherwise lead to shortcut learning when training solely on target model outputs. Extensive experiments validate ViSpec, achieving, to our knowledge, the first substantial speedup in VLM speculative decoding. Code is available at <a target="_blank" rel="noopener" href="https://github.com/KangJialiang/ViSpec">https://github.com/KangJialiang/ViSpec</a>. </p>
+<blockquote>
+<p>推测解码是加速大型语言模型（LLM）推理的广泛采用的技术，然而它在视觉语言模型（VLM）中的应用仍然被探索得不够深入，现有方法只能实现适度的加速（&lt;1.5倍）。随着多模态能力成为大规模模型的核心，这一差距变得越来越显著。我们假设大型VLM可以逐层有效地过滤掉冗余的图像信息，而不损害文本理解，而较小的草稿模型则很难做到这一点。为了解决这一问题，我们引入了针对VLM设计的全新框架——视觉感知推测解码（ViSpec）。ViSpec采用轻量级的视觉适配器模块，将图像令牌压缩成紧凑的表示形式，无缝集成到草稿模型的注意力机制中，同时保留原始图像的位置信息。此外，我们为每个输入图像提取全局特征向量，并将其增强到随后的所有文本令牌中，以提高多模态一致性。为了克服缺乏带有长助理响应的多模态数据集的问题，我们通过重新利用现有数据集并使用目标VLM生成扩展输出来专门制作一个训练数据集。我们的训练策略减轻了草稿模型直接访问目标模型的隐藏状态的风险，如果仅在目标模型输出上进行训练，这可能导致捷径学习。大量实验验证了ViSpec的有效性，据我们所知，这是VLM推测解码方面的首次实质性加速。代码可在<a target="_blank" rel="noopener" href="https://github.com/KangJialiang/ViSpec%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/KangJialiang/ViSpec找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.15235v2">PDF</a> NeurIPS 2025</p>
+<p><strong>Summary</strong>：<br>针对视觉语言模型（VLMs）的推测解码技术尚未得到充分研究，现有方法的速度提升有限（小于1.5倍）。本文提出了一种针对VLMs的定制框架——Vision-Aware Speculative Decoding（ViSpec）。它通过轻量级视觉适配器模块压缩图像标记，将其无缝集成到草案模型的注意力机制中，同时保留原始图像的位置信息。此外，它还为每个输入图像提取全局特征向量，并将其添加到所有后续文本标记中，以增强多媒体模态的一致性。该论文通过实验验证了ViSpec的有效性，实现了对VLM推测解码的首次实质性加速。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>视觉语言模型（VLMs）的推测解码技术应用存在空白，现有方法速度提升有限。</li>
+<li>提出了一种针对VLMs的定制框架——Vision-Aware Speculative Decoding（ViSpec）。</li>
+<li>ViSpec使用轻量级视觉适配器模块压缩图像标记以加速推断。</li>
+<li>ViSpec保留了原始图像的位置信息，并将其集成到草案模型的注意力机制中。</li>
+<li>通过为每个输入图像提取全局特征向量并添加到文本标记中，增强多媒体模态的一致性。</li>
+<li>采用特殊训练数据集克服训练时的挑战，避免模型利用目标模型的隐藏状态导致的捷径学习。</li>
+<li>实验验证了ViSpec的有效性，实现了对VLM推测解码的首次实质性加速。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.15235">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.15235v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.15235v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.15235v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.15235v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="SAIL-VL2-Technical-Report"><a href="#SAIL-VL2-Technical-Report" class="headerlink" title="SAIL-VL2 Technical Report"></a>SAIL-VL2 Technical Report</h2><p><strong>Authors:Weijie Yin, Yongjie Ye, Fangxun Shu, Yue Liao, Zijian Kang, Hongyuan Dong, Haiyang Yu, Dingkang Yang, Jiacong Wang, Han Wang, Wenzhuo Liu, Xiao Liang, Shuicheng Yan, Chao Feng</strong></p>
+<p>We introduce SAIL-VL2, an open-suite vision-language foundation model (LVM) for comprehensive multimodal understanding and reasoning. As the successor to SAIL-VL, SAIL-VL2 achieves state-of-the-art performance at the 2B and 8B parameter scales across diverse image and video benchmarks, demonstrating strong capabilities from fine-grained perception to complex reasoning. Its effectiveness is driven by three core innovations. First, a large-scale data curation pipeline with scoring and filtering strategies enhances both quality and distribution across captioning, OCR, QA, and video data, improving training efficiency. Second, a progressive training framework begins with a powerful pre-trained vision encoder (SAIL-ViT), advances through multimodal pre-training, and culminates in a thinking-fusion SFT-RL hybrid paradigm that systematically strengthens model capabilities. Third, architectural advances extend beyond dense LLMs to efficient sparse Mixture-of-Experts (MoE) designs. With these contributions, SAIL-VL2 demonstrates competitive performance across 106 datasets and achieves state-of-the-art results on challenging reasoning benchmarks such as MMMU and MathVista. Furthermore, on the OpenCompass leaderboard, SAIL-VL2-2B ranks first among officially released open-source models under the 4B parameter scale, while serving as an efficient and extensible foundation for the open-source multimodal community. </p>
+<blockquote>
+<p>我们介绍了SAIL-VL2，这是一个开放的视觉语言基础模型（LVM），用于全面的多模式理解和推理。作为SAIL-VL的后续产品，SAIL-VL2在不同参数规模的2B和8B上实现了最先进的性能，在多种图像和视频基准测试中展示了从精细粒度感知到复杂推理的强大能力。它的有效性源于三个核心创新。首先，采用大规模数据整理管道，结合评分和过滤策略，提高了描述、OCR、问答和视频数据的质量和分布，提高了训练效率。其次，渐进式训练框架从一个强大的预训练视觉编码器（SAIL-ViT）开始，通过多模式预训练，最终形成一个系统强化模型能力的思维融合SFT-RL混合范式。第三，架构上的进步超越了密集的大型语言模型，采用了高效的稀疏专家混合（MoE）设计。通过这些贡献，SAIL-VL2在106个数据集上展现了竞争力，并在具有挑战性的推理基准测试（如MMMU和MathVista）上取得了最先进的成果。此外，在OpenCompass排行榜上，SAIL-VL2-2B在官方发布的开源模型中位列4B参数规模的第一名，成为开源多模式社区高效且可扩展的基础。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.14033v2">PDF</a> Technical Report</p>
+<p><strong>Summary</strong></p>
+<p>SAIL-VL2是一款用于全面多模态理解和推理的开放视觉语言基础模型（LVM）。相较于前代模型，SAIL-VL2在2B和8B参数规模上达到了最先进的技术性能，在各种图像和视频基准测试中表现出强大的能力，从精细粒度感知到复杂推理。其有效性源于三个核心创新：大规模数据整理管道、渐进式训练框架和架构进步。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>SAIL-VL2是一个全面的多模态理解和推理的开放视觉语言基础模型（LVM）。</li>
+<li>与前代模型相比，SAIL-VL2在参数规模上实现了最先进的技术性能。</li>
+<li>SAIL-VL2通过大规模数据整理管道提高了数据质量和分布，改进了标注、OCR、QA和视频数据的训练效率。</li>
+<li>渐进式训练框架从强大的预训练视觉编码器开始，通过多模态预训练，最终形成一个系统强化模型能力的思考融合SFT-RL混合范式。</li>
+<li>SAIL-VL2的架构进步超越了密集的LLMs，采用了高效的稀疏Mixture-of-Experts（MoE）设计。</li>
+<li>SAIL-VL2在106个数据集上表现出竞争力，并在MMMU和MathVista等具有挑战性的推理基准测试上达到最佳状态。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.14033">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.14033v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.14033v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.14033v2/page_2_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.14033v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2509.14033v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Look-Focus-Act-Efficient-and-Robust-Robot-Learning-via-Human-Gaze-and-Foveated-Vision-Transformers"><a href="#Look-Focus-Act-Efficient-and-Robust-Robot-Learning-via-Human-Gaze-and-Foveated-Vision-Transformers" class="headerlink" title="Look, Focus, Act: Efficient and Robust Robot Learning via Human Gaze and   Foveated Vision Transformers"></a>Look, Focus, Act: Efficient and Robust Robot Learning via Human Gaze and   Foveated Vision Transformers</h2><p><strong>Authors:Ian Chuang, Jinyu Zou, Andrew Lee, Dechen Gao, Iman Soltani</strong></p>
+<p>Human vision is a highly active process driven by gaze, which directs attention to task-relevant regions through foveation, dramatically reducing visual processing. In contrast, robot learning systems typically rely on passive, uniform processing of raw camera images. In this work, we explore how incorporating human-like active gaze into robotic policies can enhance efficiency and robustness. We develop GIAVA (Gaze Integrated Active-Vision ALOHA), a robot vision system that emulates human head and neck movement, and gaze adjustment for foveated processing. Extending the AV-ALOHA robot platform, we introduce a framework for simultaneously collecting eye-tracking, perspective control, and robot manipulation demonstration data from a human operator. We also open-source a simulation benchmark and dataset for training robot policies that incorporate human gaze. Inspired by recent work in foveated image segmentation and given the widespread use of Vision Transformers (ViTs) in robot learning, we integrate gaze information into ViTs using a foveated patch tokenization scheme. Compared to uniform patch tokenization, this significantly reduces the number of tokens, and thus computation. Our results show that our method for foveated robot vision drastically reduces computational overhead, and enhances robustness to background distractors. Notably, on certain high-precision tasks, foveated vision also improves performance, as reflected in higher success rates. Together, these findings suggest that human-inspired foveated visual processing offers untapped potential and should be further considered as a useful inductive bias in robotic vision systems. <a target="_blank" rel="noopener" href="https://ian-chuang.github.io/gaze-av-aloha/">https://ian-chuang.github.io/gaze-av-aloha/</a> </p>
+<blockquote>
+<p>人类的视觉是一个由注视驱动的高度活跃的过程，通过注视将注意力集中在与任务相关的区域，从而极大地减少视觉处理。相比之下，机器人学习系统通常依赖于对原始相机图像的被动均匀处理。在这项工作中，我们探讨了将人类类似的主动注视融入机器人策略如何增强效率和稳健性。我们开发了GIAVA（集成注视的主动视觉ALOHA），这是一个模拟人类头部和颈部运动以及注视调整进行焦点处理的机器人视觉系统。在AV-ALOHA机器人平台的基础上，我们引入了一个框架，可以同时从人类操作者那里收集眼动追踪、视角控制和机器人操作演示数据。我们还开源了一个模拟基准测试和数据集，用于训练融入人类注视的机器人策略。受最近关于焦点图像分割工作的启发，以及Vision Transformers（ViTs）在机器人学习中的广泛应用，我们通过一种焦点补丁标记方案将注视信息融入ViTs。与均匀的补丁标记相比，这显著减少了标记的数量，从而减少了计算量。我们的结果表明，我们的焦点机器人视觉方法极大地减少了计算开销，并增强了对抗背景干扰项的稳健性。值得注意的是，在某些高精度任务上，焦点视觉也提高了性能，体现在更高的成功率上。总体而言，这些发现表明人类启发的焦点视觉处理具有巨大的潜力，并应进一步考虑将其作为机器人视觉系统中的一个有用的归纳偏见。<a target="_blank" rel="noopener" href="https://ian-chuang.github.io/gaze-av-aloha/">https://ian-chuang.github.io/gaze-av-aloha/</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.15833v2">PDF</a> Project page: <a target="_blank" rel="noopener" href="https://ian-chuang.github.io/gaze-av-aloha/">https://ian-chuang.github.io/gaze-av-aloha/</a></p>
+<p><strong>Summary</strong><br>     本研究探索了将人类式的主动视线融入机器人策略，以提高机器人视觉系统的效率和稳健性。研究团队开发了GIAVA（视线集成主动视觉ALOHA），一个模仿人类头部和颈部运动以及视线调整的机器人视觉系统。该研究将视线信息融入Vision Transformers（ViTs），采用注视补丁标记方案，相较于传统的均匀补丁标记，显著减少了标记数量，降低了计算量。研究结果表明，注视机器人视觉方法大幅降低了计算开销，提高了对背景干扰因素的稳健性，并在某些高精度任务上提升了性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>人类视觉是一个由视线驱动的活动过程，通过注视任务相关区域实现视觉处理的显著减少。</li>
+<li>机器人学习系统通常依赖于对原始相机图像的被动均匀处理，而本研究探索了将人类式的主动视线融入机器人策略以增强效率和稳健性。</li>
+<li>开发了GIAVA（视线集成主动视觉ALOHA）系统，模仿人类头部和颈部运动以及视线调整，实现注视处理。</li>
+<li>引入了同时收集人类操作员的眼动追踪、视角控制和机器人操作演示数据的框架。</li>
+<li>开放了一个用于训练融入人类视线的机器人策略仿真基准测试和数据集。</li>
+<li>融合注视信息到Vision Transformers（ViTs）中，通过注视补丁标记方案显著减少了标记数量和计算量。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.15833">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_5_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2507.15833v2/page_5_2.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="Few-Shot-Image-Quality-Assessment-via-Adaptation-of-Vision-Language-Models"><a href="#Few-Shot-Image-Quality-Assessment-via-Adaptation-of-Vision-Language-Models" class="headerlink" title="Few-Shot Image Quality Assessment via Adaptation of Vision-Language   Models"></a>Few-Shot Image Quality Assessment via Adaptation of Vision-Language   Models</h2><p><strong>Authors:Xudong Li, Zihao Huang, Yan Zhang, Yunhang Shen, Ke Li, Xiawu Zheng, Liujuan Cao, Rongrong Ji</strong></p>
+<p>Image Quality Assessment (IQA) remains an unresolved challenge in computer vision due to complex distortions, diverse image content, and limited data availability. Existing Blind IQA (BIQA) methods largely rely on extensive human annotations, which are labor-intensive and costly due to the demanding nature of creating IQA datasets. To reduce this dependency, we propose the Gradient-Regulated Meta-Prompt IQA Framework (GRMP-IQA), designed to efficiently adapt the visual-language pre-trained model, CLIP, to IQA tasks, achieving high accuracy even with limited data. GRMP-IQA consists of two core modules: (i) Meta-Prompt Pre-training Module and (ii) Quality-Aware Gradient Regularization. The Meta Prompt Pre-training Module leverages a meta-learning paradigm to pre-train soft prompts with shared meta-knowledge across different distortions, enabling rapid adaptation to various IQA tasks. On the other hand, the Quality-Aware Gradient Regularization is designed to adjust the update gradients during fine-tuning, focusing the model’s attention on quality-relevant features and preventing overfitting to semantic information. Extensive experiments on standard BIQA datasets demonstrate the superior performance to the state-of-the-art BIQA methods under limited data setting. Notably, utilizing just 20% of the training data, GRMP-IQA is competitive with most existing fully supervised BIQA approaches. </p>
+<blockquote>
+<p>图像质量评估（IQA）仍然是计算机视觉领域的一个未解决的挑战，这是由于复杂的失真、多样化的图像内容和数据可用性有限所导致的。现有的盲图像质量评估（BIQA）方法大多依赖于大量的人工标注，由于创建IQA数据集的性质要求严格，因此劳动密集且成本高昂。为了减少这种依赖性，我们提出了梯度调节元提示图像质量评估框架（GRMP-IQA），该框架旨在有效地适应视觉语言预训练模型CLIP，即使在有限数据的情况下也能实现高准确性。GRMP-IQA由两个核心模块组成：（i）元提示预训练模块和（ii）质量感知梯度正则化。元提示预训练模块利用元学习范式对不同失真进行共享元知识的软提示预训练，从而能够迅速适应各种IQA任务。另一方面，质量感知梯度正则化设计用于微调时调整更新梯度，使模型的注意力集中在质量相关特征上，防止过度拟合语义信息。在标准BIQA数据集上的大量实验表明，在有限数据设置下，GRMP-IQA的性能优于最先进的BIQA方法。值得注意的是，仅使用20%的训练数据，GRMP-IQA就与大多数现有的完全监督BIQA方法具有竞争力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2409.05381v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了图像质量评估（IQA）的挑战以及现有BIQA方法的不足。为减少对数据标注的依赖，提出了Gradient-Regulated Meta-Prompt IQA Framework（GRMP-IQA）框架，该框架利用视觉语言预训练模型CLIP，在有限数据下实现高准确率的IQA任务。其核心包括两大模块：Meta-Prompt Pre-training Module和Quality-Aware Gradient Regularization。前者通过元学习范式预训练软提示，后者用于微调时的梯度调整，重点关注质量相关特征并防止对语义信息的过度拟合。在标准BIQA数据集上的实验表明，在有限数据设置下，GRMP-IQA的性能优于现有最先进的BIQA方法。仅使用20%的训练数据，GRMP-IQA的表现在大多数现有全监督BIQA方法中都具有竞争力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>图像质量评估（IQA）仍然是一个由于复杂失真、多样化的图像内容和有限的数据可用性而未能完全解决的问题。</li>
+<li>现有的盲图像质量评估（BIQA）方法主要依赖于大量的人工注释，这既耗费劳力又成本高昂。</li>
+<li>提出了Gradient-Regulated Meta-Prompt IQA Framework（GRMP-IQA）框架，旨在有效利用视觉语言预训练模型CLIP来解决IQA任务，并在有限数据下实现高准确率。</li>
+<li>GRMP-IQA框架包含两个核心模块：Meta-Prompt Pre-training Module和Quality-Aware Gradient Regularization。</li>
+<li>Meta-Prompt Pre-training Module通过元学习范式进行软提示的预训练，以应对不同的失真，并加速对IQA任务的适应。</li>
+<li>Quality-Aware Gradient Regularization模块用于微调时的梯度调整，专注于质量相关特征，并防止模型对语义信息的过度拟合。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2409.05381">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2409.05381v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2409.05381v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2409.05381v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_Vision Transformer/2409.05381v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-09-24/Vision%20Transformer/">https://kedreamix.github.io/Talk2Paper/Paper/2025-09-24/Vision%20Transformer/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/Vision-Transformer/">
+                                    <span class="chip bg-color">Vision Transformer</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-09-24/%E6%A3%80%E6%B5%8B_%E5%88%86%E5%89%B2_%E8%B7%9F%E8%B8%AA/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_检测_分割_跟踪/2509.15753v1/page_4_0.jpg" class="responsive-img" alt="检测/分割/跟踪">
+                        
+                        <span class="card-title">检测/分割/跟踪</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            检测/分割/跟踪 方向最新论文已更新，请持续关注 Update in 2025-09-24  An Empirical Study on the Robustness of YOLO Models for Underwater   Object Detection
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-09-24
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E6%A3%80%E6%B5%8B-%E5%88%86%E5%89%B2-%E8%B7%9F%E8%B8%AA/" class="post-category">
+                                    检测/分割/跟踪
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E6%A3%80%E6%B5%8B-%E5%88%86%E5%89%B2-%E8%B7%9F%E8%B8%AA/">
+                        <span class="chip bg-color">检测/分割/跟踪</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-09-24/%E8%A7%86%E9%A2%91%E7%90%86%E8%A7%A3/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-09-24\./crop_视频理解/2506.03642v2/page_2_0.jpg" class="responsive-img" alt="视频理解">
+                        
+                        <span class="card-title">视频理解</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            视频理解 方向最新论文已更新，请持续关注 Update in 2025-09-24  ChronoForge-RL Chronological Forging through Reinforcement Learning for   Enhanced Video Understanding
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-09-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/%E8%A7%86%E9%A2%91%E7%90%86%E8%A7%A3/" class="post-category">
+                                    视频理解
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/%E8%A7%86%E9%A2%91%E7%90%86%E8%A7%A3/">
+                        <span class="chip bg-color">视频理解</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">28791.8k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
