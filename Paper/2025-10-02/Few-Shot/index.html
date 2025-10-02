@@ -1,0 +1,1561 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Few-Shot">
+    <meta name="description" content="Few-Shot 方向最新论文已更新，请持续关注 Update in 2025-10-02  SeMoBridge Semantic Modality Bridge for Efficient Few-Shot Adaptation   of CLIP">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Few-Shot | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_1_0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Few-Shot</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/Few-Shot/">
+                                <span class="chip bg-color">Few-Shot</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/Few-Shot/" class="post-category">
+                                Few-Shot
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-02
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-10-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    11.5k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    47 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-10-02-更新"><a href="#2025-10-02-更新" class="headerlink" title="2025-10-02 更新"></a>2025-10-02 更新</h1><h2 id="SeMoBridge-Semantic-Modality-Bridge-for-Efficient-Few-Shot-Adaptation-of-CLIP"><a href="#SeMoBridge-Semantic-Modality-Bridge-for-Efficient-Few-Shot-Adaptation-of-CLIP" class="headerlink" title="SeMoBridge: Semantic Modality Bridge for Efficient Few-Shot Adaptation   of CLIP"></a>SeMoBridge: Semantic Modality Bridge for Efficient Few-Shot Adaptation   of CLIP</h2><p><strong>Authors:Christoph Timmermann, Hyunse Lee, Woojin Lee</strong></p>
+<p>While Contrastive Language-Image Pretraining (CLIP) excels at zero-shot tasks by aligning image and text embeddings, its performance in few-shot classification is hindered by a critical limitation: intra-modal misalignment. This issue, caused by a persistent modality gap and CLIP’s exclusively inter-modal training objective, leaves the embedding spaces uncalibrated, making direct image-to-image comparisons unreliable. Existing methods attempt to address this by refining similarity logits or by computationally expensive per-sample optimization. To overcome these challenges, we introduce SeMoBridge, a lightweight yet powerful approach that directly addresses the misalignment. Our method maps images into the text modality, while keeping their semantic content intact through what we call a Semantic Modality Bridge. SeMoBridge is closed-form and can optionally be trained through multi-modal supervision, combining image and text-alignment losses to optimize the projection. Experiments show that the trained version, SeMoBridge-T, requires only a fraction of the training time while overall outperforming other methods, particularly in low-data scenarios (1, 2, and 4 shots). The code is available at \href{<a target="_blank" rel="noopener" href="https://github.com/christti98/semobridge%7D%7Bgithub.com/christti98/semobridge%7D">https://github.com/christti98/semobridge}{github.com/christti98/semobridge}</a>. </p>
+<blockquote>
+<p>对比语言图像预训练（CLIP）通过对齐图像和文本嵌入在零样本任务上表现出色，但在小样本分类方面的性能却受到关键限制：模态内的不对齐问题。这一问题是由持续的模态差距和CLIP仅跨模态的训练目标所导致的，使得嵌入空间未校准，直接进行图像到图像的比较变得不可靠。现有方法试图通过优化相似性逻辑或计算昂贵的每个样本优化来解决这一问题。为了克服这些挑战，我们引入了SeMoBridge，这是一个轻便而强大的方法，直接解决不对齐问题。我们的方法将图像映射到文本模态，同时通过我们称之为语义模态桥的东西来保持其语义内容完整。SeMoBridge是封闭形式的，可以通过多模态监督进行可选训练，结合图像和文本对齐损失来优化投影。实验表明，经过训练的SeMoBridge-T版本仅需要一小部分训练时间，同时在总体上优于其他方法，特别是在低数据场景（1、2和4个样本）下表现突出。代码可在<a target="_blank" rel="noopener" href="https://github.com/christti98/semobridge">github.com&#x2F;christti98&#x2F;semobridge</a>获得。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.26036v1">PDF</a> 19 pages, 12 figures, Under review as a conference paper at ICLR 2026</p>
+<p><strong>Summary</strong></p>
+<p>CLIP模型在零样本任务上表现出色，但在少样本分类任务中受到模态间对齐问题的限制。为解决此问题，我们提出SeMoBridge方法，通过构建语义模态桥梁，将图像映射到文本模态，同时保持语义内容完整。该方法形式简洁，可通过多模态监督进行训练，结合图像和文本对齐损失优化投影。实验表明，训练版SeMoBridge-T只需少量训练时间，即可在少数据场景下实现优异性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>CLIP在零样本任务上表现优秀，但在少样本分类中受限，存在模态间对齐问题。</li>
+<li>SeMoBridge方法旨在解决此问题，通过构建语义模态桥梁实现图像到文本模态的映射。</li>
+<li>SeMoBridge方法保持语义内容完整，形式简洁且可通过多模态监督进行训练。</li>
+<li>结合图像和文本对齐损失优化投影，提高模型性能。</li>
+<li>SeMoBridge-T训练时间短，且在少数据场景下表现优异。</li>
+<li>该方法的代码已公开，可访问指定GitHub链接获取。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.26036">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.26036v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.26036v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.26036v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.26036v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="EchoingECG-An-Electrocardiogram-Cross-Modal-Model-for-Echocardiogram-Tasks"><a href="#EchoingECG-An-Electrocardiogram-Cross-Modal-Model-for-Echocardiogram-Tasks" class="headerlink" title="EchoingECG: An Electrocardiogram Cross-Modal Model for Echocardiogram   Tasks"></a>EchoingECG: An Electrocardiogram Cross-Modal Model for Echocardiogram   Tasks</h2><p><strong>Authors:Yuan Gao, Sangwook Kim, Chris McIntosh</strong></p>
+<p>Electrocardiogram (ECG) is a widely used tool for assessing cardiac function due to its low cost and accessibility. Emergent research shows that ECGs can help make predictions on key outcomes traditionally derived from more complex modalities such as echocardiograms (ECHO), enabling the use of ECGs as a more accessible method to predict broader measurements of cardiac function. ECHO, in particular, are of great importance because they require considerable hospital resources while playing a key role in clinical cardiac assessment. To aid this use case, we introduce EchoingECG, a probabilistic student-teacher model that leverages uncertainty-aware ECG embeddings and ECHO supervision to improve ECG-based cardiac function prediction. Our approach integrates Probabilistic Cross-Modal Embeddings (PCME++), a probabilistic contrastive framework, with ECHO-CLIP, a vision-language pre-trained model trained on ECHO-text pairs, to distill ECHO knowledge into ECG representations. Through experiments and external validation, we showed that EchoingECG outperforms state-of-the-art foundation ECG models in zero-shot, few-shot, and fine-tune settings for ECHO predictions based on ECG. We also highlighted that variance estimation (enabled through our method) enhanced our understanding of model performance by identifying underlying regions of uncertainty within ECGs. The code is available: <a target="_blank" rel="noopener" href="https://github.com/mcintoshML/EchoingECG">https://github.com/mcintoshML/EchoingECG</a>. </p>
+<blockquote>
+<p>心电图（ECG）是一种广泛用于评估心脏功能的工具，因其成本低且易于获取。最新研究表明，心电图可以帮助预测传统上通过更复杂的方式（如超声心动图（ECHO））得出的关键结果，从而使心电图成为一种更易于获取的方法来预测更广泛的心脏功能测量。特别是超声心动图，虽然它们需要占用大量的医院资源，但在临床心脏评估中起着关键作用。为了支持这一应用场景，我们引入了EchoingECG，这是一种概率性学生-教师模型，它利用具有不确定性的心电图嵌入和ECHO监督来改善基于心电图的心脏功能预测。我们的方法结合了概率跨模态嵌入（PCME++），这是一个概率对比框架，以及ECHO-CLIP，这是一个在ECHO-文本对上训练的视觉语言预训练模型，用于将ECHO知识蒸馏到心电图表示中。通过实验和外部验证，我们证明了EchoingECG在零样本、少样本和微调设置中均优于最新基础心电图模型，用于基于心电图的ECHO预测。我们还强调，通过我们的方法实现的方差估计提高了我们对模型性能的理解，通过识别心电图中的潜在不确定区域来实现这一点。代码可用：<a target="_blank" rel="noopener" href="https://github.com/mcintoshML/EchoingECG%E3%80%82">https://github.com/mcintoshML/EchoingECG。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.25791v1">PDF</a> MICCAI 2025</p>
+<p><strong>Summary</strong><br>     心电图（ECG）可预测传统复杂模式如超声心动图（ECHO）的结果，是评估心脏功能的重要工具。我们引入EchoingECG模型，采用概率式学生教师模式并结合不确定性感知心电图嵌入和ECHO监督，以提高基于心电图的心脏功能预测能力。通过对比实验和外部验证，EchoingECG在零样本、少样本和微调设置中均优于当前基础心电图模型。我们的方法通过方差估计，有助于识别心电图中的不确定性区域。相关信息可在<a target="_blank" rel="noopener" href="https://github.com/mcintoshML/EchoingECG%E8%8E%B7%E5%8F%96%E3%80%82">https://github.com/mcintoshML/EchoingECG获取。</a></p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>心电图（ECG）可预测更复杂模式如超声心动图（ECHO）的结果，用于评估心脏功能。</li>
+<li>EchoingECG模型采用概率式学生教师模式，结合不确定性感知心电图嵌入和ECHO监督，提高心电图预测准确性。</li>
+<li>EchoingECG模型在零样本、少样本和微调设置下表现优于现有基础心电图模型。</li>
+<li>EchoingECG通过方差估计增强对模型性能的理解，识别心电图中的不确定性区域。</li>
+<li>EchoingECG代码公开可获取，有助于进一步研究和应用。</li>
+<li>ECG作为评估心脏功能的工具具有低成本和易获取的优势。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.25791">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25791v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25791v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25791v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="ProbMed-A-Probabilistic-Framework-for-Medical-Multimodal-Binding"><a href="#ProbMed-A-Probabilistic-Framework-for-Medical-Multimodal-Binding" class="headerlink" title="ProbMed: A Probabilistic Framework for Medical Multimodal Binding"></a>ProbMed: A Probabilistic Framework for Medical Multimodal Binding</h2><p><strong>Authors:Yuan Gao, Sangwook Kim, Jianzhong You, Chris McIntosh</strong></p>
+<p>Medical decision-making requires integrating diverse medical information, from imaging to clinical narratives. These medical modalities are often acquired in a many-to-many manner. However, current medical vision-language pretraining models (Med-VLPMs) fail to directly account for this many-to-many mapping in their model training and embeddings. To address this, we present Probabilistic Modality-Enhanced Diagnosis (ProbMED), a multimodal Med-VLPM that employs probabilistic contrastive learning to model distributions over embeddings rather than deterministic estimates. ProbMED aligns four distinct modalities – chest X-rays, electrocardiograms, echocardiograms, and clinical text – into a unified probabilistic embedding space. We use InfoNCE loss with Hellinger distance to integrate inter-modality distributions. We introduce a probabilistic synthetic sampling loss that captures modality-specific mean and variance to improve intra-modality binding. Extensive experiments across 13 medical datasets demonstrate that our model outperforms current Med-VLPMs in cross-modality retrieval, zero-shot, and few-shot classification. We also demonstrate the robust integration of multiple modalities for prognostication, showing improved intra- and inter-medical modality binding. </p>
+<blockquote>
+<p>医疗决策需要整合各种医疗信息，从成像到临床叙述。这些医疗模式通常是以多对多的方式获得。然而，当前的医疗视觉语言预训练模型（Med-VLPMs）在模型训练和嵌入中未能直接考虑这种多对多的映射。为了解决这一问题，我们提出了概率模式增强诊断（ProbMED），这是一种多模式Med-VLPM，它采用概率对比学习来对嵌入分布进行建模，而不是确定性估计。ProbMED将四种不同的模式——胸部X光片、心电图、超声心动图和临床文本——对齐到一个统一的概率嵌入空间。我们使用带有Hellinger距离的InfoNCE损失来整合跨模式分布。我们引入了一种概率合成采样损失，捕捉特定模式的均值和方差，以提高模式内的绑定。在13个医疗数据集上的大量实验表明，我们的模型在跨模式检索、零样本和少样本分类方面优于当前的Med-VLPMs。我们还展示了多种模式的稳健集成在预后预测方面的应用，并显示了改进的模式内和模式间绑定效果。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.25711v1">PDF</a> ICCV 2025</p>
+<p><strong>Summary</strong></p>
+<p>这篇文本介绍了一种新的多模态医疗决策模型——ProbMED。ProbMED利用概率对比学习技术建模多模态嵌入分布，而非确定性估计。它整合了四种不同模态（胸部X光、心电图、超声心动图和临床文本）到一个统一概率嵌入空间，通过InfoNCE损失和Hellinger距离整合跨模态分布，并引入概率合成采样损失来捕捉模态特定均值和方差，提升模态内绑定效果。实验表明，该模型在跨模态检索、零样本和少样本分类方面优于现有医疗视觉语言预训练模型，并在预后预测中展示了多模态稳健集成的能力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>当前医疗视觉语言预训练模型（Med-VLPMs）无法直接处理多模态数据的许多对许多映射问题。</li>
+<li>提出了ProbMED模型，该模型使用概率对比学习来建模嵌入分布。</li>
+<li>ProbMED将不同模态（如胸部X光、心电图、超声心动图和临床文本）统一到一个概率嵌入空间中。</li>
+<li>使用InfoNCE损失和Hellinger距离整合跨模态分布信息。</li>
+<li>引入概率合成采样损失，以提高模态内绑定效果并捕捉模态特定的均值和方差。</li>
+<li>实验证明ProbMED在跨模态检索、零样本和少样本分类方面优于现有Med-VLPMs。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.25711">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25711v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25711v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25711v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25711v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="OmniDFA-A-Unified-Framework-for-Open-Set-Synthesis-Image-Detection-and-Few-Shot-Attribution"><a href="#OmniDFA-A-Unified-Framework-for-Open-Set-Synthesis-Image-Detection-and-Few-Shot-Attribution" class="headerlink" title="OmniDFA: A Unified Framework for Open Set Synthesis Image Detection and   Few-Shot Attribution"></a>OmniDFA: A Unified Framework for Open Set Synthesis Image Detection and   Few-Shot Attribution</h2><p><strong>Authors:Shiyu Wu, Shuyan Li, Jing Li, Jing Liu, Yequan Wang</strong></p>
+<p>AI-generated image (AIGI) detection and source model attribution remain central challenges in combating deepfake abuses, primarily due to the structural diversity of generative models. Current detection methods are prone to overfitting specific forgery traits, whereas source attribution offers a robust alternative through fine-grained feature discrimination. However, synthetic image attribution remains constrained by the scarcity of large-scale, well-categorized synthetic datasets, limiting its practicality and compatibility with detection systems. In this work, we propose a new paradigm for image attribution called open-set, few-shot source identification. This paradigm is designed to reliably identify unseen generators using only limited samples, making it highly suitable for real-world application. To this end, we introduce OmniDFA (Omni Detector and Few-shot Attributor), a novel framework for AIGI that not only assesses the authenticity of images, but also determines the synthesis origins in a few-shot manner. To facilitate this work, we construct OmniFake, a large class-aware synthetic image dataset that curates $1.17$ M images from $45$ distinct generative models, substantially enriching the foundational resources for research on both AIGI detection and attribution. Experiments demonstrate that OmniDFA exhibits excellent capability in open-set attribution and achieves state-of-the-art generalization performance on AIGI detection. Our dataset and code will be made available. </p>
+<blockquote>
+<p>人工智能生成图像（AIGI）的检测和源头模型归属是打击深度伪造滥用行为的核心挑战，这主要是因为生成模型的机构多样性。当前的检测方法容易过度适应特定的伪造特征，而源头归属则通过精细特征辨别提供了一个稳健的替代方案。然而，合成图像归属受限于缺乏大规模、分类良好的合成数据集，这限制了其在检测系统中的实用性和兼容性。在本研究中，我们提出了一种新的图像归属范式，称为开放集小样本识别。该范式旨在仅使用有限的样本可靠地识别看不见的生成器，使其非常适合实际应用。为此，我们引入了OmniDFA（Omni检测器和少数样本归属者），这是一个新型AIGI框架，不仅评估图像的真实性，而且以少数样本的方式确定合成来源。为了推动这项工作，我们构建了OmniFake数据集，这是一个大型类别意识合成图像数据集，从45个不同的生成模型中筛选了117万张图像，极大地丰富了AIGI检测和归属研究的基础资源。实验表明，OmniDFA在开放集归属方面表现出卓越的能力，并在AIGI检测方面达到了最先进的泛化性能。我们的数据集和代码将可用。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.25682v1">PDF</a> 19 pages, 5 figures</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了人工智能生成图像（AIGI）检测和源模型归属的难题，指出当前检测方法的局限性以及源归属的重要性。针对这些问题，提出了一种新的图像归属范式——开放集小样本识别，并引入了OmniDFA框架，该框架不仅能评估图像的真实性，还能以少量样本确定合成来源。为此构建了OmniFake数据集，包含来自45种不同生成模型的117万张图像，丰富了AIGI检测和归属研究的基础资源。实验表明，OmniDFA在开放集归属方面具有出色的能力，并在AIGI检测方面达到了最先进的泛化性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>当前AI生成图像（AIGI）检测和源模型归属面临挑战，主要由于生成模型的多样性。</li>
+<li>源归属通过精细特征辨识提供了一种稳健的替代方法。</li>
+<li>合成图像归属受限于缺乏大规模、分类良好的合成数据集。</li>
+<li>引入了一种新的图像归属范式——开放集小样本识别。</li>
+<li>提出了OmniDFA框架，能评估图像真实性并确定合成来源。</li>
+<li>构建了OmniFake数据集，包含来自45种生成模型的117万张图像，丰富了AIGI检测和归属研究资源。</li>
+<li>OmniDFA在开放集归属和AIGI检测方面表现出优秀能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.25682">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25682v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25682v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25682v1/page_1_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25682v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25682v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25682v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="K-Prism-A-Knowledge-Guided-and-Prompt-Integrated-Universal-Medical-Image-Segmentation-Model"><a href="#K-Prism-A-Knowledge-Guided-and-Prompt-Integrated-Universal-Medical-Image-Segmentation-Model" class="headerlink" title="K-Prism: A Knowledge-Guided and Prompt Integrated Universal Medical   Image Segmentation Model"></a>K-Prism: A Knowledge-Guided and Prompt Integrated Universal Medical   Image Segmentation Model</h2><p><strong>Authors:Bangwei Guo, Yunhe Gao, Meng Ye, Difei Gu, Yang Zhou, Leon Axel, Dimitris Metaxas</strong></p>
+<p>Medical image segmentation is fundamental to clinical decision-making, yet existing models remain fragmented. They are usually trained on single knowledge sources and specific to individual tasks, modalities, or organs. This fragmentation contrasts sharply with clinical practice, where experts seamlessly integrate diverse knowledge: anatomical priors from training, exemplar-based reasoning from reference cases, and iterative refinement through real-time interaction. We present $\textbf{K-Prism}$, a unified segmentation framework that mirrors this clinical flexibility by systematically integrating three knowledge paradigms: (i) $\textit{semantic priors}$ learned from annotated datasets, (ii) $\textit{in-context knowledge}$ from few-shot reference examples, and (iii) $\textit{interactive feedback}$ from user inputs like clicks or scribbles. Our key insight is that these heterogeneous knowledge sources can be encoded into a dual-prompt representation: 1-D sparse prompts defining $\textit{what}$ to segment and 2-D dense prompts indicating $\textit{where}$ to attend, which are then dynamically routed through a Mixture-of-Experts (MoE) decoder. This design enables flexible switching between paradigms and joint training across diverse tasks without architectural modifications. Comprehensive experiments on 18 public datasets spanning diverse modalities (CT, MRI, X-ray, pathology, ultrasound, etc.) demonstrate that K-Prism achieves state-of-the-art performance across semantic, in-context, and interactive segmentation settings. Code will be released upon publication. </p>
+<blockquote>
+<p>医学图像分割对临床决策至关重要，但现有模型仍然呈现碎片化。它们通常基于单一的知识源进行训练，并专门针对特定的任务、模态或器官。这种碎片化与临床实践形成了鲜明的对比，专家在实践中能无缝地整合各种知识：来自训练的解剖先验知识、基于参考案例的示例推理，以及通过实时交互的迭代优化。我们提出了$\textbf{K-Prism}$，这是一个统一的分割框架，它通过系统地整合三种知识范式来反映这种临床灵活性：（i）从注释数据集中学习的$\textit{语义先验}$，（ii）来自少量参考示例的$\textit{上下文知识}$，以及（iii）来自用户输入（如点击或涂鸦）的$\textit{交互式反馈}$。我们的关键见解是，这些不同的知识源可以编码成一种双提示表示：定义$\textit{什么}$需要分割的1-D稀疏提示和指示$\textit{在哪里}$需要注意的2-D密集提示，然后它们通过混合专家（MoE）解码器进行动态路由。这种设计能够实现在范式之间的灵活切换以及在各种任务之间的联合训练，而无需进行架构修改。在涵盖多种模态（CT、MRI、X光、病理学、超声等）的18个公共数据集上进行的综合实验表明，K-Prism在语义、上下文和交互式分割设置中均达到了最先进的性能。代码将在发表时公布。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.25594v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>医学图像分割对临床决策至关重要，但现有模型通常基于单一知识源进行训练并局限于特定的任务、模态或器官应用，显得非常零散。为解决此问题，本文提出一种名为K-Prism的统一分割框架，通过系统地整合三种知识范式来模拟临床专家的灵活实践：从标注数据集中学习的语义先验知识、从少数参考案例中学习的上下文知识和来自用户输入（如点击或涂鸦）的实时交互反馈。本文的关键在于将这些异质知识源编码成双重提示表示，即定义要分割的“什么”（语义提示）和需要注意的“位置”（位置提示），然后通过混合专家解码器动态路由这些提示。这种设计可实现范式之间的灵活切换，并在不同任务之间进行联合训练而无需进行架构修改。在跨越多种模态的十八个公共数据集上的综合实验表明，K-Prism在语义、上下文和交互式分割设置中均达到最新技术水平。代码将在发表时发布。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>医学图像分割对临床决策至关重要，但现有模型零散，缺乏统一性和灵活性。</li>
+<li>K-Prism框架旨在模拟临床专家的实践，通过整合多种知识范式来增强模型的灵活性。</li>
+<li>K-Prism框架整合了语义先验知识、上下文知识和实时交互反馈。</li>
+<li>双重提示表示方法结合了“什么”和“哪里”的信息，增强了模型的分割能力。</li>
+<li>混合专家解码器能够动态路由提示并实现范式间的灵活切换。</li>
+<li>K-Prism框架在多个公共数据集上实现了最新的图像分割性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.25594">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25594v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25594v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25594v1/page_3_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="MetaChest-Generalized-few-shot-learning-of-patologies-from-chest-X-rays"><a href="#MetaChest-Generalized-few-shot-learning-of-patologies-from-chest-X-rays" class="headerlink" title="MetaChest: Generalized few-shot learning of patologies from chest X-rays"></a>MetaChest: Generalized few-shot learning of patologies from chest X-rays</h2><p><strong>Authors:Berenice Montalvo-Lezama, Gibran Fuentes-Pineda</strong></p>
+<p>The limited availability of annotated data presents a major challenge for applying deep learning methods to medical image analysis. Few-shot learning methods aim to recognize new classes from only a small number of labeled examples. These methods are typically studied under the standard few-shot learning setting, where all classes in a task are new. However, medical applications such as pathology classification from chest X-rays often require learning new classes while simultaneously leveraging knowledge of previously known ones, a scenario more closely aligned with generalized few-shot classification. Despite its practical relevance, few-shot learning has been scarcely studied in this context. In this work, we present MetaChest, a large-scale dataset of 479,215 chest X-rays collected from four public databases. MetaChest includes a meta-set partition specifically designed for standard few-shot classification, as well as an algorithm for generating multi-label episodes. We conduct extensive experiments evaluating both a standard transfer learning approach and an extension of ProtoNet across a wide range of few-shot multi-label classification tasks. Our results demonstrate that increasing the number of classes per episode and the number of training examples per class improves classification performance. Notably, the transfer learning approach consistently outperforms the ProtoNet extension, despite not being tailored for few-shot learning. We also show that higher-resolution images improve accuracy at the cost of additional computation, while efficient model architectures achieve comparable performance to larger models with significantly reduced resource requirements. </p>
+<blockquote>
+<p>在医疗图像分析中，标注数据的有限可用性是应用深度学习方法的重大挑战之一。小样本学习方法旨在从少量标记样本中识别出新类别。这些方法通常在标准的小样本学习环境中进行研究，即任务中的所有类别都是新的。然而，医疗应用（如基于胸部X射片的病理分类）通常需要在学习新类别的同时利用已知类别的知识，这一场景更符合广义小样本分类。尽管在实际应用中很重要，但小样本学习在此上下文中研究很少。在这项工作中，我们推出了MetaChest数据集，它包括从四个公共数据库中收集的479,215张胸部X射线图像。MetaChest包括一个专门设计的用于标准小样本分类的元集分区，以及一种用于生成多标签插曲的算法。我们进行了大量实验，评估了标准迁移学习方法以及ProtoNet扩展在多种小样本多标签分类任务中的表现。我们的结果表明，增加每个插曲中的类别数量和每个类别的训练样本数量可以提高分类性能。值得注意的是，尽管未经特别定制于小样本学习情境，迁移学习方法的表现持续优于ProtoNet扩展方法。我们还表明，高分辨率图像可以提高准确性但需要额外的计算成本，而高效的模型架构可以在显著减少资源需求的情况下实现与大型模型相当的性能。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.25590v1">PDF</a> </p>
+<p><strong>摘要</strong><br>    医学图像分析中应用深度学习方法的主要挑战在于标注数据的有限可用性。少样本学习方法旨在从少量标注样本中识别新类别。这些通常在标准少样本学习环境下进行研究，任务中的所有类别都是新的。然而，医学应用（如基于胸部X光片的病理分类）需要学习新类别的同时利用以往已知类别的知识，这一场景更接近于广义的少样本分类。尽管具有实际意义，但少样本学习在这种情境下却鲜有研究。在此研究中，我们推出了MetaChest数据集，包含从四个公开数据库收集的479215张胸部X光片。MetaChest包括专门用于标准少样本分类的元集分区以及用于生成多标签片段的算法。我们进行了大量实验，评估了标准迁移学习方法以及ProtoNet扩展在多种少样本多标签分类任务上的表现。结果表明，增加每集类别数量和每类的训练样本数量可以提高分类性能。值得注意的是，迁移学习方法持续优于ProtoNet扩展，尽管它并非专为少样本学习设计。同时，高分辨率图像能提高精度但会增加计算成本，而高效模型架构可实现与大型模型相当的性能，同时显著降低资源需求。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>医学图像分析面临标注数据有限的问题，这给深度学习方法的应用带来了挑战。</li>
+<li>少样本学习方法能够从少量标注样本中识别新类别，但以往的研究主要集中在标准环境下，忽略了医学应用中同时利用新旧知识的需求。</li>
+<li>MetaChest数据集的推出为医学图像少样本学习提供了研究资源，包括专门用于标准少样本分类的元集分区和多标签片段生成算法。</li>
+<li>实验表明，增加每集类别数量和每类的训练样本数量可以提高分类性能。</li>
+<li>迁移学习方法在少样本分类任务上表现优于ProtoNet扩展。</li>
+<li>高分辨率图像能提高精度但会增加计算成本，需要权衡。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.25590">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25590v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.25590v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Multi-Robot-Task-Planning-for-Multi-Object-Retrieval-Tasks-with-Distributed-On-Site-Knowledge-via-Large-Language-Models"><a href="#Multi-Robot-Task-Planning-for-Multi-Object-Retrieval-Tasks-with-Distributed-On-Site-Knowledge-via-Large-Language-Models" class="headerlink" title="Multi-Robot Task Planning for Multi-Object Retrieval Tasks with   Distributed On-Site Knowledge via Large Language Models"></a>Multi-Robot Task Planning for Multi-Object Retrieval Tasks with   Distributed On-Site Knowledge via Large Language Models</h2><p><strong>Authors:Kento Murata, Shoichi Hasegawa, Tomochika Ishikawa, Yoshinobu Hagiwara, Akira Taniguchi, Lotfi El Hafi, Tadahiro Taniguchi</strong></p>
+<p>It is crucial to efficiently execute instructions such as “Find an apple and a banana” or “Get ready for a field trip,” which require searching for multiple objects or understanding context-dependent commands. This study addresses the challenging problem of determining which robot should be assigned to which part of a task when each robot possesses different situational on-site knowledge-specifically, spatial concepts learned from the area designated to it by the user. We propose a task planning framework that leverages large language models (LLMs) and spatial concepts to decompose natural language instructions into subtasks and allocate them to multiple robots. We designed a novel few-shot prompting strategy that enables LLMs to infer required objects from ambiguous commands and decompose them into appropriate subtasks. In our experiments, the proposed method achieved 47&#x2F;50 successful assignments, outperforming random (28&#x2F;50) and commonsense-based assignment (26&#x2F;50). Furthermore, we conducted qualitative evaluations using two actual mobile manipulators. The results demonstrated that our framework could handle instructions, including those involving ad hoc categories such as “Get ready for a field trip,” by successfully performing task decomposition, assignment, sequential planning, and execution. </p>
+<blockquote>
+<p>执行诸如“找一个苹果和一个香蕉”或“为实地考察做好准备”等指令至关重要，这些指令需要搜索多个物体或理解上下文相关的命令。本研究解决了这样一个挑战性问题：当每个机器人拥有不同的现场情境知识——特别是用户为其指定的区域中所学到的空间概念时，应决定将哪个机器人分配给任务中的哪个部分。我们提出了一个利用大型语言模型（LLM）和空间概念的任务规划框架，将自然语言指令分解为子任务并分配给多个机器人。我们设计了一种新型少提示策略，使LLM能够从模糊命令中推断所需物体，并将其分解为适当的子任务。在实验中，所提出的方法实现了47&#x2F;50的成功分配任务，优于随机分配（28&#x2F;50）和基于常识的分配（26&#x2F;50）。此外，我们还使用两个实际的移动操纵器进行了定性评估。结果表明，我们的框架能够处理指令，包括涉及临时性类别的指令，如“为实地考察做好准备”，通过成功进行任务分解、分配、序列规划和执行。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.12838v2">PDF</a> Submitted to AROB-ISBC 2026 (Journal Track option)</p>
+<p><strong>Summary</strong></p>
+<p>该文研究了在执行复杂任务时，如何利用大型语言模型（LLMs）和空间概念将自然语言指令分解为子任务并分配给多个机器人。提出一种任务规划框架，通过新颖的few-shot提示策略，使LLMs能从模糊指令中推断所需物体，并将其分解为适当的子任务。实验表明，该方法在分配任务时表现出较高的成功率，并能够处理包括临时类别在内的指令。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>研究重点在于执行复杂任务时，为机器人分配适当的子任务。</li>
+<li>利用大型语言模型（LLMs）和空间概念进行任务分解。</li>
+<li>提出一种新颖的few-shot提示策略，使LLMs能从模糊指令中推断所需物体。</li>
+<li>实验显示，该方法在任务分配时的成功率为47&#x2F;50，优于随机分配（28&#x2F;50）和基于常识的分配（26&#x2F;50）。</li>
+<li>框架能够处理包括临时类别在内的指令。</li>
+<li>通过定性评估，使用实际移动操作器验证了框架的有效性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.12838">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.12838v2/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="HealthSLM-Bench-Benchmarking-Small-Language-Models-for-Mobile-and-Wearable-Healthcare-Monitoring"><a href="#HealthSLM-Bench-Benchmarking-Small-Language-Models-for-Mobile-and-Wearable-Healthcare-Monitoring" class="headerlink" title="HealthSLM-Bench: Benchmarking Small Language Models for Mobile and   Wearable Healthcare Monitoring"></a>HealthSLM-Bench: Benchmarking Small Language Models for Mobile and   Wearable Healthcare Monitoring</h2><p><strong>Authors:Xin Wang, Ting Dang, Xinyu Zhang, Vassilis Kostakos, Michael J. Witbrock, Hong Jia</strong></p>
+<p>Mobile and wearable healthcare monitoring play a vital role in facilitating timely interventions, managing chronic health conditions, and ultimately improving individuals’ quality of life. Previous studies on large language models (LLMs) have highlighted their impressive generalization abilities and effectiveness in healthcare prediction tasks. However, most LLM-based healthcare solutions are cloud-based, which raises significant privacy concerns and results in increased memory usage and latency. To address these challenges, there is growing interest in compact models, Small Language Models (SLMs), which are lightweight and designed to run locally and efficiently on mobile and wearable devices. Nevertheless, how well these models perform in healthcare prediction remains largely unexplored. We systematically evaluated SLMs on health prediction tasks using zero-shot, few-shot, and instruction fine-tuning approaches, and deployed the best performing fine-tuned SLMs on mobile devices to evaluate their real-world efficiency and predictive performance in practical healthcare scenarios. Our results show that SLMs can achieve performance comparable to LLMs while offering substantial gains in efficiency and privacy. However, challenges remain, particularly in handling class imbalance and few-shot scenarios. These findings highlight SLMs, though imperfect in their current form, as a promising solution for next-generation, privacy-preserving healthcare monitoring. </p>
+<blockquote>
+<p>移动和可穿戴式健康监测在促进及时干预、管理慢性健康状况以及最终提高个人生活质量方面发挥着至关重要的作用。以往关于大型语言模型（LLMs）的研究已经突出了其在医疗保健预测任务中的惊人泛化能力和效果。然而，大多数基于LLM的医疗保健解决方案都是基于云的，这引发了重大的隐私担忧，并导致内存使用增加和延迟。为了解决这些挑战，人们对紧凑模型——小型语言模型（SLMs）的兴趣日益浓厚，这些模型轻便且设计用于在移动和可穿戴设备上本地高效运行。然而，这些模型在医疗保健预测方面的表现如何仍鲜为人知。我们系统地评估了SLM在健康预测任务中的零样本、少样本和指令微调方法，并将表现最佳的微调SLM部署在移动设备上，以评估其在现实世界的效率和预测性能在实际医疗保健场景中的表现。结果表明，SLM的性能可与LLM相媲美，同时在效率和隐私方面提供了实质性的改进。然而，仍然存在挑战，特别是在处理类别不平衡和少样本场景方面。这些发现表明，尽管SLM在当前形式下并不完美，但它们作为下一代隐私保护健康监测的潜在解决方案仍具有广阔的发展前景。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.07260v4">PDF</a> 9 pages, 6 tables, 6 figures. Accepted at NeurIPS 2025 Workshop on   GenAI4Health</p>
+<p><strong>Summary</strong></p>
+<p>小型语言模型（SLMs）在移动和可穿戴设备上的健康监测中展现出潜力。研究评估了SLMs在健康预测任务中的性能，并将其与大型语言模型（LLMs）相比较。结果显示，SLMs在效率和隐私方面实现了显著的提升，同时可完成零样本、少样本和学习指令微调的任务。尽管存在处理类别不平衡和少样本场景的挑战，但SLMs仍被视为下一代隐私保护健康监测的潜在解决方案。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>移动和可穿戴设备在医疗保健监测中扮演重要角色，有助于及时干预、管理慢性健康问题和提高生活质量。</li>
+<li>大型语言模型（LLMs）在医疗保健预测任务中表现出良好的泛化能力和效果。</li>
+<li>LLMs主要作为云解决方案存在隐私关注、内存使用和延迟问题。</li>
+<li>小型语言模型（SLMs）是一种轻量级的解决方案，可本地运行，在移动和可穿戴设备上高效运行。</li>
+<li>SLMs在健康预测任务中的性能与LLMs相当，同时带来效率和隐私方面的显著提升。</li>
+<li>SLMs在处理类别不平衡和少样本场景时仍存在挑战。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.07260">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.07260v4/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.07260v4/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.07260v4/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2509.07260v4/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="Simple-yet-Effective-Semi-supervised-Knowledge-Distillation-from-Vision-Language-Models-via-Dual-Head-Optimization"><a href="#Simple-yet-Effective-Semi-supervised-Knowledge-Distillation-from-Vision-Language-Models-via-Dual-Head-Optimization" class="headerlink" title="Simple yet Effective Semi-supervised Knowledge Distillation from   Vision-Language Models via Dual-Head Optimization"></a>Simple yet Effective Semi-supervised Knowledge Distillation from   Vision-Language Models via Dual-Head Optimization</h2><p><strong>Authors:Seongjae Kang, Dong Bok Lee, Hyungjoon Jang, Sung Ju Hwang</strong></p>
+<p>Semi-supervised learning (SSL) has emerged as a practical solution for addressing data scarcity challenges by leveraging unlabeled data. Recently, vision-language models (VLMs), pre-trained on massive image-text pairs, have demonstrated remarkable zero-&#x2F;few-shot performance that often surpasses SSL approaches due to their exceptional generalization capabilities. This gap motivates us to question: how can we effectively harness the powerful generalization capabilities of VLMs into task-specific models? Knowledge distillation (KD) offers a natural framework for transferring VLM capabilities, but we identify that it suffers from gradient conflicts between supervised and distillation losses. To address this challenge, we propose Dual-Head Optimization (DHO), which introduces dual prediction heads for each distinct signal. We observe that DHO resolves gradient conflicts, enabling improved feature learning compared to single-head KD baselines, with practical benefits of minimal computational overhead and test-time hyperparameter tuning without retraining. Extensive experiments across 15 datasets show that DHO consistently outperforms KD baselines, often outperforming teacher models with smaller student models. DHO also achieves new state-of-the-art performance on both in-distribution ImageNet semi-supervised learning and out-of-distribution generalization across ImageNet variants. We publicly release our code and model checkpoints to facilitate future research at <a target="_blank" rel="noopener" href="https://github.com/erjui/DHO">https://github.com/erjui/DHO</a>. </p>
+<blockquote>
+<p>半监督学习（SSL）已成为一种利用无标签数据解决数据稀缺挑战的实际解决方案。最近，在大量图像文本对上预训练的视觉语言模型（VLM）表现出了令人瞩目的零样本&#x2F;少样本性能，由于其出色的泛化能力，通常超越了SSL方法。这种差距促使我们提出一个问题：如何有效地利用VLM的强大泛化能力到特定任务模型中？知识蒸馏（KD）提供了一个转移VLM能力的天然框架，但我们发现它在监督损失和蒸馏损失之间存在梯度冲突。为了解决这一挑战，我们提出了双头优化（DHO），它引入了针对每个不同信号的双重预测头。我们发现DHO解决了梯度冲突，与单头KD基线相比，实现了改进的特征学习，具有最小的计算开销和无需重新训练即可进行测试时超参数调整的实际好处。在15个数据集上的大量实验表明，DHO始终优于KD基线，通常使用较小的学生模型就能超越教师模型。DHO还在In-distribution ImageNet半监督学习和跨ImageNet变体的Out-of-distribution泛化方面实现了新的最新性能。我们在<a target="_blank" rel="noopener" href="https://github.com/erjui/DHO">https://github.com/erjui/DHO</a>上公开发布了我们的代码和模型检查点，以方便未来的研究。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2505.07675v2">PDF</a> 38 pages, 17 figures, preprint</p>
+<p><strong>Summary</strong></p>
+<p>半监督学习（SSL）利用未标记数据解决数据稀缺挑战。视语言模型（VLM）在图像文本对上预训练，展现出惊人的零&#x2F;少样本性能，常超越SSL方法，因其出色的泛化能力。为利用VLM的泛化能力到特定任务模型，我们提出采用知识蒸馏（KD）。然而，我们发现KD存在梯度冲突问题。为此，我们提出双头优化（DHO），为每个不同信号引入双预测头。DHO解决梯度冲突，与单头KD基线相比，改善特征学习，具有极低的计算开销和无需重新训练的测试时间超参数调整优势。在15个数据集上的广泛实验显示，DHO常优于KD基线，有时以小模型胜过教师模型。DHO还在ImageNet半监督学习和跨ImageNet变种的任务外泛化方面达到新的SOTA性能。我们公开代码和模型检查点以推动未来研究：<a target="_blank" rel="noopener" href="https://github.com/erjui/DHO">https://github.com/erjui/DHO</a>。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>半监督学习通过利用未标记数据解决数据稀缺挑战。</li>
+<li>视语言模型在图像文本对上预训练，展现出优秀泛化性能。</li>
+<li>知识蒸馏是有效利用视语言模型能力到特定任务模型的手段。</li>
+<li>知识蒸馏过程中存在梯度冲突问题。</li>
+<li>双头优化（DHO）方法通过引入双预测头解决梯度冲突。</li>
+<li>DHO方法相较于传统知识蒸馏方法有更好的特征学习能力、更低的计算开销和更灵活的测试时间超参数调整。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2505.07675">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2505.07675v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2505.07675v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2505.07675v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2505.07675v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2505.07675v2/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2505.07675v2/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Unlocking-Transfer-Learning-for-Open-World-Few-Shot-Recognition"><a href="#Unlocking-Transfer-Learning-for-Open-World-Few-Shot-Recognition" class="headerlink" title="Unlocking Transfer Learning for Open-World Few-Shot Recognition"></a>Unlocking Transfer Learning for Open-World Few-Shot Recognition</h2><p><strong>Authors:Byeonggeun Kim, Juntae Lee, Kyuhong Shim, Simyung Chang</strong></p>
+<p>Few-Shot Open-Set Recognition (FSOSR) targets a critical real-world challenge, aiming to categorize inputs into known categories, termed closed-set classes, while identifying open-set inputs that fall outside these classes. Although transfer learning where a model is tuned to a given few-shot task has become a prominent paradigm in closed-world, we observe that it fails to expand to open-world. To unlock this challenge, we propose a two-stage method which consists of open-set aware meta-learning with open-set free transfer learning. In the open-set aware meta-learning stage, a model is trained to establish a metric space that serves as a beneficial starting point for the subsequent stage. During the open-set free transfer learning stage, the model is further adapted to a specific target task through transfer learning. Additionally, we introduce a strategy to simulate open-set examples by modifying the training dataset or generating pseudo open-set examples. The proposed method achieves state-of-the-art performance on two widely recognized benchmarks, miniImageNet and tieredImageNet, with only a 1.5% increase in training effort. Our work demonstrates the effectiveness of transfer learning in FSOSR. </p>
+<blockquote>
+<p>少数开放集识别（FSOSR）旨在解决现实世界中的一个关键挑战，旨在将输入分类为已知类别（称为封闭集类别），同时识别不属于这些类别的开放集输入。虽然迁移学习已成为封闭世界中一种突出的模式，即模型被调整到给定的少数任务上，但我们发现它无法扩展到开放世界。为了解锁这一挑战，我们提出了一种两阶段的方法，包括具有开放集自由迁移学习的开放集感知元学习。在开放集感知元学习阶段，模型被训练以建立一个度量空间，作为后续阶段的起点。在开放集自由迁移学习阶段，模型进一步适应特定的目标任务，通过迁移学习。此外，我们还介绍了一种通过修改训练数据集或生成伪开放集示例来模拟开放集示例的策略。所提出的方法在广泛认可的miniImageNet和tieredImageNet基准测试上取得了最先进的性能，仅增加了1.5%的训练努力。我们的工作证明了迁移学习在FSOSR中的有效性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2411.09986v3">PDF</a> Accepted at NeurIPS 2025 workshop</p>
+<p><strong>Summary</strong><br>少量样本开放集识别（FSOSR）旨在解决现实世界中的一项重要挑战，即在对输入进行分类时，既要将其归类到已知类别（封闭集类别），又要识别出不属于这些类别的开放集输入。虽然迁移学习已成为封闭世界中的主流范式，但我们发现它无法扩展到开放世界。为了应对这一挑战，我们提出了一个两阶段的方法，包括开放集感知元学习与开放集自由迁移学习。在开放集感知元学习阶段，我们训练模型以建立度量空间，作为后续阶段的起点。在开放集自由迁移学习阶段，模型通过迁移学习进一步适应特定的目标任务。此外，我们还通过修改训练数据集或生成伪开放集样本来模拟开放集示例。该方法在广泛认可的miniImageNet和tieredImageNet基准测试上实现了最佳性能，仅增加了1.5%的训练努力。我们的工作证明了迁移学习在FSOSR中的有效性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Few-Shot Open-Set Recognition (FSOSR) 旨在解决区分封闭集和开放集输入的分类问题。</li>
+<li>迁移学习在封闭世界识别中表现良好，但无法直接应用于开放世界识别。</li>
+<li>提出的两阶段方法包括开放集感知元学习和开放集自由迁移学习，旨在解决开放世界识别问题。</li>
+<li>在开放集感知元学习阶段，建立度量空间作为后续阶段的起点。</li>
+<li>在开放集自由迁移学习阶段，模型适应特定目标任务。</li>
+<li>通过模拟开放集示例来增强方法，包括修改训练数据集或生成伪开放集样本。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2411.09986">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2411.09986v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2411.09986v3/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2411.09986v3/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2411.09986v3/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="Adaptive-Modality-Balanced-Online-Knowledge-Distillation-for-Brain-Eye-Computer-based-Dim-Object-Detection"><a href="#Adaptive-Modality-Balanced-Online-Knowledge-Distillation-for-Brain-Eye-Computer-based-Dim-Object-Detection" class="headerlink" title="Adaptive Modality Balanced Online Knowledge Distillation for   Brain-Eye-Computer based Dim Object Detection"></a>Adaptive Modality Balanced Online Knowledge Distillation for   Brain-Eye-Computer based Dim Object Detection</h2><p><strong>Authors:Zixing Li, Chao Yan, Zhen Lan, Xiaojia Xiang, Han Zhou, Jun Lai, Dengqing Tang</strong></p>
+<p>Advanced cognition can be extracted from the human brain using brain-computer interfaces. Integrating these interfaces with computer vision techniques, which possess efficient feature extraction capabilities, can achieve more robust and accurate detection of dim targets in aerial images. However, existing target detection methods primarily concentrate on homogeneous data, lacking efficient and versatile processing capabilities for heterogeneous multimodal data. In this paper, we first build a brain-eye-computer based object detection system for aerial images under few-shot conditions. This system detects suspicious targets using region proposal networks, evokes the event-related potential (ERP) signal in electroencephalogram (EEG) through the eye-tracking-based slow serial visual presentation (ESSVP) paradigm, and constructs the EEG-image data pairs with eye movement data. Then, an adaptive modality balanced online knowledge distillation (AMBOKD) method is proposed to recognize dim objects with the EEG-image data. AMBOKD fuses EEG and image features using a multi-head attention module, establishing a new modality with comprehensive features. To enhance the performance and robust capability of the fusion modality, simultaneous training and mutual learning between modalities are enabled by end-to-end online knowledge distillation. During the learning process, an adaptive modality balancing module is proposed to ensure multimodal equilibrium by dynamically adjusting the weights of the importance and the training gradients across various modalities. The effectiveness and superiority of our method are demonstrated by comparing it with existing state-of-the-art methods. Additionally, experiments conducted on public datasets and system validations in real-world scenarios demonstrate the reliability and practicality of the proposed system and the designed method. </p>
+<blockquote>
+<p>利用脑机接口可以从人脑中提取高级认知。将这些接口与拥有高效特征提取能力的计算机视觉技术相结合，可以实现更稳健、更准确地检测航空图像中的微弱目标。然而，现有的目标检测方法主要集中在同质数据上，缺乏对异质多模态数据的高效通用处理能力。在本文中，我们首先在少样本条件下构建了基于人脑-眼睛-计算机的航空图像目标检测系统。该系统利用区域提案网络检测可疑目标，通过基于眼动的慢速序列视觉呈现（ESSVP）范式激发脑电图（EEG）中的事件相关电位（ERP）信号，并构建EEG-图像数据对以及眼动数据。然后，提出了一种自适应模态平衡在线知识蒸馏（AMBOKD）方法来识别微弱的物体，该方法使用EEG-图像数据。AMBOKD使用多头注意力模块融合EEG和图像特征，建立具有综合特征的新模态。为了提高融合模态的性能和稳健性，通过端到端的在线知识蒸馏实现了模态之间的同时训练和相互学习。在学习过程中，提出了一种自适应模态平衡模块，通过动态调整不同模态之间的重要性和训练梯度的权重，以确保多模态平衡。通过与现有最先进的方法进行比较，证明了我们的方法的有效性和优越性。此外，在公共数据集上进行的实验以及在现实场景中的系统验证证明了所提出系统和方法的可靠性和实用性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2407.01894v3">PDF</a> 18 pages,15 figures</p>
+<p><strong>Summary</strong><br>     通过脑机接口提取人类高级认知，结合计算机视觉技术，能更稳健准确地检测航空图像中的微弱目标。针对现有目标检测方法主要处理同质数据的问题，本文构建了一个基于脑眼计算机的少样本航空图像目标检测系统。系统利用区域提案网络检测可疑目标，并通过眼动追踪的慢速序列视觉呈现范式激发脑电图中的事件相关电位信号，构建EEG-图像数据与眼动数据对。提出自适应模态平衡在线知识蒸馏方法，融合EEG和图像特征，建立具有综合特征的新模态。通过端对端在线知识蒸馏实现模态间的同步训练和相互学习，提高融合模态的性能和稳健性。通过自适应模态平衡模块确保多模态平衡，动态调整不同模态的重要性和训练梯度的权重。本文方法与现有先进方法相比，验证了其有效性和优越性。在公共数据集上的实验和真实场景的系统验证，证明了所提系统和方法的可靠性和实用性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>利用脑机接口提取人类高级认知信息。</li>
+<li>结合计算机视觉技术，提高检测航空图像中微弱目标的能力。</li>
+<li>构建基于脑眼计算机系统的少样本航空图像目标检测系统。</li>
+<li>通过区域提案网络检测可疑目标。</li>
+<li>利用眼动追踪激发脑电图中的事件相关电位信号。</li>
+<li>提出自适应模态平衡在线知识蒸馏方法，融合EEG和图像特征。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2407.01894">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2407.01894v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2407.01894v3/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2407.01894v3/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2407.01894v3/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2407.01894v3/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_Few-Shot/2407.01894v3/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-10-02/Few-Shot/">https://kedreamix.github.io/Talk2Paper/Paper/2025-10-02/Few-Shot/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/Few-Shot/">
+                                    <span class="chip bg-color">Few-Shot</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-10-02/I2I%20Translation/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_I2I Translation/2509.26364v1/page_0_0.jpg" class="responsive-img" alt="I2I Translation">
+                        
+                        <span class="card-title">I2I Translation</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            I2I Translation 方向最新论文已更新，请持续关注 Update in 2025-10-02  Data-to-Energy Stochastic Dynamics
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-02
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/I2I-Translation/" class="post-category">
+                                    I2I Translation
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/I2I-Translation/">
+                        <span class="chip bg-color">I2I Translation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-10-02/MMT/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-10-02\./crop_MMT/2506.07032v3/page_5_1.jpg" class="responsive-img" alt="MMT">
+                        
+                        <span class="card-title">MMT</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            MMT 方向最新论文已更新，请持续关注 Update in 2025-10-02  A Culturally-diverse Multilingual Multimodal Video Benchmark & Model
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-02
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/MMT/" class="post-category">
+                                    MMT
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/MMT/">
+                        <span class="chip bg-color">MMT</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">29474.5k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
