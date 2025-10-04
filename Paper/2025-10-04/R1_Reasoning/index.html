@@ -1,0 +1,1773 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="R1_Reasoning">
+    <meta name="description" content="R1_Reasoning 方向最新论文已更新，请持续关注 Update in 2025-10-04  KaVa Latent Reasoning via Compressed KV-Cache Distillation">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>R1_Reasoning | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01624v1/page_0_0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">R1_Reasoning</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/R1-Reasoning/">
+                                <span class="chip bg-color">R1_Reasoning</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/R1-Reasoning/" class="post-category">
+                                R1_Reasoning
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-04
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-10-04
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    20.9k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    84 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-10-04-更新"><a href="#2025-10-04-更新" class="headerlink" title="2025-10-04 更新"></a>2025-10-04 更新</h1><h2 id="KaVa-Latent-Reasoning-via-Compressed-KV-Cache-Distillation"><a href="#KaVa-Latent-Reasoning-via-Compressed-KV-Cache-Distillation" class="headerlink" title="KaVa: Latent Reasoning via Compressed KV-Cache Distillation"></a>KaVa: Latent Reasoning via Compressed KV-Cache Distillation</h2><p><strong>Authors:Anna Kuzina, Maciej Pioro, Paul N. Whatmough, Babak Ehteshami Bejnordi</strong></p>
+<p>Large Language Models (LLMs) excel at multi-step reasoning problems with explicit chain-of-thought (CoT), but verbose traces incur significant computational costs and memory overhead, and often carry redundant, stylistic artifacts. Latent reasoning has emerged as an efficient alternative that internalizes the thought process, but it suffers from a critical lack of supervision, limiting its effectiveness on complex, natural-language reasoning traces. In this work, we propose KaVa, the first framework that bridges this gap by distilling knowledge directly from a compressed KV-cache of the teacher into a latent-reasoning student via self-distillation, leveraging the representational flexibility of continuous latent tokens to align stepwise KV trajectories. We show that the abstract, unstructured knowledge within compressed KV-cache, which lacks direct token correspondence, can serve as a rich supervisory signal for a latent reasoning student. Empirically, the approach consistently outperforms strong latent baselines, exhibits markedly smaller degradation from equation-only to natural-language traces, and scales to larger backbones while preserving efficiency. These results establish compressed KV-cache distillation as a scalable supervision signal for latent reasoning, combining the accuracy of CoT-trained teachers with the efficiency and deployability of latent inference. </p>
+<blockquote>
+<p>大型语言模型（LLM）擅长具有明确思维链（CoT）的多步推理问题，但冗长的跟踪会引发巨大的计算成本和内存开销，并且经常带有冗余、风格化的伪迹。隐式推理作为一种有效的替代方法，能够内化思维过程，但在复杂、自然语言推理轨迹上，由于缺乏监督而严重限制了其有效性。在这项工作中，我们提出了KaVa框架，它是第一个通过自我蒸馏直接从压缩的KV缓存中提取知识并将其灌输到隐性推理学生中的框架。我们利用连续潜在符号的表示灵活性来对齐逐步KV轨迹。我们证明了压缩KV缓存中的抽象、非结构化知识可以作为隐性推理学生的丰富监督信号，尽管它缺乏直接的符号对应关系。从实证上看，该方法始终优于强大的隐性基线，从方程式到自然语言轨迹的退化明显较小，并且在保留效率的同时扩展到了更大的主干网。这些结果将压缩KV缓存蒸馏确立为一种可扩展的监督信号，用于隐性推理，结合了经过CoT训练的教师的准确性以及潜在推理的效率部署能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02312v1">PDF</a> Preprint. Under Review</p>
+<p><strong>Summary</strong></p>
+<p>大型语言模型在多步推理问题中表现出色，但显式思维链（CoT）路径会导致计算成本增加和内存消耗过大，且常有冗余的风格化痕迹。潜推理成为了一种高效的替代方案，但其缺乏关键监督限制了复杂自然语言推理的准确性。本文提出了一个框架KaVa，它通过教师模型的KV缓存压缩信息蒸馏技术对学生进行监督，利用连续潜在标记的代表性灵活性对齐逐步KV轨迹。实验表明，压缩的KV缓存中的抽象、非结构化知识可以作为学生模型的丰富监督信号。此方法在基准测试中表现优越，自然语言的推理准确性有明显提升，且能在大规模骨干网络上保持高效性。这为潜推理的压缩KV缓存蒸馏提供了一个可扩展的监督信号，结合了教师的思维链训练和学生的潜推理效率与部署性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>大型语言模型在处理多步推理问题时表现出色，但存在计算成本高和内存消耗大的问题。</li>
+<li>潜推理作为一种高效的替代方案，由于缺乏关键监督而面临复杂自然语言推理的挑战。</li>
+<li>KaVa框架通过教师模型的KV缓存压缩信息蒸馏技术对学生进行监督，实现了思维链的潜内化。</li>
+<li>压缩的KV缓存中的抽象、非结构化知识可以作为学生模型的丰富监督信号。</li>
+<li>KaVa框架在基准测试中表现优越，显著提高了自然语言的推理准确性。</li>
+<li>KaVa框架能够在大规模骨干网络上保持高效性，具有可扩展性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02312">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02312v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02312v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02312v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02312v1/page_3_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02312v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Tree-based-Dialogue-Reinforced-Policy-Optimization-for-Red-Teaming-Attacks"><a href="#Tree-based-Dialogue-Reinforced-Policy-Optimization-for-Red-Teaming-Attacks" class="headerlink" title="Tree-based Dialogue Reinforced Policy Optimization for Red-Teaming   Attacks"></a>Tree-based Dialogue Reinforced Policy Optimization for Red-Teaming   Attacks</h2><p><strong>Authors:Ruohao Guo, Afshin Oroojlooy, Roshan Sridhar, Miguel Ballesteros, Alan Ritter, Dan Roth</strong></p>
+<p>Despite recent rapid progress in AI safety, current large language models remain vulnerable to adversarial attacks in multi-turn interaction settings, where attackers strategically adapt their prompts across conversation turns and pose a more critical yet realistic challenge. Existing approaches that discover safety vulnerabilities either rely on manual red-teaming with human experts or employ automated methods using pre-defined templates and human-curated attack data, with most focusing on single-turn attacks. However, these methods did not explore the vast space of possible multi-turn attacks, failing to consider novel attack trajectories that emerge from complex dialogue dynamics and strategic conversation planning. This gap is particularly critical given recent findings that LLMs exhibit significantly higher vulnerability to multi-turn attacks compared to single-turn attacks. We propose DialTree-RPO, an on-policy reinforcement learning framework integrated with tree search that autonomously discovers diverse multi-turn attack strategies by treating the dialogue as a sequential decision-making problem, enabling systematic exploration without manually curated data. Through extensive experiments, our approach not only achieves more than 25.9% higher ASR across 10 target models compared to previous state-of-the-art approaches, but also effectively uncovers new attack strategies by learning optimal dialogue policies that maximize attack success across multiple turns. </p>
+<blockquote>
+<p>尽管人工智能安全领域最近取得了快速进展，但当前的大型语言模型在多轮交互设置中仍然容易受到对抗性攻击的影响。在此类设置中，攻击者会战略性地调整他们的提示并跨对话轮次进行适应，从而构成更加现实且关键的挑战。现有的发现安全漏洞的方法要么依赖于与人类专家的手动红队对抗，要么使用基于预定义模板和人类整理的攻击数据的自动化方法，其中大多数方法主要关注单轮攻击。然而，这些方法并未探索庞大的多轮攻击可能性空间，未能考虑由复杂的对话动态和战略对话规划所涌现出的新型攻击轨迹。考虑到最近的研究发现大型语言模型相较于单轮攻击而言对多轮攻击具有更高的脆弱性，这一差距尤为关键。我们提出了DialTree-RPO方法，这是一个与树搜索相结合的策略型强化学习框架，可自主发现多样化的多轮攻击策略，将对话视为一种顺序决策问题，可以在不依赖手动整理数据的情况下进行系统探索。通过广泛的实验验证，我们的方法不仅相较于先前最先进的方法在十个目标模型上实现了超过25.9%的攻击成功率提升，而且通过学习最大化多轮攻击成功的最佳对话策略来有效地发现新的攻击策略。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02286v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>当前的大型语言模型在多轮互动场景中仍易受对抗性攻击的影响。现有的发现安全漏洞的方法依赖于人工专家团队或自动化方法，但无法系统地探索复杂的多轮攻击策略。因此，提出了DialTree-RPO框架，通过强化学习和树搜索技术自主发现多样化的多轮攻击策略，实现无需手动整理数据就能系统地探索对话空间。经过大量实验验证，DialTree-RPO不仅能实现对目标模型的攻击成功率提升超过25.9%，而且能通过学习最佳对话策略来有效地发掘新的攻击策略。这一突破有望进一步提高大型语言模型在实际环境中的安全性和稳定性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>当前大型语言模型在多轮互动场景中仍存在安全漏洞，容易受到对抗性攻击的影响。</li>
+<li>现有的发现安全漏洞的方法主要依赖于人工专家团队或自动化方法，但无法系统地探索复杂的多轮攻击策略。</li>
+<li>DialTree-RPO框架通过强化学习和树搜索技术，能够自主发现多样化的多轮攻击策略，实现系统的对话空间探索而无需手动整理数据。</li>
+<li>DialTree-RPO在大量实验验证下表现出强大的性能，攻击成功率提升超过现有方法25.9%。</li>
+<li>DialTree-RPO能有效发掘新的攻击策略，通过优化对话策略来提高攻击效果。</li>
+<li>该研究为解决大型语言模型的安全性问题提供了新思路和新方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02286">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02286v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02286v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02286v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="VidGuard-R1-AI-Generated-Video-Detection-and-Explanation-via-Reasoning-MLLMs-and-RL"><a href="#VidGuard-R1-AI-Generated-Video-Detection-and-Explanation-via-Reasoning-MLLMs-and-RL" class="headerlink" title="VidGuard-R1: AI-Generated Video Detection and Explanation via Reasoning   MLLMs and RL"></a>VidGuard-R1: AI-Generated Video Detection and Explanation via Reasoning   MLLMs and RL</h2><p><strong>Authors:Kyoungjun Park, Yifan Yang, Juheon Yi, Shicheng Zheng, Yifei Shen, Dongqi Han, Caihua Shan, Muhammad Muaz, Lili Qiu</strong></p>
+<p>With the rapid advancement of AI-generated videos, there is an urgent need for effective detection tools to mitigate societal risks such as misinformation and reputational harm. In addition to accurate classification, it is essential that detection models provide interpretable explanations to ensure transparency for regulators and end users. To address these challenges, we introduce VidGuard-R1, the first video authenticity detector that fine-tunes a multi-modal large language model (MLLM) using group relative policy optimization (GRPO). Our model delivers both highly accurate judgments and insightful reasoning. We curate a challenging dataset of 140k real and AI-generated videos produced by state-of-the-art generation models, carefully designing the generation process to maximize discrimination difficulty. We then fine-tune Qwen-VL using GRPO with two specialized reward models that target temporal artifacts and generation complexity. Extensive experiments demonstrate that VidGuard-R1 achieves state-of-the-art zero-shot performance on existing benchmarks, with additional training pushing accuracy above 95%. Case studies further show that VidGuard-R1 produces precise and interpretable rationales behind its predictions. The code is publicly available at <a target="_blank" rel="noopener" href="https://vidguard-r1.github.io/">https://VidGuard-R1.github.io</a>. </p>
+<blockquote>
+<p>随着人工智能生成视频的快速发展，对于有效检测工具的需求也日益迫切，以减轻诸如虚假信息和声誉损害等社会风险。除了准确的分类之外，检测模型还必须提供可解释的解释，以确保监管机构和最终用户之间的透明度。为了解决这些挑战，我们推出了VidGuard-R1，它是首款使用基于组相对策略优化（GRPO）的多模态大型语言模型（MLLM）进行微调的视频真实性检测器。我们的模型既提供了高度准确的判断，又提供了深刻的推理。我们精心创建了一个由最新生成模型产生的包含14万条真实和人工智能生成的视频数据集，谨慎设计生成过程以最大化区分难度。然后，我们使用GRPO对Qwen-VL进行微调，采用两个专门用于奖励模型的临时伪迹和生成复杂性目标。大量实验表明，VidGuard-R1在现有基准测试上实现了最先进的零样本性能，通过额外训练可将准确率提高到95%以上。案例研究进一步表明，VidGuard-R1能够产生精确且可解释的判断依据。代码公开于<a target="_blank" rel="noopener" href="https://vidguard-r1.github.io/">https://VidGuard-R1.github.io</a>。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02282v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>随着AI生成视频的快速发展，社会对防止误信和声誉损害等风险的检测工具的需求日益迫切。为应对挑战，我们推出了VidGuard-R1，首款采用群组相对策略优化（GRPO）调整多模态大型语言模型（MLLM）的视频真实性检测器。该模型既能提供高度准确的判断，又能给出深入的理由。我们使用14万个真实和AI生成的视频数据集进行微调，并使用专注于时间痕迹和生成复杂度的两个奖励模型，进一步强化模型的性能。实验证明，VidGuard-R1在现有基准测试中实现了零样本的最佳性能，经过额外训练，准确率超过95%。其预测背后的理由精确且可解释。相关代码已公开在：<a target="_blank" rel="noopener" href="https://vidguard-r1.github.io./">https://VidGuard-R1.github.io。</a></p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>VidGuard-R1是首款视频真实性检测器，采用多模态大型语言模型和群组相对策略优化。</li>
+<li>该模型能同时提供准确判断和深入的解释，确保透明性。</li>
+<li>使用包含真实和AI生成视频的复杂数据集进行训练和微调。</li>
+<li>VidGuard-R1使用专门的奖励模型针对时间痕迹和生成复杂度进行优化。</li>
+<li>实验证明，VidGuard-R1在零样本情况下达到最佳性能，且经过额外训练后准确率超过95%。</li>
+<li>案例研究显示，VidGuard-R1提供的预测理由既精确又具备可解释性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02282">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02282v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02282v1/page_2_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="RewardMap-Tackling-Sparse-Rewards-in-Fine-grained-Visual-Reasoning-via-Multi-Stage-Reinforcement-Learning"><a href="#RewardMap-Tackling-Sparse-Rewards-in-Fine-grained-Visual-Reasoning-via-Multi-Stage-Reinforcement-Learning" class="headerlink" title="RewardMap: Tackling Sparse Rewards in Fine-grained Visual Reasoning via   Multi-Stage Reinforcement Learning"></a>RewardMap: Tackling Sparse Rewards in Fine-grained Visual Reasoning via   Multi-Stage Reinforcement Learning</h2><p><strong>Authors:Sicheng Feng, Kaiwen Tuo, Song Wang, Lingdong Kong, Jianke Zhu, Huan Wang</strong></p>
+<p>Fine-grained visual reasoning remains a core challenge for multimodal large language models (MLLMs). The recently introduced ReasonMap highlights this gap by showing that even advanced MLLMs struggle with spatial reasoning in structured and information-rich settings such as transit maps, a task of clear practical and scientific importance. However, standard reinforcement learning (RL) on such tasks is impeded by sparse rewards and unstable optimization. To address this, we first construct ReasonMap-Plus, an extended dataset that introduces dense reward signals through Visual Question Answering (VQA) tasks, enabling effective cold-start training of fine-grained visual understanding skills. Next, we propose RewardMap, a multi-stage RL framework designed to improve both visual understanding and reasoning capabilities of MLLMs. RewardMap incorporates two key designs. First, we introduce a difficulty-aware reward design that incorporates detail rewards, directly tackling the sparse rewards while providing richer supervision. Second, we propose a multi-stage RL scheme that bootstraps training from simple perception to complex reasoning tasks, offering a more effective cold-start strategy than conventional Supervised Fine-Tuning (SFT). Experiments on ReasonMap and ReasonMap-Plus demonstrate that each component of RewardMap contributes to consistent performance gains, while their combination yields the best results. Moreover, models trained with RewardMap achieve an average improvement of 3.47% across 6 benchmarks spanning spatial reasoning, fine-grained visual reasoning, and general tasks beyond transit maps, underscoring enhanced visual understanding and reasoning capabilities. </p>
+<blockquote>
+<p>精细视觉推理对于多模态大型语言模型（MLLMs）来说仍然是一个核心挑战。最近推出的ReasonMap通过显示即使在结构化且信息丰富的环境中，先进的MLLMs在空间推理方面也面临困难，如交通地图等任务明确具有重要的实际和科学意义，从而突出了这一差距。然而，在这种任务上进行标准强化学习（RL）由于奖励稀疏和优化不稳定而受到阻碍。为了解决这个问题，我们首先构建了ReasonMap-Plus这一扩展数据集，通过视觉问答（VQA）任务引入密集的奖励信号，从而实现对精细视觉理解技能的有效冷启动训练。接下来，我们提出了RewardMap这一多阶段强化学习框架，旨在提高MLLMs的视觉理解和推理能力。RewardMap有两个关键设计。首先，我们引入了难度感知奖励设计，该设计结合了细节奖励，直接解决了奖励稀疏的问题，同时提供了更丰富的监督。其次，我们提出了一种多阶段强化学习方案，该方案从简单的感知任务引导到复杂的推理任务进行训练，相比于传统的有监督微调（SFT）提供了一种更有效的冷启动策略。在ReasonMap和ReasonMap-Plus上的实验表明，RewardMap的每个组件都实现了持续的性能提升，它们的组合则取得了最佳效果。此外，使用RewardMap训练的模型在跨越空间推理、精细视觉推理和一般任务的六个基准测试中实现了平均提高3.47%的效果，突显了增强的视觉理解和推理能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02240v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>该文本主要讨论了多模态大型语言模型（MLLMs）在处理精细视觉推理方面的挑战。为了解决现有方法在该任务上的不足，提出了一种新的数据集RewardMap-Plus和一个多阶段强化学习框架RewardMap。RewardMap通过引入难度感知奖励设计和多阶段RL方案，提高了MLLMs的视觉理解和推理能力。实验结果表明，RewardMap的各个组成部分都能带来性能的提升，且在多个基准测试上的模型平均改进了3.47%。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>多模态大型语言模型（MLLMs）在处理精细视觉推理时面临挑战。</li>
+<li>ReasonMap数据集展示了MLLMs在结构化、信息丰富的场景（如交通地图）中的空间推理困难。</li>
+<li>标准强化学习（RL）在此类任务上受到稀疏奖励和不稳定优化的限制。</li>
+<li>引入ReasonMap-Plus数据集，通过视觉问答（VQA）任务提供密集奖励信号，实现精细视觉理解技能的有效冷启动训练。</li>
+<li>提出RewardMap多阶段RL框架，提高MLLMs的视觉理解和推理能力。</li>
+<li>RewardMap包括难度感知奖励设计和多阶段RL方案，解决稀疏奖励问题并提供更丰富监督。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02240">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02240v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02240v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02240v1/page_3_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="The-Reasoning-Boundary-Paradox-How-Reinforcement-Learning-Constrains-Language-Models"><a href="#The-Reasoning-Boundary-Paradox-How-Reinforcement-Learning-Constrains-Language-Models" class="headerlink" title="The Reasoning Boundary Paradox: How Reinforcement Learning Constrains   Language Models"></a>The Reasoning Boundary Paradox: How Reinforcement Learning Constrains   Language Models</h2><p><strong>Authors:Phuc Minh Nguyen, Chinh D. La, Duy M. H. Nguyen, Nitesh V. Chawla, Binh T. Nguyen, Khoa D. Doan</strong></p>
+<p>Reinforcement Learning with Verifiable Rewards (RLVR) has emerged as a key method for improving Large Language Models’ reasoning capabilities, yet recent evidence suggests it may paradoxically shrink the reasoning boundary rather than expand it. This paper investigates the shrinkage issue of RLVR by analyzing its learning dynamics and reveals two critical phenomena that explain this failure. First, we expose negative interference in RLVR, where learning to solve certain training problems actively reduces the likelihood of correct solutions for others, leading to the decline of Pass@$k$ performance, or the probability of generating a correct solution within $k$ attempts. Second, we uncover the winner-take-all phenomenon: RLVR disproportionately reinforces problems with high likelihood, correct solutions, under the base model, while suppressing other initially low-likelihood ones. Through extensive theoretical and empirical analysis on multiple mathematical reasoning benchmarks, we show that this effect arises from the inherent on-policy sampling in standard RL objectives, causing the model to converge toward narrow solution strategies. Based on these insights, we propose a simple yet effective data curation algorithm that focuses RLVR learning on low-likelihood problems, achieving notable improvement in Pass@$k$ performance. Our code is available at <a target="_blank" rel="noopener" href="https://github.com/mail-research/SELF-llm-interference">https://github.com/mail-research/SELF-llm-interference</a>. </p>
+<blockquote>
+<p>强化学习可验证奖励（RLVR）已成为提高大型语言模型推理能力的一种关键方法，但最近的证据表明，它可能会产生悖论，缩小推理边界而不是扩大它。本文研究了RLVR的收缩问题，通过分析其学习动态揭示了两种关键现象来解释这种失败。首先，我们揭示了RLVR中的负干扰现象，即学习解决某些训练问题实际上减少了解决其他问题的正确解决方案的可能性，导致Pass@k性能下降，即在k次尝试中产生正确解决方案的概率降低。其次，我们发现了赢家通吃现象：RLVR会不成比例地强化基础模型下具有高可能性正确解决方案的问题，同时压制其他最初低可能性的问题。通过对多个数学推理基准的广泛理论和实证分析，我们表明这种效果来自于标准强化学习目标中的固有策略采样，导致模型收敛于狭窄的解决方案策略。基于这些见解，我们提出了一种简单有效的数据整理算法，该算法将RLVR的学习重点放在了低概率问题上，在Pass@k性能上取得了显著的改进。我们的代码位于[<a target="_blank" rel="noopener" href="https://github.com/mail-research/SELF-llm-interference%E3%80%82]">https://github.com/mail-research/SELF-llm-interference。]</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02230v1">PDF</a> 23 pages, 15 figures</p>
+<p><strong>Summary</strong><br>强化学习与可验证奖励（RLVR）是提升大型语言模型推理能力的重要方法，但最新证据表明它可能收缩推理边界而非扩展。本文调查了RLVR的收缩问题，通过分析其学习动态揭示了两个关键现象。一是负干扰现象，解决某些训练问题会减少对其它问题的正确解答可能性，导致Pass@k性能下降。二是赢家通吃现象，RLVR会过度强化高概率正确解答的问题，同时压制其它初始低概率的问题。基于这些见解，我们提出一个简单的数据整理算法，专注于RLVR学习低概率问题，在Pass@k性能上取得了显著改进。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>强化学习与可验证奖励（RLVR）在提升语言模型推理能力上扮演重要角色，但存在收缩推理边界的问题。</li>
+<li>负干扰现象：解决某些训练问题会减少对其它问题的正确解答可能性。</li>
+<li>赢家通吃现象：RLVR会过度强化高概率正确解答的问题，压制低概率问题。</li>
+<li>问题来源于标准强化学习目标中的内在策略采样，导致模型收敛于狭窄解决方案。</li>
+<li>提出的数据整理算法专注于RLVR学习低概率问题，有效提升Pass@k性能。</li>
+<li>论文通过广泛的理论和实证研究证明了这些观点的有效性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02230">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02230v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02230v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02230v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02230v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="More-Than-One-Teacher-Adaptive-Multi-Guidance-Policy-Optimization-for-Diverse-Exploration"><a href="#More-Than-One-Teacher-Adaptive-Multi-Guidance-Policy-Optimization-for-Diverse-Exploration" class="headerlink" title="More Than One Teacher: Adaptive Multi-Guidance Policy Optimization for   Diverse Exploration"></a>More Than One Teacher: Adaptive Multi-Guidance Policy Optimization for   Diverse Exploration</h2><p><strong>Authors:Xiaoyang Yuan, Yujuan Ding, Yi Bin, Wenqi Shao, Jinyu Cai, Jingkuan Song, Yang Yang, Hengtao Shen</strong></p>
+<p>Reinforcement Learning with Verifiable Rewards (RLVR) is a promising paradigm for enhancing the reasoning ability in Large Language Models (LLMs). However, prevailing methods primarily rely on self-exploration or a single off-policy teacher to elicit long chain-of-thought (LongCoT) reasoning, which may introduce intrinsic model biases and restrict exploration, ultimately limiting reasoning diversity and performance. Drawing inspiration from multi-teacher strategies in knowledge distillation, we introduce Adaptive Multi-Guidance Policy Optimization (AMPO), a novel framework that adaptively leverages guidance from multiple proficient teacher models, but only when the on-policy model fails to generate correct solutions. This “guidance-on-demand” approach expands exploration while preserving the value of self-discovery. Moreover, AMPO incorporates a comprehension-based selection mechanism, prompting the student to learn from the reasoning paths that it is most likely to comprehend, thus balancing broad exploration with effective exploitation. Extensive experiments show AMPO substantially outperforms a strong baseline (GRPO), with a 4.3% improvement on mathematical reasoning tasks and 12.2% on out-of-distribution tasks, while significantly boosting Pass@k performance and enabling more diverse exploration. Notably, using four peer-sized teachers, our method achieves comparable results to approaches that leverage a single, more powerful teacher (e.g., DeepSeek-R1) with more data. These results demonstrate a more efficient and scalable path to superior reasoning and generalizability. Our code is available at <a target="_blank" rel="noopener" href="https://github.com/SII-Enigma/AMPO">https://github.com/SII-Enigma/AMPO</a>. </p>
+<blockquote>
+<p>强化学习与可验证奖励（RLVR）是一个增强大型语言模型（LLM）推理能力的有前途的范式。然而，目前的方法主要依赖于自我探索或单一的非策略教师来激发长链思维（LongCoT）推理，这可能会引入内在模型偏见并限制探索，最终限制推理的多样性和性能。我们从知识蒸馏中的多教师策略中汲取灵感，引入了自适应多指导策略优化（AMPO），这是一个新的框架，自适应地利用多个熟练教师模型的指导，但仅在策略内模型无法生成正确解决方案时才这样做。这种“按需指导”的方法扩大了探索范围，同时保留了自我发现的价值。此外，AMPO还采用了一种基于理解的选择机制，促使学生从它最可能理解的推理路径中学习，从而在广泛的探索与有效的利用之间取得平衡。大量实验表明，AMPO显著优于强大的基线（GRPO），在数学推理任务上提高了4.3%，在分布式外任务上提高了12.2%，同时显著提高了Pass@k性能并实现了更多样化的探索。值得注意的是，使用四位同级教师，我们的方法达到了与利用单一更强大教师的方法（例如，DeepSeek-R1）相当的结果，且我们的方法使用了更多的数据。这些结果证明了一条更高效、更可扩展的通往卓越推理和泛化能力的道路。我们的代码可在<a target="_blank" rel="noopener" href="https://github.com/SII-Enigma/AMPO%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/SII-Enigma/AMPO找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02227v1">PDF</a> 20 pages, 5 figures</p>
+<p><strong>Summary</strong><br>强化学习与可验证奖励（RLVR）范式为提升大型语言模型（LLM）的推理能力带来了希望。然而，当前方法主要依赖自我探索或单一的非策略教师来激发长链思维推理，这可能引入内在模型偏见并限制探索，最终限制推理的多样性和性能。受知识蒸馏中多教师策略的启发，我们引入了自适应多指导策略优化（AMPO），这是一种新型框架，能够自适应地利用多个熟练教师模型的指导，但仅在策略内模型无法生成正确解决方案时。这种“按需指导”的方法在扩大探索的同时保留了自我发现的价值。AMPO还结合了基于理解的选择机制，促使学生从它最可能理解的推理路径中学习，从而在广泛的探索与有效的利用之间取得平衡。实验表明，AMPO在强大的基线（GRPO）上取得了实质性突破，在数学推理任务上提高了4.3%，在分布式外任务上提高了12.2%，同时在提高Pass@k性能的同时实现了更多样化的探索。值得注意的是，使用四位同行大小的教师，我们的方法达到了与利用单一更强大教师的方法相当的结果（例如使用更多数据的DeepSeek-R1）。这些结果证明了实现卓越推理和泛化能力的更高效和可扩展的途径。我们的代码可在<a target="_blank" rel="noopener" href="https://github.com/SII-Enigma/AMPO">https://github.com/SII-Enigma/AMPO</a>获取。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>RLVR范式增强LLM推理能力。</li>
+<li>现有方法依赖自我探索或单一教师，可能引入偏见并限制探索。</li>
+<li>AMPO框架通过自适应利用多个熟练教师的指导来改进此情况。</li>
+<li>AMPO在适当时候提供指导，保持自我发现的探索价值。</li>
+<li>AMPO结合了基于理解的选择机制，促进有效学习。</li>
+<li>实验表明AMPO在数学和分布式外任务上表现优越。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02227">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02227v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02227v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02227v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="DiFFPO-Training-Diffusion-LLMs-to-Reason-Fast-and-Furious-via-Reinforcement-Learning"><a href="#DiFFPO-Training-Diffusion-LLMs-to-Reason-Fast-and-Furious-via-Reinforcement-Learning" class="headerlink" title="DiFFPO: Training Diffusion LLMs to Reason Fast and Furious via   Reinforcement Learning"></a>DiFFPO: Training Diffusion LLMs to Reason Fast and Furious via   Reinforcement Learning</h2><p><strong>Authors:Hanyang Zhao, Dawen Liang, Wenpin Tang, David Yao, Nathan Kallus</strong></p>
+<p>We propose DiFFPO, Diffusion Fast and Furious Policy Optimization, a unified framework for training masked diffusion large language models (dLLMs) to reason not only better (furious), but also faster via reinforcement learning (RL). We first unify the existing baseline approach such as d1 by proposing to train surrogate policies via off-policy RL, whose likelihood is much more tractable as an approximation to the true dLLM policy. This naturally motivates a more accurate and informative two-stage likelihood approximation combined with importance sampling correction, which leads to generalized RL algorithms with better sample efficiency and superior task performance. Second, we propose a new direction of joint training efficient samplers&#x2F;controllers of dLLMs policy. Via RL, we incentivize dLLMs’ natural multi-token prediction capabilities by letting the model learn to adaptively allocate an inference threshold for each prompt. By jointly training the sampler, we yield better accuracies with lower number of function evaluations (NFEs) compared to training the model only, obtaining the best performance in improving the Pareto frontier of the inference-time compute of dLLMs. We showcase the effectiveness of our pipeline by training open source large diffusion language models over benchmark math and planning tasks. </p>
+<blockquote>
+<p>我们提出DiFFPO，即扩散快速与激烈策略优化（Diffusion Fast and Furious Policy Optimization），这是一个统一框架，用于训练掩码扩散大型语言模型（dLLMs），使其不仅推理能力更强（激烈），而且通过强化学习（RL）更快地进行推理。我们首先通过提出通过离线强化学习训练代理策略来统一现有的基线方法，如d1，该策略的似然性作为对真实dLLM策略的近似要更容易处理。这自然地促使我们结合重要性采样校正，采用更准确、更富有信息量的两阶段似然近似，从而得到具有更好样本效率和任务性能的广义强化学习算法。其次，我们提出了联合训练dLLMs策略的高效采样器&#x2F;控制器的新方向。通过强化学习，我们激励dLLMs的自然多令牌预测能力，让模型学习自适应地为每个提示分配推理阈值。通过联合训练采样器，与仅训练模型相比，我们在进行更少次数的函数评估（NFEs）的情况下获得了更高的准确率，并在改善dLLMs推理时间计算方面取得了最佳的帕累托前沿。我们通过在数学和规划任务的基准测试上训练开源的大型扩散语言模型来展示我们管道的有效性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02212v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了DiFFPO（Diffusion Fast and Furious Policy Optimization）框架，通过强化学习训练大型语言模型以实现更快的推理速度和提高性能。它通过提出通过离线强化学习训练代理策略的方式统一现有基线方法，并提出一个更精确和更全面的两阶段可能性近似与重要性采样修正方法，从而提高样本效率和任务性能。此外，本文还探索了联合训练语言模型的采样器&#x2F;控制器的新方向，通过强化学习激励模型自适应分配每个提示的推理阈值，实现更好的准确性并降低函数评估次数。最后，通过训练大型扩散语言模型进行基准数学和规划任务，验证了该管道的有效性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>提出DiFFPO框架，整合强化学习训练大型语言模型。</li>
+<li>通过离线强化学习训练代理策略，统一现有基线方法。</li>
+<li>提出两阶段可能性近似与重要性采样修正方法，提高样本效率和任务性能。</li>
+<li>探索联合训练语言模型的采样器&#x2F;控制器的新方向。</li>
+<li>通过强化学习激励模型自适应分配每个提示的推理阈值。</li>
+<li>在基准数学和规划任务上训练大型扩散语言模型，验证管道有效性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02212">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02212v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02212v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02212v1/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="Say-One-Thing-Do-Another-Diagnosing-Reasoning-Execution-Gaps-in-VLM-Powered-Mobile-Use-Agents"><a href="#Say-One-Thing-Do-Another-Diagnosing-Reasoning-Execution-Gaps-in-VLM-Powered-Mobile-Use-Agents" class="headerlink" title="Say One Thing, Do Another? Diagnosing Reasoning-Execution Gaps in   VLM-Powered Mobile-Use Agents"></a>Say One Thing, Do Another? Diagnosing Reasoning-Execution Gaps in   VLM-Powered Mobile-Use Agents</h2><p><strong>Authors:Lingzhong Dong, Ziqi Zhou, Shuaibo Yang, Haiyue Sheng, Pengzhou Cheng, Zongru Wu, Zheng Wu, Gongshen Liu, Zhuosheng Zhang</strong></p>
+<p>Mobile-use agents powered by vision-language models (VLMs) have shown great potential in interpreting natural language instructions and generating corresponding actions based on mobile graphical user interface. Recent studies suggest that incorporating chain-of-thought (CoT) reasoning tends to improve the execution accuracy. However, existing evaluations emphasize execution accuracy while neglecting whether CoT reasoning aligns with ground-truth actions. This oversight fails to assess potential reasoning-execution gaps, which in turn foster over-trust: users relying on seemingly plausible CoTs may unknowingly authorize harmful actions, potentially resulting in financial loss or trust crisis. In this work, we introduce a new evaluation framework to diagnose reasoning-execution gaps. At its core lies Ground-Truth Alignment (GTA), which measures whether the action implied by a CoT matches the ground-truth action. By combining GTA with the standard Exact Match (EM) metric, we jointly assess both the reasoning accuracy and execution accuracy. This joint perspective reveals two types of reasoning-execution gaps: (i) Execution Gap (EG), where the reasoning correctly identifies the correct action but execution fails, and (ii) Reasoning Gap (RG), where execution succeeds but reasoning process conflicts with the actual execution. Experimental results across a wide range of mobile interaction tasks reveal that reasoning-execution gaps are prevalent, with execution gaps occurring more frequently than reasoning gaps. Moreover, while scaling up model size reduces the overall gap, sizable execution gaps persist even in the largest models. Further analysis shows that our framework reliably reflects systematic EG&#x2F;RG patterns in state-of-the-art models. These findings offer concrete diagnostics and support the development of more trustworthy mobile-use agents. </p>
+<blockquote>
+<p>由视觉语言模型（VLMs）驱动的移动使用代理在解释自然语言指令和基于移动图形用户界面生成相应动作方面显示出巨大潜力。最近的研究表明，融入思维链（CoT）推理有助于提高执行精度。然而，现有的评估强调执行准确性，却忽视了CoT推理是否与真实动作相符。这种疏忽未能评估潜在的推理执行差距，这反过来会导致过度信任：用户可能会依赖看似合理的CoT而无意中授权有害行为，可能导致财务损失或信任危机。在这项工作中，我们引入了一个新的评估框架来诊断推理执行差距。其核心在于地面真实对齐（GTA），它衡量的是由CoT隐含的动作是否与地面真实动作相匹配。我们将GTA与标准的精确匹配（EM）指标相结合，共同评估推理准确性和执行准确性。这种联合视角揭示了两种类型的推理执行差距：（i）执行差距（EG），即推理正确地识别了正确的动作，但执行失败；（ii）推理差距（RG），即执行成功，但推理过程与实际执行相冲突。在广泛的移动交互任务上的实验结果表明，推理执行差距普遍存在，执行差距比推理差距更频繁地发生。此外，虽然扩大模型规模减少了总体差距，但在最大的模型中仍然存在相当大的执行差距。进一步的分析表明，我们的框架可靠地反映了最先进模型中的系统性EG&#x2F;RG模式。这些发现提供了具体的诊断支持，并有助于开发更值得信赖的移动使用代理。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02204v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>基于视觉语言模型（VLMs）的移动使用代理在解读自然语言指令和基于移动图形用户界面生成相应动作方面表现出巨大潜力。最新研究表明，融入思维链（CoT）推理可以提高执行精度，但现有评估主要关注执行精度，忽视CoT推理是否与真实动作相符。本研究引入新的评估框架来诊断推理-执行差距，其核心是地面真实对齐（GTA），衡量CoT所隐含的动作是否与地面真实动作匹配。结合GTA和标准精确匹配（EM）指标，共同评估推理准确性。发现两种类型的推理-执行差距：执行差距（EG）和推理差距（RG）。实验结果显示，推理-执行差距普遍存在，执行差距比推理差距更频繁。扩大模型规模虽能减少总体差距，但执行差距仍显著存在。分析显示，该框架可靠地反映了最新模型中的系统性EG&#x2F;RG模式。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>移动使用代理通过视觉语言模型（VLMs）解读自然语言指令并生成对应动作，具有巨大潜力。</li>
+<li>融入思维链（CoT）推理能提高执行精度，但现有评估主要关注执行精度，忽视推理与真实动作的符合程度。</li>
+<li>引入新的评估框架，包括地面真实对齐（GTA）来衡量推理与动作的匹配度。</li>
+<li>发现两种推理-执行差距：执行差距（EG）和推理差距（RG）。</li>
+<li>实验显示，推理-执行差距普遍存在，且执行差距比推理差距更常见。</li>
+<li>扩大模型规模能减少总体差距，但执行差距依然显著。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02204">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02204v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02204v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02204v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="Agentic-Reasoning-and-Refinement-through-Semantic-Interaction"><a href="#Agentic-Reasoning-and-Refinement-through-Semantic-Interaction" class="headerlink" title="Agentic Reasoning and Refinement through Semantic Interaction"></a>Agentic Reasoning and Refinement through Semantic Interaction</h2><p><strong>Authors:Xuxin Tang, Rehema Abulikemu, Eric Krokos, Kirsten Whitley, Xuan Wang, Chris North</strong></p>
+<p>Sensemaking report writing often requires multiple refinements in the iterative process. While Large Language Models (LLMs) have shown promise in generating initial reports based on human visual workspace representations, they struggle to precisely incorporate sequential semantic interactions during the refinement process. We introduce VIS-ReAct, a framework that reasons about newly-added semantic interactions in visual workspaces to steer the LLM for report refinement.   VIS-ReAct is a two-agent framework: a primary LLM analysis agent interprets new semantic interactions to infer user intentions and generate refinement planning, followed by an LLM refinement agent that updates reports accordingly. Through case study, VIS-ReAct outperforms baseline and VIS-ReAct (without LLM analysis) on targeted refinement, semantic fidelity, and transparent inference. Results demonstrate that VIS-ReAct better handles various interaction types and granularities while enhancing the transparency of human-LLM collaboration. </p>
+<blockquote>
+<p>在报告写作过程中往往需要多次修改和完善。虽然大型语言模型（LLM）在基于人类视觉工作空间表示生成初步报告方面显示出潜力，但在细化过程中精确地融入连续的语义互动仍然是一大挑战。我们引入了VIS-ReAct框架，该框架可以推理视觉工作空间中新增的语义互动，以引导LLM进行报告优化。VIS-ReAct是一个两agent框架：主LLM分析agent解读新的语义互动以推断用户意图并生成优化计划，然后是LLM优化agent相应地更新报告。通过案例研究，VIS-ReAct在目标优化、语义保真和透明推理方面优于基线以及没有LLM分析的VIS-ReAct。结果表明，VIS-ReAct更好地处理了各种互动类型和粒度，同时提高了人-LLM协作的透明度。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02157v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>基于人类视觉工作区表示，大型语言模型（LLM）在生成初步报告方面表现出潜力，但在迭代过程的细化阶段融入连续的语义交互方面存在挑战。我们推出了VIS-ReAct框架，它能够解析视觉工作区中新增的语义交互，以指导LLM进行报告细化。VIS-ReAct是一个两阶段框架，首先由主要LLM分析代理解释新语义交互来推断用户意图并生成细化计划，然后由LLM细化代理相应地更新报告。通过案例研究，VIS-ReAct在目标细化、语义保真和透明推理方面优于基线以及没有LLM分析的VIS-ReAct。结果表明，VIS-ReAct能更好地处理各种交互类型和粒度，同时提高人机协作的透明度。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>大型语言模型（LLMs）在生成初步报告方面表现出潜力。</li>
+<li>LLMs在细化阶段融入连续的语义交互方面存在挑战。</li>
+<li>VIS-ReAct框架通过解析视觉工作区中的新语义交互来指导LLM进行报告细化。</li>
+<li>VIS-ReAct是一个两阶段框架，包括LLM分析代理和LLM细化代理。</li>
+<li>VIS-ReAct在目标细化、语义保真和透明推理方面优于基线。</li>
+<li>VIS-ReAct能更好地处理各种交互类型和粒度。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02157">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02157v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02157v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02157v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02157v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02157v1/page_3_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Do-AI-Models-Perform-Human-like-Abstract-Reasoning-Across-Modalities"><a href="#Do-AI-Models-Perform-Human-like-Abstract-Reasoning-Across-Modalities" class="headerlink" title="Do AI Models Perform Human-like Abstract Reasoning Across Modalities?"></a>Do AI Models Perform Human-like Abstract Reasoning Across Modalities?</h2><p><strong>Authors:Claas Beger, Ryan Yi, Shuhao Fu, Arseny Moskvichev, Sarah W. Tsai, Sivasankaran Rajamanickam, Melanie Mitchell</strong></p>
+<p>OpenAI’s o3-preview reasoning model exceeded human accuracy on the ARC-AGI benchmark, but does that mean state-of-the-art models recognize and reason with the abstractions that the task creators intended? We investigate models’ abstraction abilities on ConceptARC. We evaluate models under settings that vary the input modality (textual vs. visual), whether the model is permitted to use external Python tools, and, for reasoning models, the amount of reasoning effort. In addition to measuring output accuracy, we perform fine-grained evaluation of the natural-language rules that models generate to explain their solutions. This dual evaluation lets us assess whether models solve tasks using the abstractions ConceptARC was designed to elicit, rather than relying on surface-level patterns. Our results show that, while some models using text-based representations match human output accuracy, the best models’ rules are often based on surface-level &#96;&#96;shortcuts’’ and capture intended abstractions far less often than humans. Thus their capabilities for general abstract reasoning may be overestimated by evaluations based on accuracy alone. In the visual modality, AI models’ output accuracy drops sharply, yet our rule-level analysis reveals that models might be underestimated, as they still exhibit a substantial share of rules that capture intended abstractions, but are often unable to correctly apply these rules. In short, our results show that models still lag humans in abstract reasoning, and that using accuracy alone to evaluate abstract reasoning on ARC-like tasks may overestimate abstract-reasoning capabilities in textual modalities and underestimate it in visual modalities. We believe that our evaluation framework offers a more faithful picture of multimodal models’ abstract reasoning abilities and a more principled way to track progress toward human-like, abstraction-centered intelligence. </p>
+<blockquote>
+<p>OpenAI的o3-preview推理模型在ARC-AGI基准测试中超越了人类的准确度。但这是否意味着最先进的模型能够识别并理解任务创建者所意图的抽象概念呢？我们在ConceptARC上研究了模型的抽象能力。我们评估了在不同设置下的模型表现，包括输入模式（文本与视觉）、模型是否可以使用外部Python工具，以及对于推理模型来说，推理努力的程度。除了测量输出准确度外，我们还对模型生成的用于解释其解决方案的自然语言规则进行了精细评估。这种双重评估让我们能够评估模型是否使用ConceptARC设计的抽象概念来解决问题，而不是依赖表面模式。我们的结果表明，虽然一些使用文本表示的模型与人类输出准确度相匹配，但最佳模型的规则通常基于表面层次的“捷径”，并且捕获的意图抽象远不及人类频繁。因此，仅通过准确性评估可能会高估这些模型在一般抽象推理方面的能力。在视觉模式下，AI模型的输出准确度急剧下降，但我们的规则层面分析表明，模型可能被低估了，因为它们仍然表现出相当数量的规则能够捕获意图的抽象，但往往无法正确应用这些规则。总之，我们的结果表明，这些模型在抽象推理方面仍然落后于人类，并且仅使用准确性来评估ARC类任务上的抽象推理可能会高估文本模式中的抽象推理能力并低估视觉模式中的能力。我们相信，我们的评估框架提供了对多模式模型的抽象推理能力更真实的描述，以及一个更原则性的方法来跟踪朝着人类般的、以抽象为中心的智力的进步。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02125v1">PDF</a> 10 pages, 4 figures</p>
+<p><strong>Summary</strong></p>
+<p>在ARC-AGI基准测试中，OpenAI的o3-preview推理模型超越了人类的准确性。然而，我们对其在ConceptARC上的抽象能力进行了调查，发现在不同输入模式（文本与视觉）、是否允许使用外部Python工具以及推理模型的推理努力程度下，模型的性能存在差异。尽管一些基于文本表示的模型匹配了人类的输出准确性，但它们的规则往往基于表面层次的“捷径”，并且捕获的抽象意图远不及人类。在视觉模式下，AI模型的输出准确性急剧下降，但在规则层面的分析显示，模型可能仍然低估了其能力，因为它们表现出相当大的规则能够捕获预期的抽象意图，但往往无法正确应用这些规则。总的来说，我们的结果表明，在抽象推理方面，模型仍然落后于人类，仅使用准确性来评估ARC类似任务上的抽象推理可能会高估文本模态下的抽象推理能力并低估视觉模态下的能力。我们相信我们的评估框架更真实地反映了多模态模型的抽象推理能力，并为追踪人类抽象智能的进步提供了更原则性的方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>OpenAI的o3-preview模型在ARC-AGI基准测试中表现超越人类。</li>
+<li>在ConceptARC上评估了模型的抽象能力，涉及不同输入模式和模型使用外部工具的情境。</li>
+<li>在文本模式下，一些模型的输出准确性匹配人类，但它们的规则更多基于表面层次的“捷径”。</li>
+<li>在视觉模式下，AI模型的输出准确性显著下降。</li>
+<li>规则层面的分析显示模型在视觉模态下可能仍然具备一些抽象能力，但无法正确应用这些规则。</li>
+<li>仅使用准确性评估抽象推理可能高估文本模态下的能力并低估视觉模态下的能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02125">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02125v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02125v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02125v1/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="Demystifying-the-Roles-of-LLM-Layers-in-Retrieval-Knowledge-and-Reasoning"><a href="#Demystifying-the-Roles-of-LLM-Layers-in-Retrieval-Knowledge-and-Reasoning" class="headerlink" title="Demystifying the Roles of LLM Layers in Retrieval, Knowledge, and   Reasoning"></a>Demystifying the Roles of LLM Layers in Retrieval, Knowledge, and   Reasoning</h2><p><strong>Authors:Xinyuan Song, Keyu Wang, PengXiang Li, Lu Yin, Shiwei Liu</strong></p>
+<p>Recent studies suggest that the deeper layers of Large Language Models (LLMs) contribute little to representation learning and can often be removed without significant performance loss. However, such claims are typically drawn from narrow evaluations and may overlook important aspects of model behavior. In this work, we present a systematic study of depth utilization across diverse dimensions, including evaluation protocols, task categories, and model architectures. Our analysis confirms that very deep layers are generally less effective than earlier ones, but their contributions vary substantially with the evaluation setting. Under likelihood-based metrics without generation, pruning most layers preserves performance, with only the initial few being critical. By contrast, generation-based evaluation uncovers indispensable roles for middle and deeper layers in enabling reasoning and maintaining long-range coherence. We further find that knowledge and retrieval are concentrated in shallow components, whereas reasoning accuracy relies heavily on deeper layers – yet can be reshaped through distillation. These results highlight that depth usage in LLMs is highly heterogeneous and context-dependent, underscoring the need for task-, metric-, and model-aware perspectives in both interpreting and compressing large models. </p>
+<blockquote>
+<p>最近的研究表明，大型语言模型（LLM）的深层对表示学习贡献甚微，通常可以去除而不会对性能造成显著损失。然而，这些说法通常来自于狭隘的评估，可能会忽略模型行为的重要方面。在这项工作中，我们对深度利用进行了系统的研究，涉及多个维度，包括评估协议、任务类别和模型架构。我们的分析证实，深层通常不如浅层有效，但它们的贡献在很大程度上取决于评估环境。在没有生成的基于可能性的指标下，删除大部分层能够保留性能，只有前几层最为关键。相比之下，基于生成的评估揭示了中层和深层在推理和保持长期连贯性中的不可或缺作用。我们还发现，知识和检索集中在浅层组件中，而推理准确性在很大程度上依赖于深层，但可以通过蒸馏来重塑。这些结果强调，在LLM中使用深度的高度异质性和上下文依赖性，并强调了在使用任务、指标和模型理解大型模型压缩的同时，进行解释的需要。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.02091v1">PDF</a> ICASSP 2025</p>
+<p><strong>Summary</strong></p>
+<p>近期研究表明，大型语言模型（LLM）的深层对表示学习贡献较小，且通常可移除而不会对性能造成显著损失。然而，这些结论通常来自狭窄的评估，可能忽略了模型行为的重要方面。本研究系统地探讨了深度利用的不同维度，包括评估协议、任务类别和模型架构。分析表明，深层通常不如浅层有效，但其在不同评估设置中的贡献差异很大。在不生成的情况下，基于可能性的度量指标显示修剪大部分层可保持性能，只有最初的几层至关重要。然而，基于生成的评估揭示了中层和深层在推理和维持长程连贯性中的不可或缺作用。还发现知识和检索集中在浅层组件中，而推理准确性则高度依赖于深层，但可通过蒸馏来改变。这些结果强调，在大型模型中利用深度是非常复杂和多变的，需要在解释和压缩模型时考虑任务、指标和模型意识的角度。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>大型语言模型的深层对表示学习的贡献相对较小，可移除而不对性能造成显著损失。</li>
+<li>不同评估设置下，深层模型的贡献差异显著。</li>
+<li>基于可能性的度量指标显示，在不需要生成的情况下，修剪大部分模型层可以保持性能。</li>
+<li>基于生成的评估表明中层和深层在推理和维持长程连贯性中起重要作用。</li>
+<li>知识和检索功能主要集中在浅层组件中。</li>
+<li>推理准确性高度依赖于深层模型，但可通过蒸馏来改变这一依赖。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.02091">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02091v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02091v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02091v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02091v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02091v1/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.02091v1/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="Enhancing-Large-Language-Model-Reasoning-with-Reward-Models-An-Analytical-Survey"><a href="#Enhancing-Large-Language-Model-Reasoning-with-Reward-Models-An-Analytical-Survey" class="headerlink" title="Enhancing Large Language Model Reasoning with Reward Models: An   Analytical Survey"></a>Enhancing Large Language Model Reasoning with Reward Models: An   Analytical Survey</h2><p><strong>Authors:Qiyuan Liu, Hao Xu, Xuhong Chen, Wei Chen, Yee Whye Teh, Ning Miao</strong></p>
+<p>Reward models (RMs) play a critical role in enhancing the reasoning performance of LLMs. For example, they can provide training signals to finetune LLMs during reinforcement learning (RL) and help select the best answer from multiple candidates during inference. In this paper, we provide a systematic introduction to RMs, along with a comprehensive survey of their applications in LLM reasoning. We first review fundamental concepts of RMs, including their architectures, training methodologies, and evaluation techniques. Then, we explore their key applications: (1) guiding generation and selecting optimal outputs during LLM inference, (2) facilitating data synthesis and iterative self-improvement for LLMs, and (3) providing training signals in RL-based finetuning. Finally, we address critical open questions regarding the selection, generalization, evaluation, and enhancement of RMs, based on existing research and our own empirical findings. Our analysis aims to provide actionable insights for the effective deployment and advancement of RMs for LLM reasoning. </p>
+<blockquote>
+<p>奖励模型（RMs）在提升大型语言模型（LLMs）的推理性能中发挥着关键作用。例如，它们可以在强化学习（RL）过程中为LLMs提供训练信号，并在推理过程中帮助从多个候选答案中选择最佳答案。在本文中，我们对RMs进行了系统介绍，并全面概述了它们在LLM推理中的应用。首先，我们回顾了RMs的基本概念，包括其架构、训练方法和评估技术。然后，我们探讨了其关键应用：（1）在LLM推理过程中指导生成并选择最佳输出，（2）促进数据合成和LLM的迭代自我改进，（3）在基于RL的微调中提供训练信号。最后，我们基于现有研究和我们的实证发现，探讨了关于RMs的选择、泛化、评估和改进的关键开放问题。我们的分析旨在提供有关RMs在LLM推理中有效部署和进步的可行见解。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01925v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>奖励模型（RMs）在提升大型语言模型（LLMs）的推理性能中发挥着关键作用。本文通过系统性的介绍和全面的调研，阐述了RMs在LLM推理中的应用。文章首先回顾了RMs的基本概念，包括其架构、训练方法和评估技术。然后，探讨了RMs在LLM推理中的关键应用，包括引导生成和选择最佳输出、促进数据合成和迭代自我改进以及提供强化学习微调中的训练信号。最后，基于现有研究和实证发现，对RMs的选择、泛化、评估和改进等关键问题进行了探讨。本文旨在提供对RMs在LLM推理中有效部署和发展的可行见解。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>奖励模型（RMs）在提升大型语言模型（LLMs）的推理性能中起关键作用。</li>
+<li>RMs可以通过提供训练信号来微调LLMs，并在推理过程中帮助选择最佳答案。</li>
+<li>本文系统介绍了RMs的基本概念，包括架构、训练方法和评估技术。</li>
+<li>RMs在LLM推理中的关键应用包括引导生成和选择最佳输出、促进数据合成和迭代自我改进。</li>
+<li>RMs在强化学习微调中提供训练信号，对LLM性能有重要影响。</li>
+<li>在RMs的选择、泛化、评估和改进等方面仍存在许多关键问题有待解决。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01925">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01925v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01925v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01925v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01925v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="Plan-Then-Action-High-Level-Planning-Guidance-Reinforcement-Learning-for-LLM-Reasoning"><a href="#Plan-Then-Action-High-Level-Planning-Guidance-Reinforcement-Learning-for-LLM-Reasoning" class="headerlink" title="Plan Then Action:High-Level Planning Guidance Reinforcement Learning for   LLM Reasoning"></a>Plan Then Action:High-Level Planning Guidance Reinforcement Learning for   LLM Reasoning</h2><p><strong>Authors:Zhihao Dou, Qinjian Zhao, Zhongwei Wan, Dinggen Zhang, Weida Wang, Towsif Raiyan, Benteng Chen, Qingtao Pan, Yang Ouyang, Zhiqiang Gao, Shufei Zhang, Sumon Biswas</strong></p>
+<p>Large language models (LLMs) have demonstrated remarkable reasoning abilities in complex tasks, often relying on Chain-of-Thought (CoT) reasoning. However, due to their autoregressive token-level generation, the reasoning process is largely constrained to local decision-making and lacks global planning. This limitation frequently results in redundant, incoherent, or inaccurate reasoning, which significantly degrades overall performance. Existing approaches, such as tree-based algorithms and reinforcement learning (RL), attempt to address this issue but suffer from high computational costs and often fail to produce optimal reasoning trajectories. To tackle this challenge, we propose Plan-Then-Action Enhanced Reasoning with Group Relative Policy Optimization PTA-GRPO, a two-stage framework designed to improve both high-level planning and fine-grained CoT reasoning. In the first stage, we leverage advanced LLMs to distill CoT into compact high-level guidance, which is then used for supervised fine-tuning (SFT). In the second stage, we introduce a guidance-aware RL method that jointly optimizes the final output and the quality of high-level guidance, thereby enhancing reasoning effectiveness. We conduct extensive experiments on multiple mathematical reasoning benchmarks, including MATH, AIME2024, AIME2025, and AMC, across diverse base models such as Qwen2.5-7B-Instruct, Qwen3-8B, Qwen3-14B, and LLaMA3.2-3B. Experimental results demonstrate that PTA-GRPO consistently achieves stable and significant improvements across different models and tasks, validating its effectiveness and generalization. </p>
+<blockquote>
+<p>大型语言模型（LLM）在复杂任务中展现出了惊人的推理能力，通常依赖于链式思维（CoT）推理。然而，由于其自回归的token级生成，推理过程在很大程度上受到局部决策的限制，缺乏全局规划。这种局限性经常导致冗余、不连贯或错误的推理，从而显著降低了整体性能。现有方法，如基于树算法和强化学习（RL），试图解决这一问题，但计算成本高昂，且往往无法产生最佳的推理轨迹。为了应对这一挑战，我们提出了“计划然后行动增强推理与群组相对策略优化”（PTA-GRPO）的两阶段框架，旨在同时提高高级规划和精细的CoT推理。在第一阶段，我们利用先进的LLM将CoT提炼成紧凑的高级指导，然后用于监督微调（SFT）。在第二阶段，我们引入了一种指导感知的RL方法，该方法联合优化最终输出和高级指导的质量，从而提高推理的有效性。我们在多个数学推理基准上进行了广泛实验，包括MATH、AIME2024、AIME2025和AMC等任务基准测试数据集和包括Qwen 2.5-7B-Instruct等在内的多个基础模型上进行了实验验证。实验结果表明，PTA-GRPO在不同模型和任务上均实现了稳定和显著的改进，验证了其有效性和泛化能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01833v1">PDF</a> 19 pages and 5 figures</p>
+<p><strong>Summary</strong></p>
+<p>大型语言模型在复杂任务中展现出惊人的推理能力，主要依赖于链式思维推理。然而，由于基于token的自回归生成方式，其推理过程大多局限于本地决策制定，缺乏全局规划。这导致频繁出现冗余、不连贯或错误的推理，严重影响整体性能。为应对此挑战，提出Plan-Then-Action增强推理与群组相对策略优化（PTA-GRPO）的两阶段框架，旨在改善高级规划与精细链式思维推理。第一阶段利用先进的大型语言模型提炼紧凑的高级指导；第二阶段引入指导感知的强化学习方法，联合优化最终输出与高级指导质量，提升推理效果。实验证明，PTA-GRPO在不同模型与任务上均实现稳定且显著的提升。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>大型语言模型在复杂任务中展现出强大的推理能力，但存在冗余、不连贯或错误的推理问题。</li>
+<li>现有方法如树状算法和强化学习尝试解决此问题，但计算成本高且效果不佳。</li>
+<li>PTA-GRPO框架分为两阶段：第一阶段提炼高级指导，第二阶段联合优化输出和指导质量。</li>
+<li>PTA-GRPO在不同模型和任务上实现稳定且显著的提升。</li>
+<li>该框架可应用于多个数学推理基准测试，包括MATH、AIME2024、AIME2025和AMC。</li>
+<li>使用多种基础模型进行实验验证，如Qwen2.5-7B-Instruct、Qwen3-8B、Qwen3-14B和LLaMA3.2-3B。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01833">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01833v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01833v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01833v1/page_3_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="What-Matters-in-RL-Based-Methods-for-Object-Goal-Navigation-An-Empirical-Study-and-A-Unified-Framework"><a href="#What-Matters-in-RL-Based-Methods-for-Object-Goal-Navigation-An-Empirical-Study-and-A-Unified-Framework" class="headerlink" title="What Matters in RL-Based Methods for Object-Goal Navigation? An   Empirical Study and A Unified Framework"></a>What Matters in RL-Based Methods for Object-Goal Navigation? An   Empirical Study and A Unified Framework</h2><p><strong>Authors:Hongze Wang, Boyang Sun, Jiaxu Xing, Fan Yang, Marco Hutter, Dhruv Shah, Davide Scaramuzza, Marc Pollefeys</strong></p>
+<p>Object-Goal Navigation (ObjectNav) is a critical component toward deploying mobile robots in everyday, uncontrolled environments such as homes, schools, and workplaces. In this context, a robot must locate target objects in previously unseen environments using only its onboard perception. Success requires the integration of semantic understanding, spatial reasoning, and long-horizon planning, which is a combination that remains extremely challenging. While reinforcement learning (RL) has become the dominant paradigm, progress has spanned a wide range of design choices, yet the field still lacks a unifying analysis to determine which components truly drive performance. In this work, we conduct a large-scale empirical study of modular RL-based ObjectNav systems, decomposing them into three key components: perception, policy, and test-time enhancement. Through extensive controlled experiments, we isolate the contribution of each and uncover clear trends: perception quality and test-time strategies are decisive drivers of performance, whereas policy improvements with current methods yield only marginal gains. Building on these insights, we propose practical design guidelines and demonstrate an enhanced modular system that surpasses State-of-the-Art (SotA) methods by 6.6% on SPL and by a 2.7% success rate. We also introduce a human baseline under identical conditions, where experts achieve an average 98% success, underscoring the gap between RL agents and human-level navigation. Our study not only sets the SotA performance but also provides principled guidance for future ObjectNav development and evaluation. </p>
+<blockquote>
+<p>对象目标导航（ObjectNav）是部署移动机器人在家庭、学校和工作环境等日常非受控环境中的关键组件。在这种情况下，机器人必须仅使用其内置感知系统在之前未见过的环境中定位目标对象。成功需要将语义理解、空间推理和长期规划整合在一起，这是一种极具挑战性的组合。虽然强化学习（RL）已成为主流范式，且进展涵盖了广泛的设计选择，但该领域仍缺乏统一的分析来确定哪些组件真正推动了性能。在本研究中，我们对基于模块化RL的ObjectNav系统进行了大规模实证研究，将其分解为三个关键组件：感知、策略和测试时间增强。通过广泛的受控实验，我们隔离了每个组件的贡献并发现了明确趋势：感知质量和测试时间策略是决定性能的关键因素，而当前方法的策略改进只产生微小的收益。基于这些见解，我们提出了实用的设计指南，并展示了一个增强的模块化系统，该系统在SPL上超越了最新方法6.6%，成功率提高了2.7%。我们还介绍了在相同条件下的人类基准线，专家平均成功率为98%，强调了RL代理和人类水平导航之间的差距。我们的研究不仅达到了最新性能水平，而且还为未来ObjectNav的发展和评估提供了原则性的指导。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01830v1">PDF</a> </p>
+<p><strong>摘要</strong></p>
+<p>对象目标导航（ObjectNav）是部署移动机器人在家庭、学校和工作环境等日常非受控环境中的关键组件。机器人需仅依靠自身感知在未知环境中定位目标对象。成功需要整合语义理解、空间推理和长期规划，这是一项极具挑战性的任务。虽然强化学习（RL）已成为主流范式，且设计选择范围广泛，但领域仍缺乏统一分析来确定真正驱动性能的组件。在研究中，我们对模块化RL-based ObjectNav系统进行了大规模实证研究，将其分解为感知、政策和测试时间增强三个关键组件。通过广泛的受控实验，我们确定了每个组件的贡献并发现了清晰趋势：感知质量和测试时间策略是决定性能的关键因素，而政策改进在当前方法中只产生微小收益。基于这些见解，我们提出了实用的设计指南，并展示了一个增强型模块化系统，该系统在成功率上超越现有技术状态（SotA）方法6.6%，路径效率提高2.7%。我们还引入了相同条件下的一个人基准线，专家平均成功率达到98%，突显出强化学习代理与人类水平的导航之间的差距。我们的研究不仅设定了当前技术水平，还为未来的ObjectNav发展和评估提供了原则性指导。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>ObjectNav是移动机器人在日常非受控环境中部署的关键组成部分。</li>
+<li>机器人需要在未知环境中利用自身感知定位目标对象。</li>
+<li>成功实现ObjectNav需要整合语义理解、空间推理和长期规划。</li>
+<li>感知质量和测试时间策略是决定ObjectNav性能的关键因素。</li>
+<li>政策改进在当前方法中只产生微小收益。</li>
+<li>增强型模块化系统超越了现有技术状态（SotA）方法。</li>
+<li>与人类专家相比，当前强化学习代理的导航能力仍存在差距。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01830">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01830v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01830v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01830v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01830v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01830v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1><h2 id="Black-Box-Combinatorial-Optimization-with-Order-Invariant-Reinforcement-Learning"><a href="#Black-Box-Combinatorial-Optimization-with-Order-Invariant-Reinforcement-Learning" class="headerlink" title="Black-Box Combinatorial Optimization with Order-Invariant Reinforcement   Learning"></a>Black-Box Combinatorial Optimization with Order-Invariant Reinforcement   Learning</h2><p><strong>Authors:Olivier Goudet, Quentin Suire, Adrien Goëffon, Frédéric Saubion, Sylvain Lamprier</strong></p>
+<p>We introduce an order-invariant reinforcement learning framework for black-box combinatorial optimization. Classical estimation-of-distribution algorithms (EDAs) often rely on learning explicit variable dependency graphs, which can be costly and fail to capture complex interactions efficiently. In contrast, we parameterize a multivariate autoregressive generative model trained without a fixed variable ordering. By sampling random generation orders during training - a form of information-preserving dropout - the model is encouraged to be invariant to variable order, promoting search-space diversity and shaping the model to focus on the most relevant variable dependencies, improving sample efficiency. We adapt Generalized Reinforcement Policy Optimization (GRPO) to this setting, providing stable policy-gradient updates from scale-invariant advantages. Across a wide range of benchmark algorithms and problem instances of varying sizes, our method frequently achieves the best performance and consistently avoids catastrophic failures. </p>
+<blockquote>
+<p>我们为黑盒组合优化引入了一种顺序不变强化学习框架。经典的分布估计算法（EDA）通常依赖于学习明确的变量依赖图，这可能会很昂贵，并且不能有效地捕获复杂的交互。相反，我们对一个多元自回归生成模型进行了参数化训练，该模型在训练过程中不使用固定的变量顺序。通过在训练过程中随机采样生成顺序——一种信息保留的丢弃策略——模型被鼓励对变量顺序保持不变，从而促进搜索空间的多样性，并使模型专注于最相关的变量依赖关系，从而提高样本效率。我们将广义强化策略优化（GRPO）适应于这种设置，通过尺度不变优势提供稳定的策略梯度更新。在广泛的基准算法和各种不同规模的实例问题上，我们的方法通常取得最佳性能，并且持续避免灾难性失败。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01824v1">PDF</a> </p>
+<p><strong>Summary</strong><br>     本研究提出了一种顺序不变强化学习框架，用于黑箱组合优化。该框架通过参数化多元自回归生成模型，避免了传统估算分布算法中对变量依赖图的显式学习，可以在不固定变量顺序的情况下进行训练。通过训练过程中的随机生成顺序采样，模型被鼓励对变量顺序保持不变，从而促进搜索空间多样性，使模型关注最重要的变量依赖关系，提高样本效率。本研究还适应广义强化策略优化（GRPO），提供稳定的策略梯度更新和规模不变优势。在广泛的基准算法和规模不同的问题实例中，该方法经常达到最佳性能，并始终避免灾难性失败。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>研究提出了一种新的顺序不变强化学习框架，用于黑箱组合优化问题的求解。</li>
+<li>该框架通过多元自回归生成模型进行参数化，无需显式学习变量依赖图。</li>
+<li>模型在训练过程中通过随机生成顺序采样，实现对变量顺序的不变性，提高搜索空间多样性和样本效率。</li>
+<li>研究改进了广义强化策略优化（GRPO），提供稳定的策略梯度更新和规模不变优势。</li>
+<li>该方法在广泛的基准算法中表现出良好的性能，经常达到最佳效果。</li>
+<li>该方法能够避免灾难性失败，显示出其稳定性和可靠性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01824">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01824v1/page_0_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-14"><a href="#-14" class="headerlink" title=""></a></h1><h2 id="Quagmires-in-SFT-RL-Post-Training-When-High-SFT-Scores-Mislead-and-What-to-Use-Instead"><a href="#Quagmires-in-SFT-RL-Post-Training-When-High-SFT-Scores-Mislead-and-What-to-Use-Instead" class="headerlink" title="Quagmires in SFT-RL Post-Training: When High SFT Scores Mislead and What   to Use Instead"></a>Quagmires in SFT-RL Post-Training: When High SFT Scores Mislead and What   to Use Instead</h2><p><strong>Authors:Feiyang Kang, Michael Kuchnik, Karthik Padthe, Marin Vlastelica, Ruoxi Jia, Carole-Jean Wu, Newsha Ardalani</strong></p>
+<p>In post-training for reasoning Large Language Models (LLMs), the current state of practice trains LLMs in two independent stages: Supervised Fine-Tuning (SFT) and Reinforcement Learning with Verifiable Rewards (RLVR, shortened as &#96;&#96;RL’’ below). In this work, we challenge whether high SFT scores translate to improved performance after RL. We provide extensive counter-examples where this is not true. We find high SFT scores can be biased toward simpler or more homogeneous data and are not reliably predictive of subsequent RL gains or scaled-up post-training effectiveness. In some cases, RL training on models with improved SFT performance could lead to substantially worse outcome compared to RL on the base model without SFT. We study alternative metrics and identify generalization loss on held-out reasoning examples and Pass@large k performance to provide strong proxies for the RL outcome. We trained hundreds of models up to 12B-parameter with SFT and RLVR via GRPO and ran extensive evaluations on 7 math benchmarks with up to 256 repetitions, spending $&gt;$1M GPU hours. Experiments include models from Llama3, Mistral-Nemo, Qwen3 and multiple state-of-the-art SFT&#x2F;RL datasets. Compared to directly predicting from pre-RL performance, prediction based on generalization loss and Pass@large k achieves substantial higher precision, improving $R^2$ coefficient and Spearman’s rank correlation coefficient by up to 0.5 (2x). This provides strong utility for broad use cases. For example, in most experiments, we find SFT training on unique examples for a one epoch underperforms training on half examples for two epochs, either after SFT or SFT-then-RL; With the same SFT budget, training only on short examples may lead to better SFT performance, though, it often leads to worse outcome after RL compared to training on examples with varying lengths. Evaluation tool will be open-sourced. </p>
+<blockquote>
+<p>在针对推理大型语言模型（LLM）进行后训练的过程中，目前的实践是将LLM分为两个独立阶段进行训练：监督微调（SFT）和可验证奖励强化学习（RLVR，以下简称“RL”）。在这项工作中，我们质疑高SFT分数是否能在RL后转化为更好的性能。我们提供了大量反例来证明这一点。我们发现高SFT分数可能偏向于更简单或更同质的数据，并不能可靠地预测随后的RL收益或扩大后的后训练效果。在某些情况下，对具有改进SFT性能的模型进行RL训练可能会与在基础模型上进行无SFT的RL相比产生更糟糕的结果。我们研究了其他指标，并确定了在保留出来的推理示例上的泛化损失和Pass@large k性能，以作为RL结果的强烈代理。我们使用SFT和RLVR通过GRPO训练了数百个高达12B参数的模型，并在7个数学基准测试上进行了广泛的评估，每个测试最多重复了256次，耗资超过100万美元的GPU小时。实验包括来自Llama3、Mistral-Nemo、Qwen3的模型以及多个最先进的SFT&#x2F;RL数据集。与直接从预RL性能进行预测相比，基于泛化损失和Pass@large k的预测具有更高的精度，将R^2系数和斯皮尔曼秩相关系数提高了高达0.5（两倍）。这为广泛的应用场景提供了强大的实用性。例如，在大多数实验中，我们发现使用独特示例进行为期一个回合的SFT训练的表现不如使用半例进行为期两个回合的训练，无论是在SFT之后还是SFT-then-RL；在相同的SFT预算下，仅对短例进行训练可能会导致更好的SFT性能，然而，与训练不同长度的例子相比，这往往会导致RL之后的结果更糟。评估工具将开源。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01624v1">PDF</a> Preprint. Under Review</p>
+<p><strong>Summary</strong></p>
+<p>基于训练后的推理大型语言模型（LLM），目前实践中存在两个阶段：监督微调（SFT）和强化学习可验证奖励（RLVR）。本文挑战了高SFT分数是否等同于RL后的性能提升。我们提供了大量反例来证明这一点不成立。研究发现，高SFT分数可能偏向于更简单或更均匀的数据，并不能可靠地预测后续的RL收益或扩展后的训练后效果。因此，寻找能够预测RL结果的替代指标尤为重要。本研究识别出泛化损失和Pass@large k性能是预测RL结果的强代理指标。经过广泛的实验验证，与直接基于预RL性能预测相比，基于泛化损失和Pass@large k的预测精度更高，提高了R²系数和斯皮尔曼等级相关系数，显示出强大的实用价值。例如，在大多数实验中，我们发现使用独特例子进行SFT训练一个周期的表现不如使用半例进行两个周期的训练；在相同的SFT预算下，只训练短例子可能会导致更好的SFT表现，但在RL后往往表现较差。评估工具将开源提供。总的来说，本研究提供了重要的见解和改进实践指导。在基于高强度训练和评估的环境优化推理模型的场景下有着极大的应用潜力。中文概述结束。具体见解分析见下文的Key Takeaways部分。</p>
+<p><strong>Key Takeaways</strong></p>
+<p>以下是本文本中的关键洞察点：</p>
+<ul>
+<li>在LLM的训练后推理阶段中，目前实践存在两个阶段：监督微调（SFT）和强化学习可验证奖励（RLVR）。本研究对其关系提出了质疑和挑战。</li>
+<li>发现高SFT分数不能可靠预测RL之后的性能提升，并提出这一评价可能会偏向于更简单或更均匀的数据环境。这一观察带来了对现有评估指标的反思和改进需求。</li>
+<li>研究确定了新的评估指标——泛化损失和Pass@large k性能，这两个指标作为预测RL结果的强代理，相较于传统的预RL性能预测更为准确有效。</li>
+<li>通过广泛的实验验证，包括使用多种模型和数据集，发现使用独特例子进行SFT训练不一定优于其他训练策略，并且需要谨慎选择训练数据量和类型以达到最佳效果。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01624">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01624v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01624v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01624v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01624v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-15"><a href="#-15" class="headerlink" title=""></a></h1><h2 id="VLA-R1-Enhancing-Reasoning-in-Vision-Language-Action-Models"><a href="#VLA-R1-Enhancing-Reasoning-in-Vision-Language-Action-Models" class="headerlink" title="VLA-R1: Enhancing Reasoning in Vision-Language-Action Models"></a>VLA-R1: Enhancing Reasoning in Vision-Language-Action Models</h2><p><strong>Authors:Angen Ye, Zeyu Zhang, Boyuan Wang, Xiaofeng Wang, Dapeng Zhang, Zheng Zhu</strong></p>
+<p>Vision-Language-Action (VLA) models aim to unify perception, language understanding, and action generation, offering strong cross-task and cross-scene generalization with broad impact on embodied AI. However, current VLA models often lack explicit step-by-step reasoning, instead emitting final actions without considering affordance constraints or geometric relations. Their post-training pipelines also rarely reinforce reasoning quality, relying primarily on supervised fine-tuning with weak reward design. To address these challenges, we present VLA-R1, a reasoning-enhanced VLA that integrates Reinforcement Learning from Verifiable Rewards (RLVR) with Group Relative Policy Optimization (GRPO) to systematically optimize both reasoning and execution. Specifically, we design an RLVR-based post-training strategy with verifiable rewards for region alignment, trajectory consistency, and output formatting, thereby strengthening reasoning robustness and execution accuracy. Moreover, we develop VLA-CoT-13K, a high-quality dataset that provides chain-of-thought supervision explicitly aligned with affordance and trajectory annotations. Furthermore, extensive evaluations on in-domain, out-of-domain, simulation, and real-robot platforms demonstrate that VLA-R1 achieves superior generalization and real-world performance compared to prior VLA methods. We plan to release the model, code, and dataset following the publication of this work. Code: <a target="_blank" rel="noopener" href="https://github.com/GigaAI-research/VLA-R1">https://github.com/GigaAI-research/VLA-R1</a>. Website: <a target="_blank" rel="noopener" href="https://gigaai-research.github.io/VLA-R1">https://gigaai-research.github.io/VLA-R1</a>. </p>
+<blockquote>
+<p>视觉语言动作（VLA）模型旨在统一感知、语言理解和动作生成，提供强大的跨任务和跨场景泛化能力，对嵌入式人工智能有广泛影响。然而，当前的VLA模型通常缺乏明确的逐步推理，而是发出最终动作，而没有考虑可及性约束或几何关系。他们的后训练管道也很少加强推理质量，主要依赖于监督微调以及设计较弱的奖励。为了解决这些挑战，我们推出了增强推理的VLA-R1，它结合了可验证奖励的强化学习（RLVR）和群体相对策略优化（GRPO），以系统地优化推理和执行。具体来说，我们设计了一种基于RLVR的后训练策略，通过可验证的奖励来进行区域对齐、轨迹一致性和输出格式化，从而增强推理的稳健性和执行的准确性。此外，我们开发了VLA-CoT-13K这一高质量数据集，它提供了与可及性和轨迹注释明确对齐的思维链监督。此外，针对领域内、领域外、模拟和真实机器人平台的广泛评估表明，与先前的VLA方法相比，VLA-R1实现了更好的泛化和现实世界性能。我们计划在作品发表后公开模型、代码和数据集。代码：<a target="_blank" rel="noopener" href="https://github.com/GigaAI-research/VLA-R1%E3%80%82%E7%BD%91%E7%AB%99%EF%BC%9Ahttps://gigaai-research.github.io/VLA-R1%E3%80%82">https://github.com/GigaAI-research/VLA-R1。网站：https://gigaai-research.github.io/VLA-R1。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01623v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了VLA-R1模型，它是一个增强推理的Vision-Language-Action（VLA）模型。该模型通过结合强化学习与可验证奖励（RLVR）和群体相对策略优化（GRPO）来优化推理和执行。设计了一种基于RLVR的后训练策略，通过可验证奖励强化区域对齐、轨迹一致性和输出格式，提高推理的鲁棒性和执行的准确性。此外，还开发了VLA-CoT-13K数据集，提供与负担能力和轨迹注释明确对齐的思维链监督。评估表明，VLA-R1在域内、域外、模拟和真实机器人平台上的泛化能力和实际性能优于先前的VLA方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>VLA-R1是一个增强推理的Vision-Language-Action（VLA）模型，旨在统一感知、语言理解和行动生成。</li>
+<li>VLA-R1通过结合强化学习与可验证奖励（RLVR）和群体相对策略优化（GRPO）来优化推理和执行。</li>
+<li>RLVR基于的后训练策略通过可验证奖励强化区域对齐、轨迹一致性和输出格式。</li>
+<li>VLA-R1提高了推理的鲁棒性和执行的准确性。</li>
+<li>开发了VLA-CoT-13K数据集，提供与负担能力和轨迹注释明确对齐的思维链监督。</li>
+<li>VLA-R1在多个评估平台上表现出优于先前VLA方法的泛化能力和实际性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01623">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01623v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01623v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01623v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01623v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01623v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01623v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-16"><a href="#-16" class="headerlink" title=""></a></h1><h2 id="Executable-Counterfactuals-Improving-LLMs’-Causal-Reasoning-Through-Code"><a href="#Executable-Counterfactuals-Improving-LLMs’-Causal-Reasoning-Through-Code" class="headerlink" title="Executable Counterfactuals: Improving LLMs’ Causal Reasoning Through   Code"></a>Executable Counterfactuals: Improving LLMs’ Causal Reasoning Through   Code</h2><p><strong>Authors:Aniket Vashishtha, Qirun Dai, Hongyuan Mei, Amit Sharma, Chenhao Tan, Hao Peng</strong></p>
+<p>Counterfactual reasoning, a hallmark of intelligence, consists of three steps: inferring latent variables from observations (abduction), constructing alternatives (interventions), and predicting their outcomes (prediction). This skill is essential for advancing LLMs’ causal understanding and expanding their applications in high-stakes domains such as scientific research. However, existing efforts in assessing LLM’s counterfactual reasoning capabilities tend to skip the abduction step, effectively reducing to interventional reasoning and leading to overestimation of LLM performance. To address this, we introduce executable counterfactuals, a novel framework that operationalizes causal reasoning through code and math problems. Our framework explicitly requires all three steps of counterfactual reasoning and enables scalable synthetic data creation with varying difficulty, creating a frontier for evaluating and improving LLM’s reasoning. Our results reveal substantial drop in accuracy (25-40%) from interventional to counterfactual reasoning for SOTA models like o4-mini and Claude-4-Sonnet. To address this gap, we construct a training set comprising counterfactual code problems having if-else condition and test on out-of-domain code structures (e.g. having while-loop); we also test whether a model trained on code would generalize to counterfactual math word problems. While supervised finetuning on stronger models’ reasoning traces improves in-domain performance of Qwen models, it leads to a decrease in accuracy on OOD tasks such as counterfactual math problems. In contrast, reinforcement learning induces the core cognitive behaviors and generalizes to new domains, yielding gains over the base model on both code (improvement of 1.5x-2x) and math problems. Analysis of the reasoning traces reinforces these findings and highlights the promise of RL for improving LLMs’ counterfactual reasoning. </p>
+<blockquote>
+<p>反事实推理是智力的标志，包含三个步骤：从观察中推断潜在变量（假设）、构建替代方案（干预），以及预测其结果（预测）。对于推进大型语言模型（LLMs）的因果理解并在科学研究等高风险领域扩大其应用，这项技能至关重要。然而，现有评估LLM反事实推理能力的方法往往省略了假设这一步，实际上简化为干预推理，导致对LLM性能的过度估计。为解决这一问题，我们引入了可执行的反事实，这是一种通过代码和数学问题操作化因果推理的新框架。我们的框架明确要求反事实推理的所有三个步骤，并能够创建不同难度的大规模合成数据，为评估和提高LLM的推理能力开辟前沿。我们的结果表明，从干预推理到反事实推理，SOTA模型（如o4-mini和Claude-4-Sonnet）的准确度大幅下降（25-40%）。为解决这一差距，我们构建了一个训练集，其中包含具有if-else条件的反事实代码问题，并在超出域的代码结构（例如包含while-loop的）上进行测试；我们还测试了模型在代码上训练后是否适用于反事实数学文字问题。虽然对更强模型推理轨迹的监督微调提高了领域内的性能，但它导致在域外任务（如反事实数学问题）上的准确性下降。相比之下，强化学习引发了核心认知行为并推广到新的领域，在代码（改进1.5倍至两倍）和数学问题上都实现了对基础模型的收益。对推理轨迹的分析证实了这些发现，并突出了强化学习在改善LLM反事实推理方面的前景。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01539v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了因果推理中的反事实推理的三个步骤：从观察中推断潜在变量（逆向推理）、构建替代方案（干预），以及预测其后果。文章指出评估大型语言模型（LLMs）的反事实推理能力时，常常忽略逆向推理步骤，导致对LLM性能的过度估计。为解决这一问题，作者引入了可执行的反事实框架，该框架通过代码和数学问题操作化因果推理，明确要求反事实推理的三个步骤，并能创建不同难度的合成数据，为评估和改进LLM的推理能力提供了前沿。研究发现，从干预性推理转向反事实推理时，准确率大幅下降。为解决这一差距，作者构建了一个训练集，包含具有if-else条件的反事实代码问题，并在非域代码结构上进行了测试。同时，文章探讨了强化学习在改善LLM反事实推理中的潜力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>反事实推理包含三个关键步骤：逆向推理、构建替代方案和预测后果。</li>
+<li>评估LLM的反事实推理能力时常常忽略逆向推理步骤，导致性能评估的过度乐观。</li>
+<li>可执行的反事实框架操作化因果推理，明确要求上述三个步骤，促进数据创建的前沿性评估和改进LLM的推理能力。</li>
+<li>反事实推理对LLM来说存在准确率的显著下降。</li>
+<li>构建包含if-else条件的反事实代码问题训练集用于解决这一差距。</li>
+<li>强化学习在改善LLM反事实推理方面具有潜力。</li>
+<li>强化学习能够提高模型在非域任务上的表现，包括数学问题和代码问题。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01539">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01539v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01539v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01539v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-17"><a href="#-17" class="headerlink" title=""></a></h1><h2 id="DisCo-Reinforcement-with-Diversity-Constraints-for-Multi-Human-Generation"><a href="#DisCo-Reinforcement-with-Diversity-Constraints-for-Multi-Human-Generation" class="headerlink" title="DisCo: Reinforcement with Diversity Constraints for Multi-Human   Generation"></a>DisCo: Reinforcement with Diversity Constraints for Multi-Human   Generation</h2><p><strong>Authors:Shubhankar Borse, Farzad Farhadzadeh, Munawar Hayat, Fatih Porikli</strong></p>
+<p>State-of-the-art text-to-image models excel at realism but collapse on multi-human prompts - duplicating faces, merging identities, and miscounting individuals. We introduce DisCo (Reinforcement with Diversity Constraints), the first RL-based framework to directly optimize identity diversity in multi-human generation. DisCo fine-tunes flow-matching models via Group-Relative Policy Optimization (GRPO) with a compositional reward that (i) penalizes intra-image facial similarity, (ii) discourages cross-sample identity repetition, (iii) enforces accurate person counts, and (iv) preserves visual fidelity through human preference scores. A single-stage curriculum stabilizes training as complexity scales, requiring no extra annotations. On the DiverseHumans Testset, DisCo achieves 98.6 Unique Face Accuracy and near-perfect Global Identity Spread - surpassing both open-source and proprietary methods (e.g., Gemini, GPT-Image) while maintaining competitive perceptual quality. Our results establish DisCo as a scalable, annotation-free solution that resolves the long-standing identity crisis in generative models and sets a new benchmark for compositional multi-human generation. </p>
+<blockquote>
+<p>当前最先进的文本到图像模型在真实感方面表现出色，但在多人物提示方面存在缺陷，例如重复面孔、身份融合和人数计算错误。我们引入了DisCo（通过多样性约束进行强化），这是第一个基于强化学习的框架，能够直接在多人物生成中优化身份多样性。DisCo通过群体相对策略优化（GRPO）对流程匹配模型进行微调，采用组合奖励，包括（i）惩罚图像内面部相似性，（ii）抑制跨样本身份重复，（iii）强制准确的人数计数，以及（iv）通过人类偏好分数保持视觉保真度。随着复杂性的增加，单阶段课程能够稳定训练，无需额外的注释。在DiverseHumans测试集上，DisCo实现了98.6%的独特面部准确率，全球身份扩散近乎完美，超越了开源和专有方法（例如Gemini、GPT-Image），同时保持了竞争性的感知质量。我们的结果证明了DisCo作为一种可扩展、无需注释的解决方案，解决了生成模型中长期存在的身份危机，并为组合多人物生成树立了新基准。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01399v1">PDF</a> </p>
+<p><strong>Summary</strong><br>文本主要介绍了针对多人类生成任务中的身份多样性问题，提出了一种基于强化学习的新框架DisCo。DisCo采用集团相对策略优化（GRPO）技术，通过组合奖励来优化身份多样性，包括惩罚图像内部面部相似性、抑制跨样本身份重复、强制准确的人数计数以及通过人类偏好分数保持视觉保真度。在DiverseHumans测试集上，DisCo实现了高独特性面部准确率和近完美的全局身份分布，同时保持了感知质量竞争力。它为解决生成模型中的长期身份危机提供了可扩展、无需注释的解决方案，并为组合多人类生成任务设定了新的基准。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>当前先进的文本到图像模型在面对多人类提示时会出现身份多样性问题，如重复面孔、合并身份和人数计算错误。</li>
+<li>DisCo是首个针对多人类生成任务中身份多样性问题的基于强化学习的框架。</li>
+<li>DisCo通过集团相对策略优化（GRPO）技术，使用组合奖励来优化身份多样性。</li>
+<li>DisCo的奖励包括惩罚图像内部面部相似性、抑制跨样本身份重复、强制准确的人数计数以及保持视觉保真度。</li>
+<li>在DiverseHumans测试集上，DisCo实现了高独特性面部准确率和全局身份分布性能。</li>
+<li>DisCo在保持感知质量竞争力的同时，超越了开源和专有方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01399">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01399v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_R1_Reasoning/2510.01399v1/page_1_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-18"><a href="#-18" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-10-04/R1_Reasoning/">https://kedreamix.github.io/Talk2Paper/Paper/2025-10-04/R1_Reasoning/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/R1-Reasoning/">
+                                    <span class="chip bg-color">R1_Reasoning</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-10-04/LLM/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_LLM/2510.02230v1/page_0_0.jpg" class="responsive-img" alt="LLM">
+                        
+                        <span class="card-title">LLM</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            LLM 方向最新论文已更新，请持续关注 Update in 2025-10-04  KaVa Latent Reasoning via Compressed KV-Cache Distillation
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-04
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/LLM/" class="post-category">
+                                    LLM
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/LLM/">
+                        <span class="chip bg-color">LLM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-10-04/Talking%20Head%20Generation/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-10-04\./crop_Talking Head Generation/2510.01176v1/page_2_0.jpg" class="responsive-img" alt="Talking Head Generation">
+                        
+                        <span class="card-title">Talking Head Generation</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Talking Head Generation 方向最新论文已更新，请持续关注 Update in 2025-10-04  Audio Driven Real-Time Facial Animation for Social Telepresence
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-04
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Talking-Head-Generation/" class="post-category">
+                                    Talking Head Generation
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Talking-Head-Generation/">
+                        <span class="chip bg-color">Talking Head Generation</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">29739.9k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
