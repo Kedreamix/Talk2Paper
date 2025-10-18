@@ -1,0 +1,1663 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="NeRF">
+    <meta name="description" content="NeRF 方向最新论文已更新，请持续关注 Update in 2025-10-18  GauSSmart Enhanced 3D Reconstruction through 2D Foundation Models and   Geometric Filtering">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>NeRF | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09586v1/page_2_0.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">NeRF</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/NeRF/">
+                                <span class="chip bg-color">NeRF</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                NeRF
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-10-18
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-10-18
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    13.2k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    54 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-10-18-更新"><a href="#2025-10-18-更新" class="headerlink" title="2025-10-18 更新"></a>2025-10-18 更新</h1><h2 id="GauSSmart-Enhanced-3D-Reconstruction-through-2D-Foundation-Models-and-Geometric-Filtering"><a href="#GauSSmart-Enhanced-3D-Reconstruction-through-2D-Foundation-Models-and-Geometric-Filtering" class="headerlink" title="GauSSmart: Enhanced 3D Reconstruction through 2D Foundation Models and   Geometric Filtering"></a>GauSSmart: Enhanced 3D Reconstruction through 2D Foundation Models and   Geometric Filtering</h2><p><strong>Authors:Alexander Valverde, Brian Xu, Yuyin Zhou, Meng Xu, Hongyun Wang</strong></p>
+<p>Scene reconstruction has emerged as a central challenge in computer vision, with approaches such as Neural Radiance Fields (NeRF) and Gaussian Splatting achieving remarkable progress. While Gaussian Splatting demonstrates strong performance on large-scale datasets, it often struggles to capture fine details or maintain realism in regions with sparse coverage, largely due to the inherent limitations of sparse 3D training data.   In this work, we propose GauSSmart, a hybrid method that effectively bridges 2D foundational models and 3D Gaussian Splatting reconstruction. Our approach integrates established 2D computer vision techniques, including convex filtering and semantic feature supervision from foundational models such as DINO, to enhance Gaussian-based scene reconstruction. By leveraging 2D segmentation priors and high-dimensional feature embeddings, our method guides the densification and refinement of Gaussian splats, improving coverage in underrepresented areas and preserving intricate structural details.   We validate our approach across three datasets, where GauSSmart consistently outperforms existing Gaussian Splatting in the majority of evaluated scenes. Our results demonstrate the significant potential of hybrid 2D-3D approaches, highlighting how the thoughtful combination of 2D foundational models with 3D reconstruction pipelines can overcome the limitations inherent in either approach alone. </p>
+<blockquote>
+<p>场景重建已成为计算机视觉的核心挑战，神经辐射场（NeRF）和高斯贴图等方法取得了显著进展。虽然高斯贴图在大规模数据集上表现出强大的性能，但在捕获精细细节或在稀疏覆盖区域保持真实感方面常常遇到困难，这主要是因为稀疏的3D训练数据固有的局限性。在这项工作中，我们提出了GauSSmart，这是一种有效的混合方法，能够桥接2D基础模型和3D高斯贴图重建。我们的方法集成了成熟的2D计算机视觉技术，包括凸过滤和来自基础模型（如DINO）的语义特征监督，以增强基于高斯的场景重建。通过利用2D分割先验和高维特征嵌入，我们的方法指导高斯贴图的稠密化和细化，改进了欠代表区域的覆盖并保留了复杂结构细节。我们在三个数据集上验证了我们的方法，GauSSmart在大多数评估场景中始终优于现有高斯贴图。我们的结果展示了混合2D-3D方法的巨大潜力，突显了如何将2D基础模型与3D重建管道相结合，可以克服单一方法的固有局限性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.14270v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>神经网络辐射场（NeRF）与高斯蒙版（Gaussian Splatting）等方法在计算机视觉的场景重建领域取得了显著进展。然而，高斯蒙版在大规模数据集上表现强劲的同时，对于细节捕捉和稀疏区域的真实性维持却有所不足。本文提出的GauSSmart方法是一个结合二维基础模型与三维高斯蒙版重建的混合方法，它通过集成凸过滤器和来自DINO等基础模型的语义特征监督等现有二维计算机视觉技术，改善了基于高斯的方法的场景重建。借助二维分割先验和高维特征嵌入，GauSSmart能够引导高斯蒙版的稠密化和精细化，提高了对代表性不足的区域的覆盖并保持了精细的结构细节。在三个数据集上的验证显示，GauSSmart在多数评估场景中均优于现有的高斯蒙版方法。结果证明了混合二维-三维方法的巨大潜力，突显了将二维基础模型与三维重建流程相结合如何克服单一方法的固有局限性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>神经网络辐射场（NeRF）和高斯蒙版等方法在计算机视觉场景重建中取得显著进展。</li>
+<li>高斯蒙版在处理大规模数据集时表现良好，但在捕捉细节和维持稀疏区域真实性方面存在局限。</li>
+<li>GauSSmart是一个混合方法，结合了二维基础模型和三维高斯蒙版重建，旨在改善场景重建的效果。</li>
+<li>GauSSmart通过集成凸过滤器和语义特征监督等技术，提高了高斯蒙版方法的性能。</li>
+<li>GauSSmart利用二维分割先验和高维特征嵌入，实现了高斯蒙版的稠密化和精细化。</li>
+<li>在多个数据集上的验证显示，GauSSmart在场景重建方面优于传统的高斯蒙版方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.14270">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.14270v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.14270v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.14270v1/page_2_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.14270v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.14270v1/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.14270v1/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="SimULi-Real-Time-LiDAR-and-Camera-Simulation-with-Unscented-Transforms"><a href="#SimULi-Real-Time-LiDAR-and-Camera-Simulation-with-Unscented-Transforms" class="headerlink" title="SimULi: Real-Time LiDAR and Camera Simulation with Unscented Transforms"></a>SimULi: Real-Time LiDAR and Camera Simulation with Unscented Transforms</h2><p><strong>Authors:Haithem Turki, Qi Wu, Xin Kang, Janick Martinez Esturo, Shengyu Huang, Ruilong Li, Zan Gojcic, Riccardo de Lutio</strong></p>
+<p>Rigorous testing of autonomous robots, such as self-driving vehicles, is essential to ensure their safety in real-world deployments. This requires building high-fidelity simulators to test scenarios beyond those that can be safely or exhaustively collected in the real-world. Existing neural rendering methods based on NeRF and 3DGS hold promise but suffer from low rendering speeds or can only render pinhole camera models, hindering their suitability to applications that commonly require high-distortion lenses and LiDAR data. Multi-sensor simulation poses additional challenges as existing methods handle cross-sensor inconsistencies by favoring the quality of one modality at the expense of others. To overcome these limitations, we propose SimULi, the first method capable of rendering arbitrary camera models and LiDAR data in real-time. Our method extends 3DGUT, which natively supports complex camera models, with LiDAR support, via an automated tiling strategy for arbitrary spinning LiDAR models and ray-based culling. To address cross-sensor inconsistencies, we design a factorized 3D Gaussian representation and anchoring strategy that reduces mean camera and depth error by up to 40% compared to existing methods. SimULi renders 10-20x faster than ray tracing approaches and 1.5-10x faster than prior rasterization-based work (and handles a wider range of camera models). When evaluated on two widely benchmarked autonomous driving datasets, SimULi matches or exceeds the fidelity of existing state-of-the-art methods across numerous camera and LiDAR metrics. </p>
+<blockquote>
+<p>对自动驾驶车辆等自主机器人的严格测试是确保其在现实世界中部署时安全性的关键。这需要使用高保真模拟器来测试超出那些能在现实世界中安全或详尽收集的场景。基于NeRF和3DGS的现有神经渲染方法虽然很有前景，但它们存在渲染速度慢或只能渲染针孔相机模型的局限性，这阻碍了它们在通常需要使用高畸变镜头和激光雷达数据的应用中的适用性。多传感器仿真带来了额外的挑战，因为现有方法通过牺牲其他传感器的质量来优先考虑某一模态的跨传感器不一致性。为了克服这些局限性，我们提出了SimULi，这是一种能够实时渲染任意相机模型和激光雷达数据的方法。我们的方法扩展了3DGUT，它原生支持复杂的相机模型，通过自动化的分块策略为激光雷达模型添加激光雷达支持，以及基于射线的剔除策略。为了解决跨传感器的不一致性，我们设计了一种分解的3D高斯表示和锚定策略，与现有方法相比，它将相机和深度误差平均减少了高达40%。SimULi的渲染速度是光线追踪方法的10-20倍，是基于光栅化的先前工作的1.5-10倍（并且支持更广泛的相机模型）。在广泛使用的两个自动驾驶数据集上进行评估时，SimULi在多个相机和激光雷达指标上达到了或超过了现有最新方法的保真度。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.12901v2">PDF</a> Project page: <a target="_blank" rel="noopener" href="https://research.nvidia.com/labs/sil/projects/simuli">https://research.nvidia.com/labs/sil/projects/simuli</a></p>
+<p><strong>Summary</strong></p>
+<p>该文本强调了对自主机器人进行严谨测试的重要性，特别是在真实世界部署中的安全性。作者提出一种新型模拟器SimULi，该模拟器结合了3DGUT的技术，能实时渲染多种传感器数据包括复杂相机模型和激光雷达数据。它通过自动化贴图策略和射线剔除技术来处理跨传感器的不一致性，并采用分解的3D高斯表示和锚定策略来提高渲染质量。相较于其他方法，SimULi的渲染速度更快，并且在两个广泛使用的自动驾驶数据集上的表现达到了或超越了现有最先进的方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>自主机器人的严格测试对于确保其真实世界部署中的安全性至关重要。</li>
+<li>现有神经网络渲染方法存在局限性，如渲染速度慢或只能处理针孔相机模型，难以应用于需要高畸变镜头和激光雷达数据的应用。</li>
+<li>SimULi是一种新型模拟器，能够实时渲染任意相机模型和激光雷达数据。</li>
+<li>SimULi通过自动化贴图策略和射线剔除技术处理跨传感器的不一致性。</li>
+<li>SimULi采用分解的3D高斯表示和锚定策略，与现有方法相比，减少了相机和深度的平均误差高达40%。</li>
+<li>SimULi的渲染速度比光线追踪方法快10-20倍，比基于光栅化的工作快1.5-10倍，并且支持更广泛的相机模型。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.12901">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.12901v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.12901v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.12901v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.12901v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="Perspective-aware-3D-Gaussian-Inpainting-with-Multi-view-Consistency"><a href="#Perspective-aware-3D-Gaussian-Inpainting-with-Multi-view-Consistency" class="headerlink" title="Perspective-aware 3D Gaussian Inpainting with Multi-view Consistency"></a>Perspective-aware 3D Gaussian Inpainting with Multi-view Consistency</h2><p><strong>Authors:Yuxin Cheng, Binxiao Huang, Taiqiang Wu, Wenyong Zhou, Chenchen Ding, Zhengwu Liu, Graziano Chesi, Ngai Wong</strong></p>
+<p>3D Gaussian inpainting, a critical technique for numerous applications in virtual reality and multimedia, has made significant progress with pretrained diffusion models. However, ensuring multi-view consistency, an essential requirement for high-quality inpainting, remains a key challenge. In this work, we present PAInpainter, a novel approach designed to advance 3D Gaussian inpainting by leveraging perspective-aware content propagation and consistency verification across multi-view inpainted images. Our method iteratively refines inpainting and optimizes the 3D Gaussian representation with multiple views adaptively sampled from a perspective graph. By propagating inpainted images as prior information and verifying consistency across neighboring views, PAInpainter substantially enhances global consistency and texture fidelity in restored 3D scenes. Extensive experiments demonstrate the superiority of PAInpainter over existing methods. Our approach achieves superior 3D inpainting quality, with PSNR scores of 26.03 dB and 29.51 dB on the SPIn-NeRF and NeRFiller datasets, respectively, highlighting its effectiveness and generalization capability. </p>
+<blockquote>
+<p>3D高斯补全技术对于虚拟现实和多媒体的众多应用至关重要，并且随着预训练的扩散模型取得了重大进展。然而，确保多视角一致性对于高质量补全至关重要，仍是关键挑战。在这项工作中，我们提出了PAInpainter，这是一种旨在通过利用透视感知内容传播和跨多视角补全图像的一致性验证来推动3D高斯补全技术发展的新方法。我们的方法通过迭代优化补全和自适应采样视角图的多个视角来优化3D高斯表示。通过将补全图像作为先验信息并验证相邻视角之间的一致性，PAInpainter极大地提高了恢复的三维场景中的全局一致性和纹理保真度。大量实验表明，PAInpainter相较于现有方法具有优越性。我们的方法在SPIn-NeRF和NeRFiller数据集上分别实现了PSNR分数为26.03 dB和29.51 dB的高质量三维补全效果，这凸显了其有效性和泛化能力。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.10993v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>基于预训练的扩散模型，三维高斯插值技术在虚拟现实和多媒体的多个应用中取得了重要进展，但在保证多视角一致性方面仍面临挑战。本文提出了PAInpainter，利用视角感知的内容传播和多视角插值图像的连贯性验证，推动了三维高斯插值技术的发展。该方法通过迭代细化插值并优化从视角图中自适应采样的多个视角的三维高斯表示，显著提高了恢复的三维场景的整体连贯性和纹理保真度。实验表明，PAInpainter在SPIn-NeRF和NeRFiller数据集上的PSNR得分分别为26.03dB和29.51dB，证明了其优越的三维插值质量和泛化能力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>预训练的扩散模型在三维高斯插值技术中取得重要进展。</li>
+<li>多视角一致性是高质量插值的关键要求，但仍是挑战。</li>
+<li>PAInpainter利用视角感知内容传播和多视角连贯性验证推动三维高斯插值技术发展。</li>
+<li>通过迭代细化插值并优化三维高斯表示，PAInpainter提高了恢复的三维场景的全局连贯性和纹理保真度。</li>
+<li>PAInpainter在SPIn-NeRF和NeRFiller数据集上的PSNR得分高，证明了其优越性能。</li>
+<li>该方法将插值图像作为先验信息传播，验证了相邻视角的一致性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.10993">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10993v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10993v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10993v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10993v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10993v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="Real2USD-Scene-Representations-in-Universal-Scene-Description-Language"><a href="#Real2USD-Scene-Representations-in-Universal-Scene-Description-Language" class="headerlink" title="Real2USD: Scene Representations in Universal Scene Description Language"></a>Real2USD: Scene Representations in Universal Scene Description Language</h2><p><strong>Authors:Christopher D. Hsu, Pratik Chaudhari</strong></p>
+<p>Large Language Models (LLMs) can help robots reason about abstract task specifications. This requires augmenting classical representations of the environment used by robots with natural language-based priors. There are a number of existing approaches to doing so, but they are tailored to specific tasks, e.g., visual-language models for navigation, language-guided neural radiance fields for mapping, etc. This paper argues that the Universal Scene Description (USD) language is an effective and general representation of geometric, photometric and semantic information in the environment for LLM-based robotics tasks. Our argument is simple: a USD is an XML-based scene graph, readable by LLMs and humans alike, and rich enough to support essentially any task – Pixar developed this language to store assets, scenes and even movies. We demonstrate a &#96;&#96;Real to USD’’ system using a Unitree Go2 quadruped robot carrying LiDAR and a RGB camera that (i) builds an explicit USD representation of indoor environments with diverse objects and challenging settings with lots of glass, and (ii) parses the USD using Google’s Gemini to demonstrate scene understanding, complex inferences, and planning. We also study different aspects of this system in simulated warehouse and hospital settings using Nvidia’s Issac Sim. Code is available at <a target="_blank" rel="noopener" href="https://github.com/grasp-lyrl/Real2USD">https://github.com/grasp-lyrl/Real2USD</a> . </p>
+<blockquote>
+<p>大型语言模型（LLM）可以帮助机器人对抽象任务规格进行推理。这要求增强机器人使用的经典环境表示法，并融入基于自然语言的前提知识。尽管有许多现有的方法可以做到这一点，但它们都是针对特定任务的，例如用于导航的视觉语言模型、用于地图绘制的语言引导神经辐射场等。本文认为，通用场景描述（USD）语言是一种针对基于LLM的机器人任务环境中几何、光度学和语义信息的有效且通用的表示方法。我们的观点很简单：USD是一种基于XML的场景图，LLM和人类都可以阅读，并且足够丰富以支持任何基本任务——皮克斯（Pixar）开发此语言是为了存储资产、场景甚至电影。我们展示了一个“现实到USD”系统，该系统使用Unitree Go2四足机器人携带激光雷达和RGB相机，该机器人（i）构建了具有各种对象和充满玻璃的挑战性设置的显式USD表示，以及（ii）使用Google的Gemini解析USD来展示场景理解、复杂推理和规划。我们还使用Nvidia的Issac Sim在模拟的仓库和医院环境中研究该系统的不同方面。代码可在<a target="_blank" rel="noopener" href="https://github.com/grasp-lyrl/Real2USD">https://github.com/grasp-lyrl/Real2USD</a>找到。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.10778v1">PDF</a> 8 pages, 10 figures, 1 table</p>
+<p><strong>Summary</strong></p>
+<p>大型语言模型（LLM）可帮助机器人理解抽象任务规格，这需要增强机器人使用的经典环境表示法，并加入基于自然语言的前期研究。现有方法多为特定任务定制，如用于导航的视觉语言模型、用于地图绘制的语言引导神经辐射场等。本文主张使用通用场景描述（USD）语言作为LLM在机器人任务中的有效和通用表示法。通过机器人任务进行示范验证表明，“Real to USD”系统能在复杂的室内环境下进行任务展示与计划。<strong>Key Takeaways</strong></p>
+<ul>
+<li>大型语言模型可辅助机器人理解抽象任务规定。</li>
+<li>自然语言的前期研究需要融入经典的环境表示方法以增强机器人的能力。</li>
+<li>目前存在针对特定任务的方法（如导航、地图绘制），缺乏通用解决方案。</li>
+<li>通用场景描述（USD）语言是一个有效的通用表示法，用于LLM在机器人任务中。</li>
+<li>USD是一种基于XML的场景图，可被LLM和人类阅读，并足以支持任何任务。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.10778">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10778v1/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="Opacity-Gradient-Driven-Density-Control-for-Compact-and-Efficient-Few-Shot-3D-Gaussian-Splatting"><a href="#Opacity-Gradient-Driven-Density-Control-for-Compact-and-Efficient-Few-Shot-3D-Gaussian-Splatting" class="headerlink" title="Opacity-Gradient Driven Density Control for Compact and Efficient   Few-Shot 3D Gaussian Splatting"></a>Opacity-Gradient Driven Density Control for Compact and Efficient   Few-Shot 3D Gaussian Splatting</h2><p><strong>Authors:Abdelrhman Elrawy, Emad A. Mohammed</strong></p>
+<p>3D Gaussian Splatting (3DGS) struggles in few-shot scenarios, where its standard adaptive density control (ADC) can lead to overfitting and bloated reconstructions. While state-of-the-art methods like FSGS improve quality, they often do so by significantly increasing the primitive count. This paper presents a framework that revises the core 3DGS optimization to prioritize efficiency. We replace the standard positional gradient heuristic with a novel densification trigger that uses the opacity gradient as a lightweight proxy for rendering error. We find this aggressive densification is only effective when paired with a more conservative pruning schedule, which prevents destructive optimization cycles. Combined with a standard depth-correlation loss for geometric guidance, our framework demonstrates a fundamental improvement in efficiency. On the 3-view LLFF dataset, our model is over 40% more compact (32k vs. 57k primitives) than FSGS, and on the Mip-NeRF 360 dataset, it achieves a reduction of approximately 70%. This dramatic gain in compactness is achieved with a modest trade-off in reconstruction metrics, establishing a new state-of-the-art on the quality-vs-efficiency Pareto frontier for few-shot view synthesis. </p>
+<blockquote>
+<p>对于少数场景的重建，三维高斯摊铺（3DGS）方法表现不佳，其主要问题在于自适应密度控制（ADC）容易导致过拟合和冗余的重建。尽管前沿的方法如FSGS能够提高重建质量，但它们通常通过大幅度增加基本元素的数量来实现。本文提出一种修正了三维高斯摊覆法核心的框架以提高效率为重点。我们用新颖的密度控制触发替换标准的基于位置梯度的启发式算法，使用不透明度梯度作为衡量渲染误差的简便指标。我们发现只有当密度增加更为积极且带有更保守的剪枝计划时，它才能发挥作用，这样可以防止破坏性的优化循环。此外结合几何指导的深度关联损失标准框架显示了在效率方面取得根本性的改善。在采用三视角局部光照场的重建数据集（LLFF）中，与FSGS相比，我们的模型更加紧凑（使用32k个基本元素对比FSGS的57k个），减少了超过40%。在Mip-NeRF 360数据集上，我们的模型实现了大约70%的减少。这种显著的紧凑性提升是在适度牺牲重建指标的情况下实现的，在质量与效率的帕累托边界上为少数视角合成设立了新的前沿技术。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.10257v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>这篇论文针对3D高斯溅洒（3DGS）在少量场景下的不足进行了改进。改进后的框架优化了3DGS的核心，通过采用新颖的密度触发机制代替了传统的位置梯度启发式方法，同时配合更保守的修剪计划，实现了效率和质量的平衡。在少量视角合成方面，新的框架在保持适度重建指标损失的前提下，实现了显著的紧凑性提升，达到了质量与效率之间的新的最优前沿。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>3DGS在少量场景中存在过度拟合和冗余重建的问题。</li>
+<li>现有先进方法如FSGS虽能提高质量，但会增加大量基本元素数量。</li>
+<li>新框架优化了3DGS，采用密度触发机制代替位置梯度启发式方法。</li>
+<li>框架结合了保守的修剪计划，以防止破坏性的优化循环。</li>
+<li>新框架实现了显著的数据紧凑性提升，例如LLFF数据集上减少了超过40%的基本元素数量。</li>
+<li>在Mip-NeRF 360数据集上实现了大约70%的减少。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.10257">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10257v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10257v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10257v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10257v1/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.10257v1/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="Adversarial-Resilient-RF-Fingerprinting-A-CNN-GAN-Framework-for-Rogue-Transmitter-Detection"><a href="#Adversarial-Resilient-RF-Fingerprinting-A-CNN-GAN-Framework-for-Rogue-Transmitter-Detection" class="headerlink" title="Adversarial-Resilient RF Fingerprinting: A CNN-GAN Framework for Rogue   Transmitter Detection"></a>Adversarial-Resilient RF Fingerprinting: A CNN-GAN Framework for Rogue   Transmitter Detection</h2><p><strong>Authors:Raju Dhakal, Prashant Shekhar, Laxima Niure Kandel</strong></p>
+<p>Radio Frequency Fingerprinting (RFF) has evolved as an effective solution for authenticating devices by leveraging the unique imperfections in hardware components involved in the signal generation process. In this work, we propose a Convolutional Neural Network (CNN) based framework for detecting rogue devices and identifying genuine ones using softmax probability thresholding. We emulate an attack scenario in which adversaries attempt to mimic the RF characteristics of genuine devices by training a Generative Adversarial Network (GAN) using In-phase and Quadrature (IQ) samples from genuine devices. The proposed approach is verified using IQ samples collected from ten different ADALM-PLUTO Software Defined Radios (SDRs), with seven devices considered genuine, two as rogue, and one used for validation to determine the threshold. </p>
+<blockquote>
+<p>射频指纹（RFF）已经发展成为一种有效的解决方案，它通过利用信号生成过程中涉及的硬件组件中的独特缺陷来验证设备身份。在这项工作中，我们提出了一种基于卷积神经网络（CNN）的框架，使用softmax概率阈值检测恶意设备并识别真实设备。我们模拟了一个攻击场景，即对手试图通过训练生成对抗网络（GAN）模仿真实设备的射频特性，使用来自真实设备的同相和正交（IQ）样本。该方法已通过从十种不同的ADALM-PLUTO软件定义无线电（SDR）收集的IQ样本进行了验证，其中七个设备被视为真实设备，两个被视为恶意设备，一个用于确定阈值的验证。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.09663v1">PDF</a> Accepted for publication in ICMLA 2025</p>
+<p><strong>Summary</strong></p>
+<p>射频指纹技术（RFF）通过利用信号生成过程中硬件组件的独特缺陷来验证设备身份。本研究提出一种基于卷积神经网络（CNN）的框架，利用softmax概率阈值法检测恶意设备并识别真实设备。我们模拟攻击场景，对手尝试通过利用生成对抗网络（GAN）生成真实设备的射频特征样本进行模仿。该方法通过使用来自十款不同ADALM-PLUTO软件定义无线电（SDR）设备的IQ样本进行验证，其中包括七款真实设备、两款恶意设备和一款用于确定阈值的验证设备。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>射频指纹技术利用硬件的不完美特性进行设备身份验证。</li>
+<li>研究提出了一种基于CNN和softmax概率阈值的框架来识别恶意设备和真实设备。</li>
+<li>模拟了攻击场景，对手试图通过GAN技术模仿真实设备的射频特征。</li>
+<li>实验使用了十款不同的ADALM-PLUTO SDR设备来进行验证。</li>
+<li>验证了七款真实设备，两款被认为是恶意设备，一款用于确定阈值。</li>
+<li>该方法可用于提高设备身份验证的安全性和可靠性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.09663">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09663v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09663v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09663v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09663v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09663v1/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09663v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="Vision-Language-Models-A-Survey-of-26K-Papers"><a href="#Vision-Language-Models-A-Survey-of-26K-Papers" class="headerlink" title="Vision Language Models: A Survey of 26K Papers"></a>Vision Language Models: A Survey of 26K Papers</h2><p><strong>Authors:Fengming Lin</strong></p>
+<p>We present a transparent, reproducible measurement of research trends across 26,104 accepted papers from CVPR, ICLR, and NeurIPS spanning 2023-2025. Titles and abstracts are normalized, phrase-protected, and matched against a hand-crafted lexicon to assign up to 35 topical labels and mine fine-grained cues about tasks, architectures, training regimes, objectives, datasets, and co-mentioned modalities. The analysis quantifies three macro shifts: (1) a sharp rise of multimodal vision-language-LLM work, which increasingly reframes classic perception as instruction following and multi-step reasoning; (2) steady expansion of generative methods, with diffusion research consolidating around controllability, distillation, and speed; and (3) resilient 3D and video activity, with composition moving from NeRFs to Gaussian splatting and a growing emphasis on human- and agent-centric understanding. Within VLMs, parameter-efficient adaptation like prompting&#x2F;adapters&#x2F;LoRA and lightweight vision-language bridges dominate; training practice shifts from building encoders from scratch to instruction tuning and finetuning strong backbones; contrastive objectives recede relative to cross-entropy&#x2F;ranking and distillation. Cross-venue comparisons show CVPR has a stronger 3D footprint and ICLR the highest VLM share, while reliability themes such as efficiency or robustness diffuse across areas. We release the lexicon and methodology to enable auditing and extension. Limitations include lexicon recall and abstract-only scope, but the longitudinal signals are consistent across venues and years. </p>
+<blockquote>
+<p>我们对来自CVPR、ICLR和NeurIPS的26,104篇被接受论文的研究趋势进行了透明、可重复性的测量，时间跨度为2023年至2025年。我们对标题和摘要进行规范化、短语保护，并与手工制作的词汇表进行匹配，最多分配了35个主题标签，并挖掘了关于任务、架构、训练方案、目标、数据集和共同提及的模态的精细线索。分析量化了三个宏观转变：(1) 多模态视觉-语言-大型语言模型工作的急剧增加，这越来越重新定义了传统的感知作为指令遵循和多步推理；(2) 生成方法的稳定扩展，扩散研究围绕可控性、蒸馏和速度进行整合；(3) 坚韧的3D和视频活动，组合从NeRF转移到高斯拼贴，并对人类和代理为中心的理解越来越强调。在VLM内部，参数有效的适应方法如提示&#x2F;适配器&#x2F;LoRA和轻量级视觉语言桥梁占主导地位；训练实践从从头构建编码器转向指令调整和微调强大主干；对比目标相对于交叉熵&#x2F;排名和蒸馏而消退。跨场所的比较显示CVPR在3D足迹方面具有更强的实力，而ICLR在VLM份额方面最高，同时效率或稳健性等可靠性主题在各个领域都有所体现。我们发布词汇表和方法，以便进行审计和扩展。局限性包括词汇表召回和仅摘要范围，但纵向信号在各个领域和年份之间是一致的。我们公开了词汇表和方法，以便进行审计和扩展。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.09586v1">PDF</a> VLM&#x2F;LLM Learning Notes</p>
+<p><strong>摘要</strong></p>
+<p>本文详细介绍了针对CVPR、ICLR和NeurIPS三大会议上发表的26,104篇论文进行的趋势研究。文章采用了规范化、可复制的评估方法，通过对标题和摘要进行标准化处理、关键词匹配等手段，对这些论文进行了细致的主题标签分配和趋势分析。文章总结了三大宏观趋势，包括多模态视觉语言模型工作的崛起、生成方法的稳步扩展以及3D和视频活动的持续发展。此外，文章还提到了参数高效适应方法、训练实践转变等细节。最后，文章通过对比不同会议的特点，展示了不同领域的可靠性主题。本文发布的词汇表和方法论为审计和扩展提供了基础。尽管存在词汇表召回率和摘要范围等局限性，但纵向信号在各大会议和年份之间是一致的。</p>
+<p><strong>关键见解</strong></p>
+<p>一、研究概述了从CVPR、ICLR和NeurIPS三大会议选取的论文趋势，时间跨度为2023年至2025年。</p>
+<p>二、研究方法包括标准化处理标题和摘要、关键词匹配，以及利用手工制作的词汇表进行主题标签分配。</p>
+<p>三、三大宏观趋势：</p>
+<ul>
+<li>多模态视觉语言模型工作的快速增加，将经典感知重新定位为遵循指令和多步推理。</li>
+<li>生成方法的稳定扩展，扩散研究集中在可控性、提炼和速度方面。</li>
+<li>3D和视频活动的持续稳健发展，从NeRFs转向高斯拼贴，并越来越强调以人类和代理为中心的理解。</li>
+</ul>
+<p>四、参数高效适应方法如提示&#x2F;适配器&#x2F;LoRA和轻量级视觉语言桥梁占主导地位；训练实践从从头构建编码器转向指令调整和微调强大主干；对比目标相对于交叉熵&#x2F;排名和蒸馏而言有所减少。</p>
+<p>五、跨会场比较显示，CVPR在3D领域具有更强的影响力，而ICLR在视觉语言模型（VLM）方面的份额最高。同时，效率或稳健性等可靠性主题在不同领域之间扩散。</p>
+<p>六、发布词汇表和方法论，便于审计和扩展研究。然而，该研究存在局限性，如词汇表召回率和摘要范围问题。</p>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.09586">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09586v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09586v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09586v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09586v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09586v1/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="HERO-Hardware-Efficient-RL-based-Optimization-Framework-for-NeRF-Quantization"><a href="#HERO-Hardware-Efficient-RL-based-Optimization-Framework-for-NeRF-Quantization" class="headerlink" title="HERO: Hardware-Efficient RL-based Optimization Framework for NeRF   Quantization"></a>HERO: Hardware-Efficient RL-based Optimization Framework for NeRF   Quantization</h2><p><strong>Authors:Yipu Zhang, Chaofang Ma, Jinming Ge, Lin Jiang, Jiang Xu, Wei Zhang</strong></p>
+<p>Neural Radiance Field (NeRF) has emerged as a promising 3D reconstruction method, delivering high-quality results for AR&#x2F;VR applications. While quantization methods and hardware accelerators have been proposed to enhance NeRF’s computational efficiency, existing approaches face crucial limitations. Current quantization methods operate without considering hardware architecture, resulting in sub-optimal solutions within the vast design space encompassing accuracy, latency, and model size. Additionally, existing NeRF accelerators heavily rely on human experts to explore this design space, making the optimization process time-consuming, inefficient, and unlikely to discover optimal solutions. To address these challenges, we introduce HERO, a reinforcement learning framework performing hardware-aware quantization for NeRF. Our framework integrates a NeRF accelerator simulator to generate real-time hardware feedback, enabling fully automated adaptation to hardware constraints. Experimental results demonstrate that HERO achieves 1.31-1.33 $\times$ better latency, 1.29-1.33 $\times$ improved cost efficiency, and a more compact model size compared to CAQ, a previous state-of-the-art NeRF quantization framework. These results validate our framework’s capability to effectively navigate the complex design space between hardware and algorithm requirements, discovering superior quantization policies for NeRF implementation. Code is available at <a target="_blank" rel="noopener" href="https://github.com/ypzhng/HERO">https://github.com/ypzhng/HERO</a>. </p>
+<blockquote>
+<p>神经辐射场（NeRF）作为一种有前景的3D重建方法，为AR&#x2F;VR应用提供了高质量的结果。虽然已有研究人员提出量化和硬件加速器方法以提升NeRF的计算效率，但现有方法面临重要局限。现有的量化方法没有考虑硬件架构，在涵盖准确性、延迟和模型大小的广阔设计空间中导致次优解。此外，现有的NeRF加速器严重依赖于人类专家来探索这个设计空间，使得优化过程耗时、效率低下，并且不太可能发现最优解。为了应对这些挑战，我们引入了HERO，这是一个采用硬件感知量化的强化学习框架，用于NeRF。我们的框架集成了一个NeRF加速器模拟器来生成实时硬件反馈，实现对硬件约束的完全自动化适应。实验结果表明，与现有的最先进的NeRF量化框架CAQ相比，HERO实现了1.31-1.33倍的延迟改善、1.29-1.33倍的成本效率提升，并且模型体积更加紧凑。这些结果验证了我们的框架在硬件和算法要求之间的复杂设计空间中的导航能力，能够发现适用于NeRF实现的优秀量化策略。代码可在<a target="_blank" rel="noopener" href="https://github.com/ypzhng/HERO%E8%8E%B7%E5%8F%96%E3%80%82">https://github.com/ypzhng/HERO获取。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.09010v1">PDF</a> Accepted by ASPDAC 2026</p>
+<p><strong>摘要</strong></p>
+<p>NeRF的硬件感知量化框架HERO，利用强化学习实现高效3D重建。HERO能自动生成适应硬件约束的策略，实现更优的延迟、成本效率和模型大小。相比前量化框架CAQ，HERO展现出更优秀的性能。</p>
+<p><strong>要点</strong></p>
+<ol>
+<li>NeRF作为AR&#x2F;VR应用的3D重建方法展现出巨大潜力。</li>
+<li>现有NeRF的量化方法和硬件加速器虽有所提升，但仍存在挑战。</li>
+<li>现有量化方法不考虑硬件架构，无法优化准确性、延迟和模型大小的整个设计空间。</li>
+<li>NeRF加速器依赖人工探索设计空间，过程耗时、低效，难以发现最优解。</li>
+<li>HERO框架利用强化学习实现硬件感知的NeRF量化，集成NeRF加速器模拟器获取实时硬件反馈。</li>
+<li>HERO相比前量化框架CAQ，实现了更好的延迟、成本效率和更小的模型大小。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.09010">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_1_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.09010v1/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="Passivation-Free-Ga-Polar-AlGaN-GaN-Recessed-Gate-HEMTs-on-Sapphire-with-2-8-W-mm-POUT-and-26-8-PAE-at-94-GHz"><a href="#Passivation-Free-Ga-Polar-AlGaN-GaN-Recessed-Gate-HEMTs-on-Sapphire-with-2-8-W-mm-POUT-and-26-8-PAE-at-94-GHz" class="headerlink" title="Passivation-Free Ga-Polar AlGaN&#x2F;GaN Recessed-Gate HEMTs on Sapphire with   2.8 W&#x2F;mm POUT and 26.8% PAE at 94 GHz"></a>Passivation-Free Ga-Polar AlGaN&#x2F;GaN Recessed-Gate HEMTs on Sapphire with   2.8 W&#x2F;mm POUT and 26.8% PAE at 94 GHz</h2><p><strong>Authors:Ruixin Bai, Swarnav Mukhopadhyay, Michael Elliott, Ryan Gilbert, Jiahao Chen, Rafael A. Choudhury, Kyudong Kim, Yu-Chun Wang, Ahmad E. Islam, Andrew J. Green, Shubhra S. Pasayat, Chirag Gupta</strong></p>
+<p>In this work, we demonstrate a passivation-free Ga-polar recessed-gate AlGaN&#x2F;GaN HEMT on a sapphire substrate for W-band operation, featuring a 5.5 nm Al0.35Ga0.65N barrier under the gate and a 31 nm Al0.35Ga0.65N barrier in the gate access regions. The device achieves a drain current density of 1.8 A&#x2F;mm, a peak transconductance of 750 mS&#x2F;mm, and low gate leakage with a high on&#x2F;off ratio of 10^7. Small-signal characterization reveals a current-gain cutoff frequency of 127 GHz and a maximum oscillation frequency of 203 GHz. Continuous-wave load-pull measurements at 94 GHz demonstrate an output power density of 2.8 W&#x2F;mm with 26.8% power-added efficiency (PAE), both of which represent the highest values reported for Ga-polar GaN HEMTs on sapphire substrates and are comparable to state-of-the-art Ga-polar GaN HEMTs on SiC substrates. Considering the low cost of sapphire, the simplicity of the epitaxial design, and the reduced fabrication complexity relative to N-polar devices, this work highlights the potential of recessed-gate Ga-polar AlGaN&#x2F;GaN HEMTs on sapphire as a promising candidate for next-generation millimeter-wave power applications. </p>
+<blockquote>
+<p>在这项工作中，我们在蓝宝石衬底上展示了无钝化的Ga极凹栅AlGaN&#x2F;GaN高电子迁移率晶体管（HEMT），适用于W波段操作。其特点是门下含有5.5纳米Al0.35Ga0.65N势垒，以及栅极接入区域中的31纳米Al0.35Ga0.65N势垒。该器件实现了1.8 A&#x2F;mm的漏电流密度、750 mS&#x2F;mm的峰值跨导，以及高开&#x2F;关比为10^7的低栅极泄漏。小信号表征显示电流增益截止频率为127 GHz，最大振荡频率为203 GHz。在94 GHz的连续波负载牵引测量中，输出功率密度为2.8 W&#x2F;mm，功率附加效率（PAE）为26.8%，这两者均为蓝宝石衬底上Ga极GaN HEMT的最高值，并与SiC衬底上最先进的Ga极GaN HEMT相当。考虑到蓝宝石的低成本、外延设计的简单性，以及相对于N极器件的制造复杂性降低，这项工作突出了凹栅Ga极AlGaN&#x2F;GaN HEMT在蓝宝石上的潜力，可作为下一代毫米波功率应用的有前途的候选者。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.08933v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种无钝化的Ga极凹栅AlGaN&#x2F;GaN高电子迁移率晶体管（HEMT），该晶体管在蓝宝石衬底上进行W波段操作，具有出色的性能。它采用5.5nm的Al0.35Ga0.65N栅下势垒和31nm的Al0.35Ga0.65N栅接入区域势垒。该器件实现高的电流密度、峰值跨导和低门泄漏比。此外，小信号表征揭示其具有高截止频率和最大振荡频率。连续波负载牵引测量显示其在94GHz时的输出功率密度和功率附加效率均为最高值，与SiC衬底上的Ga极GaN HEMT相当。考虑到蓝宝石的低成本、简单的外延设计和与N极器件相比减少的制造复杂性，这项工作强调了凹栅Ga极AlGaN&#x2F;GaN HEMT在蓝宝石上的潜力，可作为下一代毫米波功率应用的候选者。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>该研究展示了一种在蓝宝石衬底上运行的Ga极AlGaN&#x2F;GaN HEMT，适用于W波段操作。</li>
+<li>器件采用了无钝化设计，表现出高电流密度、峰值跨导和低门泄漏比等优秀性能。</li>
+<li>小信号表征显示器件具有高截止频率和最大振荡频率，分别为127 GHz和203 GHz。</li>
+<li>在94 GHz的连续波负载牵引测量中，器件的输出功率密度和功率附加效率达到最高值。</li>
+<li>与其他在SiC衬底上的Ga极GaN HEMT相比，该器件表现出相当的性能。</li>
+<li>器件的潜力在于其低成本、简单的外延设计和相对减少的制造复杂性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.08933">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.08933v1/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.08933v1/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.08933v1/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.08933v1/page_2_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.08933v1/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2510.08933v1/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Molecular-Beam-Epitaxy-of-2H-TaS-2-few-layers-on-GaN-0001"><a href="#Molecular-Beam-Epitaxy-of-2H-TaS-2-few-layers-on-GaN-0001" class="headerlink" title="Molecular Beam Epitaxy of 2H-TaS$_2$ few-layers on GaN(0001)"></a>Molecular Beam Epitaxy of 2H-TaS$_2$ few-layers on GaN(0001)</h2><p><strong>Authors:Constantin Hilbrunner, Tobias Meyer, Joerg Malindretos, Angela Rizzi</strong></p>
+<p>2H-TaS$_2$ few layers have been grown epitaxially onto GaN(0001). A high substrate growth temperature of 825$^{\circ}$C induces best structural properties of the overlayer, as revealed by in-situ electron diffraction (RHEED and LEED). The 2D-overlayer grows unstrained right after deposition of a monolayer. However, evidence of pits at the interface is provided by scanning transmission electron microscopy, most probably due to GaN thermal decomposition at the high growth temperature. In-situ x-ray photoemission spectroscopy shows core level shifts that are consistently related to electron transfer from the n-GaN(0001) to the 2H-TaS$_2$ epitaxial layer as well as the formation of a high concentration of nitrogen vacancies close to the interface. Further, no chemical reaction at the interface between the substrate and the grown TaS$_2$ overlayer is deduced from XPS, which corroborates the possibility of integration of 2D 2H-TaS$_2$ with an important 3D semiconducting material like GaN. </p>
+<blockquote>
+<p>本文中，2H-TaS$_2$薄层已经外延生长在GaN（0001）上。衬底生长温度高达825$^{\circ}$C，通过原位电子衍射（反射式高能电子衍射和劳厄电子衍射）显示，这有利于获得最佳的外延层结构特性。二维覆盖层在单层沉积后无应变生长。然而，扫描透射电子显微镜证据表明界面处存在凹坑，这可能是由于在高温生长过程中GaN的热分解造成的。原位X射线光电子能谱显示核心能级发生偏移，这与从n-GaN（0001）到2H-TaS$_2$外延层的电子转移有关，同时在界面附近形成高浓度的氮空位。此外，从XPS结果推断，衬底与生长的TaS$_2$覆盖层之间界面没有发生化学反应，这证实了将二维的2H-TaS$_2$与重要的三维半导体材料如GaN集成的可能性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.21537v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文报道了在GaN（0001）上生长少量层数的2H-TaS2薄层的研究结果。研究发现，在高达825°C的基底生长温度下，可获得最佳结构特性的覆盖层。通过原位电子衍射（RHEED和LEED）技术观察发现，刚沉积一个单层后，二维覆盖层处于无应变状态。然而，扫描透射电子显微镜观察到界面处有坑，可能是由于在高温生长过程中GaN的热分解所致。原位X射线光电子能谱显示核心能级发生变化，这与其与n-GaN（0001）向2H-TaS2外延层的电子转移以及界面附近高浓度的氮空位形成有关。此外，XPS结果表明基底和生长的TaS2覆盖层之间未发生化学反应，这证实了将二维的2H-TaS2与重要的三维半导体材料如GaN集成的可能性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>高达825°C的基底生长温度有利于获得最佳结构特性的TaS2覆盖层。</li>
+<li>通过原位电子衍射技术观察到二维覆盖层在刚沉积时处于无应变状态。</li>
+<li>界面处的坑可能是由于GaN在高温生长过程中的热分解造成的。</li>
+<li>原位X射线光电子能谱揭示了电子从GaN转移到TaS2覆盖层以及界面附近氮空位的大量形成。</li>
+<li>XPS结果表明基底和TaS2覆盖层之间未发生化学反应。</li>
+<li>报道提供了一种将二维材料TaS2与三维半导体材料GaN集成的可能性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.21537">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.21537v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.21537v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.21537v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.21537v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="Imbalance-Robust-and-Sampling-Efficient-Continuous-Conditional-GANs-via-Adaptive-Vicinity-and-Auxiliary-Regularization"><a href="#Imbalance-Robust-and-Sampling-Efficient-Continuous-Conditional-GANs-via-Adaptive-Vicinity-and-Auxiliary-Regularization" class="headerlink" title="Imbalance-Robust and Sampling-Efficient Continuous Conditional GANs via   Adaptive Vicinity and Auxiliary Regularization"></a>Imbalance-Robust and Sampling-Efficient Continuous Conditional GANs via   Adaptive Vicinity and Auxiliary Regularization</h2><p><strong>Authors:Xin Ding, Yun Chen, Yongwei Wang, Kao Zhang, Sen Zhang, Peibei Cao, Xiangxue Wang</strong></p>
+<p>Recent advances in conditional generative modeling have introduced Continuous conditional Generative Adversarial Network (CcGAN) and Continuous Conditional Diffusion Model (CCDM) for estimating high-dimensional data distributions conditioned on scalar, continuous regression labels (e.g., angles, ages, or temperatures). However, these approaches face fundamental limitations: CcGAN suffers from data imbalance due to fixed-size vicinity constraints, while CCDM requires computationally expensive iterative sampling. To address these issues, we propose CcGAN-AVAR, an enhanced CcGAN framework featuring (1) two novel components for handling data imbalance - an adaptive vicinity mechanism that dynamically adjusts vicinity size and a multi-task discriminator that enhances generator training through auxiliary regression and density ratio estimation - and (2) the GAN framework’s native one-step generator, enable 30x-2000x faster inference than CCDM. Extensive experiments on four benchmark datasets (64x64 to 256x256 resolution) across eleven challenging settings demonstrate that CcGAN-AVAR achieves state-of-the-art generation quality while maintaining sampling efficiency. </p>
+<blockquote>
+<p>最新的条件生成模型进展已经引入了连续条件生成对抗网络（CcGAN）和连续条件扩散模型（CCDM），用于估计基于标量、连续回归标签的高维数据分布（例如角度、年龄或温度）。然而，这些方法面临基本局限：CcGAN由于固定大小的邻近约束而受到数据不平衡的影响，而CCDM需要计算昂贵的迭代采样。为了解决这些问题，我们提出了CcGAN-AVAR，这是一个增强的CcGAN框架，具有以下特点：（1）两个用于处理数据不平衡的新组件——自适应邻近机制，可动态调整邻近大小，多任务鉴别器，通过辅助回归和密度比率估计增强生成器训练；（2）GAN框架的本地一步生成器，使推理速度比CCDM快30倍至2000倍。在四个基准数据集（64x64至256x256分辨率）上进行的十一个具有挑战性的设置的大量实验表明，CcGAN-AVAR在保持采样效率的同时实现了最先进的生成质量。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.01725v3">PDF</a> </p>
+<p><strong>摘要</strong><br>    针对连续条件生成对抗网络（CcGAN）在数据分布估计中面临的数据不平衡和计算成本高昂的问题，提出了CcGAN-AVAR框架。该框架包含两个新组件以解决数据不平衡问题，并采用了GAN框架的原生一步生成器以实现高效采样。实验证明，CcGAN-AVAR在多个数据集上实现了出色的生成质量和采样效率。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>CcGAN面临数据不平衡问题，主要是由于固定大小的邻近约束所致。</li>
+<li>CcGAN-AVAR通过引入自适应邻近机制和多任务鉴别器两个新组件，解决了CcGAN的数据不平衡问题。</li>
+<li>自适应邻近机制能够动态调整邻近大小，以处理数据不平衡。</li>
+<li>多任务鉴别器通过辅助回归和密度比率估计，增强了生成器的训练。</li>
+<li>CcGAN-AVAR采用了GAN框架的原生一步生成器，实现了比CCDM快30倍至2000倍的推理速度。</li>
+<li>在四个基准数据集（分辨率从64x64到256x256）的十一个挑战设置上的广泛实验表明，CcGAN-AVAR达到了最先进的生成质量。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.01725">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.01725v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.01725v3/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.01725v3/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.01725v3/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.01725v3/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2508.01725v3/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="Towards-Unsupervised-Training-of-Matching-based-Graph-Edit-Distance-Solver-via-Preference-aware-GAN"><a href="#Towards-Unsupervised-Training-of-Matching-based-Graph-Edit-Distance-Solver-via-Preference-aware-GAN" class="headerlink" title="Towards Unsupervised Training of Matching-based Graph Edit Distance   Solver via Preference-aware GAN"></a>Towards Unsupervised Training of Matching-based Graph Edit Distance   Solver via Preference-aware GAN</h2><p><strong>Authors:Wei Huang, Hanchen Wang, Dong Wen, Shaozhen Ma, Wenjie Zhang, Xuemin Lin</strong></p>
+<p>Graph Edit Distance (GED) is a fundamental graph similarity metric widely used in various applications. However, computing GED is an NP-hard problem. Recent state-of-the-art hybrid GED solver has shown promising performance by formulating GED as a bipartite graph matching problem, then leveraging a generative diffusion model to predict node matching between two graphs, from which both the GED and its corresponding edit path can be extracted using a traditional algorithm. However, such methods typically rely heavily on ground-truth supervision, where the ground-truth node matchings are often costly to obtain in real-world scenarios. In this paper, we propose GEDRanker, a novel unsupervised GAN-based framework for GED computation. Specifically, GEDRanker consists of a matching-based GED solver and introduces an interpretable preference-aware discriminator. By leveraging preference signals over different node matchings derived from edit path lengths, the discriminator can guide the matching-based solver toward generating high-quality node matching without the need for ground-truth supervision. Extensive experiments on benchmark datasets demonstrate that our GEDRanker enables the matching-based GED solver to achieve near-optimal solution quality without any ground-truth supervision. </p>
+<blockquote>
+<p>图编辑距离（GED）是一种基本的图形相似性度量，广泛应用于各种应用程序中。然而，计算GED是一个NP难题。最近先进的混合GED求解器通过将GED公式化为二分图匹配问题，并利用生成扩散模型预测两个图形之间的节点匹配，从而表现出有前景的性能。之后可以使用传统算法提取GED及其相应的编辑路径。然而，这些方法通常严重依赖于真实标签的监督学习，而在现实场景中获取真实标签的节点匹配通常成本很高。在本文中，我们提出了GEDRanker，这是一种用于计算GED的新型无监督的基于GAN的框架。具体来说，GEDRanker由基于匹配的GED求解器组成，并引入了一个可解释的偏好感知鉴别器。通过利用不同节点匹配的偏好信号推导出的编辑路径长度，鉴别器可以在无需真实标签监督的情况下引导基于匹配的求解器生成高质量的节点匹配。在基准数据集上的大量实验表明，我们的GEDRanker使得基于匹配的GED求解器能够在没有任何真实标签监督的情况下达到接近最优的解决方案质量。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2506.01977v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种基于GAN的无监督框架GEDRanker用于计算图的编辑距离（GED）。该框架包含一个基于匹配的GED求解器和一个可解释的偏好感知鉴别器。通过利用不同节点匹配的偏好信号，鉴别器可以引导求解器生成高质量的节点匹配，无需真实标签监督。在基准数据集上的实验表明，在没有真实标签监督的情况下，基于匹配的GED求解器能够达到接近最优的解决方案质量。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>GED是一种重要的图相似性度量，广泛应用于各种应用。</li>
+<li>计算GED是一个NP难问题。</li>
+<li>最新技术将GED表述为二分图匹配问题，并使用生成扩散模型预测节点匹配。</li>
+<li>当前方法通常依赖昂贵的真实标签监督。</li>
+<li>GEDRanker是一个基于GAN的无监督框架，用于GED计算。</li>
+<li>GEDRanker包含一个基于匹配的GED求解器和偏好感知鉴别器。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2506.01977">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2506.01977v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2506.01977v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2506.01977v2/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="LinPrim-Linear-Primitives-for-Differentiable-Volumetric-Rendering"><a href="#LinPrim-Linear-Primitives-for-Differentiable-Volumetric-Rendering" class="headerlink" title="LinPrim: Linear Primitives for Differentiable Volumetric Rendering"></a>LinPrim: Linear Primitives for Differentiable Volumetric Rendering</h2><p><strong>Authors:Nicolas von Lützow, Matthias Nießner</strong></p>
+<p>Volumetric rendering has become central to modern novel view synthesis methods, which use differentiable rendering to optimize 3D scene representations directly from observed views. While many recent works build on NeRF or 3D Gaussians, we explore an alternative volumetric scene representation. More specifically, we introduce two new scene representations based on linear primitives - octahedra and tetrahedra - both of which define homogeneous volumes bounded by triangular faces. To optimize these primitives, we present a differentiable rasterizer that runs efficiently on GPUs, allowing end-to-end gradient-based optimization while maintaining real-time rendering capabilities. Through experiments on real-world datasets, we demonstrate comparable performance to state-of-the-art volumetric methods while requiring fewer primitives to achieve similar reconstruction fidelity. Our findings deepen the understanding of 3D representations by providing insights into the fidelity and performance characteristics of transparent polyhedra and suggest that adopting novel primitives can expand the available design space. </p>
+<blockquote>
+<p>体积渲染已经成为现代新颖视图合成方法的核心，这些方法使用可微分的渲染来直接优化从观察到的视角表示的3D场景。虽然许多近期的工作基于NeRF或3D高斯，但我们探索了一种替代的体积场景表示。更具体地说，我们引入两种基于线性原始几何体的新场景表示，即八面体和四面体，它们都通过三角形面定义均匀体积。为了优化这些原始几何体，我们提出了一种可在GPU上高效运行的可微分光栅化器，允许端到端的基于梯度的优化，同时保持实时渲染能力。通过在实际数据集上的实验，我们展示了与最先进的体积方法相当的性能，同时以更少的原始几何体达到类似的重建保真度。我们的研究深化了对三维表示的理解，为透明多边形的保真度和性能特征提供了见解，并表明采用新型原始几何体可以扩大可用的设计空间。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.16312v4">PDF</a> Project page: <a target="_blank" rel="noopener" href="https://nicolasvonluetzow.github.io/LinPrim">https://nicolasvonluetzow.github.io/LinPrim</a> - Project   video: <a target="_blank" rel="noopener" href="https://youtu.be/NRRlmFZj5KQ">https://youtu.be/NRRlmFZj5KQ</a> - Accepted at NeurIPS 2025</p>
+<p><strong>摘要</strong></p>
+<p>本文探索了基于线性原始体积的新的三维场景表示方法，包括以三角面界定的均匀体积的八面体和四面体。为优化这些原始体积，提出了一种可微分的光栅化器，能在GPU上高效运行，实现端到端的基于梯度的优化，同时保持实时渲染能力。在真实世界数据集上的实验表明，该方法与最先进的体积方法性能相当，且使用较少的原始体积即可达到相似的重建保真度。本研究加深了对三维表示的理解，为透明多边形的保真度和性能特征提供了见解，并表明采用新型原始体积可以扩大可用设计空间。</p>
+<p><strong>要点</strong></p>
+<ol>
+<li>引入基于线性原始体积（八面体和四面体）的新型三维场景表示方法。</li>
+<li>提出一种可微分的光栅化器，用于优化这些原始体积，能在GPU上高效运行。</li>
+<li>方法实现了端到端的基于梯度的优化，同时保持实时渲染能力。</li>
+<li>在真实世界数据集上的实验表明，该方法与最先进的体积渲染方法性能相当。</li>
+<li>使用较少的原始体积即可达到相似的重建保真度。</li>
+<li>研究加深了对三维表示的理解，提供了关于透明多边形特征的新见解。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.16312">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2501.16312v4/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2501.16312v4/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2501.16312v4/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="LiDAR-GS-Real-time-LiDAR-Re-Simulation-using-Gaussian-Splatting"><a href="#LiDAR-GS-Real-time-LiDAR-Re-Simulation-using-Gaussian-Splatting" class="headerlink" title="LiDAR-GS:Real-time LiDAR Re-Simulation using Gaussian Splatting"></a>LiDAR-GS:Real-time LiDAR Re-Simulation using Gaussian Splatting</h2><p><strong>Authors:Qifeng Chen, Sheng Yang, Sicong Du, Tao Tang, Rengan Xie, Peng Chen, Yuchi Huo</strong></p>
+<p>We present LiDAR-GS, a Gaussian Splatting (GS) method for real-time, high-fidelity re-simulation of LiDAR scans in public urban road scenes. Recent GS methods proposed for cameras have achieved significant advancements in real-time rendering beyond Neural Radiance Fields (NeRF). However, applying GS representation to LiDAR, an active 3D sensor type, poses several challenges that must be addressed to preserve high accuracy and unique characteristics. Specifically, LiDAR-GS designs a differentiable laser beam splatting, using range-view representation for precise surface splatting by projecting lasers onto micro cross-sections, effectively eliminating artifacts associated with local affine approximations. Furthermore, LiDAR-GS leverages Neural Gaussian Representation, which further integrate view-dependent clues, to represent key LiDAR properties that are influenced by the incident direction and external factors. Combining these practices with some essential adaptations, e.g., dynamic instances decomposition, LiDAR-GS succeeds in simultaneously re-simulating depth, intensity, and ray-drop channels, achieving state-of-the-art results in both rendering frame rate and quality on publically available large scene datasets when compared with the methods using explicit mesh or implicit NeRF. Our source code is publicly available at <a target="_blank" rel="noopener" href="https://www.github.com/cqf7419/LiDAR-GS">https://www.github.com/cqf7419/LiDAR-GS</a>. </p>
+<blockquote>
+<p>我们提出了LiDAR-GS，这是一种针对公共城市道路场景实时高保真模拟激光雷达扫描的高斯喷射（GS）方法。最近为相机提出的GS方法在实现超越神经辐射场（NeRF）的实时渲染方面取得了显著进展。然而，将GS表示法应用于激光雷达（一种主动三维传感器类型）时，存在几个挑战需要解决，以保持高精度和独特特征。具体来说，LiDAR-GS设计了一种可微分的激光束喷射，使用范围视图表示法，通过激光在微截面上的投影进行精确的表面喷射，有效地消除了与局部仿射近似相关的伪影。此外，LiDAR-GS利用神经高斯表示法，进一步整合了视图相关线索，以表示受入射方向和外部因素影响的激光雷达的关键属性。结合这些实践与一些基本适应，例如动态实例分解，LiDAR-GS成功同时模拟深度、强度和射线下降通道，在公共可用的大型场景数据集上与使用显式网格或隐式NeRF的方法相比，实现了最先进的渲染帧率和质量。我们的源代码可在<a target="_blank" rel="noopener" href="https://www.github.com/cqf7419/LiDAR-GS%E4%B8%8A%E5%85%AC%E5%BC%80%E8%AE%BF%E9%97%AE%E3%80%82">https://www.github.com/cqf7419/LiDAR-GS上公开访问。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.05111v3">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>LiDAR-GS是一种基于高斯喷涂（GS）方法的实时高保真模拟激光雷达扫描的公共城市道路场景技术。它解决了将GS方法应用于激光雷达这一主动三维传感器类型所面临的挑战，通过可微分的激光束喷涂、范围视图表示以及神经网络高斯表示等技术，实现了高精度和独特特性的保持。LiDAR-GS同时模拟深度、强度和射线通道，与显式网格或隐式NeRF方法相比，在公共可用大型场景数据集上实现了卓越的渲染帧率和质量。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>LiDAR-GS是基于高斯喷涂方法的实时高保真模拟激光雷达扫描技术。</li>
+<li>它解决了将高斯喷涂方法应用于激光雷达所面临的挑战。</li>
+<li>LiDAR-GS通过可微分的激光束喷涂和范围视图表示等技术实现高精度和独特特性的保持。</li>
+<li>LiDAR-GS模拟深度、强度和射线通道。</li>
+<li>LiDAR-GS与现有的方法相比，在公共可用大型场景数据集上实现了更高的渲染帧率和质量。</li>
+<li>LiDAR-GS采用神经网络高斯表示，以表示受入射方向和外部因素影响的激光雷达的关键属性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.05111">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_NeRF/2410.05111v3/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-10-18/NeRF/">https://kedreamix.github.io/Talk2Paper/Paper/2025-10-18/NeRF/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/NeRF/">
+                                    <span class="chip bg-color">NeRF</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-10-18/Diffusion%20Models/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_Diffusion Models/2510.08273v4/page_1_0.jpg" class="responsive-img" alt="Diffusion Models">
+                        
+                        <span class="card-title">Diffusion Models</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-10-18  Ponimator Unfolding Interactive Pose for Versatile Human-human   Interaction Animation
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-10-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                    Diffusion Models
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Diffusion-Models/">
+                        <span class="chip bg-color">Diffusion Models</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-10-18/3DGS/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-10-18\./crop_3DGS/2510.10492v1/page_5_0.jpg" class="responsive-img" alt="3DGS">
+                        
+                        <span class="card-title">3DGS</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            3DGS 方向最新论文已更新，请持续关注 Update in 2025-10-18  Terra Explorable Native 3D World Model with Point Latents
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-10-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/3DGS/" class="post-category">
+                                    3DGS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/3DGS/">
+                        <span class="chip bg-color">3DGS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">30666.7k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
