@@ -1,0 +1,1777 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="NeRF">
+    <meta name="description" content="NeRF 方向最新论文已更新，请持续关注 Update in 2025-11-05  SAGS Self-Adaptive Alias-Free Gaussian Splatting for Dynamic Surgical   Endoscopic Reconstruction">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>NeRF | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://pic-private.zhihu.com/v2-73ffebfdd9b9c86bdd553fc0d74142cb~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311671&auth_key=1762311671-0-0-f3bf57155910a43b8b6341b70b683e57&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">NeRF</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/NeRF/">
+                                <span class="chip bg-color">NeRF</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                NeRF
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-11-05
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-11-05
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    18.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    77 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-11-05-更新"><a href="#2025-11-05-更新" class="headerlink" title="2025-11-05 更新"></a>2025-11-05 更新</h1><h2 id="SAGS-Self-Adaptive-Alias-Free-Gaussian-Splatting-for-Dynamic-Surgical-Endoscopic-Reconstruction"><a href="#SAGS-Self-Adaptive-Alias-Free-Gaussian-Splatting-for-Dynamic-Surgical-Endoscopic-Reconstruction" class="headerlink" title="SAGS: Self-Adaptive Alias-Free Gaussian Splatting for Dynamic Surgical   Endoscopic Reconstruction"></a>SAGS: Self-Adaptive Alias-Free Gaussian Splatting for Dynamic Surgical   Endoscopic Reconstruction</h2><p><strong>Authors:Wenfeng Huang, Xiangyun Liao, Yinling Qian, Hao Liu, Yongming Yang, Wenjing Jia, Qiong Wang</strong></p>
+<p>Surgical reconstruction of dynamic tissues from endoscopic videos is a crucial technology in robot-assisted surgery. The development of Neural Radiance Fields (NeRFs) has greatly advanced deformable tissue reconstruction, achieving high-quality results from video and image sequences. However, reconstructing deformable endoscopic scenes remains challenging due to aliasing and artifacts caused by tissue movement, which can significantly degrade visualization quality. The introduction of 3D Gaussian Splatting (3DGS) has improved reconstruction efficiency by enabling a faster rendering pipeline. Nevertheless, existing 3DGS methods often prioritize rendering speed while neglecting these critical issues. To address these challenges, we propose SAGS, a self-adaptive alias-free Gaussian splatting framework. We introduce an attention-driven, dynamically weighted 4D deformation decoder, leveraging 3D smoothing filters and 2D Mip filters to mitigate artifacts in deformable tissue reconstruction and better capture the fine details of tissue movement. Experimental results on two public benchmarks, EndoNeRF and SCARED, demonstrate that our method achieves superior performance in all metrics of PSNR, SSIM, and LPIPS compared to the state of the art while also delivering better visualization quality. </p>
+<blockquote>
+<p>手术内窥镜视频中的动态组织重建是机器人辅助手术中的一项关键技术。神经网络辐射场（NeRF）的发展极大地推动了可变形组织的重建，能够从视频和图像序列中获得高质量的结果。然而，由于组织运动导致的混叠和伪影，重建可变形的内窥镜场景仍然具有挑战性，这可能会严重降低可视化质量。三维高斯贴图（3DGS）的引入提高了重建效率，通过实现更快的渲染流程。然而，现有的三维高斯贴图方法往往优先关注渲染速度而忽略了这些关键问题。为了应对这些挑战，我们提出了SAGS，一种自适应无混叠高斯贴图框架。我们引入了一种基于注意力驱动、动态加权的四维变形解码器，利用三维平滑滤波器和二维Mip滤波器来减少可变形组织重建中的伪影，并更好地捕捉组织运动的细节。在EndoNeRF和SCARED两个公开基准测试上的实验结果表明，我们的方法在峰值信噪比（PSNR）、结构相似性（SSIM）和局部感知图像相似性（LPIPS）等各项指标上均达到了最先进的性能，同时提供了更好的可视化质量。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.27318v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>NeRF技术结合内窥镜视频在机器人辅助手术中用于动态组织重建具有重要意义。为应对因组织运动导致的混叠和伪影问题，提出一种自适应无混叠高斯摊铺框架SAGS。该框架引入了一种关注细节的动态加权4D变形解码器，通过利用3D平滑滤波器和2D Mip滤波器来减少伪影并捕捉组织运动的细微细节。实验结果表明，与现有技术相比，该方法在PSNR、SSIM和LPIPS等所有指标上均表现优越，可视化质量更高。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>NeRF技术对于机器人辅助手术中的动态组织重建至关重要。</li>
+<li>现有重建方法在处理内窥镜视频时面临混叠和伪影问题。</li>
+<li>SAGS框架通过引入自适应无混叠高斯摊铺技术解决了这些问题。</li>
+<li>SAGS使用动态加权的4D变形解码器，关注组织运动的细微细节。</li>
+<li>该方法结合3D平滑滤波器和2D Mip滤波器来优化重建效果。</li>
+<li>在公共基准测试上的实验结果表明，SAGS在各项指标上均优于现有技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.27318">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic-private.zhihu.com/v2-7e32fc98ca9358266ec21e43526abbf8~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311678&auth_key=1762311678-0-0-4245c885234d9ac8674f84a39437f602&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-33665b4c4d0d2048e168a6bdf6ad21bf~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311685&auth_key=1762311685-0-0-438f0ef767174c3e4fb44c76a56a9f96&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Impact-of-AlN-buffer-thickness-on-electrical-and-thermal-characteristics-of-AlGaN-GaN-AlN-HEMTs"><a href="#Impact-of-AlN-buffer-thickness-on-electrical-and-thermal-characteristics-of-AlGaN-GaN-AlN-HEMTs" class="headerlink" title="Impact of AlN buffer thickness on electrical and thermal characteristics   of AlGaN&#x2F;GaN&#x2F;AlN HEMTs"></a>Impact of AlN buffer thickness on electrical and thermal characteristics   of AlGaN&#x2F;GaN&#x2F;AlN HEMTs</h2><p><strong>Authors:Minho Kim, Dat Q. Tran, Plamen P. Paskov, U. Choi, O. Nam, Vanya Darakchieva</strong></p>
+<p>We investigate the influence of AlN buffer thickness on the structural, electrical, and thermal properties of AlGaN&#x2F;GaN high-electron mobility transistors (HEMTs) grown on semi-insulating SiC substrates by metal-organic chemical vapor deposition. X-ray diffraction and atomic force microscopy reveal that while thin AlN layers (120 nm) exhibit compressive strain and smooth step-flow surfaces, thicker single-layer buffers (550 nm) develop tensile strain and increased surface roughness. Multi-layer buffer structures up to 2 {\mu}m alleviate strain and maintain surface integrity. Low-temperature Hall measurements confirm that electron mobility decreases with increasing interface roughness, with the highest mobility observed in the structure with a thin AlN buffer. Transient thermoreflectance measurements show that thermal conductivity (ThC) of the AlN buffer increases with the thickness, reaching 188 W&#x2F;m.K at 300 K for the 2 {\mu}m buffer layer, which is approximately 60% of the bulk AlN ThC value. These results highlight the importance of optimizing AlN buffer design to balance strain relaxation, thermal management, and carrier transport for high-performance GaN-based HEMTs. </p>
+<blockquote>
+<p>我们研究了AlN缓冲层厚度对生长在半绝缘SiC衬底上的AlGaN&#x2F;GaN高电子迁移率晶体管（HEMT）的结构、电学和热学性质的影响。通过X射线衍射和原子力显微镜观察发现，较薄的AlN层（120纳米）表现出压缩应变和光滑的表面形态，而较厚的单层缓冲层（550纳米）则表现出拉伸应变和更高的表面粗糙度。多层缓冲结构（高达2微米）可以缓解应变并保持表面完整性。低温霍尔测量结果表明，随着界面粗糙度的增加，电子迁移率降低，在具有薄AlN缓冲层的结构中观察到最高的迁移率。瞬态反射测量表明，AlN缓冲层的导热系数随厚度增加而增加，在300K时，2微米缓冲层的导热系数达到188 W&#x2F;m·K，约为块状AlN导热系数的60%。这些结果强调了优化AlN缓冲层设计的重要性，以实现应变松弛、热管理和载流子传输之间的平衡，从而制造出高性能的GaN基HEMT。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.26244v1">PDF</a> 5 pages, 5 figures</p>
+<p><strong>Summary</strong></p>
+<p>这篇论文研究了AlN缓冲层厚度对AlGaN&#x2F;GaN高电子迁移率晶体管（HEMTs）的结构、电学和热学性质的影响。通过金属有机化合物气相沉积在半导体绝缘SiC衬底上生长晶体管。研究发现，薄AlN层（120nm）表现出压缩应变和光滑的表面形态，而较厚的单层缓冲层（550nm）则表现出拉伸应变和增加的表面粗糙度。多层缓冲结构（最高达2μm）可以缓解应变并保持表面完整性。低温霍尔测量表明，电子迁移率随界面粗糙度的增加而降低，在具有薄AlN缓冲层的结构中观察到最高迁移率。瞬态热反射测量显示，AlN缓冲层的热导率随厚度增加而提高，2μm缓冲层的热导率在300K时达到188W&#x2F;m·K，约为AlN体材料热导率的60%。这些结果强调了优化AlN缓冲层设计的重要性，以实现应变松弛、热管理和载流子传输之间的平衡，以提高基于GaN的HEMTs的性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>AlN缓冲层厚度对AlGaN&#x2F;GaN HEMT的结构、电学和热学性质有显著影响。</li>
+<li>薄AlN层表现出压缩应变和光滑表面，而厚层则出现拉伸应变和表面粗糙。</li>
+<li>多层缓冲结构能够缓解应变并保持表面完整性。</li>
+<li>电子迁移率随界面粗糙度增加而降低，在薄AlN缓冲层结构中达到最高。</li>
+<li>AlN缓冲层的热导率随厚度增加而提高。</li>
+<li>2μm缓冲层的热导率接近AlN体材料的60%。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.26244">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic-private.zhihu.com/v2-34aa76cb3bd753c194b9d1b6938e8252~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311693&auth_key=1762311693-0-0-31cfd8949c2001ba7fc92af76a279199&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-cb731a8a297b6085ed78377f73cbd0c0~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311700&auth_key=1762311700-0-0-abd71e39187187619cce78935a3b35e1&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-f22792ec1dd909f5c4946b154a449474~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311708&auth_key=1762311708-0-0-bc7d3ff6b04feb5b9718f8f193fe1dc3&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-5598423d9d8b2a34f4f9e1182e451322~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311714&auth_key=1762311714-0-0-1220731ca2be18afce75ea0d8e20d9a6&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-f79e8246738d55735095ad303a61b356~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311721&auth_key=1762311721-0-0-827fc837aa253b849967763e733e40f4&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-3bb3561e228a407981cacc8c89ebb99d~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311728&auth_key=1762311728-0-0-8078b085729ce3a20de28382db93f170&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-76c6d95f9778a27f55ebf4cd5b06b2ec~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311735&auth_key=1762311735-0-0-8cf48ec1a25b5395868ea9c0ea820b2f&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="BOLT-GAN-Bayes-Optimal-Loss-for-Stable-GAN-Training"><a href="#BOLT-GAN-Bayes-Optimal-Loss-for-Stable-GAN-Training" class="headerlink" title="BOLT-GAN: Bayes-Optimal Loss for Stable GAN Training"></a>BOLT-GAN: Bayes-Optimal Loss for Stable GAN Training</h2><p><strong>Authors:Mohammadreza Tavasoli Naeini, Ali Bereyhi, Morteza Noshad, Ben Liang, Alfred O. Hero III</strong></p>
+<p>We introduce BOLT-GAN, a simple yet effective modification of the WGAN framework inspired by the Bayes Optimal Learning Threshold (BOLT). We show that with a Lipschitz continuous discriminator, BOLT-GAN implicitly minimizes a different metric distance than the Earth Mover (Wasserstein) distance and achieves better training stability. Empirical evaluations on four standard image generation benchmarks (CIFAR-10, CelebA-64, LSUN Bedroom-64, and LSUN Church-64) show that BOLT-GAN consistently outperforms WGAN, achieving 10-60% lower Frechet Inception Distance (FID). Our results suggest that BOLT is a broadly applicable principle for enhancing GAN training. </p>
+<blockquote>
+<p>我们介绍了BOLT-GAN，它是WGAN框架的简单而有效的修改，灵感来源于贝叶斯最优学习阈值（BOLT）。我们表明，使用Lipschitz连续鉴别器，BOLT-GAN隐式地最小化了与地球移动（Wasserstein）距离不同的度量距离，并实现了更好的训练稳定性。在四个标准的图像生成基准测试（CIFAR-10、CelebA-64、LSUN Bedroom-64和LSUN Church-64）上的经验评估表明，BOLT-GAN持续优于WGAN，降低了10-60%的Frechet Inception Distance（FID）。我们的结果表明，BOLT是一个广泛应用于提高GAN训练的原则。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.25609v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了基于贝叶斯最优学习阈值（BOLT）启发的WGAN框架的改进版本——BOLT-GAN。通过引入Lipschitz连续判别器，BOLT-GAN隐式地最小化了一种不同于地球移动（Wasserstein）距离的度量距离，并实现了更好的训练稳定性。在四个标准图像生成基准测试上的经验评估表明，BOLT-GAN在性能上持续优于WGAN，降低了10%~60%的Frechet Inception Distance（FID）。研究结果表明，BOLT是广泛应用于提高GAN训练效果的原则。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>BOLT-GAN是基于贝叶斯最优学习阈值（BOLT）启发的WGAN框架的改进版本。</li>
+<li>通过引入Lipschitz连续判别器，BOLT-GAN隐式地最小化了一种不同于地球移动距离的度量距离。</li>
+<li>BOLT-GAN实现了更好的训练稳定性。</li>
+<li>在四个标准图像生成基准测试上，BOLT-GAN的性能持续优于WGAN。</li>
+<li>BOLT-GAN降低了10%~60%的Frechet Inception Distance（FID）。</li>
+<li>经验评估表明，BOLT-GAN在各种图像生成任务中具有广泛的应用性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.25609">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic-private.zhihu.com/v2-6593ed754a85e4f2771d40b3e67008e3~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311742&auth_key=1762311742-0-0-0ace680075d0ae941ab834a394025a20&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="OpenHype-Hyperbolic-Embeddings-for-Hierarchical-Open-Vocabulary-Radiance-Fields"><a href="#OpenHype-Hyperbolic-Embeddings-for-Hierarchical-Open-Vocabulary-Radiance-Fields" class="headerlink" title="OpenHype: Hyperbolic Embeddings for Hierarchical Open-Vocabulary   Radiance Fields"></a>OpenHype: Hyperbolic Embeddings for Hierarchical Open-Vocabulary   Radiance Fields</h2><p><strong>Authors:Lisa Weijler, Sebastian Koch, Fabio Poiesi, Timo Ropinski, Pedro Hermosilla</strong></p>
+<p>Modeling the inherent hierarchical structure of 3D objects and 3D scenes is highly desirable, as it enables a more holistic understanding of environments for autonomous agents. Accomplishing this with implicit representations, such as Neural Radiance Fields, remains an unexplored challenge. Existing methods that explicitly model hierarchical structures often face significant limitations: they either require multiple rendering passes to capture embeddings at different levels of granularity, significantly increasing inference time, or rely on predefined, closed-set discrete hierarchies that generalize poorly to the diverse and nuanced structures encountered by agents in the real world. To address these challenges, we propose OpenHype, a novel approach that represents scene hierarchies using a continuous hyperbolic latent space. By leveraging the properties of hyperbolic geometry, OpenHype naturally encodes multi-scale relationships and enables smooth traversal of hierarchies through geodesic paths in latent space. Our method outperforms state-of-the-art approaches on standard benchmarks, demonstrating superior efficiency and adaptability in 3D scene understanding. </p>
+<blockquote>
+<p>对三维物体和三维场景进行建模非常理想，因为它为自主智能体提供了更全面的环境理解。然而，使用隐式表示（如神经辐射场）来实现这一点仍然是一个未被探索的挑战。现有的显式建模层次结构的方法常常面临重大局限性：它们要么需要多次渲染以捕获不同粒度级别的嵌入，从而显著增加推理时间；要么依赖于预设的、封闭的离散层次结构，这在智能体在现实世界中遇到的各种多样化和细微结构中表现较差。为了解决这些挑战，我们提出了OpenHype这一新方法，使用连续的双曲潜空间来表示场景层次结构。通过利用双曲几何的特性，OpenHype自然地编码了多尺度关系，并通过潜空间中的测地线路径实现了层次结构的平滑遍历。我们的方法在标准基准测试中表现出优于当前最先进的性能水平，展示了其在三维场景理解中的优越效率和适应性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.21441v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了OpenHype方法，利用连续的双曲潜在空间表示场景层次结构，通过双曲几何的属性自然地编码多尺度关系，并通过潜在空间中的测地线路径实现平滑遍历层次结构。该方法在标准基准测试中表现出卓越的性能，证明了其在3D场景理解中的高效性和适应性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>OpenHype方法利用连续的双曲潜在空间进行场景层次建模。</li>
+<li>多尺度关系通过双曲几何的自然属性进行编码。</li>
+<li>通过潜在空间中的测地线路径实现层次结构的平滑遍历。</li>
+<li>与现有方法相比，OpenHype在3D场景理解方面表现出卓越的性能。</li>
+<li>OpenHype方法提高了效率并增强了适应性。</li>
+<li>该方法能够处理现实世界中的多样化和细微层次结构。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.21441">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic-private.zhihu.com/v2-c7d7cf8e6befc946501b6d37cc81cea5~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311750&auth_key=1762311750-0-0-e4524545c6d970d5e6375f53c996bb8d&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-6640ab9d8805008341875faa9261f97f~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311757&auth_key=1762311757-0-0-2be7db1a75085ac398b7e90fb76dc8bc&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="GauSSmart-Enhanced-3D-Reconstruction-through-2D-Foundation-Models-and-Geometric-Filtering"><a href="#GauSSmart-Enhanced-3D-Reconstruction-through-2D-Foundation-Models-and-Geometric-Filtering" class="headerlink" title="GauSSmart: Enhanced 3D Reconstruction through 2D Foundation Models and   Geometric Filtering"></a>GauSSmart: Enhanced 3D Reconstruction through 2D Foundation Models and   Geometric Filtering</h2><p><strong>Authors:Alexander Valverde, Brian Xu, Yuyin Zhou, Meng Xu, Hongyun Wang</strong></p>
+<p>Scene reconstruction has emerged as a central challenge in computer vision, with approaches such as Neural Radiance Fields (NeRF) and Gaussian Splatting achieving remarkable progress. While Gaussian Splatting demonstrates strong performance on large-scale datasets, it often struggles to capture fine details or maintain realism in regions with sparse coverage, largely due to the inherent limitations of sparse 3D training data.   In this work, we propose GauSSmart, a hybrid method that effectively bridges 2D foundational models and 3D Gaussian Splatting reconstruction. Our approach integrates established 2D computer vision techniques, including convex filtering and semantic feature supervision from foundational models such as DINO, to enhance Gaussian-based scene reconstruction. By leveraging 2D segmentation priors and high-dimensional feature embeddings, our method guides the densification and refinement of Gaussian splats, improving coverage in underrepresented areas and preserving intricate structural details.   We validate our approach across three datasets, where GauSSmart consistently outperforms existing Gaussian Splatting in the majority of evaluated scenes. Our results demonstrate the significant potential of hybrid 2D-3D approaches, highlighting how the thoughtful combination of 2D foundational models with 3D reconstruction pipelines can overcome the limitations inherent in either approach alone. </p>
+<blockquote>
+<p>场景重建已成为计算机视觉的核心挑战，神经辐射场（NeRF）和高斯拼贴（Gaussian Splatting）等方法取得了显著进展。尽管高斯拼贴在大型数据集上表现出强大的性能，但在稀疏覆盖的区域捕捉精细细节或保持真实性方面往往遇到困难，这主要是由于稀疏的3D训练数据固有的局限性所致。在本研究中，我们提出了一种混合方法GauSSmart，它有效地桥接了2D基础模型和3D高斯拼贴重建。我们的方法集成了成熟的2D计算机视觉技术，包括凸过滤和来自基础模型（如DINO）的语义特征监督，以增强基于高斯的场景重建。通过利用2D分割先验和高维特征嵌入，我们的方法引导高斯拼贴的致密化和精细化，改进了欠代表区域的覆盖并保留了复杂结构细节。我们在三个数据集上验证了我们的方法，GauSSmart在大多数评估场景中始终优于现有高斯拼贴。我们的结果证明了混合2D-3D方法的巨大潜力，突出了如何将2D基础模型与3D重建管道相结合，以克服单一方法的固有局限性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.14270v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>NeRF领域的研究者提出了一种名为GauSSmart的混合方法，该方法结合了二维基础模型和三维高斯喷绘重建技术，旨在解决场景重建中的精细细节捕捉和稀疏区域的真实感保持问题。通过利用二维分割先验和高维特征嵌入，GauSSmart能够指导高斯喷绘的密集化和精细化，提高欠代表区域的覆盖并保留精细的结构细节。在三个数据集上的验证表明，GauSSmart在多数评估场景中均优于现有的高斯喷绘技术，显示出混合二维-三维方法的巨大潜力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Neural Radiance Fields (NeRF) 和 Gaussian Splatting 等方法在场景重建中取得显著进展。</li>
+<li>Gaussian Splatting在大规模数据集上表现强劲，但在捕捉精细细节和保持稀疏区域的真实感方面存在挑战。</li>
+<li>GauSSmart是一种混合方法，结合了二维基础模型和三维高斯喷绘重建技术。</li>
+<li>GauSSmart利用二维分割先验和高维特征嵌入，指导高斯喷绘的密集化和精细化。</li>
+<li>GauSSmart在欠代表区域的覆盖和精细结构细节的保留方面表现出色。</li>
+<li>在三个数据集上的验证表明，GauSSmart在多数评估场景中优于现有高斯喷绘技术。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.14270">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://pic-private.zhihu.com/v2-439c6dafcfefaecd87af483474985b50~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311764&auth_key=1762311764-0-0-97f89f89ce543fa2fd27e0da6894967e&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-ce10a941529e531a97f079066de5d6d9~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311771&auth_key=1762311771-0-0-9ccdf1fd5f780041dbb118eceda78a3e&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-5410135cd5e523629df20d961f072fa8~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311778&auth_key=1762311778-0-0-d86a79274a5d793673cc06378cf4a47c&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-cf51a1426d76308cf72aa9b8477ee678~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311784&auth_key=1762311784-0-0-0567853a63a4702aaf708ef51a3ac725&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="https://pic-private.zhihu.com/v2-a091cc0ae86436254de50778d513e4f1~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311791&auth_key=1762311791-0-0-2f3a8884bf1c93299eeb3ed3eff6068e&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2510.14270v2/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="NGGAN-Noise-Generation-GAN-Based-on-the-Practical-Measurement-Dataset-for-Narrowband-Powerline-Communications"><a href="#NGGAN-Noise-Generation-GAN-Based-on-the-Practical-Measurement-Dataset-for-Narrowband-Powerline-Communications" class="headerlink" title="NGGAN: Noise Generation GAN Based on the Practical Measurement Dataset   for Narrowband Powerline Communications"></a>NGGAN: Noise Generation GAN Based on the Practical Measurement Dataset   for Narrowband Powerline Communications</h2><p><strong>Authors:Ying-Ren Chien, Po-Heng Chou, You-Jie Peng, Chun-Yuan Huang, Hen-Wai Tsao, Yu Tsao</strong></p>
+<p>To effectively process impulse noise for narrowband powerline communications (NB-PLCs) transceivers, capturing comprehensive statistics of nonperiodic asynchronous impulsive noise (APIN) is a critical task. However, existing mathematical noise generative models only capture part of the characteristics of noise. In this study, we propose a novel generative adversarial network (GAN) called noise generation GAN (NGGAN) that learns the complicated characteristics of practically measured noise samples for data synthesis. To closely match the statistics of complicated noise over the NB-PLC systems, we measured the NB-PLC noise via the analog coupling and bandpass filtering circuits of a commercial NB-PLC modem to build a realistic dataset. To train NGGAN, we adhere to the following principles: 1) we design the length of input signals that the NGGAN model can fit to facilitate cyclostationary noise generation; 2) the Wasserstein distance is used as a loss function to enhance the similarity between the generated noise and training data; and 3) to measure the similarity performances of GAN-based models based on the mathematical and practically measured datasets, we conduct both quantitative and qualitative analyses. The training datasets include: 1) a piecewise spectral cyclostationary Gaussian model (PSCGM); 2) a frequency-shift (FRESH) filter; and 3) practical measurements from NB-PLC systems. Simulation results demonstrate that the generated noise samples from the proposed NGGAN are highly close to the real noise samples. The principal component analysis (PCA) scatter plots and Fr&#39;echet inception distance (FID) analysis have shown that NGGAN outperforms other GAN-based models by generating noise samples with superior fidelity and higher diversity. </p>
+<blockquote>
+<p>针对窄带电力线通信（NB-PLC）收发器中的脉冲噪声处理，捕获非周期性异步脉冲噪声（APIN）的综合统计信息是一项关键任务。然而，现有的数学噪声生成模型只能捕捉噪声部分特征。在本研究中，我们提出了一种名为噪声生成GAN（NGGAN）的新型生成对抗网络，用于合成数据，学习实际测量噪声样本的复杂特征。为了紧密匹配NB-PLC系统上的复杂噪声统计信息，我们通过商业NB-PLC调制解调器的模拟耦合和带通滤波电路测量NB-PLC噪声，以构建现实数据集。为了训练NGGAN，我们遵循以下原则：1）设计NGGAN模型能够适应的输入信号长度，以促进循环平稳噪声生成；2）使用Wasserstein距离作为损失函数，提高生成噪声与训练数据之间的相似性；3）为了测量基于数学和实际测量数据集的GAN模型的相似性性能，我们进行了定量和定性分析。训练数据集包括：1）分段谱循环平稳高斯模型（PSCGM）；2）频率偏移（FRESH）滤波器；3）来自NB-PLC系统的实际测量。仿真结果表明，所提出的NGGAN生成的噪声样本与真实噪声样本高度接近。主成分分析（PCA）散点图和Fréchet inception距离（FID）分析表明，NGGAN通过生成具有更高保真度和多样性的噪声样本，在其他基于GAN的模型中表现出色。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2510.01850v3">PDF</a> 16 pages, 15 figures, 11 tables, and published in IEEE Transactions   on Instrumentation and Measurement, 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种针对窄带电力线通信（NB-PLC）的噪声生成对抗网络（NGGAN），用于捕捉非周期性异步脉冲噪声（APIN）的综合统计信息。通过商业NB-PLC调制解调器的模拟耦合和带通滤波电路采集实际噪声数据，建立现实数据集。采用Wasserstein距离作为损失函数，增强生成噪声与训练数据之间的相似性。仿真结果表明，NGGAN生成的噪声样本与真实噪声样本高度接近，且通过主成分分析（PCA）散点图和Fréchet inception距离（FID）分析，表现出优于其他GAN模型的保真度和多样性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>提出使用NGGAN网络处理NB-PLC中的脉冲噪声，该网络能捕捉非周期性异步脉冲噪声的综合统计信息。</li>
+<li>通过商业NB-PLC调制解调器采集实际噪声数据，建立现实数据集以匹配NB-PLC系统中的复杂噪声统计。</li>
+<li>采用Wasserstein距离作为损失函数，提高生成噪声与训练数据之间的相似性。</li>
+<li>NGGAN生成的噪声样本与真实样本高度接近。</li>
+<li>NGGAN在生成噪声样本的保真度和多样性上优于其他GAN模型。</li>
+<li>采用PCA散点图和FID分析来评估模型性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2510.01850">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2510.01850v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2510.01850v3/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2510.01850v3/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2510.01850v3/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2510.01850v3/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="MS-GS-Multi-Appearance-Sparse-View-3D-Gaussian-Splatting-in-the-Wild"><a href="#MS-GS-Multi-Appearance-Sparse-View-3D-Gaussian-Splatting-in-the-Wild" class="headerlink" title="MS-GS: Multi-Appearance Sparse-View 3D Gaussian Splatting in the Wild"></a>MS-GS: Multi-Appearance Sparse-View 3D Gaussian Splatting in the Wild</h2><p><strong>Authors:Deming Li, Kaiwen Jiang, Yutao Tang, Ravi Ramamoorthi, Rama Chellappa, Cheng Peng</strong></p>
+<p>In-the-wild photo collections often contain limited volumes of imagery and exhibit multiple appearances, e.g., taken at different times of day or seasons, posing significant challenges to scene reconstruction and novel view synthesis. Although recent adaptations of Neural Radiance Field (NeRF) and 3D Gaussian Splatting (3DGS) have improved in these areas, they tend to oversmooth and are prone to overfitting. In this paper, we present MS-GS, a novel framework designed with Multi-appearance capabilities in Sparse-view scenarios using 3DGS. To address the lack of support due to sparse initializations, our approach is built on the geometric priors elicited from monocular depth estimations. The key lies in extracting and utilizing local semantic regions with a Structure-from-Motion (SfM) points anchored algorithm for reliable alignment and geometry cues. Then, to introduce multi-view constraints, we propose a series of geometry-guided supervision steps at virtual views in pixel and feature levels to encourage 3D consistency and reduce overfitting. We also introduce a dataset and an in-the-wild experiment setting to set up more realistic benchmarks. We demonstrate that MS-GS achieves photorealistic renderings under various challenging sparse-view and multi-appearance conditions, and outperforms existing approaches significantly across different datasets. </p>
+<blockquote>
+<p>在野外的照片集通常包含有限的图像数量，并且展现出多种外观，例如在一天的不同时间或季节拍摄的照片，这给场景重建和新型视图合成带来了重大挑战。尽管最近对神经辐射场（NeRF）和三维高斯拼接（3DGS）的改编在这些领域有所改善，但它们往往过于平滑并容易过度拟合。在本文中，我们提出了MS-GS，这是一个在稀疏视图场景中利用3DGS的多外观能力设计的新型框架。为了解决由于稀疏初始化而导致的支持不足的问题，我们的方法建立在从单眼深度估计中引发的几何先验之上。关键在于通过结构从运动（SfM）点锚定算法提取和利用局部语义区域，以实现可靠的对齐和几何线索。然后，为了引入多视图约束，我们在像素和特征层面提出了在虚拟视图中进行的一系列几何引导的监督步骤，以鼓励三维一致性并减少过度拟合。我们还引入了一个数据集和一个野外实验设置，以建立更现实的基准测试。我们证明，MS-GS在各种具有挑战性的稀疏视图和多外观条件下实现了逼真的渲染，并且在不同的数据集上显著优于现有方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2509.15548v4">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种基于3DGS的新型框架MS-GS，用于处理野外照片集中稀疏视角和多场景外观下的重建和合成。它通过利用几何先验信息来解决因稀疏初始化而带来的不足，采用基于单目深度估计的结构化建模。引入多重几何指导的约束方法以实现虚拟视图的精准对齐和几何一致性，减少过拟合现象。实验证明，MS-GS在多种稀疏视角和多场景外观条件下实现了逼真的渲染效果，并在不同数据集上显著优于现有方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>野外照片集中存在多种挑战，如不同时间点和季节的图像拍摄造成的复杂场景重建和视角合成问题。</li>
+<li>MS-GS框架采用基于几何先验信息的建模方法，解决了稀疏初始化问题，采用结构化建模，旨在应对复杂的多外观场景。</li>
+<li>框架采用单目深度估计，并采用结构化运动（SfM）点的固定算法进行可靠对齐和几何线索提取。</li>
+<li>为实现多视角约束，引入了一系列几何指导的监督步骤，实现虚拟视角的精准渲染并减少过拟合现象。</li>
+<li>提出了一种新的数据集和实验设置，以建立更现实的基准测试环境。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2509.15548">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2509.15548v4/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2509.15548v4/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2509.15548v4/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2509.15548v4/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="MuGS-Multi-Baseline-Generalizable-Gaussian-Splatting-Reconstruction"><a href="#MuGS-Multi-Baseline-Generalizable-Gaussian-Splatting-Reconstruction" class="headerlink" title="MuGS: Multi-Baseline Generalizable Gaussian Splatting Reconstruction"></a>MuGS: Multi-Baseline Generalizable Gaussian Splatting Reconstruction</h2><p><strong>Authors:Yaopeng Lou, Liao Shen, Tianqi Liu, Jiaqi Li, Zihao Huang, Huiqiang Sun, Zhiguo Cao</strong></p>
+<p>We present Multi-Baseline Gaussian Splatting (MuGS), a generalized feed-forward approach for novel view synthesis that effectively handles diverse baseline settings, including sparse input views with both small and large baselines. Specifically, we integrate features from Multi-View Stereo (MVS) and Monocular Depth Estimation (MDE) to enhance feature representations for generalizable reconstruction. Next, We propose a projection-and-sampling mechanism for deep depth fusion, which constructs a fine probability volume to guide the regression of the feature map. Furthermore, We introduce a reference-view loss to improve geometry and optimization efficiency. We leverage 3D Gaussian representations to accelerate training and inference time while enhancing rendering quality. MuGS achieves state-of-the-art performance across multiple baseline settings and diverse scenarios ranging from simple objects (DTU) to complex indoor and outdoor scenes (RealEstate10K). We also demonstrate promising zero-shot performance on the LLFF and Mip-NeRF 360 datasets. Code is available at <a target="_blank" rel="noopener" href="https://github.com/EuclidLou/MuGS">https://github.com/EuclidLou/MuGS</a>. </p>
+<blockquote>
+<p>我们提出了多基线高斯拼贴（MuGS），这是一种用于新颖视图合成的通用前馈方法，能够有效处理多种基线设置，包括具有大小和基线差距较大稀疏输入视图的场景。具体来说，我们整合了多视图立体（MVS）和单眼深度估计（MDE）的特征，以增强通用重建的特征表示。接着，我们提出了一种用于深度深度融合的投影和采样机制，构建了精细的概率体积来指导特征图的回归。此外，我们引入了参考视图损失来提高几何形状和优化效率。我们利用三维高斯表示来加速训练和推理时间，同时提高渲染质量。MuGS在多基线设置和各种场景中实现了最先进的性能，包括从简单对象（DTU）到复杂的室内和室外场景（RealEstate10K）。我们在LLFF和Mip-NeRF 360数据集上展示了有前景的零样本性能。代码可在<a target="_blank" rel="noopener" href="https://github.com/EuclidLou/MuGS%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/EuclidLou/MuGS找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.04297v2">PDF</a> This work is accepted by ICCV 2025</p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种名为Multi-Baseline Gaussian Splatting（MuGS）的新型视图合成广义前馈方法，适用于多种基线设置，包括输入视图稀疏、基线距离大小不同的情况。MuGS整合了多视角立体（MVS）和单目深度估计（MDE）的特征，提升特征表示的可泛化重建能力。此外，提出一种深度融合投影采样机制，构建精细概率体积以引导特征图的回归。引入参考视图损失以提高几何和优化效率，并利用3D高斯表示加速训练和推理时间，提升渲染质量。MuGS在多种基线设置和简单对象（DTU）到复杂室内室外场景（RealEstate10K）中表现优异，并在LLFF和Mip-NeRF 360数据集上展现出零样本性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>MuGS是一种新型视图合成方法，适用于多种基线设置。</li>
+<li>集成MVS和MDE特征，提高特征表示的泛化能力。</li>
+<li>提出深度融合投影采样机制，构建精细概率体积引导特征图回归。</li>
+<li>引入参考视图损失，改善几何和优化效率。</li>
+<li>利用3D高斯表示加速训练和推理过程，提升渲染质量。</li>
+<li>MuGS在多种场景中表现优异，包括简单对象和复杂室内室外场景。</li>
+<li>MuGS在特定数据集上展现出零样本性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.04297">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.04297v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.04297v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.04297v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="LiGen-GAN-Augmented-Spectral-Fingerprinting-for-Indoor-Positioning"><a href="#LiGen-GAN-Augmented-Spectral-Fingerprinting-for-Indoor-Positioning" class="headerlink" title="LiGen: GAN-Augmented Spectral Fingerprinting for Indoor Positioning"></a>LiGen: GAN-Augmented Spectral Fingerprinting for Indoor Positioning</h2><p><strong>Authors:Jie Lin, Hsun-Yu Lee, Ho-Ming Li, Fang-Jing Wu</strong></p>
+<p>Accurate and robust indoor localization is critical for smart building applications, yet existing Wi-Fi-based systems are often vulnerable to environmental conditions. This work presents a novel indoor localization system, called LiGen, that leverages the spectral intensity patterns of ambient light as fingerprints, offering a more stable and infrastructure-free alternative to radio signals. To address the limited spectral data, we design a data augmentation framework based on generative adversarial networks (GANs), featuring two variants: PointGAN, which generates fingerprints conditioned on coordinates, and FreeGAN, which uses a weak localization model to label unconditioned samples. Our positioning model, leveraging a Multi-Layer Perceptron (MLP) architecture to train on synthesized data, achieves submeter-level accuracy, outperforming Wi-Fi-based baselines by over 50%. LiGen also demonstrates strong robustness in cluttered environments. To the best of our knowledge, this is the first system to combine spectral fingerprints with GAN-based data augmentation for indoor localization. </p>
+<blockquote>
+<p>精确且稳定的室内定位对于智能建筑应用至关重要，然而现有的基于Wi-Fi的系统通常容易受到环境条件的干扰。这项工作提出了一种新型的室内定位系统，名为LiGen，它利用环境光的光谱强度模式作为指纹，为无线电信号提供了一种更稳定且无基础设施的替代方案。为了解决光谱数据有限的问题，我们设计了一个基于生成对抗网络（GANs）的数据增强框架，其中包含两种变体：PointGAN，它根据坐标生成指纹；FreeGAN，它使用一个弱定位模型来标记无条件的样本。我们的定位模型采用多层感知器（MLP）架构在合成数据上进行训练，实现了亚米级精度，比基于Wi-Fi的基线高出50%以上。LiGen在杂乱的环境中还表现出了强大的稳健性。据我们所知，这是第一个将光谱指纹与基于GAN的数据增强相结合用于室内定位的系统。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.03024v2">PDF</a> 6 pages, 10 figures</p>
+<p><strong>Summary</strong><br>室内定位对于智能建筑应用至关重要，但现有Wi-Fi系统易受环境影响。本文提出一种新型室内定位系统LiGen，利用环境光的谱强度模式作为指纹，为无线电信号提供更稳定、无需基础设施的替代方案。为解决谱数据有限问题，设计基于生成对抗网络（GANs）的数据增强框架，包括PointGAN和FreeGAN两种变体。利用多层感知器（MLP）架构在合成数据上进行训练的定位模型，实现亚米级精度，性能较Wi-Fi基线提升超过50%。LiGen在杂乱环境中表现出强大的稳健性，是首个将光谱指纹与基于GAN的数据增强相结合的室内定位系统。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>室内定位对于智能建筑应用非常重要，但现有Wi-Fi系统存在稳定性问题。</li>
+<li>LiGen系统利用环境光的谱强度模式作为指纹，提供稳定的室内定位。</li>
+<li>设计基于生成对抗网络（GANs）的数据增强框架，解决谱数据有限的问题。</li>
+<li>开发出PointGAN和FreeGAN两种数据增强变体，用于生成指纹和标签。</li>
+<li>利用多层感知器（MLP）架构在合成数据上进行训练，实现亚米级定位精度。</li>
+<li>LiGen性能较Wi-Fi基线提升超过50%，并在杂乱环境中表现出强大的稳健性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.03024">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.03024v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.03024v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.03024v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.03024v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.03024v2/page_4_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2508.03024v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="PlantSegNeRF-A-few-shot-cross-species-method-for-plant-3D-instance-point-cloud-reconstruction-via-joint-channel-NeRF-with-multi-view-image-instance-matching"><a href="#PlantSegNeRF-A-few-shot-cross-species-method-for-plant-3D-instance-point-cloud-reconstruction-via-joint-channel-NeRF-with-multi-view-image-instance-matching" class="headerlink" title="PlantSegNeRF: A few-shot, cross-species method for plant 3D instance   point cloud reconstruction via joint-channel NeRF with multi-view image   instance matching"></a>PlantSegNeRF: A few-shot, cross-species method for plant 3D instance   point cloud reconstruction via joint-channel NeRF with multi-view image   instance matching</h2><p><strong>Authors:Xin Yang, Ruiming Du, Hanyang Huang, Jiayang Xie, Pengyao Xie, Leisen Fang, Ziyue Guo, Nanjun Jiang, Yu Jiang, Haiyan Cen</strong></p>
+<p>Organ segmentation of plant point clouds is a prerequisite for the high-resolution and accurate extraction of organ-level phenotypic traits. Although the fast development of deep learning has boosted much research on segmentation of plant point clouds, the existing techniques for organ segmentation still face limitations in resolution, segmentation accuracy, and generalizability across various plant species. In this study, we proposed a novel approach called plant segmentation neural radiance fields (PlantSegNeRF), aiming to directly generate high-precision instance point clouds from multi-view RGB image sequences for a wide range of plant species. PlantSegNeRF performed 2D instance segmentation on the multi-view images to generate instance masks for each organ with a corresponding ID. The multi-view instance IDs corresponding to the same plant organ were then matched and refined using a specially designed instance matching module. The instance NeRF was developed to render an implicit scene, containing color, density, semantic and instance information. The implicit scene was ultimately converted into high-precision plant instance point clouds based on the volume density. The results proved that in semantic segmentation of point clouds, PlantSegNeRF outperformed the commonly used methods, demonstrating an average improvement of 16.1%, 18.3%, 17.8%, and 24.2% in precision, recall, F1-score, and IoU compared to the second-best results on structurally complex species. More importantly, PlantSegNeRF exhibited significant advantages in plant point cloud instance segmentation tasks. Across all plant species, it achieved average improvements of 11.7%, 38.2%, 32.2% and 25.3% in mPrec, mRec, mCov, mWCov, respectively. This study extends the organ-level plant phenotyping and provides a high-throughput way to supply high-quality 3D data for the development of large-scale models in plant science. </p>
+<blockquote>
+<p>植物点云器官分割是高分辨率和精确提取器官水平表型特征的前提。尽管深度学习的快速发展促进了植物点云分割的研究，但现有的器官分割技术仍面临分辨率、分割精度和跨物种泛化能力的局限性。本研究提出了一种新的方法，称为植物分割神经辐射场（PlantSegNeRF），旨在直接从多视角RGB图像序列为广泛的植物物种生成高精度实例点云。PlantSegNeRF在多视角图像上进行2D实例分割，为每个器官生成具有相应ID的实例掩膜。然后，使用专门设计的实例匹配模块匹配和细化对应于同一植物器官的多视角实例ID。开发了实例NeRF来呈现包含颜色、密度、语义和实例信息的隐式场景。最终，基于体积密度将隐式场景转换为高精度植物实例点云。结果证明，在点云语义分割中，PlantSegNeRF优于常用方法，在结构复杂的物种上，与第二好的结果相比，精度、召回率、F1分数和IoU平均提高了16.1%、18.3%、17.8%和24.2%。更重要的是，PlantSegNeRF在植物点云实例分割任务中表现出显著优势。在所有植物物种中，mPrec、mRec、mCov和mWCov平均提高了11.7%、38.2%、32.2%和25.3%。该研究扩展了植物表型的器官水平研究，并为植物科学中大规模模型的开发提供了一种提供高质量3D数据的高通量方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.00371v3">PDF</a> </p>
+<p><strong>摘要</strong><br>植物点云器官分割是高分辨率和精确提取器官水平表型特征的前提。尽管深度学习快速发展推动了植物点云分割的研究，但现有技术仍面临分辨率、分割精度和跨物种泛化能力的局限。本研究提出了一种名为PlantSegNeRF的新方法，旨在从多视角RGB图像序列直接生成高精度实例点云，适用于广泛植物物种。PlantSegNeRF对多视角图像进行2D实例分割，为每个器官生成实例掩膜并赋予相应ID。利用专门设计的实例匹配模块对同一植物器官的跨视角实例ID进行匹配和细化。开发实例NeRF以呈现包含颜色、密度、语义和实例信息的隐式场景。最终，根据体积密度将隐式场景转换为高精度植物实例点云。结果证明，在点云语义分割方面，PlantSegNeRF较常用方法表现出优势，在结构复杂物种的精度、召回率、F1分数和IoU方面平均提高了16.1%、18.3%、17.8%和24.2%。更重要的是，在植物点云实例分割任务中，PlantSegNeRF具有显著优势，在所有物种中，mPrec、mRec、mCov和mWCov平均提高了11.7%、38.2%、32.2%和25.3%。本研究扩展了植物表型学中的器官水平研究，为植物科学中大规模模型的发展提供了一种产生高质量3D数据的高通量方法。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>植物点云器官分割对于高分辨率和精确提取器官水平表型特征至关重要。</li>
+<li>PlantSegNeRF是一种新颖的方法，可以从多视角RGB图像序列生成高精度实例点云，适用于多种植物物种。</li>
+<li>PlantSegNeRF通过2D实例分割和多视角实例匹配模块提高了分割精度和泛化能力。</li>
+<li>实例NeRF的引入为呈现包含多种信息的隐式场景提供了新的手段。</li>
+<li>PlantSegNeRF在语义分割和实例分割方面都表现出优于常规方法的性能。</li>
+<li>该研究扩展了植物表型学研究，特别是在器官水平上的研究。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.00371">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2507.00371v3/page_0_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="LODGE-Level-of-Detail-Large-Scale-Gaussian-Splatting-with-Efficient-Rendering"><a href="#LODGE-Level-of-Detail-Large-Scale-Gaussian-Splatting-with-Efficient-Rendering" class="headerlink" title="LODGE: Level-of-Detail Large-Scale Gaussian Splatting with Efficient   Rendering"></a>LODGE: Level-of-Detail Large-Scale Gaussian Splatting with Efficient   Rendering</h2><p><strong>Authors:Jonas Kulhanek, Marie-Julie Rakotosaona, Fabian Manhardt, Christina Tsalicoglou, Michael Niemeyer, Torsten Sattler, Songyou Peng, Federico Tombari</strong></p>
+<p>In this work, we present a novel level-of-detail (LOD) method for 3D Gaussian Splatting that enables real-time rendering of large-scale scenes on memory-constrained devices. Our approach introduces a hierarchical LOD representation that iteratively selects optimal subsets of Gaussians based on camera distance, thus largely reducing both rendering time and GPU memory usage. We construct each LOD level by applying a depth-aware 3D smoothing filter, followed by importance-based pruning and fine-tuning to maintain visual fidelity. To further reduce memory overhead, we partition the scene into spatial chunks and dynamically load only relevant Gaussians during rendering, employing an opacity-blending mechanism to avoid visual artifacts at chunk boundaries. Our method achieves state-of-the-art performance on both outdoor (Hierarchical 3DGS) and indoor (Zip-NeRF) datasets, delivering high-quality renderings with reduced latency and memory requirements. </p>
+<blockquote>
+<p>在这项工作中，我们为3D高斯绘图提出了一种新型的细节层次（LOD）方法，能够在内存受限的设备上实现大规模场景的实时渲染。我们的方法引入了一种层次型LOD表示，根据摄像机距离迭代选择最优的高斯子集，从而大大降低了渲染时间和GPU内存的使用。我们通过应用深度感知的3D平滑滤波器构建每个LOD级别，然后通过基于重要性的修剪和微调来保持视觉保真度。为了进一步优化内存开销，我们将场景分割成空间块，并在渲染时动态加载相关的高斯值，采用透明度混合机制以避免块边界处的视觉伪影。我们的方法在户外（Hierarchical 3DGS）和室内（Zip-NeRF）数据集上均实现了卓越的性能，以降低延迟和内存需求的同时提供高质量的渲染效果。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2505.23158v2">PDF</a> NeurIPS 2025; Web: <a target="_blank" rel="noopener" href="https://lodge-gs.github.io/">https://lodge-gs.github.io/</a></p>
+<p><strong>Summary</strong></p>
+<p>本文提出了一种针对3D高斯涂抹技术的新型细节层次（LOD）方法，能在内存受限的设备上实现大规模场景的实时渲染。该方法通过引入层次化LOD表示，根据相机距离迭代选择最优的高斯子集，从而大幅减少渲染时间和GPU内存使用。通过深度感知的3D平滑滤波构建每个LOD层次，然后进行基于重要性的修剪和微调以维持视觉保真度。为进一步优化内存开销，将场景分割成空间块，并在渲染时仅动态加载相关的高斯值，采用透明度混合机制避免块边界处的视觉伪影。该方法在户外（Hierarchical 3DGS）和室内（Zip-NeRF）数据集上均表现出卓越性能，可实现高质量渲染，降低延迟和内存要求。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>引入了一种新型的细节层次（LOD）方法，用于优化3D高斯涂抹技术的实时渲染性能。</li>
+<li>通过层次化LOD表示，根据相机距离选择最优的高斯子集，降低渲染时间和GPU内存使用。</li>
+<li>利用深度感知的3D平滑滤波构建每个LOD层次，保持视觉保真度。</li>
+<li>通过重要性修剪和微调技术进一步优化渲染效果。</li>
+<li>采用场景空间分块和动态加载相关高斯值的方法，降低内存开销。</li>
+<li>采用了透明度混合机制，避免块边界处的视觉伪影。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2505.23158">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2505.23158v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2505.23158v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2505.23158v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2505.23158v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="NVS-SQA-Exploring-Self-Supervised-Quality-Representation-Learning-for-Neurally-Synthesized-Scenes-without-References"><a href="#NVS-SQA-Exploring-Self-Supervised-Quality-Representation-Learning-for-Neurally-Synthesized-Scenes-without-References" class="headerlink" title="NVS-SQA: Exploring Self-Supervised Quality Representation Learning for   Neurally Synthesized Scenes without References"></a>NVS-SQA: Exploring Self-Supervised Quality Representation Learning for   Neurally Synthesized Scenes without References</h2><p><strong>Authors:Qiang Qu, Yiran Shen, Xiaoming Chen, Yuk Ying Chung, Weidong Cai, Tongliang Liu</strong></p>
+<p>Neural View Synthesis (NVS), such as NeRF and 3D Gaussian Splatting, effectively creates photorealistic scenes from sparse viewpoints, typically evaluated by quality assessment methods like PSNR, SSIM, and LPIPS. However, these full-reference methods, which compare synthesized views to reference views, may not fully capture the perceptual quality of neurally synthesized scenes (NSS), particularly due to the limited availability of dense reference views. Furthermore, the challenges in acquiring human perceptual labels hinder the creation of extensive labeled datasets, risking model overfitting and reduced generalizability. To address these issues, we propose NVS-SQA, a NSS quality assessment method to learn no-reference quality representations through self-supervision without reliance on human labels. Traditional self-supervised learning predominantly relies on the “same instance, similar representation” assumption and extensive datasets. However, given that these conditions do not apply in NSS quality assessment, we employ heuristic cues and quality scores as learning objectives, along with a specialized contrastive pair preparation process to improve the effectiveness and efficiency of learning. The results show that NVS-SQA outperforms 17 no-reference methods by a large margin (i.e., on average 109.5% in SRCC, 98.6% in PLCC, and 91.5% in KRCC over the second best) and even exceeds 16 full-reference methods across all evaluation metrics (i.e., 22.9% in SRCC, 19.1% in PLCC, and 18.6% in KRCC over the second best). </p>
+<blockquote>
+<p>神经视图合成（NVS），如NeRF和3D高斯展布技术，能够有效地从稀疏视角生成逼真的场景，通常通过PSNR、SSIM和LPIPS等质量评估方法进行评估。然而，这些全参考方法将合成视图与参考视图进行比较，可能无法完全捕捉神经合成场景（NSS）的感知质量，尤其是因为密集参考视图的可获得性有限。此外，获取人类感知标签的挑战阻碍了大规模标记数据集的创建，从而增加了模型过度拟合和泛化能力降低的风险。为了解决这些问题，我们提出了NVS-SQA，这是一种NSS质量评估方法，通过自监督学习无参考质量表示，而不依赖于人工标签。虽然传统自监督学习主要依赖于“同一实例，相似表示”的假设和大量数据集，但由于这些条件不适用于NSS质量评估，我们采用启发式线索和质量分数作为学习目标，并设计了一个专门的对比对准备过程，以提高学习的有效性和效率。结果表明，NVS-SQA在17种无参考方法中有很大的优势（例如，SRCC平均提高109.5%，PLCC提高98.6%，KRCC提高91.5%）；在所有评估指标上，甚至超过了16种全参考方法（例如，SRCC提高22.9%，PLCC提高19.1%，KRCC提高18.6%）。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.06488v3">PDF</a> Accepted by TPAMI</p>
+<p><strong>Summary</strong><br>     神经网络视图合成（NVS）如NeRF和3D高斯喷涂等技术，能从稀疏视角生成逼真的场景。但由于缺乏密集参考视角和难以获取人类感知标签，现有的质量评估方法存在局限性。为此，我们提出NVS-SQA无参考质量评估方法，通过自监督学习无需依赖人类标签学习质量表示。该方法采用启发式线索和质量分数作为学习目标，并设计对比配对准备过程以提高学习和效率。NVS-SQA在性能上大幅超越了现有方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>神经网络视图合成（NVS）技术如NeRF能生成逼真的场景，但质量评估存在挑战。</li>
+<li>由于缺乏密集参考视角和难以获取人类感知标签，现有的全参考质量评估方法可能无法完全捕捉神经合成场景（NSS）的感知质量。</li>
+<li>提出NVS-SQA方法，通过自监督学习无需依赖人类标签学习无参考质量表示。</li>
+<li>NVS-SQA采用启发式线索和质量分数作为学习目标，并设计对比配对准备过程提高学习和效率。</li>
+<li>NVS-SQA在性能上大幅超越了现有方法，平均在SRCC、PLCC和KRCC上分别高出第二名方法109.5%、98.6%和91.5%。</li>
+<li>NVS-SQA甚至在所有评估指标上都超过了部分全参考方法，显示出其强大的性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.06488">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.06488v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.06488v3/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.06488v3/page_1_1.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.06488v3/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.06488v3/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="UV-Attack-Physical-World-Adversarial-Attacks-for-Person-Detection-via-Dynamic-NeRF-based-UV-Mapping"><a href="#UV-Attack-Physical-World-Adversarial-Attacks-for-Person-Detection-via-Dynamic-NeRF-based-UV-Mapping" class="headerlink" title="UV-Attack: Physical-World Adversarial Attacks for Person Detection via   Dynamic-NeRF-based UV Mapping"></a>UV-Attack: Physical-World Adversarial Attacks for Person Detection via   Dynamic-NeRF-based UV Mapping</h2><p><strong>Authors:Yanjie Li, Kaisheng Liang, Bin Xiao</strong></p>
+<p>In recent research, adversarial attacks on person detectors using patches or static 3D model-based texture modifications have struggled with low success rates due to the flexible nature of human movement. Modeling the 3D deformations caused by various actions has been a major challenge. Fortunately, advancements in Neural Radiance Fields (NeRF) for dynamic human modeling offer new possibilities. In this paper, we introduce UV-Attack, a groundbreaking approach that achieves high success rates even with extensive and unseen human actions. We address the challenge above by leveraging dynamic-NeRF-based UV mapping. UV-Attack can generate human images across diverse actions and viewpoints, and even create novel actions by sampling from the SMPL parameter space. While dynamic NeRF models are capable of modeling human bodies, modifying clothing textures is challenging because they are embedded in neural network parameters. To tackle this, UV-Attack generates UV maps instead of RGB images and modifies the texture stacks. This approach enables real-time texture edits and makes the attack more practical. We also propose a novel Expectation over Pose Transformation loss (EoPT) to improve the evasion success rate on unseen poses and views. Our experiments show that UV-Attack achieves a 92.7% attack success rate against the FastRCNN model across varied poses in dynamic video settings, significantly outperforming the state-of-the-art AdvCamou attack, which only had a 28.5% ASR. Moreover, we achieve 49.5% ASR on the latest YOLOv8 detector in black-box settings. This work highlights the potential of dynamic NeRF-based UV mapping for creating more effective adversarial attacks on person detectors, addressing key challenges in modeling human movement and texture modification. The code is available at <a target="_blank" rel="noopener" href="https://github.com/PolyLiYJ/UV-Attack">https://github.com/PolyLiYJ/UV-Attack</a>. </p>
+<blockquote>
+<p>在最近的研究中，利用补丁或基于静态3D模型的纹理修改对人员检测器进行对抗性攻击的成功率较低，这是由于人类运动的灵活性所带来的挑战。对由各种动作引起的3D变形进行建模一直是一个巨大的挑战。幸运的是，神经网络辐射场（NeRF）在动态人体建模方面的进展提供了新的可能性。在本文中，我们介绍了UV-Attack，这是一种突破性的方法，即使面对广泛且未见的人类动作，也能实现较高的成功率。我们通过利用基于动态NeRF的UV映射来解决上述挑战。UV-Attack可以生成各种动作和视角下的人类图像，甚至可以通过采样SMPL参数空间来创建新的动作。虽然动态NeRF模型能够对人体进行建模，但修改衣物纹理却是一个挑战，因为它们被嵌入在神经网络参数中。为了解决这一问题，UV-Attack生成UV地图而不是RGB图像，并修改纹理堆栈。这种方法实现了实时纹理编辑，使攻击更加实用。我们还提出了一种新颖的基于姿态变换期望的损失（EoPT），以提高在未见姿态和视角下的躲避成功率。我们的实验表明，在动态视频设置中，针对各种姿态的FastRCNN模型，UV-Attack的攻击成功率达到了92.7%，显著优于最先进的AdvCamou攻击，其仅有28.5%的攻击成功率（ASR）。此外，我们在黑箱设置中实现了对最新YOLOv8检测器的49.5%ASR。这项工作突出了动态NeRF基UV映射在创建针对人员检测器的更有效对抗性攻击方面的潜力，解决了建模人类运动和纹理修改方面的关键挑战。代码可在[<a target="_blank" rel="noopener" href="https://github.com/PolyLiYJ/UV-Attack%E6%89%BE%E5%88%B0%E3%80%82]">https://github.com/PolyLiYJ/UV-Attack找到。]</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2501.05783v2">PDF</a> 23 pages, 22 figures, accepted by ICLR2025</p>
+<p><strong>Summary</strong></p>
+<p>基于NeRF的动态人类建模技术为攻击人物检测器提供了新的可能性。最新研究的UV-Attack方法通过利用动态NeRF的UV映射技术，能够在多种动作和视角下生成人类图像，并创建新型动作。该方法在实时纹理编辑和攻击实用性方面具有优势，成功解决了人体动作和纹理修改建模中的关键挑战。实验表明，UV-Attack在动态视频设置中对FastRCNN模型的攻击成功率达到92.7%，显著优于仅具有28.5%ASR的AdvCamou攻击。此外，在黑色盒子设置下，对最新的YOLOv8检测器的ASR达到49.5%。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>UV-Attack利用NeRF技术实现动态人类建模，提高了攻击人物检测器的成功率。</li>
+<li>UV-Attack解决了传统补丁或静态3D模型纹理修改对动态人类动作的建模挑战。</li>
+<li>通过利用动态NeRF的UV映射技术，UV-Attack可以生成不同动作和视角下的图像并创建新型动作。</li>
+<li>UV-Attack实现了实时纹理编辑，提高了攻击的实用性。</li>
+<li>UV-Attack通过引入期望姿态变换损失（EoPT）提高了未见姿态和视角的逃避成功率。</li>
+<li>实验显示，UV-Attack在动态视频设置中对FastRCNN模型的攻击成功率远高于其他方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2501.05783">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.05783v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.05783v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.05783v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2501.05783v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="GS-ProCams-Gaussian-Splatting-based-Projector-Camera-Systems"><a href="#GS-ProCams-Gaussian-Splatting-based-Projector-Camera-Systems" class="headerlink" title="GS-ProCams: Gaussian Splatting-based Projector-Camera Systems"></a>GS-ProCams: Gaussian Splatting-based Projector-Camera Systems</h2><p><strong>Authors:Qingyue Deng, Jijiang Li, Haibin Ling, Bingyao Huang</strong></p>
+<p>We present GS-ProCams, the first Gaussian Splatting-based framework for projector-camera systems (ProCams). GS-ProCams is not only view-agnostic but also significantly enhances the efficiency of projection mapping (PM) that requires establishing geometric and radiometric mappings between the projector and the camera. Previous CNN-based ProCams are constrained to a specific viewpoint, limiting their applicability to novel perspectives. In contrast, NeRF-based ProCams support view-agnostic projection mapping, however, they require an additional co-located light source and demand significant computational and memory resources. To address this issue, we propose GS-ProCams that employs 2D Gaussian for scene representations, and enables efficient view-agnostic ProCams applications. In particular, we explicitly model the complex geometric and photometric mappings of ProCams using projector responses, the projection surface’s geometry and materials represented by Gaussians, and the global illumination component. Then, we employ differentiable physically-based rendering to jointly estimate them from captured multi-view projections. Compared to state-of-the-art NeRF-based methods, our GS-ProCams eliminates the need for additional devices, achieving superior ProCams simulation quality. It also uses only 1&#x2F;10 of the GPU memory for training and is 900 times faster in inference speed. Please refer to our project page for the code and dataset: <a target="_blank" rel="noopener" href="https://realqingyue.github.io/GS-ProCams/">https://realqingyue.github.io/GS-ProCams/</a>. </p>
+<blockquote>
+<p>我们提出了GS-ProCams，这是基于高斯展布（Gaussian Splatting）的投影仪摄像头系统（ProCams）的首个框架。GS-ProCams不仅不受视角的限制，还能显著提高投影仪映射（PM）的效率，后者需要在投影仪和摄像头之间建立几何和辐射度量映射。以前的基于CNN的ProCams受限于特定的视角，限制了它们在新型视角下的应用。相比之下，基于NeRF的ProCams支持不受视角限制的投影映射，但它们需要额外的共置光源，并需要大量的计算和内存资源。为了解决这个问题，我们提出了GS-ProCams，它采用2D高斯进行场景表示，能够实现高效的视角无关ProCams应用。特别是，我们使用投影仪响应来显式地建模ProCams的复杂几何和光度映射，以及由高斯表示的投影表面的几何形状和材料，和全局照明组件。然后，我们采用基于物理的可微渲染技术，从捕获的多视角投影中联合估计它们。与最先进的基于NeRF的方法相比，我们的GS-ProCams不需要额外的设备，实现了更高的ProCams模拟质量。它的训练只需使用十分之一不到的GPU内存，推理速度也快了900倍。有关代码和数据集，请参见我们的项目页面：<a target="_blank" rel="noopener" href="https://realqingyue.github.io/GS-ProCams/%E3%80%82">https://realqingyue.github.io/GS-ProCams/。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.11762v2">PDF</a> </p>
+<p><strong>Summary</strong><br>     提出一种基于高斯融合技术的投影仪相机系统（GS-ProCams）。相较于以往的方法，它不仅视角无关，增强了投影映射的效率，无需额外的光源设备。采用二维高斯函数表达场景，构建复杂几何和光度映射模型，通过物理渲染技术实现多视角投影的联合估计。相较于基于NeRF的方法，GS-ProCams模拟质量更优，使用GPU内存仅为十分之一，推理速度提升900倍。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>GS-ProCams是一个基于高斯融合技术的投影仪相机系统框架。</li>
+<li>它解决了以往视角相关性的投影仪相机系统的局限。</li>
+<li>通过采用二维高斯函数表达场景提高了投影映射的效率。</li>
+<li>构建复杂几何和光度映射模型，包括投影仪响应、投影表面几何和材料属性以及全局照明成分。</li>
+<li>利用物理渲染技术从多视角投影中联合估计这些参数。</li>
+<li>GS-ProCams相较于基于NeRF的方法在模拟质量上更胜一筹，使用较少的GPU资源并且推理速度更快。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.11762">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.11762v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.11762v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.11762v2/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.11762v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.11762v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.11762v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1><h2 id="MixedGaussianAvatar-Realistically-and-Geometrically-Accurate-Head-Avatar-via-Mixed-2D-3D-Gaussians"><a href="#MixedGaussianAvatar-Realistically-and-Geometrically-Accurate-Head-Avatar-via-Mixed-2D-3D-Gaussians" class="headerlink" title="MixedGaussianAvatar: Realistically and Geometrically Accurate Head   Avatar via Mixed 2D-3D Gaussians"></a>MixedGaussianAvatar: Realistically and Geometrically Accurate Head   Avatar via Mixed 2D-3D Gaussians</h2><p><strong>Authors:Peng Chen, Xiaobao Wei, Qingpo Wuwu, Xinyi Wang, Xingyu Xiao, Ming Lu</strong></p>
+<p>Reconstructing high-fidelity 3D head avatars is crucial in various applications such as virtual reality. The pioneering methods reconstruct realistic head avatars with Neural Radiance Fields (NeRF), which have been limited by training and rendering speed. Recent methods based on 3D Gaussian Splatting (3DGS) significantly improve the efficiency of training and rendering. However, the surface inconsistency of 3DGS results in subpar geometric accuracy; later, 2DGS uses 2D surfels to enhance geometric accuracy at the expense of rendering fidelity. To leverage the benefits of both 2DGS and 3DGS, we propose a novel method named MixedGaussianAvatar for realistically and geometrically accurate head avatar reconstruction. Our main idea is to utilize 2D Gaussians to reconstruct the surface of the 3D head, ensuring geometric accuracy. We attach the 2D Gaussians to the triangular mesh of the FLAME model and connect additional 3D Gaussians to those 2D Gaussians where the rendering quality of 2DGS is inadequate, creating a mixed 2D-3D Gaussian representation. These 2D-3D Gaussians can then be animated using FLAME parameters. We further introduce a progressive training strategy that first trains the 2D Gaussians and then fine-tunes the mixed 2D-3D Gaussians. We use a unified mixed Gaussian representation to integrate the two modalities of 2D image and 3D mesh. Furthermore, the comprehensive experiments demonstrate the superiority of MixedGaussianAvatar. The code will be released. </p>
+<blockquote>
+<p>重建高保真3D头像在虚拟现实中有着广泛应用，具有重要的价值。先驱的方法使用神经辐射场（NeRF）重建逼真的头像，但受限于训练和渲染速度。基于3D高斯拼贴（3DGS）的最新方法显著提高了训练和渲染的效率。然而，3DGS的表面不一致导致几何精度不佳；之后的2DGS使用2D表面来提高几何精度，但牺牲了渲染的保真度。为了结合2DGS和3DGS的优点，我们提出了一种名为MixedGaussianAvatar的新方法，用于真实且几何准确的头像重建。我们的主要想法是使用2D高斯重建3D头像的表面，以确保几何精度。我们将2D高斯附加到FLAME模型的三角网格上，并在2DGS渲染质量不足的地方连接到额外的3D高斯，创建混合的2D-3D高斯表示。这些2D-3D高斯可以使用FLAME参数进行动画处理。我们还引入了一种渐进的训练策略，首先训练2D高斯，然后对混合的2D-3D高斯进行微调。我们使用统一的混合高斯表示来集成2D图像和3D网格的两种模式。此外，综合实验证明了MixedGaussianAvatar的优势。代码将发布。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2412.04955v3">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>基于神经辐射场（NeRF）技术，重建高保真3D头像在虚拟现实中具有重要意义。现有方法如基于3D高斯拼贴（3DGS）的方法虽然提高了训练和渲染效率，但几何精度有限；而二维高斯拼贴（2DGS）虽然提升了几何精度，但牺牲了渲染质量。本文提出一种名为MixedGaussianAvatar的混合方法，结合二维高斯与三维高斯的优势，确保几何精度与渲染质量。该方法将二维高斯用于重建三维头像表面，将其附着于FLAME模型的三角网格上，并在必要时增加三维高斯以提高渲染质量。此外，采用渐进训练策略，先训练二维高斯，再微调混合二维-三维高斯。实验证明MixedGaussianAvatar的优越性。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>MixedGaussianAvatar结合了二维高斯和三维高斯的优势，旨在实现高保真和几何准确的头像重建。</li>
+<li>方法利用二维高斯重建三维头像表面并附着于FLAME模型的三角网格上。</li>
+<li>在需要时，通过增加三维高斯来提高渲染质量，形成混合的二维-三维高斯表示。</li>
+<li>采用渐进训练策略，先训练二维高斯，再微调混合表示。</li>
+<li>方法通过统一的混合高斯表示集成了二维图像和三维网格的两种模式。</li>
+<li>实验证明MixedGaussianAvatar在头像重建方面的优越性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2412.04955">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.04955v3/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.04955v3/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.04955v3/page_2_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.04955v3/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2412.04955v3/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-14"><a href="#-14" class="headerlink" title=""></a></h1><h2 id="Gaussian-Splashing-Direct-Volumetric-Rendering-Underwater"><a href="#Gaussian-Splashing-Direct-Volumetric-Rendering-Underwater" class="headerlink" title="Gaussian Splashing: Direct Volumetric Rendering Underwater"></a>Gaussian Splashing: Direct Volumetric Rendering Underwater</h2><p><strong>Authors:Nir Mualem, Roy Amoyal, Oren Freifeld, Derya Akkaynak</strong></p>
+<p>In underwater images, most useful features are occluded by water. The extent of the occlusion depends on imaging geometry and can vary even across a sequence of burst images. As a result, 3D reconstruction methods robust on in-air scenes, like Neural Radiance Field methods (NeRFs) or 3D Gaussian Splatting (3DGS), fail on underwater scenes. While a recent underwater adaptation of NeRFs achieved state-of-the-art results, it is impractically slow: reconstruction takes hours and its rendering rate, in frames per second (FPS), is less than 1. Here, we present a new method that takes only a few minutes for reconstruction and renders novel underwater scenes at 140 FPS. Named Gaussian Splashing, our method unifies the strengths and speed of 3DGS with an image formation model for capturing scattering, introducing innovations in the rendering and depth estimation procedures and in the 3DGS loss function. Despite the complexities of underwater adaptation, our method produces images at unparalleled speeds with superior details. Moreover, it reveals distant scene details with far greater clarity than other methods, dramatically improving reconstructed and rendered images. We demonstrate results on existing datasets and a new dataset we have collected.   Additional visual results are available at: <a target="_blank" rel="noopener" href="https://bgu-cs-vil.github.io/gaussiansplashingUW.github.io/">https://bgu-cs-vil.github.io/gaussiansplashingUW.github.io/</a> . </p>
+<blockquote>
+<p>在水下图像中，大多数有用的特征都被水遮挡住了。遮挡的程度取决于成像几何，甚至在连续的多帧图像中也会有所不同。因此，在空气场景中稳健的3D重建方法，如神经网络辐射场方法（NeRFs）或三维高斯平铺（3DGS），在水下场景中都会失效。虽然最近对NeRFs的水下适应性改进取得了最新结果，但其处理速度过于缓慢：重建需要数小时，并且每秒渲染帧数（FPS）低于1。在这里，我们提出了一种新方法，它可以在几分钟内完成重建，并以每秒140帧的速度渲染新的水下场景。我们将其命名为高斯飞溅法（Gaussian Splashing），该方法结合了三维高斯平铺的优点和速度，同时采用了图像形成模型来捕捉散射现象，并在渲染和深度估计程序以及三维高斯平铺的损失函数中引入了创新。尽管水下适应的复杂性，我们的方法以无与伦比的速度生成具有卓越细节的图像。此外，它比其他方法更清晰地揭示了远处的场景细节，极大地提高了重建和渲染的图像质量。我们在现有的数据集和我们新收集的数据集上展示了结果。更多视觉结果可在以下网址找到：<a target="_blank" rel="noopener" href="https://bgu-cs-vil.github.io/gaussiansplashingUW.github.io%E3%80%82">https://bgu-cs-vil.github.io/gaussiansplashingUW.github.io/。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2411.19588v2">PDF</a> </p>
+<p><strong>Summary</strong><br>在水下图像中，由于水的影响，大多数有用特征都被遮挡了。成像几何决定遮挡程度，即使在连续图像序列中也会有所不同。因此，在空气场景有效的三维重建方法，如神经网络辐射场方法（NeRFs）或三维高斯涂抹（3DGS），在水下场景中则表现不佳。虽然最近对NeRFs的水下适应达到了最先进的水平，但它非常耗时：重建需要数小时，并且其渲染速度每秒帧数（FPS）低于一帧。这里提出了一种新的方法，它能在几分钟内完成重建并以每秒140帧的速度渲染水下新场景。名为高斯飞溅的方法结合了三维高斯涂抹的强度与速度，并采用了图像形成模型来捕捉散射现象，同时改进了渲染和深度估计程序以及三维高斯涂抹的损失函数。尽管水下适应的复杂性，该方法能够以无与伦比的速度生成具有优越细节的图像。更重要的是，与其他方法相比，它能够揭示更远的场景细节，极大地提高了重建和渲染的图像质量。我们在现有的数据集和我们收集的新数据集上展示了结果。更多视觉结果可通过链接查看。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>水下图像的特征常常被水遮挡，影响程度取决于成像几何。</li>
+<li>当前的三维重建方法在空气场景中效果很好，但在水下场景中效果欠佳。</li>
+<li>一种新的水下图像处理方法——高斯飞溅结合了三维高斯涂抹的优势和速度，并考虑了图像形成中的散射现象。</li>
+<li>高斯飞溅方法能够在几分钟内完成重建并以每秒高达140帧的速度渲染水下新场景。</li>
+<li>高斯飞溅方法在渲染速度和图像质量方面表现优越，特别是能够揭示更远场景细节的能力。</li>
+<li>高斯飞溅方法通过改进渲染和深度估计程序以及三维高斯涂抹的损失函数来实现其高效性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2411.19588">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2411.19588v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2411.19588v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2411.19588v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2411.19588v2/page_5_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-15"><a href="#-15" class="headerlink" title=""></a></h1><h2 id="EF-3DGS-Event-Aided-Free-Trajectory-3D-Gaussian-Splatting"><a href="#EF-3DGS-Event-Aided-Free-Trajectory-3D-Gaussian-Splatting" class="headerlink" title="EF-3DGS: Event-Aided Free-Trajectory 3D Gaussian Splatting"></a>EF-3DGS: Event-Aided Free-Trajectory 3D Gaussian Splatting</h2><p><strong>Authors:Bohao Liao, Wei Zhai, Zengyu Wan, Zhixin Cheng, Wenfei Yang, Tianzhu Zhang, Yang Cao, Zheng-Jun Zha</strong></p>
+<p>Scene reconstruction from casually captured videos has wide applications in real-world scenarios. With recent advancements in differentiable rendering techniques, several methods have attempted to simultaneously optimize scene representations (NeRF or 3DGS) and camera poses. Despite recent progress, existing methods relying on traditional camera input tend to fail in high-speed (or equivalently low-frame-rate) scenarios. Event cameras, inspired by biological vision, record pixel-wise intensity changes asynchronously with high temporal resolution, providing valuable scene and motion information in blind inter-frame intervals. In this paper, we introduce the event camera to aid scene construction from a casually captured video for the first time, and propose Event-Aided Free-Trajectory 3DGS, called EF-3DGS, which seamlessly integrates the advantages of event cameras into 3DGS through three key components. First, we leverage the Event Generation Model (EGM) to fuse events and frames, supervising the rendered views observed by the event stream. Second, we adopt the Contrast Maximization (CMax) framework in a piece-wise manner to extract motion information by maximizing the contrast of the Image of Warped Events (IWE), thereby calibrating the estimated poses. Besides, based on the Linear Event Generation Model (LEGM), the brightness information encoded in the IWE is also utilized to constrain the 3DGS in the gradient domain. Third, to mitigate the absence of color information of events, we introduce photometric bundle adjustment (PBA) to ensure view consistency across events and frames. We evaluate our method on the public Tanks and Temples benchmark and a newly collected real-world dataset, RealEv-DAVIS. Our project page is <a target="_blank" rel="noopener" href="https://lbh666.github.io/ef-3dgs/">https://lbh666.github.io/ef-3dgs/</a>. </p>
+<blockquote>
+<p>场景重建在现实世界场景中的应用广泛，涉及从随意拍摄的视频中进行重建。随着可微分渲染技术的最新发展，一些方法已经尝试同时优化场景表示（NeRF或3DGS）和相机姿态。尽管取得了最新的进展，但依赖传统相机输入的方法往往在高速（或等效地，低帧率）场景中表现不佳。事件相机受到生物视觉的启发，能够异步记录像素级的强度变化，具有很高的时间分辨率，并在盲帧间隔提供了有价值的场景和运动信息。在本文中，我们首次引入了事件相机来帮助从随意拍摄的视频中进行场景构建，并提出了名为EF-3DGS的事件辅助自由轨迹3DGS。它通过三个关键组件无缝集成事件相机的优势到3DGS中。首先，我们利用事件生成模型（EGM）融合事件和帧，监督事件流观察到的渲染视图。其次，我们采用分段对比最大化（CMax）框架，通过最大化变形事件的图像对比度来提取运动信息，从而校准估计的姿态。此外，基于线性事件生成模型（LEGM），我们还利用IWE中编码的亮度信息在梯度域约束3DGS。第三，为了缓解事件颜色信息的缺失，我们引入了光度捆绑调整（PBA）以确保事件和帧之间的视图一致性。我们在公共的Tanks and Temples基准测试和新收集的现实世界数据集RealEv-DAVIS上评估了我们的方法。我们的项目页面是<a target="_blank" rel="noopener" href="https://lbh666.github.io/ef-3dgs/%E3%80%82">https://lbh666.github.io/ef-3dgs/。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2410.15392v4">PDF</a> Accepted to NeurIPS 2025,Project Page:   <a target="_blank" rel="noopener" href="https://lbh666.github.io/ef-3dgs/">https://lbh666.github.io/ef-3dgs/</a></p>
+<p><strong>Summary</strong><br>    引入事件相机辅助从随手拍摄的视频中进行场景构建，提出Event-Aided Free-Trajectory 3DGS（EF-3DGS）方法，融合事件相机的优势，通过三个关键组件实现场景重建的优化。利用事件生成模型（EGM）融合事件和帧信息，采用对比最大化（CMax）框架提取运动信息，并基于线性事件生成模型（LEGM）利用亮度信息约束3DGS。此外，引入光度捆绑调整（PBA）确保事件和帧之间的视图一致性。在公共的Tanks和Temples基准测试以及新收集的真实世界数据集RealEv-DAVIS上评估了该方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>事件相机被引入以辅助从随手拍摄的视频中进行场景构建。</li>
+<li>提出了Event-Aided Free-Trajectory 3DGS（EF-3DGS）方法，无缝集成事件相机的优势。</li>
+<li>通过三个关键组件实现场景重建的优化：事件生成模型（EGM）、对比最大化（CMax）和线性事件生成模型（LEGM）。</li>
+<li>利用事件相机的亮度信息在梯度域约束3D场景结构。</li>
+<li>引入光度捆绑调整（PBA）以确保事件和帧之间的视图一致性。</li>
+<li>在公共基准测试RealEv-DAVIS上进行了评估，展示了所提方法的有效性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2410.15392">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2410.15392v4/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2410.15392v4/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2410.15392v4/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-16"><a href="#-16" class="headerlink" title=""></a></h1><h2 id="NerfBaselines-Consistent-and-Reproducible-Evaluation-of-Novel-View-Synthesis-Methods"><a href="#NerfBaselines-Consistent-and-Reproducible-Evaluation-of-Novel-View-Synthesis-Methods" class="headerlink" title="NerfBaselines: Consistent and Reproducible Evaluation of Novel View   Synthesis Methods"></a>NerfBaselines: Consistent and Reproducible Evaluation of Novel View   Synthesis Methods</h2><p><strong>Authors:Jonas Kulhanek, Torsten Sattler</strong></p>
+<p>Novel view synthesis is an important problem with many applications, including AR&#x2F;VR, gaming, and robotic simulations. With the recent rapid development of Neural Radiance Fields (NeRFs) and 3D Gaussian Splatting (3DGS) methods, it is becoming difficult to keep track of the current state of the art (SoTA) due to methods using different evaluation protocols, codebases being difficult to install and use, and methods not generalizing well to novel 3D scenes. In our experiments, we show that even tiny differences in the evaluation protocols of various methods can artificially boost the performance of these methods. This raises questions about the validity of quantitative comparisons performed in the literature. To address these questions, we propose NerfBaselines, an evaluation framework which provides consistent benchmarking tools, ensures reproducibility, and simplifies the installation and use of various methods. We validate our implementation experimentally by reproducing the numbers reported in the original papers. For improved accessibility, we release a web platform that compares commonly used methods on standard benchmarks. We strongly believe NerfBaselines is a valuable contribution to the community as it ensures that quantitative results are comparable and thus truly measure progress in the field of novel view synthesis. </p>
+<blockquote>
+<p>新型视角合成是一个具有许多应用的重要问题，包括AR&#x2F;VR、游戏和机器人模拟。随着神经辐射场（NeRFs）和3D高斯涂抹（3DGS）方法的快速发展，由于使用了不同的评估协议、代码库难以安装和使用、以及方法不能很好地推广到新型3D场景，很难跟踪当前最前沿技术（SoTA）。在我们的实验中，我们表明，即使评价协议中的微小差异也会人为地提升各种方法的性能。这引发了关于文献中进行的定量比较真实性的问题。为了回答这个问题，我们提出了NeRF基线（NerfBaselines），一个评估框架，提供一致的性能评估工具，确保可重复性，并简化了各种方法的安装和使用。我们通过复制原始论文中报告的数值来验证我们的实现。为了增强可访问性，我们发布了一个网络平台，该平台可以在标准基准测试上对常用方法进行比较。我们坚信NeRF基线对社区是一个有价值的贡献，因为它确保了定量结果的可比性，从而真正衡量了新型视角合成领域的进展。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2406.17345v2">PDF</a> NeurIPS 2025 D&B; Web: <a target="_blank" rel="noopener" href="https://jkulhanek.com/nerfbaselines">https://jkulhanek.com/nerfbaselines</a></p>
+<p><strong>Summary</strong><br>新型视图合成是一个涵盖增强现实（AR）、虚拟现实（VR）、游戏和机器人模拟等领域的重要课题。近期随着神经网络辐射场（NeRF）和三维高斯拼接技术（3DGS）的快速发展，跟踪当前前沿技术变得困难重重。当前的方法采用不同的评估协议，代码库难以安装和使用，难以应用于新型三维场景。本研究通过实验表明，评估协议中的微小差异可能会人为提升方法的性能表现，这引发了关于文献中定量比较有效性的质疑。为解决这些问题，我们提出了NeRF基线评估框架，提供一致的基准测试工具，确保结果的可重复性，并简化了方法的安装和使用流程。通过实验验证我们重新产生报告的原始论文中的数字结果，证明了实施的有效性。为提升实用性，我们发布了一个在线平台，可以在标准基准上比较常用的方法。我们相信NeRF基线对社区是一大贡献，确保了定量结果的可比性，为视图合成领域的真实进步衡量打下基础。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>新型视图合成是一个涵盖多个领域的重要问题，包括AR&#x2F;VR、游戏和机器人模拟等。</li>
+<li>当前NeRF和3DGS等技术的快速进展使得跟踪前沿技术变得困难。</li>
+<li>文献中的定量比较有效性受到质疑，因为评估协议差异可能导致性能表现提升的人为效应。</li>
+<li>提出NeRF基线评估框架以提供一致的基准测试工具，确保结果的可重复性。</li>
+<li>该框架简化了方法的安装和使用流程，并通过实验验证了实施的有效性。</li>
+<li>发布在线平台，用于在标准基准上比较常用方法。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2406.17345">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.17345v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.17345v2/page_1_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.17345v2/page_4_0.jpg" align="middle">
+</details>
+
+
+<h1 id="-17"><a href="#-17" class="headerlink" title=""></a></h1><h2 id="OpenMaterial-A-Large-scale-Dataset-of-Complex-Materials-for-3D-Reconstruction"><a href="#OpenMaterial-A-Large-scale-Dataset-of-Complex-Materials-for-3D-Reconstruction" class="headerlink" title="OpenMaterial: A Large-scale Dataset of Complex Materials for 3D   Reconstruction"></a>OpenMaterial: A Large-scale Dataset of Complex Materials for 3D   Reconstruction</h2><p><strong>Authors:Zheng Dang, Jialu Huang, Fei Wang, Mathieu Salzmann</strong></p>
+<p>Recent advances in deep learning, such as neural radiance fields and implicit neural representations, have significantly advanced 3D reconstruction. However, accurately reconstructing objects with complex optical properties, such as metals, glass, and plastics, remains challenging due to the breakdown of multi-view color consistency in the presence of specular reflections, refractions, and transparency. This limitation is further exacerbated by the lack of benchmark datasets that explicitly model material-dependent light transport. To address this, we introduce OpenMaterial, a large-scale semi-synthetic dataset for benchmarking material-aware 3D reconstruction. It comprises 1,001 objects spanning 295 distinct materials, including conductors, dielectrics, plastics, and their roughened variants, captured under 714 diverse lighting conditions. By integrating lab-measured Index of Refraction (IOR) spectra, OpenMaterial enables the generation of high-fidelity multi-view images that accurately simulate complex light-matter interactions. It provides multi-view images, 3D shape models, camera poses, depth maps, and object masks, establishing the first extensive benchmark for evaluating 3D reconstruction on challenging materials. We evaluate 11 state-of-the-art methods for 3D reconstruction and novel view synthesis, conducting ablation studies to assess the impact of material type, shape complexity, and illumination on reconstruction performance. Our results indicate that OpenMaterial provides a strong and fair basis for developing more robust, physically-informed 3D reconstruction techniques to better handle real-world optical complexities. </p>
+<blockquote>
+<p>最近深度学习领域的神经辐射场和隐式神经表示等进展极大地推动了3D重建的发展。然而，由于光反射、折射和透明度的存在，导致多视角颜色一致性失效，使得对金属、玻璃和塑料等具有复杂光学特性的物体的精确重建仍然具有挑战性。这一局限性还因缺乏显式建模材料依赖的光传输的基准数据集而加剧。为了解决这一问题，我们引入了OpenMaterial，这是一个用于基准测试的材料感知3D重建的大型半合成数据集。它包含1001个对象，跨越295种不同材料，包括导体、介电体、塑料及其粗糙变体，在714种不同的光照条件下拍摄。通过整合实验室测量的折射率（IOR）光谱，OpenMaterial能够生成高保真多视角图像，准确模拟复杂的光与物质相互作用。它提供了多视角图像、3D形状模型、相机姿态、深度图和对象掩膜，为评估在具有挑战性的材料上进行3D重建建立了首个广泛的基准测试。我们评估了11种最先进的3D重建和新颖视图合成方法，进行了消融研究，以评估材料类型、形状复杂性和照明对重建性能的影响。我们的结果表明，OpenMaterial为开发更稳健、物理驱动的3D重建技术提供了强大而公平的基础，以更好地应对现实世界的光学复杂性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2406.08894v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了利用深度学习技术，如神经辐射场和隐式神经表示法，在3D重建方面的最新进展。然而，对于具有复杂光学特性的物体的准确重建，如金属、玻璃和塑料，仍然存在挑战。为解决此问题，本文引入了OpenMaterial，一个用于基准测试的材料感知3D重建的大型半合成数据集。它包含1001个对象，跨越295种不同材料，并在714种不同的照明条件下拍摄。通过整合实验室测量的折射率（IOR）光谱，OpenMaterial能够生成高保真多视角图像，准确模拟复杂的光与物质相互作用。它为3D重建和新颖视图合成提供了第一个广泛的基准测试平台。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>神经辐射场和隐式神经表示法在3D重建方面取得显著进展。</li>
+<li>重建具有复杂光学特性的物体（如金属、玻璃和塑料）仍然具有挑战。</li>
+<li>缺乏明确模拟材料依赖光线传输的基准数据集。</li>
+<li>引入OpenMaterial数据集，包含1001个对象，跨越295种不同材料，并在多种照明条件下拍摄。</li>
+<li>OpenMaterial数据集通过整合IOR光谱，模拟复杂的光与物质相互作用。</li>
+<li>提供多视角图像、3D形状模型、相机姿态、深度图和对象掩膜。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2406.08894">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.08894v2/page_0_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.08894v2/page_3_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.08894v2/page_4_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.08894v2/page_5_0.jpg" align="middle">
+<img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_NeRF/2406.08894v2/page_5_1.jpg" align="middle">
+</details>
+
+
+<h1 id="-18"><a href="#-18" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-11-05/NeRF/">https://kedreamix.github.io/Talk2Paper/Paper/2025-11-05/NeRF/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/NeRF/">
+                                    <span class="chip bg-color">NeRF</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-11-05/Diffusion%20Models/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-11-05\./crop_Diffusion Models/2409.18932v4/page_4_0.jpg" class="responsive-img" alt="Diffusion Models">
+                        
+                        <span class="card-title">Diffusion Models</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-11-05  Who Made This? Fake Detection and Source Attribution with Diffusion   Features
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-05
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                    Diffusion Models
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Diffusion-Models/">
+                        <span class="chip bg-color">Diffusion Models</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-11-05/3DGS/">
+                    <div class="card-image">
+                        
+                        <img src="https://pic-private.zhihu.com/v2-58c899a334cf40efffae65498ea1a5d8~resize:0:q75.jpg?source=1f5c5e47&expiration=1762311074&auth_key=1762311074-0-0-c72cd7854fb18504e27e04d25c489246&protocol=v2&sampling=False&animatedImagePlayCount=1&overTime=60&incremental=False&sceneCode=article_draft_web&animatedImageAutoPlay=False&retryCount=3&precoder=False" class="responsive-img" alt="3DGS">
+                        
+                        <span class="card-title">3DGS</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            3DGS 方向最新论文已更新，请持续关注 Update in 2025-11-05  SAGS Self-Adaptive Alias-Free Gaussian Splatting for Dynamic Surgical   Endoscopic Reconstruction
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-05
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/3DGS/" class="post-category">
+                                    3DGS
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/3DGS/">
+                        <span class="chip bg-color">3DGS</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">31686.1k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
