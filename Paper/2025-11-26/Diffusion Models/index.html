@@ -1,0 +1,1789 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Diffusion Models">
+    <meta name="description" content="Diffusion Models 方向最新论文已更新，请持续关注 Update in 2025-11-26  Breaking the Likelihood-Quality Trade-off in Diffusion Models by Merging Pretrained Experts">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Diffusion Models | Talk2Paper</title>
+    <link rel="icon" type="image/png" href="/Talk2Paper/favicon.png">
+    
+    <style>
+        body{
+            background-image: url(/Talk2Paper/background.jpg);
+            background-repeat:no-repeat;
+            background-size: 100% 100%;
+            background-attachment:fixed;
+        }
+    </style>
+
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/my.css">
+<link rel="stylesheet" type="text/css" href="/Talk2Paper/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/Talk2Paper/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/Talk2Paper/css/post.css">
+
+
+
+
+    
+
+
+
+    <script src="/Talk2Paper/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+    <style type="text/css" lang="css">
+    #loading-container{
+        position: fixed;
+        top: 0;
+        left: 0;
+        min-height: 100vh;
+        width: 100vw;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: 
+#FFF;
+        text-align: center;
+        /* loader页面消失采用渐隐的方式*/
+        -webkit-transition: opacity 1s ease;
+        -moz-transition: opacity 1s ease;
+        -o-transition: opacity 1s ease;
+        transition: opacity 1s ease;
+    }
+    .loading-image{
+        width: 120px;
+        height: 50px;
+        transform: translate(-50%);
+    }
+
+    .loading-image div:nth-child(2) {
+        -webkit-animation: pacman-balls 1s linear 0s infinite;
+        animation: pacman-balls 1s linear 0s infinite
+    }
+
+    .loading-image div:nth-child(3) {
+        -webkit-animation: pacman-balls 1s linear .33s infinite;
+        animation: pacman-balls 1s linear .33s infinite
+    }
+
+    .loading-image div:nth-child(4) {
+        -webkit-animation: pacman-balls 1s linear .66s infinite;
+        animation: pacman-balls 1s linear .66s infinite
+    }
+
+    .loading-image div:nth-child(5) {
+        -webkit-animation: pacman-balls 1s linear .99s infinite;
+        animation: pacman-balls 1s linear .99s infinite
+    }
+
+   .loading-image div:first-of-type {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_up .5s 0s infinite;
+        animation: rotate_pacman_half_up .5s 0s infinite;
+    }
+    .loading-image div:nth-child(2) {
+        width: 0;
+        height: 0;
+        border: 25px solid 
+#49b1f5;
+        border-right-color: 
+transparent;
+        border-radius: 25px;
+        -webkit-animation: rotate_pacman_half_down .5s 0s infinite;
+        animation: rotate_pacman_half_down .5s 0s infinite;
+        margin-top: -50px;
+    }
+    @-webkit-keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @keyframes rotate_pacman_half_up {0% {transform: rotate(270deg)}50% {transform: rotate(1turn)}to {transform: rotate(270deg)}}
+
+    @-webkit-keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @keyframes rotate_pacman_half_down {0% {transform: rotate(90deg)}50% {transform: rotate(0deg)}to {transform: rotate(90deg)}}
+
+    @-webkit-keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+    @keyframes pacman-balls {75% {opacity: .7}to {transform: translate(-100px, -6.25px)}}
+
+
+    .loading-image div:nth-child(3),
+    .loading-image div:nth-child(4),
+    .loading-image div:nth-child(5),
+    .loading-image div:nth-child(6){
+        background-color: 
+#49b1f5;
+        width: 15px;
+        height: 15px;
+        border-radius: 100%;
+        margin: 2px;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        transform: translateY(-6.25px);
+        top: 25px;
+        left: 100px;
+    }
+    .loading-text{
+        margin-bottom: 20vh;
+        text-align: center;
+        color: 
+#2c3e50;
+        font-size: 2rem;
+        box-sizing: border-box;
+        padding: 0 10px;
+        text-shadow: 0 2px 10px 
+rgba(0,0,0,0.2);
+    }
+    @media only screen and (max-width: 500px) {
+         .loading-text{
+            font-size: 1.5rem;
+         }
+    }
+    .fadeout {
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+    /* logo出现动画 */
+    @-webkit-keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);transform:translate3d(0,-100%,0)}100%{opacity:1;-webkit-transform:none;transform:none}}
+    @keyframes fadeInDown{0%{opacity:0;-webkit-transform:translate3d(0,-100%,0);}}
+ </style>
+ <script>
+(function () {
+    const loaded = function(){
+       setTimeout(function(){
+            const loader = document.getElementById("loading-container");
+            loader.className="fadeout" ;//使用渐隐的方法淡出loading page
+            // document.getElementById("body-wrap").style.display="flex";
+            setTimeout(function(){
+                loader.style.display="none";
+            },2500); 
+        },1000);//强制显示loading page 1s  
+    };
+    loaded();
+})()
+</script>
+
+ 
+
+<body>
+    
+        <div id="loading-container">
+             <p class="loading-text">嘘~  正在从服务器偷取页面 . . . </p> 
+             <div class="loading-image">
+                 <div></div>
+                 <div></div>
+                 <div></div>
+                 <div></div> 
+                 <div></div>
+             </div>
+        </div>
+    
+    
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/Talk2Paper/" class="waves-effect waves-light">
+                    
+                    <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Talk2Paper</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/Talk2Paper/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/Talk2Paper/medias/talk2paper2.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Talk2Paper</div>
+        <div class="logo-desc">
+            
+            Never really desperate, only the lost of the soul.
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/Talk2Paper/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/Kedreamix/Awesome-Talking-Head-Synthesis" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://picx.zhimg.com/v2-3ce1f0009080ddde10e4e692ccdd4eb2')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Diffusion Models</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/Talk2Paper/tags/Diffusion-Models/">
+                                <span class="chip bg-color">Diffusion Models</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/Talk2Paper/categories/Diffusion-Models/" class="post-category">
+                                Diffusion Models
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2025-11-26
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2025-11-26
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    19.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    79 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>⚠️ 以下所有内容总结都来自于 大语言模型的能力，如有错误，仅供参考，谨慎使用<br>🔴 请注意：千万不要用于严肃的学术场景，只能用于论文阅读前的初筛！<br>💗 如果您觉得我们的项目对您有帮助 <a target="_blank" rel="noopener" href="https://github.com/Kedreamix/ChatPaperFree">ChatPaperFree</a> ，还请您给我们一些鼓励！⭐️ <a target="_blank" rel="noopener" href="https://huggingface.co/spaces/Kedreamix/ChatPaperFree">HuggingFace免费体验</a></p>
+</blockquote>
+<h1 id="2025-11-26-更新"><a href="#2025-11-26-更新" class="headerlink" title="2025-11-26 更新"></a>2025-11-26 更新</h1><h2 id="Breaking-the-Likelihood-Quality-Trade-off-in-Diffusion-Models-by-Merging-Pretrained-Experts"><a href="#Breaking-the-Likelihood-Quality-Trade-off-in-Diffusion-Models-by-Merging-Pretrained-Experts" class="headerlink" title="Breaking the Likelihood-Quality Trade-off in Diffusion Models by Merging Pretrained Experts"></a>Breaking the Likelihood-Quality Trade-off in Diffusion Models by Merging Pretrained Experts</h2><p><strong>Authors:Yasin Esfandiari, Stefan Bauer, Sebastian U. Stich, Andrea Dittadi</strong></p>
+<p>Diffusion models for image generation often exhibit a trade-off between perceptual sample quality and data likelihood: training objectives emphasizing high-noise denoising steps yield realistic images but poor likelihoods, whereas likelihood-oriented training overweights low-noise steps and harms visual fidelity. We introduce a simple plug-and-play sampling method that combines two pretrained diffusion experts by switching between them along the denoising trajectory. Specifically, we apply an image-quality expert at high noise levels to shape global structure, then switch to a likelihood expert at low noise levels to refine pixel statistics. The approach requires no retraining or fine-tuning – only the choice of an intermediate switching step. On CIFAR-10 and ImageNet32, the merged model consistently matches or outperforms its base components, improving or preserving both likelihood and sample quality relative to each expert alone. These results demonstrate that expert switching across noise levels is an effective way to break the likelihood-quality trade-off in image diffusion models.</p>
+<blockquote>
+<p>图像生成中的扩散模型经常在感知样本质量和数据可能性之间表现出权衡：以高噪声去噪步骤为重点的训练目标会产生逼真的图像，但可能性较低；而以可能性为导向的训练则过分侧重于低噪声步骤，从而损害了视觉保真度。我们引入了一种简单的即插即用采样方法，该方法通过沿着去噪轨迹切换两个预训练的扩散专家来结合它们。具体来说，我们在高噪声水平下应用图像质量专家来塑造全局结构，然后在低噪声水平下切换到可能性专家来完善像素统计。这种方法不需要任何重新训练或微调，只需要选择中间的切换步骤。在CIFAR-10和ImageNet32上，合并模型始终匹配或超过其基础组件的性能，与单独的专业人员相比，它提高了或保持了可能性和样本质量。这些结果表明，在噪声级别之间切换专家是打破图像扩散模型中可能性-质量权衡的一种有效方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.19434v1">PDF</a> ICLR 2025 DeLTa workshop</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种结合两个预训练扩散模型专家的方法，通过在去噪轨迹上切换不同专家来解决感知样本质量与数据概率之间的权衡问题。具体而言，在高噪声水平时使用图像质量专家来塑造全局结构，然后在低噪声水平时切换到概率专家来优化像素统计。该方法无需重新训练或微调，只需选择中间切换步骤。在CIFAR-10和ImageNet32上，合并模型始终能与基础组件相匹配或表现更佳，相较于单一专家，它能提高或保持概率和样本质量。这证明了在不同噪声级别之间切换专家是解决图像扩散模型中概率与质量权衡的有效方法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>扩散模型在图像生成中存在感知样本质量与数据概率之间的权衡。</li>
+<li>训练目标侧重于高噪声去噪步骤会产生逼真的图像但概率较低，而侧重于概率的训练则会在低噪声步骤中损害视觉保真度。</li>
+<li>提出了一种结合两个预训练扩散模型专家的方法，通过切换不同专家来解决上述问题。</li>
+<li>在高噪声水平时使用图像质量专家塑造全局结构，然后在低噪声水平时切换到概率专家优化像素统计。</li>
+<li>该方法无需重新训练或微调，只需选择中间切换步骤即可。</li>
+<li>在CIFAR-10和ImageNet32上，合并模型的性能始终与基础组件相匹配或更佳，能同时提高或保持概率和样本质量。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.19434">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-eda845c6db27ce350b8fd6e64cebbc38" align="middle">
+<img src="https://picx.zhimg.com/v2-4c5127ce136c86cb4a7aa74508537b89" align="middle">
+<img src="https://picx.zhimg.com/v2-406dcf2c268c9b1054a105425c469d7a" align="middle">
+<img src="https://picx.zhimg.com/v2-42509d4787059d95dc4ce274c58f1cce" align="middle">
+</details>
+
+
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h2 id="Efficiency-vs-Fidelity-A-Comparative-Analysis-of-Diffusion-Probabilistic-Models-and-Flow-Matching-on-Low-Resource-Hardware"><a href="#Efficiency-vs-Fidelity-A-Comparative-Analysis-of-Diffusion-Probabilistic-Models-and-Flow-Matching-on-Low-Resource-Hardware" class="headerlink" title="Efficiency vs. Fidelity: A Comparative Analysis of Diffusion Probabilistic Models and Flow Matching on Low-Resource Hardware"></a>Efficiency vs. Fidelity: A Comparative Analysis of Diffusion Probabilistic Models and Flow Matching on Low-Resource Hardware</h2><p><strong>Authors:Srishti Gupta, Yashasvee Taiwade</strong></p>
+<p>Denoising Diffusion Probabilistic Models (DDPMs) have established a new state-of-the-art in generative image synthesis, yet their deployment is hindered by significant computational overhead during inference, often requiring up to 1,000 iterative steps. This study presents a rigorous comparative analysis of DDPMs against the emerging Flow Matching (Rectified Flow) paradigm, specifically isolating their geometric and efficiency properties on low-resource hardware. By implementing both frameworks on a shared Time-Conditioned U-Net backbone using the MNIST dataset, we demonstrate that Flow Matching significantly outperforms Diffusion in efficiency. Our geometric analysis reveals that Flow Matching learns a highly rectified transport path (Curvature $\mathcal{C} \approx 1.02$), which is near-optimal, whereas Diffusion trajectories remain stochastic and tortuous ($\mathcal{C} \approx 3.45$). Furthermore, we establish an &#96;&#96;efficiency frontier’’ at $N&#x3D;10$ function evaluations, where Flow Matching retains high fidelity while Diffusion collapses. Finally, we show via numerical sensitivity analysis that the learned vector field is sufficiently linear to render high-order ODE solvers (Runge-Kutta 4) unnecessary, validating the use of lightweight Euler solvers for edge deployment. \textbf{This work concludes that Flow Matching is the superior algorithmic choice for real-time, resource-constrained generative tasks.}</p>
+<blockquote>
+<p>去噪扩散概率模型（DDPM）已在生成图像合成领域建立了最新技术，但其部署受到推理过程中巨大计算开销的阻碍，通常需要高达1000次迭代步骤。本研究对DDPM与新兴的流程匹配（校正流）范式进行了严格比较分析，特别是在低资源硬件上对其几何和效率特性进行了隔离研究。我们通过使用MNIST数据集在共享的时间条件U-Net主干上实现这两个框架，证明流程匹配在效率上显著优于扩散。我们的几何分析表明，流程匹配学习了一种高度校正的传输路径（曲率C≈1.02），这是接近最优的，而扩散轨迹仍然是随机的和曲折的（C≈3.45）。此外，我们在函数评估N&#x3D;10处建立了“效率前沿”，流程匹配保持高保真度，而扩散崩溃。最后，我们通过数值敏感性分析证明，所学习的矢量场足够线性，无需使用高阶ODE求解器（如龙格库塔法），验证了使用轻量级欧拉求解器进行边缘部署的合理性。**本研究得出结论，对于实时、资源受限的生成任务，流程匹配是更优越的算法选择。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.19379v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文对比研究了Denoising Diffusion Probabilistic Models（DDPMs）与新兴的Flow Matching（Rectified Flow）范式，在MNIST数据集上实现了共享Time-Conditioned U-Net骨架。实验表明，Flow Matching在效率上显著优于Diffusion。几何分析显示，Flow Matching学习到的传输路径高度规整，而Diffusion轨迹更为随机和曲折。此外，本文建立了函数评估效率前沿，Flow Matching在保持高保真度的同时，Diffusion则失效。数值敏感性分析验证了使用轻量级Euler求解器进行边缘部署的合理性。总之，Flow Matching是实时、资源受限生成任务的优选算法。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>DDPMs与Flow Matching的对比研究，重点分析了它们的几何和效率特性。</li>
+<li>在MNIST数据集上实现了共享Time-Conditioned U-Net骨架进行实验研究。</li>
+<li>Flow Matching在效率上显著优于DDPMs。</li>
+<li>Flow Matching学习到的传输路径高度规整，而DDPMs的轨迹更为随机和曲折。</li>
+<li>建立了函数评估效率前沿，Flow Matching在保持高保真度的同时，DDPMs性能下降。</li>
+<li>数值敏感性分析验证了使用轻量级Euler求解器的合理性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.19379">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-960fe485cd05087e5cf5ca3a74037bf2" align="middle">
+<img src="https://picx.zhimg.com/v2-bea2248fcf45d343cc36257f3ac167b3" align="middle">
+<img src="https://picx.zhimg.com/v2-8c1feffb99f8dbf09ea25172690fa49f" align="middle">
+<img src="https://picx.zhimg.com/v2-ebb8db626c29239a503bec7735df6285" align="middle">
+<img src="https://picx.zhimg.com/v2-09834e0c411c9c287ae588eddf2c35be" align="middle">
+</details>
+
+
+<h1 id="-1"><a href="#-1" class="headerlink" title=""></a></h1><h2 id="DeCo-Frequency-Decoupled-Pixel-Diffusion-for-End-to-End-Image-Generation"><a href="#DeCo-Frequency-Decoupled-Pixel-Diffusion-for-End-to-End-Image-Generation" class="headerlink" title="DeCo: Frequency-Decoupled Pixel Diffusion for End-to-End Image Generation"></a>DeCo: Frequency-Decoupled Pixel Diffusion for End-to-End Image Generation</h2><p><strong>Authors:Zehong Ma, Longhui Wei, Shuai Wang, Shiliang Zhang, Qi Tian</strong></p>
+<p>Pixel diffusion aims to generate images directly in pixel space in an end-to-end fashion. This approach avoids the limitations of VAE in the two-stage latent diffusion, offering higher model capacity. Existing pixel diffusion models suffer from slow training and inference, as they usually model both high-frequency signals and low-frequency semantics within a single diffusion transformer (DiT). To pursue a more efficient pixel diffusion paradigm, we propose the frequency-DeCoupled pixel diffusion framework. With the intuition to decouple the generation of high and low frequency components, we leverage a lightweight pixel decoder to generate high-frequency details conditioned on semantic guidance from the DiT. This thus frees the DiT to specialize in modeling low-frequency semantics. In addition, we introduce a frequency-aware flow-matching loss that emphasizes visually salient frequencies while suppressing insignificant ones. Extensive experiments show that DeCo achieves superior performance among pixel diffusion models, attaining FID of 1.62 (256x256) and 2.22 (512x512) on ImageNet, closing the gap with latent diffusion methods. Furthermore, our pretrained text-to-image model achieves a leading overall score of 0.86 on GenEval in system-level comparison. Codes are publicly available at <a target="_blank" rel="noopener" href="https://github.com/Zehong-Ma/DeCo">https://github.com/Zehong-Ma/DeCo</a>.</p>
+<blockquote>
+<p>像素扩散旨在以端到端的方式直接在像素空间中生成图像。这种方法避免了两阶段潜在扩散中VAE的限制，提供了更高的模型容量。现有的像素扩散模型在训练和推理方面存在速度慢的问题，因为它们通常在一个单一的扩散变压器（DiT）中对高频信号和低频语义进行建模。为了追求更有效的像素扩散范式，我们提出了频率解耦像素扩散框架。通过解耦高频和低频成分的生成，我们利用轻量级的像素解码器在语义指导的条件下生成高频细节，这些指导来自DiT。因此，DiT得以专注于对低频语义进行建模。此外，我们引入了一种频率感知流匹配损失，它强调视觉上显著频率的同时抑制不显著的频率。大量实验表明，DeCo在像素扩散模型中表现出卓越的性能，在ImageNet上的FID达到（分辨率为256x256时为1.62，（分辨率为512x512时为2.22），缩小了与潜在扩散方法的差距。此外，我们的预训练文本到图像模型在系统性比较中在GenEval上取得了领先的总体得分0.86。代码已公开在<a target="_blank" rel="noopener" href="https://github.com/Zehong-Ma/DeCo%E4%B8%8A%E5%8F%AF%E7%94%A8%E3%80%82">https://github.com/Zehong-Ma/DeCo上可用。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.19365v1">PDF</a> Project Page: <a target="_blank" rel="noopener" href="https://zehong-ma.github.io/DeCo">https://zehong-ma.github.io/DeCo</a>. Code Repository: <a target="_blank" rel="noopener" href="https://github.com/Zehong-Ma/DeCo">https://github.com/Zehong-Ma/DeCo</a></p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了像素扩散模型的新发展。针对现有像素扩散模型训练与推理速度慢的问题，提出了频率解耦像素扩散框架。该框架利用轻量级像素解码器生成高频细节，同时由扩散变压器（DiT）专注于低频语义建模。此外，引入频率感知流匹配损失，以强调视觉显著频率并抑制非显著频率。实验表明，该框架在像素扩散模型中表现卓越，达到ImageNet上的FID 1.62（256x256）和2.22（512x512），缩小了与潜在扩散方法的差距。同时，预训练的文本到图像模型在GenEval上取得了领先的总体得分。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>像素扩散模型旨在直接生成图像，避免了两阶段潜在扩散的局限性。</li>
+<li>现有像素扩散模型存在训练与推理速度慢的问题。</li>
+<li>频率解耦像素扩散框架旨在提高像素扩散模型的效率。</li>
+<li>该框架利用轻量级像素解码器生成高频细节，同时使扩散变压器（DiT）专注于低频语义建模。</li>
+<li>引入频率感知流匹配损失以优化生成效果。</li>
+<li>该框架在ImageNet上实现了优秀的FID得分，表明其性能卓越。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.19365">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-1b986905ff839f1a94f0fd13c83ff328" align="middle">
+<img src="https://picx.zhimg.com/v2-b582a75450426ea24011edf70f9028c6" align="middle">
+<img src="https://picx.zhimg.com/v2-98ea0f4aeb6ff5fb15929f7a13c55766" align="middle">
+<img src="https://picx.zhimg.com/v2-ce4619a4900a04336b399065ddca4783" align="middle">
+<img src="https://picx.zhimg.com/v2-52848660e457ad1f4a42cf28a19cc715" align="middle">
+</details>
+
+
+<h1 id="-2"><a href="#-2" class="headerlink" title=""></a></h1><h2 id="Test-Time-Preference-Optimization-for-Image-Restoration"><a href="#Test-Time-Preference-Optimization-for-Image-Restoration" class="headerlink" title="Test-Time Preference Optimization for Image Restoration"></a>Test-Time Preference Optimization for Image Restoration</h2><p><strong>Authors:Bingchen Li, Xin Li, Jiaqi Xu, Jiaming Guo, Wenbo Li, Renjing Pei, Zhibo Chen</strong></p>
+<p>Image restoration (IR) models are typically trained to recover high-quality images using L1 or LPIPS loss. To handle diverse unknown degradations, zero-shot IR methods have also been introduced. However, existing pre-trained and zero-shot IR approaches often fail to align with human preferences, resulting in restored images that may not be favored. This highlights the critical need to enhance restoration quality and adapt flexibly to various image restoration tasks or backbones without requiring model retraining and ideally without labor-intensive preference data collection. In this paper, we propose the first Test-Time Preference Optimization (TTPO) paradigm for image restoration, which enhances perceptual quality, generates preference data on-the-fly, and is compatible with any IR model backbone. Specifically, we design a training-free, three-stage pipeline: (i) generate candidate preference images online using diffusion inversion and denoising based on the initially restored image; (ii) select preferred and dispreferred images using automated preference-aligned metrics or human feedback; and (iii) use the selected preference images as reward signals to guide the diffusion denoising process, optimizing the restored image to better align with human preferences. Extensive experiments across various image restoration tasks and models demonstrate the effectiveness and flexibility of the proposed pipeline.</p>
+<blockquote>
+<p>图像恢复（IR）模型通常使用L1或LPIPS损失来训练以恢复高质量图像。为了解决各种未知退化问题，还引入了零射击IR方法。然而，现有的预训练和非射击IR方法通常无法与人类偏好对齐，导致恢复的图像可能不受欢迎。这强调了提高恢复质量并灵活适应各种图像恢复任务或主干网而无需重新训练模型的重要性，理想情况下无需收集劳动密集型的偏好数据。在本文中，我们提出了用于图像恢复的第一种测试时间偏好优化（TTPO）范式，该范式提高了感知质量，可即时生成偏好数据，并且与任何IR模型主干兼容。具体来说，我们设计了一个无训练、三阶段的管道：（i）基于最初恢复的图像，使用扩散反演和去噪在线生成候选偏好图像；（ii）使用自动化偏好对齐指标或人类反馈来选择喜欢的和不喜欢的图像；（iii）将选择的偏好图像作为奖励信号来指导扩散去噪过程，优化恢复图像以更好地与人类偏好对齐。跨各种图像恢复任务和模型的广泛实验证明了所提出管道的有效性和灵活性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.19169v1">PDF</a> Accepted by AAAI26</p>
+<p><strong>Summary</strong>：</p>
+<p>本文提出了一种面向图像修复的Test-Time Preference Optimization（TTPO）范式，旨在提高感知质量并适应各种图像修复任务或模型。该范式通过扩散反演和去噪生成候选偏好图像，利用自动化偏好对齐指标或人类反馈选择偏好和不喜欢的图像，然后将所选的偏好图像作为奖励信号来指导扩散去噪过程，优化修复后的图像以更好地符合人类偏好。实验证明，该管道在多种图像修复任务和模型上有效且灵活。</p>
+<p><strong>Key Takeaways</strong>：</p>
+<ol>
+<li>现有图像修复模型常无法符合人类偏好，需改进。</li>
+<li>提出了Test-Time Preference Optimization（TTPO）范式，旨在提高图像修复的感知质量并适应各种任务或模型。</li>
+<li>TTPO采用三阶段流程：在线生成候选偏好图像、选择偏好图像、使用选择的偏好图像作为奖励信号优化修复过程。</li>
+<li>该方法通过扩散反演和去噪生成候选偏好图像。</li>
+<li>自动化偏好对齐指标和人类反馈可用于选择偏好图像。</li>
+<li>TTPO在多种图像修复任务和模型上的实验证明其有效性和灵活性。</li>
+<li>该方法有望提高图像修复模型的性能，使其更符合人类视觉偏好。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.19169">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-520550a4bf29128059d51bc4a2ce6922" align="middle">
+<img src="https://picx.zhimg.com/v2-f66aa107f97a6ef2d4a9b6e6919681e4" align="middle">
+<img src="https://picx.zhimg.com/v2-dcde778b997c4d71de27c43614a961de" align="middle">
+<img src="https://picx.zhimg.com/v2-e5f684d44268a21efa04993d42a21e58" align="middle">
+<img src="https://picx.zhimg.com/v2-d0ec88d28b10283672179d6bc20ffdc5" align="middle">
+</details>
+
+
+<h1 id="-3"><a href="#-3" class="headerlink" title=""></a></h1><h2 id="When-Semantics-Regulate-Rethinking-Patch-Shuffle-and-Internal-Bias-for-Generated-Image-Detection-with-CLIP"><a href="#When-Semantics-Regulate-Rethinking-Patch-Shuffle-and-Internal-Bias-for-Generated-Image-Detection-with-CLIP" class="headerlink" title="When Semantics Regulate: Rethinking Patch Shuffle and Internal Bias for Generated Image Detection with CLIP"></a>When Semantics Regulate: Rethinking Patch Shuffle and Internal Bias for Generated Image Detection with CLIP</h2><p><strong>Authors:Beilin Chu, Weike You, Mengtao Li, Tingting Zheng, Kehan Zhao, Xuan Xu, Zhigao Lu, Jia Song, Moxuan Xu, Linna Zhou</strong></p>
+<p>The rapid progress of GANs and Diffusion Models poses new challenges for detecting AI-generated images. Although CLIP-based detectors exhibit promising generalization, they often rely on semantic cues rather than generator artifacts, leading to brittle performance under distribution shifts. In this work, we revisit the nature of semantic bias and uncover that Patch Shuffle provides an unusually strong benefit for CLIP, that disrupts global semantic continuity while preserving local artifact cues, which reduces semantic entropy and homogenizes feature distributions between natural and synthetic images. Through a detailed layer-wise analysis, we further show that CLIP’s deep semantic structure functions as a regulator that stabilizes cross-domain representations once semantic bias is suppressed. Guided by these findings, we propose SemAnti, a semantic-antagonistic fine-tuning paradigm that freezes the semantic subspace and adapts only artifact-sensitive layers under shuffled semantics. Despite its simplicity, SemAnti achieves state-of-the-art cross-domain generalization on AIGCDetectBenchmark and GenImage, demonstrating that regulating semantics is key to unlocking CLIP’s full potential for robust AI-generated image detection.</p>
+<blockquote>
+<p>生成对抗网络（GANs）和扩散模型（Diffusion Models）的快速发展给检测AI生成的图像带来了新的挑战。尽管基于CLIP的检测器展现出有前景的泛化性能，但它们通常依赖于语义线索而非生成器特征，导致在分布变化下的性能变得脆弱。在这项工作中，我们重新审视了语义偏差的本质，并发现Patch Shuffle对CLIP提供了异常强大的优势，它破坏了全局语义连续性同时保留了局部特征线索，降低了语义熵并统一了自然图像和合成图像之间的特征分布。通过详细的逐层分析，我们进一步表明，一旦抑制语义偏差，CLIP的深度语义结构就起到了调节器的作用，稳定了跨域表示。基于这些发现，我们提出了SemAnti，一种语义对抗微调范式，冻结语义子空间，仅在打乱语义的情况下适应特征敏感层。尽管其简单，SemAnti在AIGCDetectBenchmark和GenImage上实现了最先进的跨域泛化，证明调节语义是解锁CLIP在稳健的AI生成图像检测中潜力的关键。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.19126v1">PDF</a> 14 pages, 7 figures and 7 tables</p>
+<p><strong>Summary</strong><br>     基于CLIP的探测器在检测AI生成图像时面临挑战，由于其依赖语义线索而非生成器特征，性能不稳定。本研究揭示语义偏差对CLIP的影响，发现局部特征保留的Patch Shuffle技术有助于减少语义熵并统一自然与合成图像的特征分布。通过分析CLIP的深度语义结构，提出一种语义对抗微调方法SemAnti，冻结语义子空间并仅调整伪影敏感层。此方法在AIGCDetectBenchmark和GenImage上实现跨域最佳泛化性能，证明调控语义是解锁CLIP在稳健AI图像检测中潜力的关键。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>GANs和Diffusion Models的快速发展为检测AI生成的图像带来了新的挑战。</li>
+<li>CLIP-based探测器虽然表现出良好的泛化能力，但性能不稳定，因为它们依赖于语义线索而非生成器特征。</li>
+<li>研究揭示了语义偏差对CLIP的影响，并发现Patch Shuffle技术有助于减少语义熵并统一特征分布。</li>
+<li>通过详细的层分析，发现CLIP的深度语义结构作为调节器，在抑制语义偏差后能够稳定跨域表示。</li>
+<li>提出一种名为SemAnti的语义对抗微调方法，通过冻结语义子空间并仅调整伪影敏感层来实现最佳跨域泛化性能。</li>
+<li>SemAnti方法实现了在AIGCDetectBenchmark和GenImage上的最佳性能，证明调控语义是解锁CLIP在AI图像检测中潜力的关键。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.19126">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-c2342ec4ea1313f1c9aa4d7e2d0b619c" align="middle">
+<img src="https://picx.zhimg.com/v2-43fbe32ddb0fba6f50289fe4e7901bda" align="middle">
+<img src="https://picx.zhimg.com/v2-7c4728b5d246508184971fe72c29d194" align="middle">
+<img src="https://picx.zhimg.com/v2-5c0db83c9471489335e447c2a34bddce" align="middle">
+<img src="https://picx.zhimg.com/v2-3df0e5c27669a25d98d246233f3fb681" align="middle">
+</details>
+
+
+<h1 id="-4"><a href="#-4" class="headerlink" title=""></a></h1><h2 id="DiffSeg30k-A-Multi-Turn-Diffusion-Editing-Benchmark-for-Localized-AIGC-Detection"><a href="#DiffSeg30k-A-Multi-Turn-Diffusion-Editing-Benchmark-for-Localized-AIGC-Detection" class="headerlink" title="DiffSeg30k: A Multi-Turn Diffusion Editing Benchmark for Localized AIGC Detection"></a>DiffSeg30k: A Multi-Turn Diffusion Editing Benchmark for Localized AIGC Detection</h2><p><strong>Authors:Hai Ci, Ziheng Peng, Pei Yang, Yingxin Xuan, Mike Zheng Shou</strong></p>
+<p>Diffusion-based editing enables realistic modification of local image regions, making AI-generated content harder to detect. Existing AIGC detection benchmarks focus on classifying entire images, overlooking the localization of diffusion-based edits. We introduce DiffSeg30k, a publicly available dataset of 30k diffusion-edited images with pixel-level annotations, designed to support fine-grained detection. DiffSeg30k features: 1) In-the-wild images–we collect images or image prompts from COCO to reflect real-world content diversity; 2) Diverse diffusion models–local edits using eight SOTA diffusion models; 3) Multi-turn editing–each image undergoes up to three sequential edits to mimic real-world sequential editing; and 4) Realistic editing scenarios–a vision-language model (VLM)-based pipeline automatically identifies meaningful regions and generates context-aware prompts covering additions, removals, and attribute changes. DiffSeg30k shifts AIGC detection from binary classification to semantic segmentation, enabling simultaneous localization of edits and identification of the editing models. We benchmark three baseline segmentation approaches, revealing significant challenges in semantic segmentation tasks, particularly concerning robustness to image distortions. Experiments also reveal that segmentation models, despite being trained for pixel-level localization, emerge as highly reliable whole-image classifiers of diffusion edits, outperforming established forgery classifiers while showing great potential in cross-generator generalization. We believe DiffSeg30k will advance research in fine-grained localization of AI-generated content by demonstrating the promise and limitations of segmentation-based methods. DiffSeg30k is released at: <a target="_blank" rel="noopener" href="https://huggingface.co/datasets/Chaos2629/Diffseg30k">https://huggingface.co/datasets/Chaos2629/Diffseg30k</a></p>
+<blockquote>
+<p>基于扩散编辑技术能够对局部图像区域进行逼真的修改，使得AI生成的内容更难被检测。现有的AIGC检测基准测试主要集中在整个图像的分类上，忽视了基于扩散编辑的本地化。我们推出了DiffSeg30k，这是一个包含3万张扩散编辑图像的公开数据集，带有像素级注释，旨在支持精细检测。DiffSeg30k的特点包括：1）自然图像——我们从COCO收集图像或图像提示，以反映现实世界的内容多样性；2）多种扩散模型——使用八种先进的扩散模型进行局部编辑；3）多轮编辑——每张图像经历最多三轮连续编辑，以模拟现实世界的连续编辑；4）逼真的编辑场景——基于视觉语言模型（VLM）的管道自动识别有意义的区域，并生成涵盖添加、删除和属性更改的上下文感知提示。DiffSeg30k将AIGC检测从二进制分类转变为语义分割，能够实现编辑的同步定位和编辑模型的识别。我们基准测试了三种基本的分割方法，揭示了语义分割任务中的重大挑战，尤其是对于图像畸变的稳健性。实验还表明，尽管分割模型经过像素级训练，但它们也表现出强大的全局图像分类能力，在扩散编辑中超越了现有的伪造分类器，并显示出巨大的跨生成器泛化潜力。我们相信DiffSeg30k将通过展示分割方法的潜力和局限性，推动AI生成内容的精细定位研究的发展。DiffSeg30k的发布地址为：<a target="_blank" rel="noopener" href="https://huggingface.co/datasets/Chaos2629/Diffseg30k">https://huggingface.co/datasets/Chaos2629/Diffseg30k</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.19111v1">PDF</a> 16 pages, 10 figures</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了Diffusion-based编辑技术对于局部图像区域的真实修改能力，使得AI生成的内容更难被检测。为了支持精细粒度的检测，引入了DiffSeg30k数据集，该数据集包含3万张扩散编辑图像，并带有像素级注释。DiffSeg30k的特点包括：收集来自COCO的野生图像以反映现实世界的内容多样性、使用多种先进的扩散模型进行局部编辑、每个图像进行多达三次连续编辑以模拟现实世界的连续编辑、使用基于视觉语言模型（VLM）的管道自动识别有意义区域并生成上下文感知提示，涵盖添加、删除和属性更改。DiffSeg30k将AIGC检测从二进制分类转移到语义分割，能够同时定位编辑并识别编辑模型。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Diffusion-based编辑技术能够真实修改局部图像区域，使得AI生成的内容难以检测。</li>
+<li>引入DiffSeg30k数据集，包含3万张带有像素级注释的扩散编辑图像，用于支持精细粒度的检测。</li>
+<li>DiffSeg30k数据集特点包括野生图像多样性、使用多种扩散模型进行局部编辑、模拟现实世界的连续编辑，以及自动生成上下文感知提示。</li>
+<li>DiffSeg30k将AIGC检测从二进制分类转移到语义分割，实现编辑定位和识别。</li>
+<li>基准分割方法的实验显示出语义分割任务的挑战性和现有伪造分类器的超越性，同时也展示出跨生成器泛化的潜力。</li>
+<li>DiffSeg30k有望推动AI生成内容精细粒度定位的研究，展示分割方法的前景和局限性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.19111">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-75eb86647e584481297cf1f9e920a88a" align="middle">
+<img src="https://picx.zhimg.com/v2-b1aca89767674d4ac42d6921f5622002" align="middle">
+<img src="https://picx.zhimg.com/v2-c6e9f55781083048d9780efc8b4dc95d" align="middle">
+<img src="https://picx.zhimg.com/v2-8ada82dd44cb83f0d434e53f61d47ddd" align="middle">
+<img src="https://picx.zhimg.com/v2-79824f9c885d7de6d571914d4b58194a" align="middle">
+<img src="https://picx.zhimg.com/v2-885872f1d8efcfb6b0e8632205f8dcd4" align="middle">
+</details>
+
+
+<h1 id="-5"><a href="#-5" class="headerlink" title=""></a></h1><h2 id="View-Consistent-Diffusion-Representations-for-3D-Consistent-Video-Generation"><a href="#View-Consistent-Diffusion-Representations-for-3D-Consistent-Video-Generation" class="headerlink" title="View-Consistent Diffusion Representations for 3D-Consistent Video Generation"></a>View-Consistent Diffusion Representations for 3D-Consistent Video Generation</h2><p><strong>Authors:Duolikun Danier, Ge Gao, Steven McDonagh, Changjian Li, Hakan Bilen, Oisin Mac Aodha</strong></p>
+<p>Video generation models have made significant progress in generating realistic content, enabling applications in simulation, gaming, and film making. However, current generated videos still contain visual artifacts arising from 3D inconsistencies, e.g., objects and structures deforming under changes in camera pose, which can undermine user experience and simulation fidelity. Motivated by recent findings on representation alignment for diffusion models, we hypothesize that improving the multi-view consistency of video diffusion representations will yield more 3D-consistent video generation. Through detailed analysis on multiple recent camera-controlled video diffusion models we reveal strong correlations between 3D-consistent representations and videos. We also propose ViCoDR, a new approach for improving the 3D consistency of video models by learning multi-view consistent diffusion representations. We evaluate ViCoDR on camera controlled image-to-video, text-to-video, and multi-view generation models, demonstrating significant improvements in the 3D consistency of the generated videos. Project page: <a target="_blank" rel="noopener" href="https://danier97.github.io/ViCoDR">https://danier97.github.io/ViCoDR</a>.</p>
+<blockquote>
+<p>视频生成模型在生成真实内容方面取得了重大进展，为模拟、游戏和电影制作等领域的应用提供了可能。然而，当前生成的视频仍然存在由三维不一致性引起的视觉伪影，例如摄像头姿态变化时物体和结构的变形，这可能会破坏用户体验和模拟的逼真度。受扩散模型表示对齐最新发现的启发，我们假设通过改进视频扩散表示的多视角一致性，可以获得更加三维一致的视频生成。通过对多个最新的相机控制视频扩散模型的详细分析，我们揭示了三维一致表示与视频之间的强烈相关性。我们还提出了ViCoDR这一新方法，通过学习多视角一致扩散表示来提高视频模型的三维一致性。我们在相机控制的图像到视频、文本到视频和多视角生成模型上评估了ViCoDR，证明其在生成视频的三维一致性方面取得了显著改进。项目页面：<a target="_blank" rel="noopener" href="https://danier97.github.io/ViCoDR">https://danier97.github.io/ViCoDR</a>。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.18991v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了视频生成模型在生成逼真内容方面的显著进展，以及其在仿真、游戏和电影制作等领域的应用。然而，当前生成的视频仍存在因3D不一致性导致的视觉伪影问题，如物体和结构在相机姿态变化下的变形，会影响用户体验和仿真精度。受扩散模型表示对齐研究的启发，本文假设提高视频扩散表示的多视图一致性可以产生更一致的3D视频生成。通过对多个近期相机控制视频扩散模型的深入分析，本文揭示了3D一致表示与视频之间的强相关性，并提出了ViCoDR方法，通过学习多视图一致扩散表示来提高视频模型的三维一致性。在相机控制的图像到视频、文本到视频和多视图生成模型上的评估表明，ViCoDR在生成视频的3D一致性方面取得了显著改进。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>视频生成模型在生成逼真内容方面取得显著进展，应用于仿真、游戏和电影制作等领域。</li>
+<li>当前生成的视频存在因3D不一致性导致的视觉伪影问题。</li>
+<li>扩散模型表示对齐研究为改善视频生成提供了新思路。</li>
+<li>提高视频扩散表示的多视图一致性可以产生更一致的3D视频生成。</li>
+<li>ViCoDR方法通过学习多视图一致扩散表示来改善视频模型的三维一致性。</li>
+<li>ViCoDR在相机控制的图像到视频、文本到视频和多视图生成模型评估中表现优异。</li>
+<li>ViCoDR方法显著提高生成视频的3D一致性。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.18991">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-04fdf9b42403b198695fef27dc6a19e2" align="middle">
+<img src="https://picx.zhimg.com/v2-34a47b81d75b6f5343f71545f66e70ab" align="middle">
+<img src="https://picx.zhimg.com/v2-a89c1d0f03936c57de70aaf0d18e453e" align="middle">
+</details>
+
+
+<h1 id="-6"><a href="#-6" class="headerlink" title=""></a></h1><h2 id="VeCoR-Velocity-Contrastive-Regularization-for-Flow-Matching"><a href="#VeCoR-Velocity-Contrastive-Regularization-for-Flow-Matching" class="headerlink" title="VeCoR - Velocity Contrastive Regularization for Flow Matching"></a>VeCoR - Velocity Contrastive Regularization for Flow Matching</h2><p><strong>Authors:Zong-Wei Hong, Jing-lun Li, Lin-Ze Li, Shen Zhang, Yao Tang</strong></p>
+<p>Flow Matching (FM) has recently emerged as a principled and efficient alternative to diffusion models. Standard FM encourages the learned velocity field to follow a target direction; however, it may accumulate errors along the trajectory and drive samples off the data manifold, leading to perceptual degradation, especially in lightweight or low-step configurations.   To enhance stability and generalization, we extend FM into a balanced attract-repel scheme that provides explicit guidance on both “where to go” and “where not to go.” To be formal, we propose \textbf{Velocity Contrastive Regularization (VeCoR)}, a complementary training scheme for flow-based generative modeling that augments the standard FM objective with contrastive, two-sided supervision. VeCoR not only aligns the predicted velocity with a stable reference direction (positive supervision) but also pushes it away from inconsistent, off-manifold directions (negative supervision). This contrastive formulation transforms FM from a purely attractive, one-sided objective into a two-sided training signal, regularizing trajectory evolution and improving perceptual fidelity across datasets and backbones.   On ImageNet-1K 256$\times$256, VeCoR yields 22% and 35% relative FID reductions on SiT-XL&#x2F;2 and REPA-SiT-XL&#x2F;2 backbones, respectively, and achieves further FID gains (32% relative) on MS-COCO text-to-image generation, demonstrating consistent improvements in stability, convergence, and image quality, particularly in low-step and lightweight settings. Project page: <a target="_blank" rel="noopener" href="https://p458732.github.io/VeCoR_Project_Page/">https://p458732.github.io/VeCoR_Project_Page/</a></p>
+<blockquote>
+<p>流匹配（FM）最近作为一种有原则且高效的扩散模型替代方案而出现。标准FM鼓励学习到的速度场遵循目标方向；然而，它可能会在轨迹上积累误差，并驱动样本偏离数据流形，尤其是在轻量级或低步数配置中，导致感知退化。为了提高稳定性和泛化能力，我们将FM扩展为一种平衡的吸引-排斥方案，为“去哪里”和“不要去哪里”提供明确指导。具体来说，我们提出了速度对比正则化（VeCoR），这是一种用于基于流的生成模型的补充训练方案，它通过对比两侧监督来增强标准FM目标。VeCoR不仅使预测的速度与稳定的参考方向对齐（正向监督），而且还将其推开与不一致的、非流形方向（负向监督）。这种对比公式将FM从纯粹的吸引、单向目标转变为双向训练信号，规范轨迹演化，提高数据集和主干网络的感知保真度。在ImageNet-1K 256×256上，VeCoR在SiT-XL&#x2F;2和REPA-SiT-XL&#x2F;2主干网络上分别实现了相对FID（Fréchet Inception Distance）的22%和35%相对降低，并在MS-COCO文本到图像生成上实现了进一步的FID增益（相对降低32%），显示出在稳定性、收敛性和图像质量方面的持续改进，特别是在低步数和轻量级设置下。项目页面：<a target="_blank" rel="noopener" href="https://p458732.github.io/VeCoR_Project_Page/%E3%80%82">https://p458732.github.io/VeCoR_Project_Page/。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.18942v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>流匹配（Flow Matching，FM）作为一种新兴的扩散模型替代方法，鼓励学习速度场跟随目标方向。但它在轨迹上可能积累误差，导致样本偏离数据流形，特别是在轻量级或低步数配置下会出现感知退化。为了增强稳定性和泛化能力，我们将FM扩展为一种平衡吸引与排斥的方案，为“去哪里”和“不要去哪里”提供明确指导。为此，我们提出了速度对比正则化（Velocity Contrastive Regularization，VeCoR），这是一种用于流生成模型的补充训练方案，通过对比性的双侧监督增强标准FM目标。VeCoR不仅使预测速度与稳定参考方向对齐（正向监督），而且将其推开不一致、非流形方向（负向监督）。这种对比性公式将FM从单纯的吸引性、单侧目标转变为双侧训练信号，规范轨迹演变，提高跨数据集和背骨的感知保真度。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>流匹配（FM）是扩散模型的一种新兴替代方法，强调学习速度场跟随目标方向。</li>
+<li>FM在轨迹上可能积累误差，导致样本偏离数据流形，特别是在轻量级或低步数配置下感知退化较明显。</li>
+<li>为提高稳定性和泛化能力，提出了平衡吸引与排斥的方案。</li>
+<li>提出了速度对比正则化（VeCoR）方法，通过对比性的双侧监督增强FM。</li>
+<li>VeCoR不仅对齐预测速度与稳定参考方向（正向监督），还推开不一致、非流形方向（负向监督）。</li>
+<li>对比性公式将FM从单侧目标转变为双侧训练信号，提高了轨迹的规范性和感知保真度。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.18942">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-b73061a4787c7567e7dda9ca3102506a" align="middle">
+<img src="https://picx.zhimg.com/v2-c41761d07d7f02fd9b65a3aa66bec68e" align="middle">
+<img src="https://picx.zhimg.com/v2-2966086a49deef4b88276b896a0cff41" align="middle">
+<img src="https://picx.zhimg.com/v2-e4722fe2ce2f38d4568321724a82eaf9" align="middle">
+</details>
+
+
+<h1 id="-7"><a href="#-7" class="headerlink" title=""></a></h1><h2 id="One4D-Unified-4D-Generation-and-Reconstruction-via-Decoupled-LoRA-Control"><a href="#One4D-Unified-4D-Generation-and-Reconstruction-via-Decoupled-LoRA-Control" class="headerlink" title="One4D: Unified 4D Generation and Reconstruction via Decoupled LoRA Control"></a>One4D: Unified 4D Generation and Reconstruction via Decoupled LoRA Control</h2><p><strong>Authors:Zhenxing Mi, Yuxin Wang, Dan Xu</strong></p>
+<p>We present One4D, a unified framework for 4D generation and reconstruction that produces dynamic 4D content as synchronized RGB frames and pointmaps. By consistently handling varying sparsities of conditioning frames through a Unified Masked Conditioning (UMC) mechanism, One4D can seamlessly transition between 4D generation from a single image, 4D reconstruction from a full video, and mixed generation and reconstruction from sparse frames. Our framework adapts a powerful video generation model for joint RGB and pointmap generation, with carefully designed network architectures. The commonly used diffusion finetuning strategies for depthmap or pointmap reconstruction often fail on joint RGB and pointmap generation, quickly degrading the base video model. To address this challenge, we introduce Decoupled LoRA Control (DLC), which employs two modality-specific LoRA adapters to form decoupled computation branches for RGB frames and pointmaps, connected by lightweight, zero-initialized control links that gradually learn mutual pixel-level consistency. Trained on a mixture of synthetic and real 4D datasets under modest computational budgets, One4D produces high-quality RGB frames and accurate pointmaps across both generation and reconstruction tasks. This work represents a step toward general, high-quality geometry-based 4D world modeling using video diffusion models. Project page: <a target="_blank" rel="noopener" href="https://mizhenxing.github.io/One4D">https://mizhenxing.github.io/One4D</a></p>
+<blockquote>
+<p>我们提出了One4D，这是一个统一的4D生成与重建框架，能够生成同步的RGB帧和点云图的动态4D内容。通过统一的掩膜条件（UMC）机制，One4D能够灵活地处理不同稀疏度的条件帧，实现单图像4D生成、全视频4D重建以及稀疏帧的混合生成和重建之间的无缝过渡。我们的框架采用强大的视频生成模型进行RGB和点云图的联合生成，并设计了精心设计的网络架构。常用的深度图或点云图重建的扩散微调策略在联合RGB和点云图生成时往往会失败，导致基本视频模型迅速退化。为了解决这一挑战，我们引入了分离式LoRA控制（DLC），它采用两种模态特定的LoRA适配器，形成解耦的计算分支，分别用于RGB帧和点云图，通过轻量级、零初始化的控制链接，逐渐学习像素级的相互一致性。One4D在适度的计算预算下，在合成和真实4D数据集的混合上进行训练，无论是在生成还是重建任务中，都能生成高质量的RGB帧和精确的点云图。这项工作朝着使用视频扩散模型进行通用、高质量基于几何的4D世界建模迈出了一步。项目页面：<a target="_blank" rel="noopener" href="https://mizhenxing.github.io/One4D">https://mizhenxing.github.io/One4D</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.18922v1">PDF</a> Project page: <a target="_blank" rel="noopener" href="https://mizhenxing.github.io/One4D">https://mizhenxing.github.io/One4D</a></p>
+<p><strong>Summary</strong></p>
+<p>One4D框架实现了统一的四维生成与重建，能够产生动态四维内容，同步生成RGB帧和点云地图。通过统一遮罩条件机制，该框架可灵活应对不同稀疏度的条件帧，实现单图像四维生成、全视频四维重建以及稀疏帧的混合生成与重建。为应对联合RGB和点云地图生成中的挑战，One4D引入了去耦合LoRA控制，通过模态特定分支和轻量级控制链接，实现RGB帧和点云地图的像素级一致性。在合成和真实四维数据集上训练后，One4D在生成和重建任务中均表现出高质量的RGB帧和精确的点云地图。该项目迈向了使用视频扩散模型进行高质量几何四维世界建模的一步。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>One4D是一个统一的框架，用于四维生成和重建，能产出动态四维内容。</li>
+<li>通过统一遮罩条件机制，One4D能灵活处理不同稀疏度的条件帧。</li>
+<li>One4D支持单图像四维生成、全视频四维重建以及混合生成和重建。</li>
+<li>针对联合RGB和点云地图生成中的挑战，One4D引入了去耦合LoRA控制。</li>
+<li>去耦合LoRA控制通过模态特定分支和像素级一致性，提高了生成质量。</li>
+<li>One4D在合成和真实四维数据集上训练，表现出高质量的RGB帧和精确的点云地图。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.18922">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-0e8bf2f7ead7fad5518c5144135b86f2" align="middle">
+<img src="https://picx.zhimg.com/v2-04dd2da5544aaa289f892b9345980874" align="middle">
+<img src="https://picx.zhimg.com/v2-929fef6369f81c5850c0b6e867ccab40" align="middle">
+<img src="https://picx.zhimg.com/v2-8fc40c642f143b59f9a366c666763173" align="middle">
+</details>
+
+
+<h1 id="-8"><a href="#-8" class="headerlink" title=""></a></h1><h2 id="Unsupervised-Multi-View-Visual-Anomaly-Detection-via-Progressive-Homography-Guided-Alignment"><a href="#Unsupervised-Multi-View-Visual-Anomaly-Detection-via-Progressive-Homography-Guided-Alignment" class="headerlink" title="Unsupervised Multi-View Visual Anomaly Detection via Progressive Homography-Guided Alignment"></a>Unsupervised Multi-View Visual Anomaly Detection via Progressive Homography-Guided Alignment</h2><p><strong>Authors:Xintao Chen, Xiaohao Xu, Bozhong Zheng, Yun Liu, Yingna Wu</strong></p>
+<p>Unsupervised visual anomaly detection from multi-view images presents a significant challenge: distinguishing genuine defects from benign appearance variations caused by viewpoint changes. Existing methods, often designed for single-view inputs, treat multiple views as a disconnected set of images, leading to inconsistent feature representations and a high false-positive rate. To address this, we introduce ViewSense-AD (VSAD), a novel framework that learns viewpoint-invariant representations by explicitly modeling geometric consistency across views. At its core is our Multi-View Alignment Module (MVAM), which leverages homography to project and align corresponding feature regions between neighboring views. We integrate MVAM into a View-Align Latent Diffusion Model (VALDM), enabling progressive and multi-stage alignment during the denoising process. This allows the model to build a coherent and holistic understanding of the object’s surface from coarse to fine scales. Furthermore, a lightweight Fusion Refiner Module (FRM) enhances the global consistency of the aligned features, suppressing noise and improving discriminative power. Anomaly detection is performed by comparing multi-level features from the diffusion model against a learned memory bank of normal prototypes. Extensive experiments on the challenging RealIAD and MANTA datasets demonstrate that VSAD sets a new state-of-the-art, significantly outperforming existing methods in pixel, view, and sample-level visual anomaly proving its robustness to large viewpoint shifts and complex textures.</p>
+<blockquote>
+<p>无监督的多视角图像视觉异常检测面临着一项重大挑战：区分真实的缺陷和由视点变化引起的良性外观变化。现有方法通常针对单视角输入进行设计，将多个视角视为不相关的图像集，导致特征表示不一致和误报率较高。为了解决这一问题，我们引入了ViewSense-AD（VSAD）这一新颖框架，通过显式建模不同视角之间的几何一致性，学习视点不变表示。其核心是我们的多视角对齐模块（MVAM），该模块利用单应性将相邻视角之间对应的特征区域进行投影和对齐。我们将MVAM集成到视图对齐潜在扩散模型（VALDM）中，在去噪过程中实现渐进式和多阶段对齐。这允许模型从粗到细尺度建立对物体表面的连贯和整体理解。此外，轻量级的融合细化模块（FRM）增强了对齐特征的全局一致性，抑制了噪声，提高了辨别力。异常检测是通过将扩散模型的多层次特征与学到的正常原型记忆库进行比较来完成的。在具有挑战性的RealIAD和MANTA数据集上的大量实验表明，VSAD创造了新的最佳纪录，显著优于现有方法，在像素、视图和样本级别的视觉异常检测中表现优异，证明了其对大视点变化和复杂纹理的稳健性。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.18766v1">PDF</a> </p>
+<p><strong>Summary</strong><br>    多视角图像的无监督视觉异常检测面临区分真实缺陷和由视点变化引起的良性外观变化的挑战。现有方法常针对单视角输入设计，将多视角视为独立图像集，导致特征表示不一致和较高的误报率。为此，我们提出ViewSense-AD（VSAD）框架，通过显式建模视图间的几何一致性来学习视点不变表示。其核心是多视角对齐模块（MVAM），利用单应性将相邻视图间的对应特征区域进行投影和对齐。我们将其集成到视图对齐潜在扩散模型（VALDM）中，实现在去噪过程中的渐进式多阶段对齐。这允许模型从粗到细尺度建立对象表面的连贯和整体理解。此外，轻量级的融合精炼模块（FRM）增强了已对齐特征的全局一致性，抑制噪声并提高鉴别力。异常检测是通过将扩散模型的多层次特征与学到的正常原型库进行比较来完成的。在具有挑战性的RealIAD和MANTA数据集上的实验表明，VSAD开创了新的技术前沿，显著优于现有方法，在像素、视图和样本层面均表现出强大的异常检测能力。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>VSAD框架解决了多视角图像的无监督视觉异常检测问题，能够区分真实缺陷和由视点变化引起的良性外观变化。</li>
+<li>引入Multi-View Alignment Module (MVAM)，利用单应性进行多视角间的特征区域投影和对齐。</li>
+<li>提出了View-Align Latent Diffusion Model (VALDM)，实现在去噪过程中的渐进式多阶段对齐，从粗到细尺度建立对象表面的理解。</li>
+<li>融合精炼模块（FRM）增强了已对齐特征的全局一致性，提高了异常检测的鉴别力。</li>
+<li>扩散模型的多层次特征用于异常检测，通过与学到的正常原型库进行比较来识别异常。</li>
+<li>在RealIAD和MANTA数据集上的实验表明，VSAD显著优于现有方法，具备强大的像素、视图和样本级别异常检测能力。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.18766">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-8aa9658fa1144b4d12e6c85bd3d07c32" align="middle">
+<img src="https://picx.zhimg.com/v2-89efee0b7ff0df56c1b466994cff5720" align="middle">
+<img src="https://picx.zhimg.com/v2-d1af19d20e445c50ddd1908b50c4930a" align="middle">
+<img src="https://picx.zhimg.com/v2-fa54ed3ca7b0cc3b945ca5d74d7973c2" align="middle">
+<img src="https://picx.zhimg.com/v2-3ce1f0009080ddde10e4e692ccdd4eb2" align="middle">
+</details>
+
+
+<h1 id="-9"><a href="#-9" class="headerlink" title=""></a></h1><h2 id="ProxT2I-Efficient-Reward-Guided-Text-to-Image-Generation-via-Proximal-Diffusion"><a href="#ProxT2I-Efficient-Reward-Guided-Text-to-Image-Generation-via-Proximal-Diffusion" class="headerlink" title="ProxT2I: Efficient Reward-Guided Text-to-Image Generation via Proximal Diffusion"></a>ProxT2I: Efficient Reward-Guided Text-to-Image Generation via Proximal Diffusion</h2><p><strong>Authors:Zhenghan Fang, Jian Zheng, Qiaozi Gao, Xiaofeng Gao, Jeremias Sulam</strong></p>
+<p>Diffusion models have emerged as a dominant paradigm for generative modeling across a wide range of domains, including prompt-conditional generation. The vast majority of samplers, however, rely on forward discretization of the reverse diffusion process and use score functions that are learned from data. Such forward and explicit discretizations can be slow and unstable, requiring a large number of sampling steps to produce good-quality samples. In this work we develop a text-to-image (T2I) diffusion model based on backward discretizations, dubbed ProxT2I, relying on learned and conditional proximal operators instead of score functions. We further leverage recent advances in reinforcement learning and policy optimization to optimize our samplers for task-specific rewards. Additionally, we develop a new large-scale and open-source dataset comprising 15 million high-quality human images with fine-grained captions, called LAION-Face-T2I-15M, for training and evaluation. Our approach consistently enhances sampling efficiency and human-preference alignment compared to score-based baselines, and achieves results on par with existing state-of-the-art and open-source text-to-image models while requiring lower compute and smaller model size, offering a lightweight yet performant solution for human text-to-image generation.</p>
+<blockquote>
+<p>扩散模型已经成为广泛应用于多个领域生成建模的主导范式，包括提示条件生成。然而，绝大多数采样器都依赖于反向扩散过程的前向离散化，并使用从数据中学习的得分函数。这种前向和显式离散化可能较慢且不稳定，需要大量的采样步骤才能产生高质量的样本。在这项工作中，我们开发了一种基于向后离散化的文本到图像（T2I）扩散模型，称为ProxT2I，它依赖于学习和条件近端算子而不是得分函数。我们进一步利用强化学习和策略优化的最新进展，针对特定任务的奖励优化我们的采样器。此外，我们还开发了一个新的大规模开源数据集，包含1.5亿张高质量的人脸图像和精细的标题，称为LAION-Face-T2I-15M，用于训练和评估。与基于得分的基准相比，我们的方法始终提高了采样效率和对人类偏好的一致性，并且在计算和模型大小要求较低的情况下，实现了与现有开源文本到图像模型的最新技术水平相当的结果，为文本到图像生成提供了轻便且性能强大的解决方案。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.18742v1">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了一种基于反向扩散过程的文本到图像（T2I）扩散模型——ProxT2I。它摒弃了传统的分数函数方法，采用学习到的条件近端算子进行采样，并结合强化学习和策略优化技术来提高任务特定奖励的采样器优化。此外，本文还介绍了一个新的大规模开源数据集LAION-Face-T2I-15M，用于训练和评估模型。ProxT2I在采样效率、人类偏好对齐方面较分数基线有显著提升，且性能与现有的开源文本到图像模型相当，同时计算量更小、模型规模更小，为人文本到图像生成提供了轻便高效的解决方案。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>扩散模型已成为生成建模的主导范式，广泛应用于多个领域，包括提示条件生成。</li>
+<li>大多数采样器依赖于反向扩散过程的正向离散化，并使用从数据中学习的分数函数，但这种方法可能较慢且不稳定。</li>
+<li>ProxT2I模型基于反向离散化开发，采用条件近端算子而非分数函数。</li>
+<li>利用强化学习和策略优化技术优化采样器，针对任务特定奖励进行优化。</li>
+<li>引入了一个新的大规模开源数据集LAION-Face-T2I-15M，用于训练和评估文本到图像模型。</li>
+<li>ProxT2I模型提高了采样效率和对齐人类偏好的能力，与基于分数的基线相比有显著提升。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.18742">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-d2eb621bb0315d81ce626028418c6089" align="middle">
+<img src="https://picx.zhimg.com/v2-624fceffa0827c7f607e8bfb9f5874a7" align="middle">
+</details>
+
+
+<h1 id="-10"><a href="#-10" class="headerlink" title=""></a></h1><h2 id="Yo’City-Personalized-and-Boundless-3D-Realistic-City-Scene-Generation-via-Self-Critic-Expansion"><a href="#Yo’City-Personalized-and-Boundless-3D-Realistic-City-Scene-Generation-via-Self-Critic-Expansion" class="headerlink" title="Yo’City: Personalized and Boundless 3D Realistic City Scene Generation via Self-Critic Expansion"></a>Yo’City: Personalized and Boundless 3D Realistic City Scene Generation via Self-Critic Expansion</h2><p><strong>Authors:Keyang Lu, Sifan Zhou, Hongbin Xu, Gang Xu, Zhifei Yang, Yikai Wang, Zhen Xiao, Jieyi Long, Ming Li</strong></p>
+<p>Realistic 3D city generation is fundamental to a wide range of applications, including virtual reality and digital twins. However, most existing methods rely on training a single diffusion model, which limits their ability to generate personalized and boundless city-scale scenes. In this paper, we present Yo’City, a novel agentic framework that enables user-customized and infinitely expandable 3D city generation by leveraging the reasoning and compositional capabilities of off-the-shelf large models. Specifically, Yo’City first conceptualize the city through a top-down planning strategy that defines a hierarchical “City-District-Grid” structure. The Global Planner determines the overall layout and potential functional districts, while the Local Designer further refines each district with detailed grid-level descriptions. Subsequently, the grid-level 3D generation is achieved through a “produce-refine-evaluate” isometric image synthesis loop, followed by image-to-3D generation. To simulate continuous city evolution, Yo’City further introduces a user-interactive, relationship-guided expansion mechanism, which performs scene graph-based distance- and semantics-aware layout optimization, ensuring spatially coherent city growth. To comprehensively evaluate our method, we construct a diverse benchmark dataset and design six multi-dimensional metrics that assess generation quality from the perspectives of semantics, geometry, texture, and layout. Extensive experiments demonstrate that Yo’City consistently outperforms existing state-of-the-art methods across all evaluation aspects.</p>
+<blockquote>
+<p>真实的三维城市生成对于包括虚拟现实和数字孪生在内的广泛应用至关重要。然而，大多数现有方法依赖于训练单个扩散模型，这限制了它们生成个性化且无界限的城市规模场景的能力。在本文中，我们提出了Yo’City，这是一个新型的智能框架，它利用现成的大型模型的推理和组合能力，实现用户自定义且无限可扩展的三维城市生成。具体来说，Yo’City首先通过自上而下的规划策略来构想城市，这定义了分层级的“城市-地区-网格”结构。全局规划器确定整体布局和潜在的功能区域，而局部设计师则进一步细化每个区域的网格级别描述。随后，通过“生成-细化-评估”的等距图像合成循环来实现网格级别的三维生成，然后进行图像到三维的转换。为了模拟城市的连续演变，Yo’City还引入了一个用户交互、关系引导的扩展机制，该机制执行基于场景图的距离和语义感知布局优化，确保空间连贯的城市增长。为了全面评估我们的方法，我们构建了一个多样化的基准数据集，并设计了六个多维评价指标，从语义、几何、纹理和布局的角度评估生成质量。大量实验表明，Yo’City在各个方面均优于现有最先进的方法。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.18734v1">PDF</a> 22 pages, 16 figures</p>
+<p><strong>Summary</strong></p>
+<p>该论文提出了一种名为Yo’City的新型代理框架，可实现用户自定义和无限扩展的3D城市生成。它通过采用现成的大型模型的推理和组合能力，打破了大多数现有方法仅依赖单一扩散模型的限制。Yo’City通过自上而下的规划策略，定义了层次化的“城市-地区-网格”结构，实现了城市的概念化，并引入了用户交互的关系引导扩展机制来模拟城市的连续发展。该框架在多个评估方面均表现出卓越的性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>Yo’City是一个新型代理框架，用于用户自定义和无限扩展的3D城市生成。</li>
+<li>该框架利用现成的大型模型的推理和组合能力，打破了依赖单一扩散模型的限制。</li>
+<li>Yo’City通过自上而下的规划策略，实现了城市的概念化，并定义了层次化的“城市-地区-网格”结构。</li>
+<li>引入了“产生-细化-评估”的等距图像合成循环，以及图像到3D的生成技术，实现了网格级别的3D城市生成。</li>
+<li>Yo’City通过用户交互的关系引导扩展机制，模拟城市的连续发展。</li>
+<li>该框架在语义、几何、纹理和布局等多个方面进行了全面的评估，并表现出卓越的性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.18734">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6f5d2ce5a2a2e75853cad069a5de7fe7" align="middle">
+<img src="https://picx.zhimg.com/v2-8109f0cf002e81d8f5b2e4a49e170895" align="middle">
+<img src="https://picx.zhimg.com/v2-3803c4c7728eb2e400f7a862f3b2dca3" align="middle">
+</details>
+
+
+<h1 id="-11"><a href="#-11" class="headerlink" title=""></a></h1><h2 id="ReBrain-Brain-MRI-Reconstruction-from-Sparse-CT-Slice-via-Retrieval-Augmented-Diffusion"><a href="#ReBrain-Brain-MRI-Reconstruction-from-Sparse-CT-Slice-via-Retrieval-Augmented-Diffusion" class="headerlink" title="ReBrain: Brain MRI Reconstruction from Sparse CT Slice via Retrieval-Augmented Diffusion"></a>ReBrain: Brain MRI Reconstruction from Sparse CT Slice via Retrieval-Augmented Diffusion</h2><p><strong>Authors:Junming Liu, Yifei Sun, Weihua Cheng, Yujin Kang, Yirong Chen, Ding Wang, Guosun Zeng</strong></p>
+<p>Magnetic Resonance Imaging (MRI) plays a crucial role in brain disease diagnosis, but it is not always feasible for certain patients due to physical or clinical constraints. Recent studies attempt to synthesize MRI from Computed Tomography (CT) scans; however, low-dose protocols often result in highly sparse CT volumes with poor through-plane resolution, making accurate reconstruction of the full brain MRI volume particularly challenging. To address this, we propose ReBrain, a retrieval-augmented diffusion framework for brain MRI reconstruction. Given any 3D CT scan with limited slices, we first employ a Brownian Bridge Diffusion Model (BBDM) to synthesize MRI slices along the 2D dimension. Simultaneously, we retrieve structurally and pathologically similar CT slices from a comprehensive prior database via a fine-tuned retrieval model. These retrieved slices are used as references, incorporated through a ControlNet branch to guide the generation of intermediate MRI slices and ensure structural continuity. We further account for rare retrieval failures when the database lacks suitable references and apply spherical linear interpolation to provide supplementary guidance. Extensive experiments on SynthRAD2023 and BraTS demonstrate that ReBrain achieves state-of-the-art performance in cross-modal reconstruction under sparse conditions.</p>
+<blockquote>
+<p>磁共振成像（MRI）在脑疾病诊断中发挥着至关重要的作用，但由于某些患者的身体或临床限制，并非所有情况下都能适用。最近的研究尝试从计算机断层扫描（CT）中合成MRI，但低剂量协议通常会导致CT体积高度稀疏，平面外分辨率较差，使得准确重建完整的脑部MRI体积面临巨大挑战。为了解决这个问题，我们提出了ReBrain，这是一个增强检索的扩散框架，用于大脑MRI重建。对于任何具有有限切片的3D CT扫描，我们首先采用布朗桥扩散模型（BBDM）沿2D维度合成MRI切片。同时，我们通过精细调整的检索模型从综合先验数据库中检索结构和病理相似的CT切片。这些检索到的切片被用作参考，通过ControlNet分支结合，以指导中间MRI切片的生成并确保结构连续性。我们还考虑了数据库缺乏合适参考时的罕见检索失败情况，并应用球面线性插值以提供补充指导。在SynthRAD2023和BraTS的大量实验表明，ReBrain在稀疏条件下的跨模态重建中达到了最新技术水平。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.17068v2">PDF</a> 16 pages, 12 figures, 7 tables; Accepted by WACV 2026</p>
+<p><strong>Summary</strong></p>
+<p>该文介绍了一种名为ReBrain的检索增强扩散框架，用于从有限的CT扫描切片中重建脑部MRI体积。文章指出，通过结合布朗桥扩散模型（BBDM）和精细调整的检索模型，ReBrain能够从结构病理学相似的CT切片中检索出类似切片作为参考，以确保MRI切片生成的结构连续性，并且在数据库缺乏合适的参考时采用球面线性插值进行辅助指导。在SynthRAD2023和BraTS上的实验表明，ReBrain在稀疏条件下的跨模态重建中达到了最先进的技术性能。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>ReBrain是一种新型的脑部MRI重建方法，适用于从有限的CT扫描切片中重建MRI体积。</li>
+<li>ReBrain结合了布朗桥扩散模型（BBDM）来合成MRI切片，并采用精细调整的检索模型来检索类似CT切片作为参考。</li>
+<li>当数据库中缺乏合适的参考切片时，ReBrain利用球面线性插值技术提供辅助指导。</li>
+<li>ReBrain确保了生成的MRI切片具有结构连续性。</li>
+<li>ReBrain在SynthRAD2023和BraTS的实验中表现出优异性能，特别是在稀疏条件下的跨模态重建方面。</li>
+<li>该方法对于不能进行MRI扫描的某些患者具有重要的临床价值，能够帮助改善医疗结果和提升病人生活质量。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.17068">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-fcd67fc1f8557a094835952156b55593" align="middle">
+<img src="https://picx.zhimg.com/v2-c77f2913088b596a5b3672824595e547" align="middle">
+<img src="https://picx.zhimg.com/v2-5ccd065bc7b8b69a94d19a412bbcbbe9" align="middle">
+<img src="https://picx.zhimg.com/v2-1f70be84a2f9100687e069c911831036" align="middle">
+</details>
+
+
+<h1 id="-12"><a href="#-12" class="headerlink" title=""></a></h1><h2 id="InstantViR-Real-Time-Video-Inverse-Problem-Solver-with-Distilled-Diffusion-Prior"><a href="#InstantViR-Real-Time-Video-Inverse-Problem-Solver-with-Distilled-Diffusion-Prior" class="headerlink" title="InstantViR: Real-Time Video Inverse Problem Solver with Distilled Diffusion Prior"></a>InstantViR: Real-Time Video Inverse Problem Solver with Distilled Diffusion Prior</h2><p><strong>Authors:Weimin Bai, Suzhe Xu, Yiwei Ren, Jinhua Hao, Ming Sun, Wenzheng Chen, He Sun</strong></p>
+<p>Video inverse problems are fundamental to streaming, telepresence, and AR&#x2F;VR, where high perceptual quality must coexist with tight latency constraints. Diffusion-based priors currently deliver state-of-the-art reconstructions, but existing approaches either adapt image diffusion models with ad hoc temporal regularizers - leading to temporal artifacts - or rely on native video diffusion models whose iterative posterior sampling is far too slow for real-time use. We introduce InstantViR, an amortized inference framework for ultra-fast video reconstruction powered by a pre-trained video diffusion prior. We distill a powerful bidirectional video diffusion model (teacher) into a causal autoregressive student that maps a degraded video directly to its restored version in a single forward pass, inheriting the teacher’s strong temporal modeling while completely removing iterative test-time optimization. The distillation is prior-driven: it only requires the teacher diffusion model and known degradation operators, and does not rely on externally paired clean&#x2F;noisy video data. To further boost throughput, we replace the video-diffusion backbone VAE with a high-efficiency LeanVAE via an innovative teacher-space regularized distillation scheme, enabling low-latency latent-space processing. Across streaming random inpainting, Gaussian deblurring and super-resolution, InstantViR matches or surpasses the reconstruction quality of diffusion-based baselines while running at over 35 FPS on NVIDIA A100 GPUs, achieving up to 100 times speedups over iterative video diffusion solvers. These results show that diffusion-based video reconstruction is compatible with real-time, interactive, editable, streaming scenarios, turning high-quality video restoration into a practical component of modern vision systems.</p>
+<blockquote>
+<p>视频逆问题在流媒体、远程存在、增强现实&#x2F;虚拟现实等领域中至关重要，这些领域的高感知质量必须与严格的延迟限制共存。目前，基于扩散的先验知识提供了最先进的重建技术，但现有方法要么采用专门的临时调节器适应图像扩散模型（导致出现时间上的伪影），要么依赖于原生视频扩散模型，其迭代后验采样对于实时使用来说太慢。我们介绍了InstantViR，这是一个由预训练视频扩散先验驱动的极速视频重建摊销推理框架。我们将强大的双向视频扩散模型（教师模型）蒸馏为因果自回归学生模型，该模型直接将退化视频映射到其恢复版本，单次前向传递即可继承教师的强大时间建模能力，同时完全消除了迭代测试时间优化。这种蒸馏是由先验驱动的：它只需要教师扩散模型和已知的退化算子，并不依赖于外部配对的干净&#x2F;噪声视频数据。为了进一步提升吞吐量，我们用高效率的LeanVAE替换了视频扩散主干VAE，通过创新的教师空间正则化蒸馏方案，实现在潜在空间的低延迟处理。在随机填充、高斯去模糊和超分辨率的流媒体中，InstantViR在NVIDIA A100 GPU上的运行速度超过35帧&#x2F;秒，相对于迭代视频扩散求解器实现了高达100倍的加速。这些结果表明，基于扩散的视频重建与实时、交互、可编辑的流媒体场景兼容，将高质量视频恢复转变为现代视觉系统的实用组件。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2511.14208v2">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了InstantViR，一个基于预训练视频扩散先验的快速视频重建摊销推理框架。它通过蒸馏强大的双向视频扩散模型（教师模型）到一个因果自回归学生模型，实现了单次前向传递中的视频恢复。该框架消除了迭代测试时间优化，提高了处理速度，同时保持了教师模型的强大时间建模能力。此外，通过采用高效LeanVAE替换视频扩散主干VAE，进一步提高了吞吐量。InstantViR在随机填充、高斯去模糊和超分辨率等多种场景下，达到了或超越了扩散基准的测试重建质量，同时在NVIDIA A100 GPU上运行速度超过35帧每秒，实现了高达100倍的迭代视频扩散求解器加速。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>InstantViR是一个基于预训练视频扩散先验的快速视频重建框架。</li>
+<li>通过教师模型蒸馏技术，实现了单次前向传递中的视频恢复。</li>
+<li>框架消除了迭代测试时间优化，提高了处理速度。</li>
+<li>InstantViR采用了高效LeanVAE，提高了吞吐量，降低了延迟。</li>
+<li>该框架在多种场景下实现了或超越了扩散基准的重建质量。</li>
+<li>InstantViR在NVIDIA A100 GPU上的运行速度超过35帧每秒。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2511.14208">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-56b04bb83b7dfa0d824e6ec0b3e2118c" align="middle">
+<img src="https://picx.zhimg.com/v2-39d74828ec8e0ae5615cd935e9690606" align="middle">
+<img src="https://picx.zhimg.com/v2-584313e91badddafc66442aeed587bdb" align="middle">
+<img src="https://picx.zhimg.com/v2-ca1bbaf175d14dff4f7daa6a6b9b0b73" align="middle">
+</details>
+
+
+<h1 id="-13"><a href="#-13" class="headerlink" title=""></a></h1><h2 id="OMGSR-You-Only-Need-One-Mid-timestep-Guidance-for-Real-World-Image-Super-Resolution"><a href="#OMGSR-You-Only-Need-One-Mid-timestep-Guidance-for-Real-World-Image-Super-Resolution" class="headerlink" title="OMGSR: You Only Need One Mid-timestep Guidance for Real-World Image Super-Resolution"></a>OMGSR: You Only Need One Mid-timestep Guidance for Real-World Image Super-Resolution</h2><p><strong>Authors:Zhiqiang Wu, Zhaomang Sun, Tong Zhou, Bingtao Fu, Ji Cong, Yitong Dong, Huaqi Zhang, Xuan Tang, Mingsong Chen, Xian Wei</strong></p>
+<p>Denoising Diffusion Probabilistic Models (DDPMs) show promising potential in one-step Real-World Image Super-Resolution (Real-ISR). Current one-step Real-ISR methods typically inject the low-quality (LQ) image latent representation at the start or end timestep of the DDPM scheduler. Recent studies have begun to note that the LQ image latent and the pre-trained noisy latent representations are intuitively closer at a mid-timestep. However, a quantitative analysis of these latent representations remains lacking. Considering these latent representations can be decomposed into signal and noise, we propose a method based on the Signal-to-Noise Ratio (SNR) to pre-compute an average optimal mid-timestep for injection. To better approximate the pre-trained noisy latent representation, we further introduce the Latent Representation Refinement (LRR) loss via a LoRA-enhanced VAE encoder. We also fine-tune the backbone of the DDPM-based generative model using LoRA to perform one-step denoising at the average optimal mid-timestep. Based on these components, we present OMGSR, a GAN-based Real-ISR framework that employs a DDPM-based generative model as the generator and a DINOv3-ConvNeXt model with multi-level discriminator heads as the discriminator. We also propose the DINOv3-ConvNeXt DISTS (Dv3CD) loss, which is enhanced for structural perception at varying resolutions. Within the OMGSR framework, we develop OMGSR-S based on SD2.1-base. An ablation study confirms that our pre-computation strategy and LRR loss significantly improve the baseline. Comparative studies demonstrate that OMGSR-S achieves state-of-the-art performance across multiple metrics. Code is available at \hyperlink{Github}{<a target="_blank" rel="noopener" href="https://github.com/wuer5/OMGSR%7D">https://github.com/wuer5/OMGSR}</a>.</p>
+<blockquote>
+<p>去噪扩散概率模型（DDPMs）在一步式现实世界图像超分辨率（Real-ISR）中显示出巨大的潜力。当前的一步式Real-ISR方法通常将低质量（LQ）图像的潜在表示注入DDPM调度器的开始或结束时间步。但最近的研究开始注意到，在中期时间步，LQ图像潜在表示和预训练的噪声潜在表示在直觉上更接近。然而，这些潜在表示的定量分析仍然缺乏。考虑到这些潜在表示可以分解为信号和噪声，我们提出了一种基于信噪比（SNR）的方法，预先计算平均最佳中间时间步来进行注入。为了更好地近似预训练的噪声潜在表示，我们进一步通过增强的LoRA-VAE编码器引入了潜在表示细化（LRR）损失。我们还使用LoRA对基于DDPM的生成模型的骨干网进行微调，以在平均最佳中间时间步执行一步去噪。基于这些组件，我们提出了OMGSR，这是一种基于GAN的Real-ISR框架，它使用基于DDPM的生成模型作为生成器，并使用具有多级判别器头部的DINOv3-ConvNeXt模型作为判别器。我们还提出了DINOv3-ConvNeXt DISTS（Dv3CD）损失，它增强了在不同分辨率上的结构感知能力。在OMGSR框架内，我们基于SD2.1-base开发了OMGSR-S。消融研究证实，我们的预计算策略和LRR损失显著提高了基线性能。比较研究表明，OMGSR-S在多个指标上实现了最佳性能。代码可通过\hyperlink{Github}{<a target="_blank" rel="noopener" href="https://github.com/wuer5/OMGSR%7D%E8%AE%BF%E9%97%AE%E3%80%82">https://github.com/wuer5/OMGSR}访问。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.08227v2">PDF</a> </p>
+<p><strong>摘要</strong></p>
+<p>DDPMs在一步式真实世界图像超分辨率（Real-ISR）中展现出巨大潜力。本文提出一种基于信号噪声比（SNR）的方法，预计算平均最佳中间步长注入点。同时，通过LoRA增强的VAE编码器引入潜在表示细化（LRR）损失，以更好地近似预训练噪声潜在表示。结合这些组件，提出了OMGSR，一种基于GAN的Real-ISR框架，采用DDPM生成模型和具有多级鉴别器头的DINOv3-ConvNeXt模型作为鉴别器。OMGSR框架内的OMGSR-S在多个指标上达到最佳性能。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>DDPMs在一步式Real-ISR中表现优异，通常将低质量图像潜在表示注入DDPM调度程序的开始或结束时间步长。</li>
+<li>直觉上，低质量图像潜在表示和预训练噪声潜在表示在中间时间步长更接近。</li>
+<li>提出一种基于SNR的预计算平均最佳中间步长注入点的方法。</li>
+<li>引入LRR损失和LoRA增强的VAE编码器，以更好地近似预训练噪声潜在表示。</li>
+<li>提出了OMGSR，一个基于GAN的Real-ISR框架，使用DDPM生成模型和DINOv3-ConvNeXt模型作为鉴别器。</li>
+<li>开发了OMGSR-S，它在多个指标上实现了最佳性能。</li>
+<li>提供了代码仓库链接，方便进一步研究和应用。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.08227">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-3db49d22be9a0380708a5df03b0723e7" align="middle">
+<img src="https://picx.zhimg.com/v2-88045932fc53363a44800db8e1442eba" align="middle">
+<img src="https://picx.zhimg.com/v2-dc88a32df38f6eaeea0014c994d47419" align="middle">
+<img src="https://picx.zhimg.com/v2-8b5e4d341aa75276fbf37230f59ac9ad" align="middle">
+</details>
+
+
+<h1 id="-14"><a href="#-14" class="headerlink" title=""></a></h1><h2 id="SGDFuse-SAM-Guided-Diffusion-for-High-Fidelity-Infrared-and-Visible-Image-Fusion"><a href="#SGDFuse-SAM-Guided-Diffusion-for-High-Fidelity-Infrared-and-Visible-Image-Fusion" class="headerlink" title="SGDFuse: SAM-Guided Diffusion for High-Fidelity Infrared and Visible Image Fusion"></a>SGDFuse: SAM-Guided Diffusion for High-Fidelity Infrared and Visible Image Fusion</h2><p><strong>Authors:Xiaoyang Zhang, jinjiang Li, Guodong Fan, Yakun Ju, Linwei Fan, Jun Liu, Alex C. Kot</strong></p>
+<p>Infrared and visible image fusion (IVIF) aims to combine the thermal radiation information from infrared images with the rich texture details from visible images to enhance perceptual capabilities for downstream visual tasks. However, existing methods often fail to preserve key targets due to a lack of deep semantic understanding of the scene, while the fusion process itself can also introduce artifacts and detail loss, severely compromising both image quality and task performance. To address these issues, this paper proposes SGDFuse, a conditional diffusion model guided by the Segment Anything Model (SAM), to achieve high-fidelity and semantically-aware image fusion. The core of our method is to utilize high-quality semantic masks generated by SAM as explicit priors to guide the optimization of the fusion process via a conditional diffusion model. Specifically, the framework operates in a two-stage process: it first performs a preliminary fusion of multi-modal features, and then utilizes the semantic masks from SAM jointly with the preliminary fused image as a condition to drive the diffusion model’s coarse-to-fine denoising generation. This ensures the fusion process not only has explicit semantic directionality but also guarantees the high fidelity of the final result. Extensive experiments demonstrate that SGDFuse achieves state-of-the-art performance in both subjective and objective evaluations, as well as in its adaptability to downstream tasks, providing a powerful solution to the core challenges in image fusion. The code of SGDFuse is available at <a target="_blank" rel="noopener" href="https://github.com/boshizhang123/SGDFuse">https://github.com/boshizhang123/SGDFuse</a>.</p>
+<blockquote>
+<p>红外与可见光图像融合（IVIF）旨在将红外图像中的热辐射信息与可见光图像中的丰富纹理细节相结合，以提高下游视觉任务的感知能力。然而，现有方法往往由于缺乏场景的深度语义理解而无法保留关键目标，同时融合过程本身也可能引入伪影和细节损失，严重损害图像质量和任务性能。为了解决这些问题，本文提出了SGDFuse，这是一种由Segment Anything Model（SAM）引导的条件扩散模型，以实现高保真和语义感知的图像融合。我们的方法的核心是利用SAM生成的高质量语义掩膜作为显式先验，通过条件扩散模型引导融合过程的优化。具体来说，该框架分为两个阶段：首先进行多模态特征的初步融合，然后利用SAM的语义掩膜与初步融合图像一起作为条件，驱动扩散模型的从粗到细的降噪生成。这确保了融合过程不仅具有明确的语义方向性，而且还保证了最终结果的高保真度。大量实验表明，SGDFuse在主观和客观评估以及下游任务适应性方面均达到了最佳性能，为解决图像融合的核心挑战提供了强大的解决方案。SGDFuse的代码可在<a target="_blank" rel="noopener" href="https://github.com/boshizhang123/SGDFuse%E4%B8%8A%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/boshizhang123/SGDFuse上找到。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2508.05264v4">PDF</a> Submitted to Information Fusion</p>
+<p><strong>Summary</strong><br>    红外与可见图像融合技术结合红外图像的热辐射信息与可见图像丰富的纹理细节，以提高下游视觉任务的感知能力。为克服现有方法因缺乏深度语义理解而难以保留关键目标的问题，以及融合过程引入伪影和细节损失等缺陷，本文提出SGDFuse方法。该方法以Segment Anything Model（SAM）生成的语义掩膜作为先验知识，指导融合过程的优化，通过条件扩散模型实现高质量、语义感知的图像融合。实验表明，SGDFuse在主观和客观评估以及下游任务适应性方面均达到最佳性能，为解决图像融合的核心挑战提供了有力解决方案。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>红外与可见图像融合（IVIF）结合了红外图像的热辐射和可见图像的纹理细节，提升下游视觉任务感知能力。</li>
+<li>现有方法因缺乏深度语义理解，难以保留关键目标。</li>
+<li>SGDFuse方法利用Segment Anything Model（SAM）生成的语义掩膜作为先验，指导融合过程。</li>
+<li>SGDFuse通过条件扩散模型实现高质量、语义感知的图像融合。</li>
+<li>SGDFuse方法分为两阶段：初步融合多模态特征，然后使用语义掩膜和初步融合图像作为条件，驱动扩散模型的去噪生成。</li>
+<li>实验表明SGDFuse在主观和客观评估以及下游任务适应性方面均表现最佳。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2508.05264">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-2134d8e57edc36d2f7332bbee99c0c85" align="middle">
+<img src="https://picx.zhimg.com/v2-6cae63e3bfdbe4d7d05b0de1bfad7155" align="middle">
+<img src="https://picx.zhimg.com/v2-230cdabf5ced7504bdd9fa9a7d5462f5" align="middle">
+<img src="https://picx.zhimg.com/v2-22eac1dec368487b2e14327cd7f8ebf3" align="middle">
+</details>
+
+
+<h1 id="-15"><a href="#-15" class="headerlink" title=""></a></h1><h2 id="PositionIC-Unified-Position-and-Identity-Consistency-for-Image-Customization"><a href="#PositionIC-Unified-Position-and-Identity-Consistency-for-Image-Customization" class="headerlink" title="PositionIC: Unified Position and Identity Consistency for Image Customization"></a>PositionIC: Unified Position and Identity Consistency for Image Customization</h2><p><strong>Authors:Junjie Hu, Tianyang Han, Kai Ma, Jialin Gao, Song Yang, Xianhua He, Junfeng Luo, Xiaoming Wei, Wenqiang Zhang</strong></p>
+<p>Recent subject-driven image customization excels in fidelity, yet fine-grained instance-level spatial control remains an elusive challenge, hindering real-world applications. This limitation stems from two factors: a scarcity of scalable, position-annotated datasets, and the entanglement of identity and layout by global attention mechanisms. To this end, we introduce \modelname{}, a unified framework for high-fidelity, spatially controllable multi-subject customization. First, we present BMPDS, the first automatic data-synthesis pipeline for position-annotated multi-subject datasets, effectively providing crucial spatial supervision. Second, we design a lightweight, layout-aware diffusion framework that integrates a novel visibility-aware attention mechanism. This mechanism explicitly models spatial relationships via an NeRF-inspired volumetric weight regulation to effectively decouple instance-level spatial embeddings from semantic identity features, enabling precise, occlusion-aware placement of multiple subjects.   Extensive experiments demonstrate \modelname{} achieves state-of-the-art performance on public benchmarks, setting new records for spatial precision and identity consistency. Our work represents a significant step towards truly controllable, high-fidelity image customization in multi-entity scenarios. Code and data will be publicly released.</p>
+<blockquote>
+<p>最近的主题驱动式图像定制在保真度方面表现出色，但精细的实例级空间控制仍然是一个难以捉摸的挑战，阻碍了其在现实世界的应用。这一局限性源于两个因素：缺乏可扩展的、位置注释的数据集，以及全局注意力机制对身份和布局的纠缠。为此，我们引入了\modelname{}，这是一个用于高保真、空间可控的多主题定制的统一框架。首先，我们提出了BMPDS，这是第一个用于位置注释多主题数据集自动合成管道，有效地提供了关键的空间监督。其次，我们设计了一个轻量级的、对布局有感知的扩散框架，该框架集成了一种新型的可视化注意力机制。该机制通过NeRF启发式的体积权重调节显式地建模空间关系，有效地将实例级空间嵌入与语义身份特征解耦，从而实现多个主题的精确、遮挡感知放置。大量实验表明，\modelname{}在公共基准测试上达到了最新性能，在空间精度和身份一致性方面创造了新纪录。我们的工作代表着在向多实体场景的真正可控、高保真图像定制方面迈出了重要的一步。代码和数据将公开发布。</p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2507.13861v4">PDF</a> </p>
+<p><strong>Summary</strong></p>
+<p>本文提出一种名为\modelname的统一框架，旨在实现高保真、空间可控的多主体定制。为解决当前图像定制中面临的精细粒度空间控制挑战，该框架引入BMPDS数据合成管道和一种新型的可见度感知注意力机制。通过建模空间关系和体积权重调节，实现了多主体空间嵌入与语义身份的解耦，提高了空间精度和身份一致性。在公开数据集上的实验结果表明，该框架达到最新性能水平，代码和数据将公开。</p>
+<p><strong>Key Takeaways</strong></p>
+<ul>
+<li>当前的图像定制面临缺乏精细化空间控制的挑战。</li>
+<li>BMPDS数据合成管道提供了关键的空间监督信息，解决此挑战。</li>
+<li>提出一种新颖的可见度感知注意力机制，建模空间关系并解耦实例级空间嵌入与语义身份特征。</li>
+<li>通过NeRF的体积权重调节方法，提高了实例级别的空间精度和身份一致性。</li>
+<li>在公共数据集上的实验验证了该框架的高性能表现。</li>
+</ul>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2507.13861">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-bce9ed33f5ff10b15d8823e6eede27d1" align="middle">
+<img src="https://picx.zhimg.com/v2-6c16ad64d09ae9b9134d8925ae9b1d61" align="middle">
+<img src="https://picx.zhimg.com/v2-7892f90fb08ae561a8e1696f619bcd4a" align="middle">
+<img src="https://picx.zhimg.com/v2-2406a96a647faa77963de9cd552d6e06" align="middle">
+<img src="https://picx.zhimg.com/v2-dd12e8edb531e945a924825c3a61cfcc" align="middle">
+<img src="https://picx.zhimg.com/v2-d5c6851b2de9071ec2e2b083e47243f0" align="middle">
+</details>
+
+
+<h1 id="-16"><a href="#-16" class="headerlink" title=""></a></h1><h2 id="Entropic-Time-Schedulers-for-Generative-Diffusion-Models"><a href="#Entropic-Time-Schedulers-for-Generative-Diffusion-Models" class="headerlink" title="Entropic Time Schedulers for Generative Diffusion Models"></a>Entropic Time Schedulers for Generative Diffusion Models</h2><p><strong>Authors:Dejan Stancevic, Florian Handke, Luca Ambrogioni</strong></p>
+<p>The practical performance of generative diffusion models depends on the appropriate choice of the noise scheduling function, which can also be equivalently expressed as a time reparameterization. In this paper, we present a time scheduler that selects sampling points based on entropy rather than uniform time spacing, ensuring that each point contributes an equal amount of information to the final generation. We prove that this time reparameterization does not depend on the initial choice of time. Furthermore, we provide a tractable exact formula to estimate this \emph{entropic time} for a trained model using the training loss without substantial overhead. Alongside the entropic time, inspired by the optimality results, we introduce a rescaled entropic time. In our experiments with mixtures of Gaussian distributions and ImageNet, we show that using the (rescaled) entropic times greatly improves the inference performance of trained models. In particular, we found that the image quality in pretrained EDM2 models, as evaluated by FID and FD-DINO scores, can be substantially increased by the rescaled entropic time reparameterization without increasing the number of function evaluations, with greater improvements in the few NFEs regime. Code is available at <a target="_blank" rel="noopener" href="https://github.com/DejanStancevic/Entropic-Time-Schedulers-for-Generative-Diffusion-Models">https://github.com/DejanStancevic/Entropic-Time-Schedulers-for-Generative-Diffusion-Models</a>.</p>
+<blockquote>
+<p>生成扩散模型的实用性能取决于噪声调度函数的适当选择，这也可以等效地表达为时间重新参数化。在本文中，我们提出了一种时间调度器，它基于熵而不是均匀的时间间隔来选择采样点，确保每个点对最终生成的贡献量信息相等。我们证明了这种时间重新参数化与初始时间选择无关。此外，我们提供了一个简单的精确公式，可以使用训练损失为已训练模型估计这种“熵时间”，而不会造成太大开销。除了熵时间之外，受最优结果的启发，我们引入了调整后的熵时间。我们在高斯分布和ImageNet的混合实验中发现，（调整后的）熵时间的使用极大地提高了已训练模型的推理性能。特别是我们发现，通过调整后的熵时间重新参数化，可以在不增加函数评估次数的情况下显著提高预训练的EDM2模型的图像质量（通过FID和FD-DINO分数进行评估），并且在较少的NFEs情况下改进更大。相关代码可访问<a target="_blank" rel="noopener" href="https://github.com/DejanStancevic/Entropic-Time-Schedulers-for-Generative-Diffusion-Models%E3%80%82">https://github.com/DejanStancevic/Entropic-Time-Schedulers-for-Generative-Diffusion-Models。</a></p>
+</blockquote>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2504.13612v4">PDF</a> 31 pages</p>
+<p><strong>Summary</strong></p>
+<p>本文介绍了基于熵的采样点时间调度器在生成扩散模型中的应用。通过采用这种时间重参数化方法，每个采样点都能为最终生成结果贡献相等的信息量。此外，本文还提供了一个精确公式来估计训练模型的熵时间，并引入了调整后的熵时间以提高模型推理性能。实验表明，使用调整后的熵时间可以显著提高预训练EDM2模型的图像质量，而不会增加功能评估次数。</p>
+<p><strong>Key Takeaways</strong></p>
+<ol>
+<li>文中提出了一种基于熵的采样点时间调度器，用于生成扩散模型。</li>
+<li>通过时间重参数化，确保每个采样点都能为最终生成结果贡献相等的信息量。</li>
+<li>提供了一个精确公式来估计训练模型的熵时间，便于实际操作。</li>
+<li>引入调整后的熵时间，提高模型推理性能。</li>
+<li>实验显示，使用调整后的熵时间能显著提高预训练模型的图像质量，尤其是FID和FD-DINO评分。</li>
+<li>所提出的方法在不增加功能评估次数的前提下，提高了模型性能。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2504.13612">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-6f441b073a5b94f61b517d382885b69b" align="middle">
+<img src="https://picx.zhimg.com/v2-3b74bf46b67d08a0d64ae8e3bfdca15c" align="middle">
+</details>
+
+
+<h1 id="-17"><a href="#-17" class="headerlink" title=""></a></h1><h2 id="DICE-Distilling-Classifier-Free-Guidance-into-Text-Embeddings"><a href="#DICE-Distilling-Classifier-Free-Guidance-into-Text-Embeddings" class="headerlink" title="DICE: Distilling Classifier-Free Guidance into Text Embeddings"></a>DICE: Distilling Classifier-Free Guidance into Text Embeddings</h2><p><strong>Authors:Zhenyu Zhou, Defang Chen, Can Wang, Chun Chen, Siwei Lyu</strong></p>
+<p>Text-to-image diffusion models are capable of generating high-quality images, but suboptimal pre-trained text representations often result in these images failing to align closely with the given text prompts. Classifier-free guidance (CFG) is a popular and effective technique for improving text-image alignment in the generative process. However, CFG introduces significant computational overhead. In this paper, we present DIstilling CFG by sharpening text Embeddings (DICE) that replaces CFG in the sampling process with half the computational complexity while maintaining similar generation quality. DICE distills a CFG-based text-to-image diffusion model into a CFG-free version by refining text embeddings to replicate CFG-based directions. In this way, we avoid the computational drawbacks of CFG, enabling high-quality, well-aligned image generation at a fast sampling speed. Furthermore, examining the enhancement pattern, we identify the underlying mechanism of DICE that sharpens specific components of text embeddings to preserve semantic information while enhancing fine-grained details. Extensive experiments on multiple Stable Diffusion v1.5 variants, SDXL, and PixArt-$α$ demonstrate the effectiveness of our method. Code is available at <a target="_blank" rel="noopener" href="https://github.com/zju-pi/dice">https://github.com/zju-pi/dice</a>.</p>
+<blockquote>
+<p>文本到图像的扩散模型能够生成高质量图像，但由于预训练文本表示不佳，这些图像往往不能与给定的文本提示紧密对齐。无分类器引导（CFG）是一种流行且有效的技术，可用于在生成过程中改善文本与图像的对齐。然而，CFG引入了巨大的计算开销。在本文中，我们提出了通过强化文本嵌入来提炼CFG（DICE），它用一半的计算复杂度在采样过程中替代CFG，同时保持类似的生成质量。DICE将基于CFG的文本到图像扩散模型提炼为无CFG版本，通过优化文本嵌入来复制基于CFG的方向。通过这种方式，我们避免了CFG的计算缺点，实现了快速采样速度下高质量、良好对齐的图像生成。此外，通过检查增强模式，我们确定了DICE的潜在机制，该机制通过锐化文本嵌入的特定组件来保留语义信息并增强细节。在多个Stable Diffusion v1.5变体、SDXL和PixArt-$α$上的大量实验证明了我们的方法的有效性。代码可在<a target="_blank" rel="noopener" href="https://github.com/zju-pi/dice%E6%89%BE%E5%88%B0%E3%80%82">https://github.com/zju-pi/dice找到。</a></p>
+</blockquote>
+<p><strong>简化版翻译</strong></p>
+<p><strong>论文及项目相关链接</strong></p>
+<p><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2502.03726v2">PDF</a> AAAI 2026 (Oral)</p>
+<p><strong>摘要</strong></p>
+<p>文本到图像的扩散模型能生成高质量图像，但预训练文本表示不佳常导致图像与文本提示不符。无分类器引导（CFG）技术可改善生成过程中的文本图像对齐问题，但引入较大计算开销。本文提出通过精炼文本嵌入来提炼CFG（DICE）的方法，用减半的计算复杂度在采样过程中替代CFG，同时保持相似的生成质量。DICE将基于CFG的文本到图像扩散模型提炼为无CFG版本，通过精炼文本嵌入复制CFG的方向。这样避免了CFG的计算缺点，实现了快速采样速度下高质量、对齐良好的图像生成。此外，通过分析增强模式，本文确定了DICE的基础机制，即精炼文本嵌入的特定部分以保留语义信息并增强细节。在多个Stable Diffusion v1.5变体、SDXL和PixArt-α上的广泛实验证明了该方法的有效性。代码可通过<a target="_blank" rel="noopener" href="https://github.com/zju-pi/dice">https://github.com/zju-pi/dice</a>获取。</p>
+<p><strong>关键见解</strong></p>
+<ol>
+<li>文本到图像的扩散模型具备生成高质量图像的能力。</li>
+<li>预训练文本表示的质量影响图像与文本提示的对应程度。</li>
+<li>无分类器引导（CFG）技术能有效改善文本图像对齐问题，但计算开销大。</li>
+<li>DICE方法通过精炼文本嵌入替代CFG，降低计算复杂度，同时保持生成质量。</li>
+<li>DICE方法将CFG-based的扩散模型转化为无CFG版本，通过精炼文本嵌入实现有效指导。</li>
+<li>DICE通过保留语义信息并增强细节，提高了图像生成的质量和对齐度。</li>
+</ol>
+<p><strong><a target="_blank" rel="noopener" href="https://papers.cool/arxiv/2502.03726">Cool Papers</a></strong> </p>
+<details>
+  <summary>点此查看论文截图</summary>
+<img src="https://picx.zhimg.com/v2-d64895158f2973b5c251203f4ac8d8e2" align="middle">
+<img src="https://picx.zhimg.com/v2-8815f6ccf1f4caa8b2811873dc29f4c1" align="middle">
+<img src="https://picx.zhimg.com/v2-ab7d90c50aebbd5a07ff8587ad70b288" align="middle">
+<img src="https://picx.zhimg.com/v2-fa7301343a029638e99c7d1f304da9d7" align="middle">
+<img src="https://picx.zhimg.com/v2-c16a853f634cd5137f5ce473d37dd432" align="middle">
+<img src="https://picx.zhimg.com/v2-20263de10b79221b0a434d7ae8e99d7d" align="middle">
+</details>
+
+
+<h1 id="-18"><a href="#-18" class="headerlink" title=""></a></h1>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/Talk2Paper/about" rel="external nofollow noreferrer">Kedreamix</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://kedreamix.github.io/Talk2Paper/Paper/2025-11-26/Diffusion%20Models/">https://kedreamix.github.io/Talk2Paper/Paper/2025-11-26/Diffusion%20Models/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/Talk2Paper/tags/Diffusion-Models/">
+                                    <span class="chip bg-color">Diffusion Models</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/Talk2Paper/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/Talk2Paper/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-11-26/Text-to-Motion/">
+                    <div class="card-image">
+                        
+                        <img src="D:\MyBlog\AutoFX\arxiv\2025-11-26\./crop_Text-to-Motion/2511.18102v1/page_3_0.jpg" class="responsive-img" alt="Text-to-Motion">
+                        
+                        <span class="card-title">Text-to-Motion</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Text-to-Motion 方向最新论文已更新，请持续关注 Update in 2025-11-26  ReAlign Text-to-Motion Generation via Step-Aware Reward-Guided Alignment
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2025-11-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/Text-to-Motion/" class="post-category">
+                                    Text-to-Motion
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/Text-to-Motion/">
+                        <span class="chip bg-color">Text-to-Motion</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/Talk2Paper/Paper/2025-11-26/NeRF/">
+                    <div class="card-image">
+                        
+                        <img src="https://picx.zhimg.com/v2-dd12e8edb531e945a924825c3a61cfcc" class="responsive-img" alt="NeRF">
+                        
+                        <span class="card-title">NeRF</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            NeRF 方向最新论文已更新，请持续关注 Update in 2025-11-26  TPG-INR Target Prior-Guided Implicit 3D CT Reconstruction for Enhanced Sparse-view Imaging
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2025-11-26
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/Talk2Paper/categories/NeRF/" class="post-category">
+                                    NeRF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/Talk2Paper/tags/NeRF/">
+                        <span class="chip bg-color">NeRF</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/Talk2Paper/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/Talk2Paper/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/Talk2Paper/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/Talk2Paper/libs/aplayer/APlayer.min.js"></script>
+<script src="/Talk2Paper/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2024-2025</span>
+            
+            <a href="/Talk2Paper/about" target="_blank">Kedreamix</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">33914.2k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2024";
+                        var startMonth = "1";
+                        var startDate = "1";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/Kedreamix" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:kedreamix@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+    <a href="https://www.zhihu.com/people/kedreamix" class="tooltipped" target="_blank" data-tooltip="关注我的知乎: https://www.zhihu.com/people/kedreamix" data-position="top" data-delay="50">
+        <i class="fab fa-zhihu1">知</i>
+    </a>
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/Talk2Paper/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/Talk2Paper/libs/materialize/materialize.min.js"></script>
+    <script src="/Talk2Paper/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/Talk2Paper/libs/aos/aos.js"></script>
+    <script src="/Talk2Paper/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/Talk2Paper/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/Talk2Paper/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/Talk2Paper/libs/others/sakura-reduce.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/Talk2Paper/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/Talk2Paper/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/Talk2Paper/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/Talk2Paper/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+<script src="/Talk2Paper/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+
+</html>
+
+<!-- 动态标签 -->
+<script type="text/javascript"> var OriginTitile = document.title, st; 
+    document.addEventListener("visibilitychange", function () { document.hidden ? (document.title = "Σ(っ °Д °;)っ诶，页面崩溃了嘛？", clearTimeout(st)) : (document.title = "φ(゜▽゜*)♪咦，又好了！", st = setTimeout(function () { document.title = OriginTitile }, 3e3)) }) </script>
